@@ -21,8 +21,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 		def user = User.findByUsername('testuser')
 		assertNotNull user
 		//Preparation - Column definition without save
-		def column = new Column(name:'koffer', limit: 5)				
-					
+		def column = new Column(name:'koffer', limit: 5)
 		
 		def board = new Board(name:'MyBoard')
 			.addToUsers(user)

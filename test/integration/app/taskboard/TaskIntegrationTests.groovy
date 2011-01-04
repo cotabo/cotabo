@@ -21,8 +21,6 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 		board.save()		
 		new Color(colorCode:'#FFFFFF').save()
 		new Priority(name:'critital').save()
-		
-
     }
 
     protected void tearDown() {

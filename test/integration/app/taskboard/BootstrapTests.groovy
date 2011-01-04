@@ -24,7 +24,7 @@ class BootstrapTests extends GrailsUnitTestCase {
 	
 	void testUserRoleMapping() {
 		def userRoles = UserRole.list()
-		assertEquals 3, userRoles.size()
+		assertEquals 5, userRoles.size()
 		
 		userRoles.each {
 			assertNotNull it.user
