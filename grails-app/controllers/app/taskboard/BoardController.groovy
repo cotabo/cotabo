@@ -58,7 +58,7 @@ class BoardController {
     }
 
     def show = {
-        def boardInstance = Board.get(params.id)
+        def boardInstance = Board.read(params.id)
         if (!boardInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'board.label', default: 'Board'), params.id])}"
             redirect(action: "list")

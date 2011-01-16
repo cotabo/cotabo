@@ -55,11 +55,11 @@
         	 * Updating the server side and taking case of updating the column counts. 
         	 *
         	 */	        	             
-        	var updateColumn = function(event, ui) { 
-        				
-    			var fromColumnId = $(ui.sender).attr('id').split('_')[1];    			
-				var toColumnId = $(this).attr('id').split('_')[1];
-				var taskId = $(ui.item).attr('id').split('_')[1];		
+        	var updateConnectedColumn = function(event, ui) {
+        		var toColumnId = $(this).attr('id').split('_')[1];
+				var taskId = $(ui.item).attr('id').split('_')[1]; 
+        		
+   				var fromColumnId = $(ui.sender).attr('id').split('_')[1];				
 											
 				//Post onto controller "column" and action "updatetasks"
 				$.ajax({
@@ -88,10 +88,28 @@
 						alert('Error updateing the column: ' + errorType);
 					}
 				});				
-				
 			}
-			
 
+			
+			/**
+			 *
+			 * Can be used for the stop event. Updating only the column sort order
+			 */ 
+			var updateColumn = function(event, ui) {
+       			var toColumnId = $(this).attr('id').split('_')[1];
+				var taskId = $(ui.item).attr('id').split('_')[1]; 
+				$.ajax({
+					type: 'POST',
+					url: '<g:createLink controller="column" action="updatesortorder"/>/'+toColumnId,
+					data: {
+						order: $(this).sortable("toArray")
+					},
+					error: function(xhr, errorType, exception) {
+						$(this).sortable('cancel');
+						alert('Error updateing the column: ' + errorType);
+					}
+				});
+			}
 				
 			//Sortable definition for the connected columns	
 			$(".column > ul").each(function(index) {			
@@ -105,7 +123,9 @@
 					distance:30,
 					opacity:0.7,
 					placeholder:'ui-state-highlight',
-					receive: updateColumn
+					receive: updateConnectedColumn,
+					stop: updateColumn
+					
 				});
 			});	
         	//Update on document load time.

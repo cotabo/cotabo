@@ -9,7 +9,7 @@ package app.taskboard
 class Column {
 	//Relationships
 	static belongsTo = [ board : Board ]
-	List tasks
+	SortedSet tasks
 	static hasMany = [ tasks : Task ]
 	
 	String name
@@ -29,7 +29,8 @@ class Column {
 		return name
 	}
 	static mapping = {
-		//tasks sort:'sortorder', order:'desc'
+		tasks sort:'sortorder'
+
 	}
 
 }
