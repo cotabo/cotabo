@@ -38,7 +38,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
     void testBoard() {
 		def expected = """
 		<div id="board">
-			<h1>MyBoard</h1>
+			<h2>MyBoard</h2>
 		
 		</div>
 		""" 	
@@ -59,17 +59,18 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 					<p class="limit">5</p>
 				</span>
 			</span>
-			<ul id="1">
+			<ul id="column_1">
 		
 			</ul>
 		</div>
 		"""		
 		//Prepare a board with 3 columns
 		def board = new Board(name:'KofferBoard')
+		//Adding 3 columns because we expect a size of 33%
 		def columns = [
 			new Column(id: 1, name:'koffer', limit: 5, board:board),
-			new Column(id: 1, name:'koffer2', limit: 5, board:board),
-			new Column(id: 1, name:'koffer3', limit: 5, board:board)
+			new Column(id: 2, name:'koffer2', limit: 5, board:board),
+			new Column(id: 3, name:'koffer3', limit: 5, board:board)
 		]
 		board.columns = columns
 
@@ -81,9 +82,9 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 	
 	void testTask() {
 		def expected= """
-		<li class="ui-widget">
+		<li class="ui-widget" id="task_1">
 			<div class="task-header ui-state-default">
-				mytask
+				<div>mytask</div>
 				<span class="ui-icon ui-icon ui-icon-arrowthickstop-1-n"/>
 			</div>
 			<div class="task-content ui-widget-content">
@@ -109,6 +110,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 		
 		def user = User.findByUsername('testuser')
 		def theTask = new Task(
+			id:1,
 			name: 'mytask', 
 			description: 'test description',
 			durationHours: 0.5, 

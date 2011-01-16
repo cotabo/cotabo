@@ -8,16 +8,24 @@
 	float:left;			
 	text-align:center;	
 	min-height:500px;
-	padding-top:5px;		
+	padding-top:5px;	
+    font-family: 'Reenie Beanie', serif;
+    font-size: 33px;
+    font-style: normal;
+    font-weight: 600;
+    text-shadow: none;
+    text-decoration: none;
+    text-transform: none;
+    letter-spacing: 0em;
+    word-spacing: 0em;
+    line-height: 1.2;	
 }
 .column ul {
 	min-height:450px;
 }
+
 .column .title{
-	font-weight:bold;
-	font-size:16px;	
 	width:100%;
-	font-style: italic;	
 }
 .column  .title p{
 	display:inline;
@@ -32,6 +40,7 @@
 	padding:3px;
 	height:100%;
 	width:100%;	
+	overflow: hidden;
 }
 .column ul li {
 	float:left;
@@ -45,7 +54,11 @@
 
 .task-header {	
 	line-height:22px;
-	font-size:12px;
+	overflow:hidden;
+	text-align: center;
+}
+.task-header div {
+	float:left;
 }
 .task-header span {
 	float:right;
@@ -54,13 +67,12 @@
 	height: 20px;		
 }
 div.task-content {	
-	min-height:20%;		
+	height:128px;
 }
 
 div.task-content * td {	
 	padding-left: 3px;
-	vertical-align:top;
-	font-size:12px;
+	vertical-align:top;	
 }
 
 .not-first-column {

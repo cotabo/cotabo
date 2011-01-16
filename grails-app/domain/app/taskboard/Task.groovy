@@ -7,17 +7,22 @@ package app.taskboard
  * @author Robert Krombholz
  *
  */
-class Task {
+class Task implements Comparable {
+
 	//Relationships
 	static belongsTo = [ column : Column ]
 	User creator
 	User assignee
 	
+	int sortorder 
+	Date dateCreated
+	Date lastUpdated
+	
 	String name
 	String description
 	double durationHours
 	Color color
-	Priority priority
+	Priority priority	
 	
     static constraints = {
 		name blank:false, maxSize:100
@@ -28,10 +33,16 @@ class Task {
 		column nullable:false
 		creator nullable:false
 		assignee nullable:true
+		sortorder nullable:false, min:0
     }
 	
 	@Override
 	public String toString() {
 		return name
 	}
+	
+	int compareTo(obj) {
+		sortorder.compareTo obj.sortorder
+	}	
+	
 }

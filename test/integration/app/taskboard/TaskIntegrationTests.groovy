@@ -5,22 +5,6 @@ import grails.test.*
 class TaskIntegrationTests extends GrailsUnitTestCase {
     protected void setUp() {
         super.setUp()
-		//Preperation
-		def user = new User(
-				username: 'testuser',
-				password: 'testpassword',
-				firstname: 'firstname',
-				lastname: 'lastname',
-				email: 'e@mail.com'
-		).save()
-		def column = new Column(name:'mycolumn')						
-		def board = new Board(name:'myboard')
-			.addToUsers(user)
-			.addToColumns(column)
-		
-		board.save()		
-		new Color(colorCode:'#FFFFFF').save()
-		new Priority(name:'critital').save()
     }
 
     protected void tearDown() {
@@ -30,10 +14,10 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 	
 	void testCreationAddToColumn() {
 		//Preperation
-		def col = Column.findByName('mycolumn')
-		def user = User.findByUsername('testuser')
+		def col = Column.findByName('ToDo')
+		def user = User.findByUsername('admin')
 		def color = Color.findByColorCode('#FFFFFF')
-		def prio = Priority.findByName('critital')
+		def prio = Priority.findByName('critical')
 		
 		assertNotNull col
 		assertNotNull user
@@ -52,6 +36,6 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 		
 		def tmpTask = Task.findByName('mytask')
 		assertNotNull tmpTask
-		assertEquals 'mycolumn', tmpTask.column.name
+		assertEquals 'ToDo', tmpTask.column.name
 	}
 }

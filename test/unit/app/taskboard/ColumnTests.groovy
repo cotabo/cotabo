@@ -104,4 +104,6 @@ class ColumnTests extends GrailsUnitTestCase {
 		assertEquals 1, column.errors.allErrors.size()
 		assertNull column.save()
 	}
+	
+
 }

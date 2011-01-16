@@ -28,4 +28,8 @@ class Column {
 	public String toString() {
 		return name
 	}
+	static mapping = {
+		//tasks sort:'sortorder', order:'desc'
+	}
+
 }

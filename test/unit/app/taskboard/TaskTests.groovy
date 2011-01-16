@@ -51,7 +51,8 @@ class TaskTests extends GrailsUnitTestCase {
 			color: color, 
 			priority: prio, 
 			column: col, 
-			creator: user
+			creator: user,
+			sortorder: 1
 		)
 		assertTrue task.validate()
 		assertNotNull task.save()
@@ -222,7 +223,7 @@ class TaskTests extends GrailsUnitTestCase {
 			durationHours: 200.5,
 			color: color,			
 			column: col,
-			creator:user		
+			creator:user
 		)
 		
 		assertFalse task.validate()
@@ -266,7 +267,7 @@ class TaskTests extends GrailsUnitTestCase {
 			durationHours: 200.25,
 			color: color,
 			priority: prio,
-			column: col			
+			column: col
 		)
 		
 		assertFalse task.validate()

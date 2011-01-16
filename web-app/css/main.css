@@ -1,14 +1,13 @@
 @CHARSET "ISO-8859-1";
 
 
-html {    
+body {    
     /*padding: 0; SELECT NOT DISPLAYED CORRECTLY IN FIREFOX */    
 	font-family:Corbel,Arial,sans-serif;
-	font-size:13px;   
+	font-size:13px;  
+	margin: 0; 
 }
-html body {
-	margin: 0;
-}
+
 .head-back {
 	margin: 0;
 	width:100%;
@@ -58,16 +57,13 @@ html body {
 }
 
 h1 {
-	font-size:18px;	
 	padding: 5px 0px;
 }
 
 h2 {
-	font-size:16px;
 	padding: 4px;
 }
 h3 {
-	font-size:14px;	
 	padding: 3px;
 }
 p {	

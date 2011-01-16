@@ -10,7 +10,7 @@ class BoardTagLib {
 	def board = {attrs, body ->
 		out << """
 		<div id="board">
-			<h1>${attrs.board?.name}</h1>
+			<h2>${attrs.board?.name}</h2>
 		"""						
 		body() ? out << body() :
 		out << """
@@ -43,7 +43,7 @@ class BoardTagLib {
 			</span>'''
 		
 		out << """
-			<ul id="${attrs.column?.id}">
+			<ul id="column_${attrs.column.id}">
 		"""								
 		out << body()		
 		out << '''
@@ -60,9 +60,9 @@ class BoardTagLib {
 	 */
 	def task = {attrs, body ->
 		out << """
-		<li class="ui-widget">
+		<li class="ui-widget" id="task_${attrs.task.id}">
 			<div class="task-header ui-state-default">
-				${attrs.task?.name}
+				<div>${attrs.task?.name}</div>
 				<span class="ui-icon ui-icon ui-icon-arrowthickstop-1-n"/>
 			</div>
 			<div class="task-content ui-widget-content">
