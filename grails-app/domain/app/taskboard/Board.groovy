@@ -15,8 +15,10 @@ class Board {
 	List columns
 	List users	
 	List admins	
-	static hasMany = [ columns : Column, users : User, admins: User  ]
+	static hasMany = [ columns : Column, users : User, admins: User, priorities:Priority, colors:Color ]
 	static mappedBy = [users: "userBoards", admins: "adminBoards"]
+	Priority defaultPriority
+	Color defaultColor
 	
 	String name
 	String description
@@ -31,6 +33,10 @@ class Board {
 		columns nullable:false, maxSize:10
 		users nullable:false
 		admins nullable:false, maxSize: 5
+		priorities nullable:false
+		colors nullable:false
+		defaultPriority nullable:false
+		defaultColor nullable:false
     }
 	
 	@Override

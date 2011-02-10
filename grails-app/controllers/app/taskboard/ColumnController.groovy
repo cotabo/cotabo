@@ -70,7 +70,9 @@ class ColumnController {
 				//Set the current iteration index as the sort order to maintain
 				//as the user sees it.
 				tmpTask.sortorder = idx
-				tmpTask.save()
+				if (!tmpTask.save()) {
+					flash.message = "Error ordering Task items [$tmpTask]. Entry not valid."
+				}
 			}
 		}
 	}

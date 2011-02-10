@@ -36,14 +36,23 @@ class BootStrap {
 		
 		def env = Environment.currentEnvironment.name			
 		if (env == 'test' || env == 'development') {
-			println 'Creating test data...'
+			log.info 'Creating test data...'
 			//Define test data
 			def color = new Color(colorCode:'#FFFFFF')
-			def prioCritical = new Priority(name: 'critical')
-			def prioMajor = new Priority(name: 'major')
+			def color1 = new Color(colorCode:'#000000')
+			def color2 = new Color(colorCode:'#FF0000')
+			def prioCritical = new Priority(name: 'Critical')
+			def prioMajor = new Priority(name: 'Major')
+			def prioNormal = new Priority(name: 'Normal')
+			def prioLow = new Priority(name: 'Low')
 			color.save()
+			color1.save()
+			color2.save()
 			prioCritical.save()	
 			prioMajor.save()
+			prioNormal.save()
+			prioLow.save()
+			
 			def user = User.findByUsername('user')
 			def admin = User.findByUsername('admin')			
 			def testTasks = [
@@ -77,8 +86,12 @@ class BootStrap {
 				description:'This test board is to track the tasks of our Test project', 
 				columns:[column1,column2,column3],
 				users: [user,admin],
-				admins: [admin]
-				)								
+				admins: [admin],
+				defaultColor: color1,
+				defaultPriority: prioNormal,
+				colors: [color, color1, color2],
+				priorities: [prioCritical, prioMajor, prioNormal, prioLow]
+			)								
 			board.save(flush:true)
 		}
     }
