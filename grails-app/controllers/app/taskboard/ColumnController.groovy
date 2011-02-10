@@ -34,9 +34,6 @@ class ColumnController {
 				message = 'Either the column or the Task that you have specified does not exist.'
             }
         }
-		Task.list().each {
-			println "$it : ${it.sortorder}"
-		}
 		sessionFactory?.getCurrentSession()?.flush()
     }
 	
