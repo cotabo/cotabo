@@ -4,7 +4,8 @@ class ColumnController {
 	def sessionFactory
 	
     def updatetasks = {
-		def newTaskOrderIdList = params['order[]'] as ArrayList
+		def newTaskOrderIdList = params['order[]'] instanceof String?
+			[params['order[]']]:params['order[]'] as ArrayList
 		//Only if we got multiple elements (otherwhise it is injected as String
 		newTaskOrderIdList = newTaskOrderIdList.collect {
 			it.split('_')[1].toInteger().intValue()
@@ -40,7 +41,8 @@ class ColumnController {
     }
 	
 	def updatesortorder = {
-		def newTaskOrderIdList = params['order[]'] as ArrayList
+		def newTaskOrderIdList = params['order[]'] instanceof String?
+			[params['order[]']]:params['order[]'] as ArrayList
 		//Only if we got multiple elements (otherwhise it is injected as String
 		newTaskOrderIdList = newTaskOrderIdList.collect {
 			it.split('_')[1].toInteger().intValue()

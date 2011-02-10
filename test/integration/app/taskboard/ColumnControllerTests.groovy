@@ -17,7 +17,7 @@ class ColumnControllerTests extends GrailsUnitTestCase {
 		def controller = new ColumnController()
 		controller.params.fromColumnId = 1
 		controller.params.toColumnid = 2
-		controller.params.taskid = 1
+		controller.params.taskid = 2
 		def result = controller.updatetasks()			
 		assertNotNull controller.response.contentAsString
 		assertEquals expectedResult, controller.response.contentAsString 

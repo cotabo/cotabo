@@ -64,26 +64,6 @@
 			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/jquery-ui-1.8.6/grails-app/taglib</location>
 		</link>
 		<link>
-			<name>mail-0.9-grails-app-services</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/mail-0.9/grails-app/services</location>
-		</link>
-		<link>
-			<name>mail-0.9-grails-app-taglib</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/mail-0.9/grails-app/taglib</location>
-		</link>
-		<link>
-			<name>mail-0.9-grails-app-views</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/mail-0.9/grails-app/views</location>
-		</link>
-		<link>
-			<name>mail-0.9-src-groovy</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/mail-0.9/src/groovy</location>
-		</link>
-		<link>
 			<name>spring-security-core-1.0.1-grails-app-conf</name>
 			<type>2</type>
 			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-core-1.0.1/grails-app/conf</location>
@@ -107,41 +87,6 @@
 			<name>spring-security-core-1.0.1-src-java</name>
 			<type>2</type>
 			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-core-1.0.1/src/java</location>
-		</link>
-		<link>
-			<name>spring-security-ui-0.1.2-grails-app-conf</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-ui-0.1.2/grails-app/conf</location>
-		</link>
-		<link>
-			<name>spring-security-ui-0.1.2-grails-app-controllers</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-ui-0.1.2/grails-app/controllers</location>
-		</link>
-		<link>
-			<name>spring-security-ui-0.1.2-grails-app-domain</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-ui-0.1.2/grails-app/domain</location>
-		</link>
-		<link>
-			<name>spring-security-ui-0.1.2-grails-app-i18n</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-ui-0.1.2/grails-app/i18n</location>
-		</link>
-		<link>
-			<name>spring-security-ui-0.1.2-grails-app-services</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-ui-0.1.2/grails-app/services</location>
-		</link>
-		<link>
-			<name>spring-security-ui-0.1.2-grails-app-taglib</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-ui-0.1.2/grails-app/taglib</location>
-		</link>
-		<link>
-			<name>spring-security-ui-0.1.2-grails-app-views</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-ui-0.1.2/grails-app/views</location>
 		</link>
 		<link>
 			<name>tomcat-1.3.5-src-groovy</name>
