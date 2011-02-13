@@ -33,8 +33,8 @@ class Board {
 		columns nullable:false, maxSize:10
 		users nullable:false
 		admins nullable:false, maxSize: 5
-		priorities nullable:false
-		colors nullable:false
+		priorities nullable:false, maxSize: 10
+		colors nullable:false, maxSize: 20
 		defaultPriority nullable:false
 		defaultColor nullable:false
     }
