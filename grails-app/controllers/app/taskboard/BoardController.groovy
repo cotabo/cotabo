@@ -29,7 +29,7 @@ class BoardController {
 			columnList << new Column(name:'Done!', description:'Things that have already been done')
 			boardInstance.columns = columnList
 		}
-        return [boardInstance: boardInstance]
+        return [boardInstance: boardInstance, colorInstances: Color.list(max:20)]
     }
 
     def save = {

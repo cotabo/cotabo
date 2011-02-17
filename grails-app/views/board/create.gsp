@@ -68,6 +68,8 @@
         			text:false        		
         		});        		   	
         	});
+        	
+        	$("#tabs").tabs();
         </jq:jquery>
         
     </head>
@@ -77,14 +79,20 @@
 	    <div class="message">${flash.message}</div>
 	    </g:if>
 	    <g:hasErrors bean="${boardInstance}">
-	    <div class="errors">
+	    <div class="ui-state-error ui-corner-all">
 	        <g:renderErrors bean="${boardInstance}" as="list" />
 	    </div>
-	    </g:hasErrors>		    	       
-	    <div>	    
-		    <g:form action="save" >		    				 	
-				<h3 class="ui-state-default">Taskboard information</h1>
-				<div>                
+	    </g:hasErrors>		
+	     <g:form action="save" >    	       
+	    <div id="tabs">	    
+		    	<ul>
+		    		<li><a href="#board_details">Board information</a></li>
+		    		<li><a href="#columns">Column definition</a></li>
+		    		<li><a href="#colors">Task colors</a></li>
+		    		<li><a href="#priorities">Priorities</a></li>
+		    		
+		    	</ul>	    				 	
+				<div id="board_details">   
 					<table>
 					    <tbody>                        
 					        <tr>
@@ -105,16 +113,10 @@
 					            </td>
 					        </tr>
 					    </tbody>
-					</table>   	
-					<button class="save" type="submit">create board</button>				 		    			                                            				    		   
+					</table>
 		     	</div>	
-
-			    			    
 		     	     	
 		     	<div id="columns">
-		     		<h3 class="ui-state-default">		     			
-		     			Columns
-	     			</h3>
 		     		<div id="columns_content" >	
 			     		<table>
 			     			<tbody>
@@ -138,14 +140,26 @@
 		     						<td>
 		     							<a href="#" class="delete">&nbsp;</a>	
 		     						</td>
-		     					</tr>		     					
+		     					</tr>	     					
 			     				</g:each> 
 			     			</tbody>
 			     		</table>				     					
 						<button class="add" type="button">add column</button>		
 	                </div>    
+				</div>	
+				
+			    <div id="colors">
+					<g:render template="/color/listAndSelect"/>
 				</div>				
-						
-			</g:form>	        
+			
+				<div id="priorities">
+				</div>
+
+			 
+		</div>    
+		<div id="submit_div">
+			<button class="save" type="submit">create board</button>
+		</div>
+		</g:form>	
     </body>
 </html>

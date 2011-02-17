@@ -38,9 +38,10 @@ class BootStrap {
 		if (env == 'test' || env == 'development') {
 			log.info 'Creating test data...'
 			//Define test data
-			def color = new Color(colorCode:'#FFFFFF')
-			def color1 = new Color(colorCode:'#000000')
-			def color2 = new Color(colorCode:'#FF0000')
+			def color = new Color(colorCode:'#CCFF00')
+			def color1 = new Color(colorCode:'#0099FF')
+			def color2 = new Color(colorCode:'#FFFFCC')
+			def color3 = new Color(colorCode:'#00FF99')
 			def prioCritical = new Priority(name: 'Critical')
 			def prioMajor = new Priority(name: 'Major')
 			def prioNormal = new Priority(name: 'Normal')
@@ -48,6 +49,7 @@ class BootStrap {
 			color.save()
 			color1.save()
 			color2.save()
+			color3.save()
 			prioCritical.save()	
 			prioMajor.save()
 			prioNormal.save()

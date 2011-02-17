@@ -1,9 +1,8 @@
 @CHARSET "ISO-8859-1";
 
-#columns {
-	position:relative;
-	top:30px;
-}
-#columns table {
-	text-align: center;
-}
+#submit_div { border-top: 1px dashed #ccc; text-align: center; padding-top: 3px;} 
+#columns table { text-align: center; }
+#color_list { list-style-type: none; margin: 0; padding: 0;}
+#color_list li {  margin: 3px; float: left; text-align: center; width:230px; height: 230px; border: 1px solid #ccc;}
+#color_list li .colorpicker { margin-left:15px;}
+
