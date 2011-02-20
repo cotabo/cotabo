@@ -8,6 +8,8 @@ package app.taskboard
 */
 class Color {
 	
+	static belongsTo = Board
+	
 	String colorCode
 
     static constraints = {

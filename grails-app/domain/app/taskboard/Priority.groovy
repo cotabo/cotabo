@@ -7,6 +7,9 @@ package app.taskboard
 *
 */
 class Priority {
+	
+	static belongsTo = Board
+	
 	String name
 
     static constraints = {

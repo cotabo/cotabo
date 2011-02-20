@@ -89,8 +89,6 @@ class BootStrap {
 				columns:[column1,column2,column3],
 				users: [user,admin],
 				admins: [admin],
-				defaultColor: color1,
-				defaultPriority: prioNormal,
 				colors: [color, color1, color2],
 				priorities: [prioCritical, prioMajor, prioNormal, prioLow]
 			)								

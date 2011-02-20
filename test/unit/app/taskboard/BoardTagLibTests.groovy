@@ -27,7 +27,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 		def color = Color.findByColorCode('#FFFFFF')
 		def priority = Priority.findByName('Critical')	
 		
-		def board = new Board(name:'MyBoard', defaultColor: color, defaultPriority: priority)
+		def board = new Board(name:'MyBoard')
 			.addToUsers(user)
 			.addToColumns(column)			
 			.addToAdmins(user)

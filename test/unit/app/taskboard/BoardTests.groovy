@@ -36,7 +36,7 @@ class BoardTests extends GrailsUnitTestCase {
 		assertNotNull color
 		assertNotNull priority	
 		
-		def board = new Board(name:'myboard', defaultColor: color, defaultPriority: priority)
+		def board = new Board(name:'myboard')
 			.addToUsers(user)
 			.addToColumns(column)
 			.addToAdmins(user)
@@ -63,7 +63,7 @@ class BoardTests extends GrailsUnitTestCase {
 		assertNotNull priority
 		assertNotNull user
 							
-		def board = new Board(name:'myboard', defaultColor: color, defaultPriority: priority)
+		def board = new Board(name:'myboard')
 			.addToUsers(user)
 			.addToAdmins(user)
 			.addToColors(color)
@@ -85,7 +85,7 @@ class BoardTests extends GrailsUnitTestCase {
 		//Preparation - Column definition without save
 		def column = new Column(name:'mycolumn')
 							
-		def board = new Board(name:'myboard', defaultColor: color, defaultPriority: priority)
+		def board = new Board(name:'myboard')
 			.addToColumns(column)
 			.addToAdmins(user)
 			.addToColors(color)
@@ -107,7 +107,7 @@ class BoardTests extends GrailsUnitTestCase {
 		//Preparation - Column definition without save
 		def column = new Column(name:'mycolumn')
 							
-		def board = new Board(defaultColor: color, defaultPriority: priority)
+		def board = new Board()
 			.addToUsers(user)
 			.addToColumns(column)
 			.addToAdmins(user)
@@ -145,7 +145,7 @@ class BoardTests extends GrailsUnitTestCase {
 			This test is longer than 255 Characters.
 		'''
 		
-		def board = new Board(name:'myboard', description: description, defaultColor: color, defaultPriority: priority)
+		def board = new Board(name:'myboard', description: description)
 			.addToUsers(user)
 			.addToColumns(column)
 			.addToAdmins(user)
@@ -180,7 +180,7 @@ class BoardTests extends GrailsUnitTestCase {
 			new Column(name:'mycolumn11'),
 		]
 		
-		def board = new Board(name:'myboard', defaultColor: color, defaultPriority: priority)
+		def board = new Board(name:'myboard')
 			.addToUsers(user)		
 			.addToAdmins(user)
 			.addToColors(color)
@@ -205,7 +205,7 @@ class BoardTests extends GrailsUnitTestCase {
 		assertNotNull user
 		def column = new Column(name:'mycolumn')
 							
-		def board = new Board(name:'myboard', defaultColor: color, defaultPriority: priority)
+		def board = new Board(name:'myboard')
 			.addToUsers(user)
 			.addToColumns(column)
 			.addToColors(color)
@@ -227,7 +227,7 @@ class BoardTests extends GrailsUnitTestCase {
 		def column = new Column(name:'mycolumn')
 		
 		//Calling addToAdmins 6 times. Limit is 5.
-		def board = new Board(name:'myboard', defaultColor: color, defaultPriority: priority)
+		def board = new Board(name:'myboard')
 			.addToUsers(user)
 			.addToColumns(column)
 			.addToColors(color)
@@ -240,33 +240,9 @@ class BoardTests extends GrailsUnitTestCase {
 			.addToAdmins(user)
 		assertFalse board.validate()
 		assertEquals 1, board.errors.allErrors.size()
-		assertNull board.save()
-		
+		assertNull board.save()		
 	}
 	
-	void testFailWithoutDefaultValues() {
-		//Preparation - get the user
-		def user = User.findByUsername('testuser')
-		def color = Color.findByColorCode('#FFFFFF')
-		def priority = Priority.findByName('Critical')
-		assertNotNull color
-		assertNotNull priority
-		assertNotNull user
-		def column = new Column(name:'mycolumn')
-		
-		
-		def board = new Board(name:'myboard')
-			.addToUsers(user)
-			.addToColumns(column)
-			.addToAdmins(user)
-			.addToColors(color)
-			.addToPriorities(priority)
-
-		assertFalse board.validate()
-		board.errors.each { println it }
-		assertEquals 2, board.errors.allErrors.size()
-		assertNull board.save()
-	}
 	
 	void testFailWithoutColorsAndPriorities() {
 		//Preparation - get the user
@@ -278,7 +254,7 @@ class BoardTests extends GrailsUnitTestCase {
 		assertNotNull user
 		def column = new Column(name:'mycolumn')
 		
-		def board = new Board(name:'myboard', defaultColor: color, defaultPriority: priority)
+		def board = new Board(name:'myboard')
 			.addToUsers(user)
 			.addToColumns(column)
 			.addToAdmins(user)

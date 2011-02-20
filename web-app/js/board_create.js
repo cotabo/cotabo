@@ -64,16 +64,6 @@
 		});        		   	
 	});
 	
-	//Appending the first color as the default color as a hidden input field to the form.
-	$("form").submit(function() {
-		var defaultColorValue = $(".color_picker_input").first().val();
-		var defaultPriorityValue = $(".priority_input").first().val();
-		var hiddenDefaultColor = '<input type="hidden" name="defaultColor.colorCode" value="'+defaultColorValue+'"/>';
-		var hiddenDefaultPrio = '<input type="hidden" name="defaultPriority.name" value="'+defaultPriorityValue+'"/>';
-		$(this).append(hiddenDefaultColor);
-		$(this).append(hiddenDefaultPrio);
-		return true;
-	});
 	$("#tabs").tabs();
 	
 	$('.close_button').live('click', function(event) {

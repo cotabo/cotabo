@@ -46,14 +46,18 @@ class BoardController {
 			render(view: "create", model: [boardInstance: create()])
 			return
 		}		 
-				 	
-		bindData(boardInstance, params)	
 		
+		//Binding all request data apart from defaultColor & Priority because
+		//the bindData would try to save a new instance for them
+		//and this would fail because of the unique constraint of them.
+		bindData(boardInstance, params)	
+
 		def principal = springSecurityService.principal
 		def user = User.findByUsername(principal.username)
 		assert user != null		
 		boardInstance.users = [user]
-		boardInstance.admins = [user]		
+		boardInstance.admins = [user]	
+		
 
 		if (boardInstance.validate() && boardInstance.save(flush:true)){	
 			redirect(action: "show", id: boardInstance.id)			
