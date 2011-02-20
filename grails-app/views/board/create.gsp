@@ -19,7 +19,7 @@
 	        <g:renderErrors bean="${boardInstance}" as="list" />
 	    </div>
 	    </g:hasErrors>		
-	     <g:form action="save" >    	       
+	    <g:form action="save">    	       
 	    <div id="tabs">	    
 		    	<ul>
 		    		<li><a href="#board_details">Board information</a></li>
@@ -28,19 +28,24 @@
 		    		<li><a href="#priorities">Priorities</a></li>
 		    		
 		    	</ul>	    				 	
-				<div id="board_details">   
+				<div id="board_details"> 
+					<g:render template="/info" model="[messagecode: 'board.create.description']"/>  
 					<g:render template="/board/create"/>
 		     	</div>	
 		     	     	
 		     	<div id="columns">
+		     		<g:render template="/info" model="[messagecode: 'board.create.columns.description']"/>
 		     		<g:render template="/column/create"/>
 				</div>	
 				
 			    <div id="colors">
+			    	<g:render template="/info" model="[messagecode: 'board.create.colors.description']"/>
 					<g:render template="/color/listAndSelect"/>
 				</div>				
 			
 				<div id="priorities">
+					<g:render template="/info" model="[messagecode: 'board.create.priorities.description']"/>
+					<g:render template="/priority/create"/>
 				</div>			 
 		</div>    
 		<div id="submit_div">

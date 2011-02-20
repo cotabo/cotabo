@@ -1,4 +1,3 @@
-<g:render template="/info" model="[messagecode: 'board.create.description']"/>
 <table>
     <tbody>                        
         <tr>

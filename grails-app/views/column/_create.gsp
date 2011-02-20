@@ -1,4 +1,3 @@
-<g:render template="/info" model="[messagecode: 'board.create.columns.description']"/>
 <div id="columns_content" >	
    	<table>
    		<tbody>

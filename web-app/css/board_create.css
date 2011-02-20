@@ -1,10 +1,14 @@
 @CHARSET "ISO-8859-1";
 
-#submit_div { border-top: 1px dashed #ccc; text-align: center; padding-top: 3px;} 
+#submit_div { border-bottom: 1px solid #ccc; border-left: 1px solid #ccc; border-right: 1px solid #ccc; text-align: center; padding: 3px; } 
 #columns table { text-align: center; }
 #color_list { list-style-type: none; margin: 0; padding: 0;}
-#color_list li {  margin: 3px; float: left; text-align: center; width:230px; height: 240px; border: 1px solid #ccc;}
+#color_list li { margin: 3px; float: left; text-align: center; width:230px; height: 240px; border: 1px solid #ccc;}
 #color_list li .colorpicker { margin-left:15px;}
 #color_list li div.color_close { overflow:hidden }
 #color_list li div.color_close span { float:right; }
-
+#priority_list { list-style-type: none; margin: 0; padding: 0;}
+#priority_list li{ margin: 3px; float:left; text-align:center; width:24%;}
+.portlet-header { padding-bottom: 4px; padding-left: 0.2em; height: 1.4em; }
+.portlet-header .ui-icon { float: right; cursor:pointer; }
+button { margin-top:5px; }

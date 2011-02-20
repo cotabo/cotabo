@@ -11,7 +11,7 @@
         
     </head>
     <body>    
-		<div class="head-back"/>		
+		<div class="head-back"></div>		
         <div class="page-wrap">
         	<div class="head">
         		<span id="user">

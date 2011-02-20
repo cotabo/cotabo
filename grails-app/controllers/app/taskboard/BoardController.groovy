@@ -29,7 +29,7 @@ class BoardController {
 			columnList << new Column(name:'Done!', description:'Things that have already been done')
 			boardInstance.columns = columnList
 		}
-        return [boardInstance: boardInstance, colorInstances: Color.list(max:20)]
+        return [boardInstance: boardInstance]
     }
 
     def save = {
@@ -39,9 +39,15 @@ class BoardController {
 		}
 		else {
 			boardInstance = Board.findByName(params.name)
+		}
+		
+		if (!boardInstance) {
+			flash.message = "Board instance can not be found for name ${params.name}."
+			render(view: "create", model: [boardInstance: create()])
+			return
 		}		 
 				 	
-		bindData boardInstance, params	
+		bindData(boardInstance, params)	
 		
 		def principal = springSecurityService.principal
 		def user = User.findByUsername(principal.username)

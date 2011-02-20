@@ -6,9 +6,9 @@
 	var addColorTpl = function() {
       	return [
       		"li", {}, [
-      			"div", {class: "color_close" }, [
-      				"span", { class: "color_close_button ui-icon ui-icon ui-icon-closethick" },[]
-      			],
+				"div", {class:'portlet-header ui-widget-header ui-state-default'}, [
+					"span", {class:'close_button ui-icon ui-icon ui-icon-closethick'}, []
+				],	
       			"label", {}, "Color Code:", 
       			"input", {
       				type: "text", 
@@ -25,7 +25,7 @@
 	$("#add_color").button({
 		icons: { primary: "ui-icon-plusthick" }
     }).click(function(event){
-    	var idx =$("#color_list > li").size() + 1
+    	var idx =$("#color_list > li").size()
     	if (idx < 20) {
 	    	var tplData = {
 	    		index: idx,
@@ -43,13 +43,8 @@
 		var index = $(element).attr('id').split('_')[1];
 		$('#colorpicker_'+index).farbtastic('#color_picker_'+index);		
 	});
-	
-	$('.color_close_button').live('click', function(event) {
-		$(this).parents('li').remove()
-	});
 			
 </jq:jquery>
-<g:render template="/info" model="[messagecode: 'board.create.colors.description']"/>
 <ul id="color_list">
 	<g:if test="${boardInstance?.colors && boardInstance.colors.size() > 0}">
 		<g:each in="${boardInstance.colors}" var="color" status="i">
@@ -60,7 +55,7 @@
 		</g:each>
 	</g:if>
 	<g:else>
-		<g:each in="1..4" var="color" status="i">
+		<g:each in="0..3" var="color" status="i">
 			<g:set var="colorCode" value="#ffffff"/>
 			<li>
 				<g:render template="/color/colorpicker" model="[index:i , colorCode:colorCode]"/>
@@ -68,6 +63,6 @@
 		</g:each>
 	</g:else>
 </ul>
-<div style="clear:both;"/>
+<div style="clear:both;"></div>
 <button id="add_color" type="button">add color</button>
 
