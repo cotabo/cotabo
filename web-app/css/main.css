@@ -3,8 +3,7 @@
 
 body {    
     /*padding: 0; SELECT NOT DISPLAYED CORRECTLY IN FIREFOX */    
-	font-family:Corbel,Arial,sans-serif;
-	font-size:13px;  
+	font-family:Corbel,Arial,sans-serif;	
 	margin: 0; 
 }
 
@@ -24,6 +23,7 @@ body {
 	top:0px;
 	left:50%;
 	margin-left:-500px;	
+	font-size: 1.0em;
 }
 .head {
 	width:100%;	
@@ -82,13 +82,16 @@ table {
 }
 table tr th{
 	padding: 5px 5px;
+	font-size: 12px;
 }
 table tr td{
 	padding: 3px 4px;
+	font-size: 12px;
 }
 
 label {
 	font-weight:bold;
+	font-size: 12px;
 }
 input, select, textarea {
     background-color: #fcfcfc;
@@ -119,4 +122,9 @@ table.list tr th{
 }
 table.list tr td{
 	padding: 10px 5px;
+}
+p.meta_description {
+	font-style:italic;
+	color: #808080;
+	font-size:12px;
 }

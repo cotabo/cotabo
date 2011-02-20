@@ -41,9 +41,7 @@
 				</div>				
 			
 				<div id="priorities">
-				</div>
-
-			 
+				</div>			 
 		</div>    
 		<div id="submit_div">
 			<button class="save" type="submit">create board</button>

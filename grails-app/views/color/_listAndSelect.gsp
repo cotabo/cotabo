@@ -1,7 +1,6 @@
 <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.farbtastic.js')}"></script>
 <link rel="stylesheet" href="${resource(dir:'css',file:'farbtastic.css') }"/>
 <jq:jquery>
-
 	//Add Color button & functionality
 	var addColorTpl = function() {
       	return [
@@ -51,6 +50,7 @@
 	});
 			
 </jq:jquery>
+<g:render template="/info" model="[messagecode: 'board.create.colors.description']"/>
 <ul id="color_list">
 	<!-- TODO: change this to use colors from the boardInstance -->
 	<g:each in="${colorInstances}" var="color" status="i">

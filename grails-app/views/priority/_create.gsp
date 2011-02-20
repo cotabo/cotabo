@@ -1,0 +1,1 @@
+<g:render template="/info" model="[messagecode: 'board.create.priorities.description']"/>
