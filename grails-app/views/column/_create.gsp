@@ -1,33 +1,29 @@
-<h1>create new column</h1>
-<g:form action="save" controller="column">
-	<div class="dialog">
-		<table>
-			<tbody>
-				<tr class="prop">
-					<td valign="top" class="name">
-						<label for="name">Name</label>
-					</td>
-					<td valign="top" class="value">
-						<g:textField name="name" maxlength="25">
-					</td>					
-				</tr>
-				<tr class="prop">
-					<td valign="top" class="name">
-						<label for="description">Description</label>
-					</td>
-					<td valign="top" class="value">
-						<g:textArea name="description" cols="40" rows="4">
-					</td>					
-				</tr>
-				<tr class="prop">
-					<td valign="top" class="name">
-						<label for="limit">Task limit</label>
-					</td>
-					<td valign="top" class="value">
-						<g:textField name="name" size="2" maxlength="2">
-					</td>					
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</g:form>
+<div id="columns_content" >	
+   	<table>
+   		<tbody>
+   			<tr>		     					
+   				<th>Name</th>
+ 				<th>Short description</th>
+ 				<th>Task limit</th>
+ 				<th>&nbsp;</th>
+   			</tr>
+   			<g:each in="${boardInstance.columns}" var="column" status="i">
+  			<tr class="column">
+  				<td>
+  					<g:textField name="columns[$i].name" maxlength="75" value="${boardInstance?.columns[i]?.name}" />
+  				</td>
+  				<td>
+  					<g:textField name="columns[$i].description" size="50" value="${boardInstance?.columns[i]?.description}" />
+  				</td>
+  				<td>
+  					<g:textField name="columns[$i].limit" size="2" maxlength="2" value="${boardInstance?.columns[i]?.limit}" />
+  				</td>
+  				<td>
+  					<a href="#" class="delete">&nbsp;</a>	
+  				</td>
+  			</tr>	     					
+   			</g:each> 
+   		</tbody>
+   	</table>				     					
+	<button class="add" type="button">add column</button>		
+</div>    
