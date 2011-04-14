@@ -18,11 +18,9 @@ body {
 
 .page-wrap {
 	margin:0 auto;
-	width:1000px;
+	width:100%;
 	position: absolute;
 	top:0px;
-	left:50%;
-	margin-left:-500px;	
 	font-size: 1.0em;
 }
 .head {
