@@ -103,3 +103,7 @@ div.task-content * td {
 .red-font {
 	color:red;
 }
+
+#createTaskForm {
+	display:none;
+}

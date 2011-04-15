@@ -146,6 +146,8 @@
     			</g:each>
     		</tb:column>
     		</g:each>
-    	</tb:board>    	
+    	</tb:board>  
+    	
+    	<g:render template="/task/create"/>
     </body>
 </html>
