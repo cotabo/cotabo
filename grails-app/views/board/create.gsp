@@ -24,9 +24,6 @@
 		    	<ul>
 		    		<li><a href="#board_details">Board information</a></li>
 		    		<li><a href="#columns">Column definition</a></li>
-		    		<li><a href="#colors">Task colors</a></li>
-		    		<li><a href="#priorities">Priorities</a></li>
-		    		
 		    	</ul>	    				 	
 				<div id="board_details"> 
 					<g:render template="/info" model="[messagecode: 'board.create.description']"/>  
@@ -36,16 +33,6 @@
 		     	<div id="columns">
 		     		<g:render template="/info" model="[messagecode: 'board.create.columns.description']"/>
 		     		<g:render template="/column/create"/>
-				</div>	
-				
-			    <div id="colors">
-			    	<g:render template="/info" model="[messagecode: 'board.create.colors.description']"/>
-					<g:render template="/color/listAndSelect"/>
-				</div>				
-			
-				<div id="priorities">
-					<g:render template="/info" model="[messagecode: 'board.create.priorities.description']"/>
-					<g:render template="/priority/create"/>
 				</div>			 
 		</div>    
 		<div id="submit_div">
