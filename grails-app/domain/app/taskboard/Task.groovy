@@ -20,16 +20,12 @@ class Task implements Comparable {
 	
 	String name
 	String description
-	double durationHours
-	Color color
-	Priority priority	
+	double durationHours	
 	
     static constraints = {
 		name blank:false, maxSize:100
 		description nullable:true, blank:true, maxSize:254
-		durationHours nullable:false, min:0D, max:500D		
-		color nullable:false
-		priority nullable:false
+		durationHours nullable:false, min:0D, max:500D						
 		column nullable:false
 		creator nullable:false
 		assignee nullable:true

@@ -36,36 +36,20 @@ class BootStrap {
 		
 		def env = Environment.currentEnvironment.name			
 		if (env == 'test' || env == 'development') {
-			log.info 'Creating test data...'
-			//Define test data
-			def color = new Color(colorCode:'#CCFF00')
-			def color1 = new Color(colorCode:'#0099FF')
-			def color2 = new Color(colorCode:'#FFFFCC')
-			def color3 = new Color(colorCode:'#00FF99')
-			def prioCritical = new Priority(name: 'Critical')
-			def prioMajor = new Priority(name: 'Major')
-			def prioNormal = new Priority(name: 'Normal')
-			def prioLow = new Priority(name: 'Low')
-			color.save()
-			color1.save()
-			color2.save()
-			color3.save()
-			prioCritical.save()	
-			prioMajor.save()
-			prioNormal.save()
-			prioLow.save()
+			log.info 'Creating test data...'			
+
 			
 			def user = User.findByUsername('user')
 			def admin = User.findByUsername('admin')			
 			def testTasks = [
-				wip1: 	[name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, color:color, priority:prioCritical, creator:user, assignee:user, sortorder:1],
-				todo1: 	[name:'Setup Webserver', description:'Install & configure Apache',durationHours:1.5, color:color, priority:prioMajor, creator:user, assignee:user, sortorder:1],
-				wip2: 	[name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, color:color, priority:prioCritical, creator:user, assignee:user, sortorder:2],
-				todo2: 	[name:'Setup WebLogic', description:'Install base software and configure domain.',durationHours:6.0, color:color, priority:prioMajor, creator:user, assignee:user, sortorder:2],
-				todo3: 	[name:'Install application', description:'Install the application software as describes by the Vendor',durationHours:8.0, color:color, priority:prioMajor, creator:user, assignee:user, sortorder:3],
-				todo4: 	[name:'Configure Monitoring', description:'Setup all monitors (Filesystem, proceses, logs etc)',durationHours:16.0, color:color, priority:prioMajor, creator:user, assignee:user, sortorder:4],
-				todo5: 	[name:'Apply Configuration Management', description:'Apply configuration management',durationHours:8.0, color:color, priority:prioMajor, creator:user, assignee:user, sortorder:5],
-				done1: 	[name:'Request machines', description:'Request machines at the DataCenter',durationHours:48.0, color:color, priority:prioMajor, creator:user, assignee:user, sortorder:1],
+				wip1: 	[name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, sortorder:1],
+				todo1: 	[name:'Setup Webserver', description:'Install & configure Apache',durationHours:1.5, creator:user, assignee:user, sortorder:1],
+				wip2: 	[name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, creator:user, assignee:user, sortorder:2],
+				todo2: 	[name:'Setup WebLogic', description:'Install base software and configure domain.',durationHours:6.0, creator:user, assignee:user, sortorder:2],
+				todo3: 	[name:'Install application', description:'Install the application software as describes by the Vendor',durationHours:8.0, creator:user, assignee:user, sortorder:3],
+				todo4: 	[name:'Configure Monitoring', description:'Setup all monitors (Filesystem, proceses, logs etc)',durationHours:16.0, creator:user, assignee:user, sortorder:4],
+				todo5: 	[name:'Apply Configuration Management', description:'Apply configuration management',durationHours:8.0, creator:user, assignee:user, sortorder:5],
+				done1: 	[name:'Request machines', description:'Request machines at the DataCenter',durationHours:48.0, creator:user, assignee:user, sortorder:1],
 			]
 			def column1 = new Column(name:'ToDo', limit:15)
 			def column2 = new Column(name:'In Progress', limit:4)
@@ -88,9 +72,7 @@ class BootStrap {
 				description:'This test board is to track the tasks of our Test project', 
 				columns:[column1,column2,column3],
 				users: [user,admin],
-				admins: [admin],
-				colors: [color, color1, color2],
-				priorities: [prioCritical, prioMajor, prioNormal, prioLow]
+				admins: [admin],				
 			)								
 			board.save(flush:true)
 		}

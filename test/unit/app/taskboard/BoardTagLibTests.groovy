@@ -7,9 +7,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
     protected void setUp() {
         super.setUp()		
 		mockDomain(Board)
-		mockDomain(Column)
-		mockDomain(Color, [new Color(colorCode: '#FFFFFF')])
-		mockDomain(Priority, [new Priority(name: 'Critical')])
+		mockDomain(Column)				
 		mockDomain(User, [
 			new User(
 				username: 'testuser',
@@ -23,16 +21,12 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 		def user = User.findByUsername('testuser')
 		assertNotNull user
 		//Preparation - Column definition without save
-		def column = new Column(name:'koffer', limit: 5)
-		def color = Color.findByColorCode('#FFFFFF')
-		def priority = Priority.findByName('Critical')	
+		def column = new Column(name:'koffer', limit: 5)				
 		
 		def board = new Board(name:'MyBoard')
 			.addToUsers(user)
 			.addToColumns(column)			
-			.addToAdmins(user)
-			.addToColors(color)
-			.addToPriorities(priority)
+			.addToAdmins(user)						
 			
 		board.save()
 		mockTagLib(BoardTagLib)
@@ -120,9 +114,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			id:1,
 			name: 'mytask', 
 			description: 'test description',
-			durationHours: 0.5, 
-			color: new Color(colorCode:'#FFFFFF'), 
-			priority: new Priority(name:'critical'), 
+			durationHours: 0.5, 						
 			column: new Column(id: 1, name:'koffer', limit: 5), 
 			creator: user,
 			assignee: user

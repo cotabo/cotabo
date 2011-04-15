@@ -25,9 +25,7 @@ class TaskTests extends GrailsUnitTestCase {
 		
 		mockDomain(Task)
 		mockDomain(Column, [column])
-		mockDomain(Board, [board])
-		mockDomain(Color, [new Color(colorCode:'#FFFFFF')])
-		mockDomain(Priority, [new Priority(name:'critital')])			
+		mockDomain(Board, [board])				
     }
 
     protected void tearDown() {
@@ -37,19 +35,13 @@ class TaskTests extends GrailsUnitTestCase {
     void testCreation() {
 		//Preperation
 		def col = Column.findByName('mycolumn')
-		def user = User.findByUsername('testuser')
-		def color = Color.findByColorCode('#FFFFFF')
-		def prio = Priority.findByName('critital')		
+		def user = User.findByUsername('testuser')				
 		assertNotNull col
-		assertNotNull user
-		assertNotNull color
-		assertNotNull prio
+		assertNotNull user				
 		
 		def task = new Task(
 			name: 'mytask', 
-			durationHours: 0.5, 
-			color: color, 
-			priority: prio, 
+			durationHours: 0.5, 						
 			column: col, 
 			creator: user,
 			sortorder: 1
@@ -62,19 +54,13 @@ class TaskTests extends GrailsUnitTestCase {
 	void testCreationWithAssignee() {
 		//Preperation
 		def col = Column.findByName('mycolumn')
-		def user = User.findByUsername('testuser')
-		def color = Color.findByColorCode('#FFFFFF')
-		def prio = Priority.findByName('critital')
+		def user = User.findByUsername('testuser')				
 		assertNotNull col
-		assertNotNull user
-		assertNotNull color
-		assertNotNull prio
+		assertNotNull user				
 		
 		def task = new Task(
 			name: 'mytask',
-			durationHours: 0.5,
-			color: color,
-			priority: prio,
+			durationHours: 0.5,			
 			column: col,
 			creator: user,
 			assignee:user
@@ -88,19 +74,13 @@ class TaskTests extends GrailsUnitTestCase {
 	void testCreationDurationHoursInt() {
 		//Preperation
 		def col = Column.findByName('mycolumn')
-		def user = User.findByUsername('testuser')
-		def color = Color.findByColorCode('#FFFFFF')
-		def prio = Priority.findByName('critital')
+		def user = User.findByUsername('testuser')				
 		assertNotNull col
-		assertNotNull user
-		assertNotNull color
-		assertNotNull prio
+		assertNotNull user				
 		
 		def task = new Task(
 			name: 'mytask',
-			durationHours: 1,
-			color: color,
-			priority: prio,
+			durationHours: 1,			
 			column: col,
 			creator: user
 		)
@@ -112,18 +92,12 @@ class TaskTests extends GrailsUnitTestCase {
 	void testFailBlankName() {
 		//Preperation
 		def col = Column.findByName('mycolumn')
-		def user = User.findByUsername('testuser')
-		def color = Color.findByColorCode('#FFFFFF')
-		def prio = Priority.findByName('critital')		
+		def user = User.findByUsername('testuser')				
 		assertNotNull col
-		assertNotNull user
-		assertNotNull color
-		assertNotNull prio
+		assertNotNull user				
 		
 		def task = new Task(			
-			durationHours: 0.5,
-			color: color,
-			priority: prio,
+			durationHours: 0.5,						
 			column: col,
 			creator: user
 		)
@@ -137,21 +111,15 @@ class TaskTests extends GrailsUnitTestCase {
 	void testFailTooLongName() {
 		//Preperation
 		def col = Column.findByName('mycolumn')
-		def user = User.findByUsername('testuser')
-		def color = Color.findByColorCode('#FFFFFF')
-		def prio = Priority.findByName('critital')
+		def user = User.findByUsername('testuser')				
 		assertNotNull col
-		assertNotNull user
-		assertNotNull color
-		assertNotNull prio
+		assertNotNull user				
 		
 		def name = 'This name is much longer than 100 characters. This name is much longer than 100 characters. This name is much longer than 100 characters.'
 		
 		def task = new Task(
 			name: name,
-			durationHours: 0.5,
-			color: color,
-			priority: prio,
+			durationHours: 0.5,						
 			column: col,
 			creator: user
 		)
@@ -164,19 +132,13 @@ class TaskTests extends GrailsUnitTestCase {
 	void testFailDurationHoursTooLong() {
 		//Preperation
 		def col = Column.findByName('mycolumn')
-		def user = User.findByUsername('testuser')
-		def color = Color.findByColorCode('#FFFFFF')
-		def prio = Priority.findByName('critital')
+		def user = User.findByUsername('testuser')				
 		assertNotNull col
-		assertNotNull user
-		assertNotNull color
-		assertNotNull prio			
+		assertNotNull user				
 		
 		def task = new Task(
 			name: 'mytask',
-			durationHours: 800.25,
-			color: color,
-			priority: prio, 
+			durationHours: 800.25,			
 			column: col,
 			creator: user
 		)
@@ -186,65 +148,15 @@ class TaskTests extends GrailsUnitTestCase {
 		assertNull task.save()
 	}
 	
-	void testFailWithoutColor() {
-		//Preperation
-		def col = Column.findByName('mycolumn')
-		def user = User.findByUsername('testuser')		
-		def prio = Priority.findByName('critital')
-		assertNotNull col
-		assertNotNull user		
-		assertNotNull prio
-		
-		def task = new Task(
-			name: 'mytask',
-			durationHours: 200.5,			
-			priority: prio,
-			column: col,
-			creator: user
-		)
-		
-		assertFalse task.validate()
-		println task.errors.allErrors
-		assertEquals 1, task.errors.allErrors.size()
-		assertNull task.save()
-	}
-	
-	void testFailWithoutPrio() {
-		//Preperation
-		def col = Column.findByName('mycolumn')
-		def user = User.findByUsername('testuser')
-		def color = Color.findByColorCode('#FFFFFF')		
-		assertNotNull col
-		assertNotNull user
-		assertNotNull color		
-		
-		def task = new Task(
-			name: 'mytask',
-			durationHours: 200.5,
-			color: color,			
-			column: col,
-			creator:user
-		)
-		
-		assertFalse task.validate()
-		assertEquals 1, task.errors.allErrors.size()
-		assertNull task.save()
-	}
 	
 	void testFailWithoutColumn() {
 		//Preperation		
-		def user = User.findByUsername('testuser')
-		def color = Color.findByColorCode('#FFFFFF')
-		def prio = Priority.findByName('critital')		
-		assertNotNull user
-		assertNotNull color
-		assertNotNull prio
+		def user = User.findByUsername('testuser')					
+		assertNotNull user				
 		
 		def task = new Task(
 			name: 'mytask',
-			durationHours: 200.25,
-			color: color,
-			priority: prio,			
+			durationHours: 200.25,						
 			creator: user
 		)
 		
@@ -255,18 +167,12 @@ class TaskTests extends GrailsUnitTestCase {
 	
 	void testFailWithoutcreator() {
 		//Preperation
-		def col = Column.findByName('mycolumn')		
-		def color = Color.findByColorCode('#FFFFFF')
-		def prio = Priority.findByName('critital')
-		assertNotNull col		
-		assertNotNull color
-		assertNotNull prio
+		def col = Column.findByName('mycolumn')						
+		assertNotNull col						
 		
 		def task = new Task(
 			name: 'mytask',
-			durationHours: 200.25,
-			color: color,
-			priority: prio,
+			durationHours: 200.25,						
 			column: col
 		)
 		
