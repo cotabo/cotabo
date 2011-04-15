@@ -136,8 +136,9 @@
 			$('.column:last > ul > li > .task-header > .ui-icon').click()
         </jq:jquery>
     </head>
-    <body>
+    <body>    	
     	<tb:board board="${boardInstance}">
+    		<g:render template="menu"/>
     		<g:each in="${boardInstance.columns}" var="column">
     		<tb:column column="${column}">
     			<g:each in="${column.tasks}" var="task">

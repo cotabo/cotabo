@@ -14,7 +14,7 @@ class BoardTagLib {
 		"""						
 		body() ? out << body() :
 		out << """
-		</div>
+		</div>		
 		"""		
 	}
 	
@@ -65,7 +65,7 @@ class BoardTagLib {
 				<div>${attrs.task?.name}</div>
 				<span class="ui-icon ui-icon ui-icon-arrowthickstop-1-n"/>
 			</div>
-			<div class="task-content ui-widget-content">
+			<div class="task-content ui-widget-content" style="background:${attrs.task?.color};">
 				<table>
 					<tbody>
 						<tr>
