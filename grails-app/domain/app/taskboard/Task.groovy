@@ -1,4 +1,5 @@
 package app.taskboard
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 
 /**
  * Represents a Task object on a Taskboard column.
@@ -20,7 +21,9 @@ class Task implements Comparable {
 	
 	String name
 	String description
-	double durationHours	
+	double durationHours
+	String priority
+	String color	
 	
     static constraints = {
 		name blank:false, maxSize:100
@@ -30,6 +33,8 @@ class Task implements Comparable {
 		creator nullable:false
 		assignee nullable:true
 		sortorder nullable:false, min:0
+		priority nullable:false, validator: {val, obj -> val in grailsConfig.config.taskboard.priorities }
+		color nullable:false, validator: {val, obj -> val in grailsConfig.config.taskboard.colors }
     }
 	
 	@Override

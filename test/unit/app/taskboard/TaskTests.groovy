@@ -5,6 +5,10 @@ import grails.test.*
 class TaskTests extends GrailsUnitTestCase {
     protected void setUp() {
         super.setUp()
+		mockConfig '''
+			taskboard.colors = ['#faf77a', '#fa7a88', '#bcbcf5', '#f9d7a9']
+			taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
+	    '''
 		mockDomain(User,[
 			new User(
 				username: 'testuser',
@@ -25,7 +29,9 @@ class TaskTests extends GrailsUnitTestCase {
 		
 		mockDomain(Task)
 		mockDomain(Column, [column])
-		mockDomain(Board, [board])				
+		mockDomain(Board, [board])
+		
+		
     }
 
     protected void tearDown() {
@@ -44,7 +50,9 @@ class TaskTests extends GrailsUnitTestCase {
 			durationHours: 0.5, 						
 			column: col, 
 			creator: user,
-			sortorder: 1
+			sortorder: 1,
+			color: '#faf77a',
+			priority: 'Critical'
 		)
 		assertTrue task.validate()
 		assertNotNull task.save()
@@ -63,7 +71,9 @@ class TaskTests extends GrailsUnitTestCase {
 			durationHours: 0.5,			
 			column: col,
 			creator: user,
-			assignee:user
+			assignee:user,
+			color: '#faf77a',
+			priority: 'Critical'
 		)
 		assertTrue task.validate()
 		assertNotNull task.save()
@@ -82,7 +92,9 @@ class TaskTests extends GrailsUnitTestCase {
 			name: 'mytask',
 			durationHours: 1,			
 			column: col,
-			creator: user
+			creator: user,
+			color: '#faf77a',
+			priority: 'Critical'
 		)
 		assertTrue task.validate()
 		assertNotNull task.save()
@@ -99,7 +111,9 @@ class TaskTests extends GrailsUnitTestCase {
 		def task = new Task(			
 			durationHours: 0.5,						
 			column: col,
-			creator: user
+			creator: user,
+			color: '#faf77a',
+			priority: 'Critical'
 		)
 		
 		assertFalse task.validate()
@@ -121,7 +135,9 @@ class TaskTests extends GrailsUnitTestCase {
 			name: name,
 			durationHours: 0.5,						
 			column: col,
-			creator: user
+			creator: user,
+			color: '#faf77a',
+			priority: 'Critical'
 		)
 		
 		assertFalse task.validate()
@@ -140,7 +156,9 @@ class TaskTests extends GrailsUnitTestCase {
 			name: 'mytask',
 			durationHours: 800.25,			
 			column: col,
-			creator: user
+			creator: user,
+			color: '#faf77a',
+			priority: 'Critical'
 		)
 		
 		assertFalse task.validate()
@@ -157,7 +175,9 @@ class TaskTests extends GrailsUnitTestCase {
 		def task = new Task(
 			name: 'mytask',
 			durationHours: 200.25,						
-			creator: user
+			creator: user,
+			color: '#faf77a',
+			priority: 'Critical'
 		)
 		
 		assertFalse task.validate()
@@ -173,11 +193,97 @@ class TaskTests extends GrailsUnitTestCase {
 		def task = new Task(
 			name: 'mytask',
 			durationHours: 200.25,						
-			column: col
+			column: col,
+			color: '#faf77a',
+			priority: 'Critical'
 		)
 		
 		assertFalse task.validate()
 		assertEquals 1, task.errors.allErrors.size()
 		assertNull task.save()
 	}
+	
+	void testFailWithoutColor() {
+		//Preperation
+		def col = Column.findByName('mycolumn')
+		def user = User.findByUsername('testuser')
+		assertNotNull col
+		assertNotNull user
+		
+		def task = new Task(
+			name: 'mytask',
+			durationHours: 0.5,
+			column: col,
+			creator: user,
+			sortorder: 1,			
+			priority: 'Critical'
+		)
+		assertFalse task.validate()
+		assertNull task.save()
+		assertNull Task.findByName('mytask')
+	}
+	
+	
+	
+	void testFailWithoutPriority() {
+		//Preperation
+		def col = Column.findByName('mycolumn')
+		def user = User.findByUsername('testuser')
+		assertNotNull col
+		assertNotNull user
+		
+		def task = new Task(
+			name: 'mytask',
+			durationHours: 0.5,
+			column: col,
+			creator: user,
+			sortorder: 1,
+			color: '#faf77a'			
+		)
+		assertFalse task.validate()
+		assertNull task.save()
+		assertNull Task.findByName('mytask')
+	}
+	
+	void testFailNotConfiguredColor() {
+		//Preperation
+		def col = Column.findByName('mycolumn')
+		def user = User.findByUsername('testuser')
+		assertNotNull col
+		assertNotNull user
+		
+		def task = new Task(
+			name: 'mytask',
+			durationHours: 0.5,
+			column: col,
+			creator: user,
+			sortorder: 1,
+			color: '#ffffff',
+			priority: 'Critical'
+		)
+		assertFalse task.validate()
+		assertNull task.save()
+		assertNull Task.findByName('mytask')
+	}
+	
+	void testFailNotConfiguredPriority() {
+		//Preperation
+		def col = Column.findByName('mycolumn')
+		def user = User.findByUsername('testuser')
+		assertNotNull col
+		assertNotNull user
+		
+		def task = new Task(
+			name: 'mytask',
+			durationHours: 0.5,
+			column: col,
+			creator: user,
+			sortorder: 1,
+			color: '#faf77a',
+			priority: 'HyperCritical'
+		)
+		assertFalse task.validate()
+		assertNull task.save()
+		assertNull Task.findByName('mytask')
+	}	
 }

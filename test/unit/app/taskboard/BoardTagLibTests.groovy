@@ -5,7 +5,11 @@ import grails.test.*
 
 class BoardTagLibTests extends TagLibUnitTestCase {
     protected void setUp() {
-        super.setUp()		
+        super.setUp()	
+		mockConfig '''
+			taskboard.colors = ['#faf77a', '#fa7a88', '#bcbcf5', '#f9d7a9']
+			taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
+		'''
 		mockDomain(Board)
 		mockDomain(Column)				
 		mockDomain(User, [
@@ -97,7 +101,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 						</tr>
 						<tr>
 							<td><b>Priority:</b></td>
-							<td>critical</td>
+							<td>Critical</td>
 						</tr>
 						<tr>
 							<td><b>Assignee:</b></td>
@@ -117,7 +121,9 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			durationHours: 0.5, 						
 			column: new Column(id: 1, name:'koffer', limit: 5), 
 			creator: user,
-			assignee: user
+			assignee: user,
+			color: '#faf77a',
+			priority: 'Critical'
 		)
 		
 		def tl = new BoardTagLib()

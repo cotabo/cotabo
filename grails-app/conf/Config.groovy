@@ -93,6 +93,12 @@ grails.plugins.springsecurity.userLookup.userDomainClassName = 'app.taskboard.Us
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'app.taskboard.UserRole'
 grails.plugins.springsecurity.authority.className = 'app.taskboard.Role'
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.Annotation
-
-
+//JQuery plugin
 grails.views.javascript.library="jquery"
+
+//Application specific configuratuib
+//TODO: pull this out to a seperate file
+taskboard.colors = ['#faf77a', '#fa7a88', '#bcbcf5', '#f9d7a9']
+taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
+
+

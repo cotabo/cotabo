@@ -28,9 +28,8 @@ class BoardController {
 			columnList << new Column(name:'In Progress', description:'Things that are currently in Progress', limit: 4)
 			columnList << new Column(name:'Done!', description:'Things that have already been done')
 			boardInstance.columns = columnList
-		}
-		
-        return [boardInstance: boardInstance, colors:Color.list(max:16)]
+		}		
+        return [boardInstance: boardInstance]
     }
 
     def save = {
@@ -47,10 +46,7 @@ class BoardController {
 			render(view: "create", model: [boardInstance: create()])
 			return
 		}		 
-		
-		//Binding all request data apart from defaultColor & Priority because
-		//the bindData would try to save a new instance for them
-		//and this would fail because of the unique constraint of them.
+
 		bindData(boardInstance, params)	
 
 		def principal = springSecurityService.principal
