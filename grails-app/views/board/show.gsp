@@ -92,7 +92,6 @@
 
 			
 			/**
-			 *
 			 * Can be used for the stop event. Updating only the column sort order
 			 */ 
 			var updateColumn = function(event, ui) {

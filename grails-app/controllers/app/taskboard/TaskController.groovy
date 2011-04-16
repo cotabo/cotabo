@@ -1,7 +1,10 @@
 package app.taskboard
 
-class TaskController {
+import grails.converters.*
 
+class TaskController {
+	def springSecurityService
+	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index = {
@@ -19,14 +22,45 @@ class TaskController {
         return [taskInstance: taskInstance]
     }
 
-    def save = {
+    def save = {		
         def taskInstance = new Task(params)
+		taskInstance.column = Column.list().first()				
+		taskInstance.creator = User.findByUsername(springSecurityService.principal.username)		
+		//Get the highest sortorder of the current column + 1
+		taskInstance.sortorder = Task.createCriteria().get {
+			eq("column", taskInstance.column)
+			projections {
+				max("sortorder")
+			}
+		} + 1
+		
+		
         if (taskInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'task.label', default: 'Task'), taskInstance.id])}"
-            redirect(action: "show", id: taskInstance.id)
+			withFormat {
+				html {
+					redirect(action: "show", id: taskInstance.id)
+				}
+				//Would normally expect json as we also send the accept heade
+				//on the request but somehow this is negotiated based on the content-type
+				form {
+					render taskInstance as JSON
+				}
+			}            
         }
-        else {
-            render(view: "create", model: [taskInstance: taskInstance])
+        else {						
+			withFormat {
+				//Would normally expect json as we also send the accept heade
+				//on the request but somehow this is negotiated based on the content-type
+				form {		
+					println taskInstance as JSON
+					//We render all errors on the client side								
+					render taskInstance.errors as JSON					
+				}
+				html {
+					render(view: "create", model: [taskInstance: taskInstance])
+				}	
+			}	            
         }
     }
 

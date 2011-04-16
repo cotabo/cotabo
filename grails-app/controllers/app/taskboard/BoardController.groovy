@@ -1,6 +1,7 @@
 package app.taskboard
 
 import grails.plugins.springsecurity.Secured
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 
 @Secured(['ROLE_USER'])
 class BoardController {
@@ -29,7 +30,11 @@ class BoardController {
 			columnList << new Column(name:'Done!', description:'Things that have already been done')
 			boardInstance.columns = columnList
 		}		
-        return [boardInstance: boardInstance]
+        return [
+			boardInstance: boardInstance, 
+			colors:grailsConfig.config.taskboard.colors, 
+			priorities:grailsConfig.config.taskboard.priorities 
+		]
     }
 
     def save = {
@@ -71,7 +76,11 @@ class BoardController {
             redirect(action: "list")
         }
         else {
-            [boardInstance: boardInstance]
+			[
+				boardInstance: boardInstance,
+				colors:grailsConfig.config.taskboard.colors,
+				priorities:grailsConfig.config.taskboard.priorities
+			]			
         }
     }
 

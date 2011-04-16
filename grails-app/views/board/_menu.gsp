@@ -1,29 +1,34 @@
 <jq:jquery>
+	/**
+	 * Button behavior
+	 */
 	$('#b_create_task').button({
 		icons: {
 			primary: 'ui-icon-document'
 		}		
 	}).click(function() {
 		$('#createTaskForm').dialog('open');
-	});
+	});	
 	
+	/**
+	 * Dialog with form content.
+	 */
 	$('#createTaskForm').dialog({
 		autoOpen: false,
-		height: 400,
+		height: 450,
 		width: 450,
 		modal: true,
 		buttons: {
 			"create task": function() {
-				//$('#task_create_form').submit();
-				//TODO: need to ajax submit & validate this form 
-				//try validation with http://code.google.com/p/jquery-validation-ui-plugin/
+				resetDialogErrors('#createTaskForm');				
+				$('#taskForm').submit();				
 			},			
 			"cancel": function() {
 				$( this ).dialog( "close" );
 			}
 		},
 		close: function() {
-			$('#createTaskForm :input').val("");
+			resetDialogErrors('#createTaskForm');		
 		}
 	});
 	

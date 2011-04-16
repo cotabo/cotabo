@@ -57,9 +57,7 @@ class ColumnController {
 				returncode = 1
 				message = 'Error occured while persisting the data. Please contact the system administrator'
 			}
-		}
-		
-
+		}		
 	}
 	
 	private void updateTaskOrder(ArrayList orderedIdList) {
@@ -70,10 +68,11 @@ class ColumnController {
 				//Set the current iteration index as the sort order to maintain
 				//as the user sees it.
 				tmpTask.sortorder = idx
-				if (!tmpTask.save()) {
+				if (!tmpTask.save(flush:false)) {
 					flash.message = "Error ordering Task items [$tmpTask]. Entry not valid."
 				}
 			}
+			sessionFactory?.getCurrentSession()?.flush()
 		}
 	}
 }

@@ -47,7 +47,7 @@ class Task implements Comparable {
 	}	
 	
 	static mapping = {
-		sort sortorder:'asc'
+		sort sortorder:'asc'		
 	}
 
 }

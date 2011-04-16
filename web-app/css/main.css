@@ -66,8 +66,7 @@ h3 {
 	padding: 3px;
 }
 p {	
-	text-align: justify;
-	padding: 3px 0;
+	text-align: justify;	
 }
 a, a:visited {	
 	color:#373737;
@@ -126,4 +125,11 @@ p.meta_description {
 	font-style:italic;
 	color: #808080;
 	font-size:12px;
+}
+
+input.error {
+	border: 1px solid #de3b3b;
+}
+.italic {
+	font-style:italic;
 }

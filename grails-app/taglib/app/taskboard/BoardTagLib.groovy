@@ -78,7 +78,7 @@ class BoardTagLib {
 						</tr>
 						<tr>
 							<td><b>Assignee:</b></td>
-							<td>${attrs.task?.assignee?.firstname} ${attrs.task?.assignee?.lastname}</td>
+							<td>${attrs.task?.assignee}</td>
 						</tr>
 					</tbody>
 				</table>
