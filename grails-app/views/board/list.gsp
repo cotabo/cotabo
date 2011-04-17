@@ -7,7 +7,7 @@
         <title>Taskboar - list</title>
     </head>
     <body>                
-	    <h1>Taskboard list</h1>
+	    <h1>your boards</h1>
 	    <g:if test="${flash.message}">
 	    <div class="message">${flash.message}</div>
 	    </g:if>	    
