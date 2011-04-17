@@ -63,7 +63,7 @@ class BoardTagLib {
 		<li class="ui-widget" id="task_${attrs.task.id}">
 			<div class="task-header ui-state-default">
 				<div>${attrs.task?.name}</div>
-				<span class="ui-icon ui-icon ui-icon-arrowthickstop-1-n"/>
+				<span class="ui-icon ui-icon ui-icon-carat-1-n"/>
 			</div>
 			<div class="task-content ui-widget-content" style="background:${attrs.task?.color};">
 				<table>

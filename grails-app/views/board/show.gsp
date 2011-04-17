@@ -13,11 +13,11 @@
 			 */
 			var handleClickHeader = function(event) {
 				$(this).parent('div').next('div').toggle();
-				if ($(this).hasClass('ui-icon-arrowthickstop-1-n')) {
-					$(this).removeClass('ui-icon-arrowthickstop-1-n').addClass('ui-icon-arrowthickstop-1-s');
+				if ($(this).hasClass('ui-icon-carat-1-n')) {
+					$(this).removeClass('ui-icon-carat-1-n').addClass('ui-icon-carat-1-s');
 				}
-				else if ($(this).hasClass('ui-icon-arrowthickstop-1-s')){
-					$(this).removeClass('ui-icon-arrowthickstop-1-s').addClass('ui-icon-arrowthickstop-1-n');
+				else if ($(this).hasClass('ui-icon-carat-1-s')){
+					$(this).removeClass('ui-icon-carat-1-s').addClass('ui-icon-carat-1-n');
 					
 				}		
 				return false;
@@ -77,7 +77,7 @@
 						//If an element is moved to the last column
 						if (toColumnId == $(".column:last > ul").attr('id').split('_')[1]) {
 							//and it it ellapsed			
-							if ($(ui.item).children('div:first').children('span').hasClass('ui-icon-arrowthickstop-1-n')) {
+							if ($(ui.item).children('div:first').children('span').hasClass('ui-icon-carat-1-n')) {
 								//Collapse it
 								$(ui.item).children('div:first').children('span').click()
 							}
@@ -129,10 +129,11 @@
 			});	
         	//Update on document load time.
         	setElementCountOnColumn();	 
-			//Apply the click handly to all expand/collapse icons
+			//Apply the click handle to all expand/collapse icons
 			$('.task-header .ui-icon').click(handleClickHeader);
 			//Collapse all items in the last column onLoad
 			$('.column:last > ul > li > .task-header > .ui-icon').click();
+			$('.column:first > ul > li > .task-header > .ui-icon').click();
         </jq:jquery>
     </head>
     <body>    	

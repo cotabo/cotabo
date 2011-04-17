@@ -10,10 +10,7 @@ body {
 .head-back {
 	margin: 0;
 	width:100%;
-	height:116px;
-	background: #05394e;
-	border-top: 2px inset #dfdfdf;
-	border-bottom: 2px outset #dfdfdf;	
+	height:110px;	
 }
 
 .page-wrap {
@@ -27,7 +24,7 @@ body {
 .head {
 	width:100%;	
 	overflow:hidden;
-	height:120px;	
+	height:110px;	
 }
 .head .logo {	
 	position:absolute;
@@ -38,21 +35,12 @@ body {
 .head span#user p {
 	margin-left:20px;
 	margin-top: 10px;
-	color:#ffffff;
-	font-weight:bold;
-}
-.head_link, 
-.head_link:hover, 
-.head_link:active, 
-.head_link:visited:hover,
-.head_link:visited {
-	font-weight:bold;
-	color:#ffffff;
 }
 
 .sub-head {
+	width:100%;
 	height:30px;
-	background-color: #b9b9b9;	
+	padding-top: 2px;	
 }
 
 h1 {

@@ -90,7 +90,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 		<li class="ui-widget" id="task_1">
 			<div class="task-header ui-state-default">
 				<div>mytask</div>
-				<span class="ui-icon ui-icon ui-icon-arrowthickstop-1-n"/>
+				<span class="ui-icon ui-icon ui-icon-carat-1-n"/>
 			</div>
 			<div class="task-content ui-widget-content">
 				<table>
