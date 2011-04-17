@@ -26,7 +26,7 @@
         			</p>
         		</span>
         		<div class="logo">
-        			<!-- <img src="${resource(dir:'images',file:'logo.png')}"/>-->
+        			<img src="${resource(dir:'images',file:'logo.png')}"/>
         		</div>
 
         	</div>     

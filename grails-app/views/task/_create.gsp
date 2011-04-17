@@ -7,8 +7,8 @@
 		if (checkForSuccess(data, '#createTaskForm')) {
 			
 		}
-	}
-	
+		return false;
+	}	
 	
 	/**
 	 * Submit event overwrite for the task create form.

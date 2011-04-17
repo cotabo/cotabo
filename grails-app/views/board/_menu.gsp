@@ -8,6 +8,7 @@
 		}		
 	}).click(function() {
 		$('#createTaskForm').dialog('open');
+		return true;
 	});	
 	
 	$('#b_collapse').button({
