@@ -71,7 +71,7 @@ class BoardTagLib {
 					<tbody>
 						<tr>
 							<td><b>Description:</b></td>
-							<td>${attrs.task?.description}</td>
+							<td>${attrs.task?.description ?: ''}</td>
 						</tr>
 						<tr>
 							<td><b>Priority:</b></td>
@@ -79,7 +79,7 @@ class BoardTagLib {
 						</tr>
 						<tr>
 							<td><b>Assignee:</b></td>
-							<td>${attrs.task?.assignee}</td>
+							<td>${attrs.task?.assignee ?: ''}</td>
 						</tr>
 					</tbody>
 				</table>

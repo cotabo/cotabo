@@ -28,6 +28,7 @@
         		<div class="logo">
         			<!-- <img src="${resource(dir:'images',file:'logo.png')}"/>-->
         		</div>
+
         	</div>     
         	<div class="sub-head ui-widget-header ui-corner-bottom">
         		<!-- every sub page can specivy a content tag with the name 'toolbar' -->

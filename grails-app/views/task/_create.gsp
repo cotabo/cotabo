@@ -36,9 +36,6 @@
 	
 </jq:jquery>
 <div id="createTaskForm" title="new task">	
-    <g:if test="${flash.message}">
-    <div class="message">${flash.message}</div>
-    </g:if>
     <g:hasErrors bean="${boardInstance}">
 	    <div class="errors">
 	    <g:renderErrors bean="${boardInstance}" as="list" />
@@ -78,7 +75,7 @@
     					<label for="priority" alt="The priority of this task">priority *</label>
     				</td>
     				<td>
-    					<g:select from="${priorities}" value="${priorities[0]}" name="priority"></g:select>
+    					<g:select from="${priorities}" value="${grailsApplication.config.taskboard.default.priority}" name="priority"></g:select>
     				</td>
     			</tr>
     			<tr>
@@ -86,7 +83,7 @@
     					<label for="color" alt="The color with this this task gets displayed">color *</label>
     				</td>
     				<td>
-    					<g:select from="${colors}" value="${colors[0]}" name="color"></g:select>
+    					<g:select from="${colors}" value="${grailsApplication.config.taskboard.default.color}" name="color"></g:select>
     				</td>
     			</tr>
     		</tbody>

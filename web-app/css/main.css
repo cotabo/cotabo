@@ -19,7 +19,8 @@ body {
 	position: absolute;
 	top:0px;
 	margin-left:2.5%;
-	font-size: 1.0em;
+	font-size: 12px;
+	min-height: 90%;
 }
 .head {
 	width:100%;	
