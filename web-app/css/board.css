@@ -67,16 +67,24 @@
 	overflow:hidden;
 	text-align: center;	
 }
-.task-header div {
+.task-header div.head_name {
 	float:left;
 	padding-left: 10px;
 }
-.task-header span {
+.task-header span.ui-icon {
 	float:right;
 	margin-top: 3px;	
 	cursor: pointer;
 	height: 20px;		
 }
+.task-header div.head_color {
+	float:left;
+	margin-top: 5px;
+	margin-left: 5px;
+	width:12px;
+	height:12px;
+}
+
 div.task-content {	
 	height:128px;
 	padding-left: 8px;

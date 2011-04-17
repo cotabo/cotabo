@@ -8,7 +8,7 @@
         <title>TaskBoard - ${boardInstance?.name}</title>
         <jq:jquery>  
     		/**
-			 * Expand/Collapse tasks on click of the exapnder icon.
+			 * Expand/Collapse tasks on click of the exapnd icon.
 			 *
 			 */
 			var handleClickHeader = function(event) {
