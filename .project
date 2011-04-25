@@ -24,84 +24,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>famfamfam-1.0.1-grails-app-taglib</name>
+			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/famfamfam-1.0.1/grails-app/taglib</location>
-		</link>
-		<link>
-			<name>jquery-1.4.3.2-grails-app-conf</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/jquery-1.4.3.2/grails-app/conf</location>
-		</link>
-		<link>
-			<name>jquery-1.4.3.2-grails-app-i18n</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/jquery-1.4.3.2/grails-app/i18n</location>
-		</link>
-		<link>
-			<name>jquery-1.4.3.2-grails-app-services</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/jquery-1.4.3.2/grails-app/services</location>
-		</link>
-		<link>
-			<name>jquery-1.4.3.2-grails-app-taglib</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/jquery-1.4.3.2/grails-app/taglib</location>
-		</link>
-		<link>
-			<name>jquery-1.4.3.2-src-groovy</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/jquery-1.4.3.2/src/groovy</location>
-		</link>
-		<link>
-			<name>jquery-ui-1.8.6-grails-app-i18n</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/jquery-ui-1.8.6/grails-app/i18n</location>
-		</link>
-		<link>
-			<name>jquery-ui-1.8.6-grails-app-taglib</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/jquery-ui-1.8.6/grails-app/taglib</location>
-		</link>
-		<link>
-			<name>jquery-validation-1.7.3-grails-app-conf</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/jquery-validation-1.7.3/grails-app/conf</location>
-		</link>
-		<link>
-			<name>jquery-validation-1.7.3-grails-app-taglib</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/jquery-validation-1.7.3/grails-app/taglib</location>
-		</link>
-		<link>
-			<name>spring-security-core-1.0.1-grails-app-conf</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-core-1.0.1/grails-app/conf</location>
-		</link>
-		<link>
-			<name>spring-security-core-1.0.1-grails-app-services</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-core-1.0.1/grails-app/services</location>
-		</link>
-		<link>
-			<name>spring-security-core-1.0.1-grails-app-taglib</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-core-1.0.1/grails-app/taglib</location>
-		</link>
-		<link>
-			<name>spring-security-core-1.0.1-src-groovy</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-core-1.0.1/src/groovy</location>
-		</link>
-		<link>
-			<name>spring-security-core-1.0.1-src-java</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/spring-security-core-1.0.1/src/java</location>
-		</link>
-		<link>
-			<name>tomcat-1.3.5-src-groovy</name>
-			<type>2</type>
-			<location>C:/Dokumente und Einstellungen/Administrator/.grails/1.3.5/projects/taskboard/plugins/tomcat-1.3.5/src/groovy</location>
+			<locationURI>GRAILS_ROOT/1.3.5/projects/taskboard/plugins</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

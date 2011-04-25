@@ -5,7 +5,11 @@
 	var submitCallback = function(data, textStatus, jqXHR) {
 		//See utils.js for definition of checkForSuccess
 		if (checkForSuccess(data, '#createTaskForm')) {
-			
+			//TODO: close the dialog with animation to the bottom of the first column
+			$('div.column:first > ul').append(data);
+			$('div.column:first > ul > li:last > .task-header > .ui-icon-carat-1-n').click();
+			$('#createTaskForm').dialog('close');
+			$('div.column:first > ul > li:last > .task-header').effect('Bounce');
 		}
 		return false;
 	}	
@@ -17,8 +21,7 @@
 		$.ajax({		
 			type: 'POST',
 			url: $(this).attr('action'),
-			data: $(this).serialize(),
-			dataType: 'json',			
+			data: $(this).serialize(),				
 			success: submitCallback
 		 });					 
 		 //Don't really submit
@@ -60,6 +63,20 @@
     				</td>
     				<td>
     					<g:textArea name="description" cols="30" rows="3"/>
+    				</td>
+    			</tr>
+ 			    <tr>
+    				<td>
+    					<label for="assignee" alt="The assignee for this task" class="optional">assignee</label>
+    				</td>
+    				<td>
+    					<g:set var="assignees" value="${(boardInstance.users +  boardInstance.admins).unique()}"/>
+    					<g:select name="assignee" 
+    						from="${assignees}" 
+    						noSelection="${['null':'']}"
+    						value=""
+    						optionKey="id"
+						/>
     				</td>
     			</tr>
     			<tr>

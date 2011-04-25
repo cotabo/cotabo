@@ -23,9 +23,12 @@ class TaskController {
     }
 
     def save = {		
-        def taskInstance = new Task(params)
+        def taskInstance = new Task()
+		//Bind data but excluse column, creator, assignee & sortorder
+		bindData(taskInstance, params, ['column','creator','assignee','sortorder'])
 		taskInstance.column = Column.list().first()				
-		taskInstance.creator = User.findByUsername(springSecurityService.principal.username)		
+		taskInstance.creator = User.findByUsername(springSecurityService.principal.username)
+		taskInstance.assignee = User.get(params.assignee)		
 		//Get the highest sortorder of the current column + 1
 		taskInstance.sortorder = Task.createCriteria().get {
 			eq("column", taskInstance.column)
@@ -44,13 +47,13 @@ class TaskController {
 				//Would normally expect json as we also send the accept heade
 				//on the request but somehow this is negotiated based on the content-type
 				form {
-					render taskInstance as JSON
+					render(template:"show",model:[taskInstance:taskInstance])
 				}
 			}            
         }
         else {						
 			withFormat {
-				//Would normally expect json as we also send the accept heade
+				//Would normally expect json as we also send the json accept header
 				//on the request but somehow this is negotiated based on the content-type
 				form {		
 					println taskInstance as JSON

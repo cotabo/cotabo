@@ -130,10 +130,10 @@
         	//Update on document load time.
         	setElementCountOnColumn();	 
 			//Apply the click handle to all expand/collapse icons
-			$('.task-header .ui-icon').click(handleClickHeader);
+			$('.task-header .ui-icon').live('click', handleClickHeader);
 			//Collapse all items in the last column onLoad
-			$('.column:last > ul > li > .task-header > .ui-icon').click();
-			$('.column:first > ul > li > .task-header > .ui-icon').click();
+			$('.column:last > ul > li > .task-header > .ui-icon-carat-1-n').click();
+			$('.column:first > ul > li > .task-header > .ui-icon-carat-1-n').click();
         </jq:jquery>
     </head>
     <body>    	
