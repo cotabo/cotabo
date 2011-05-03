@@ -15,20 +15,15 @@ class ColumnControllerTests extends GrailsUnitTestCase {
 
 		def expectedResult = '{"returncode":0,"message":""}'
 		def controller = new ColumnController()
-		controller.params.fromColumnId = 1
-		controller.params.toColumnid = 2
+		controller.params.fromColumn = 1
+		controller.params.toColumn = 2
 		controller.params.taskid = 2
 		def result = controller.updatetasks()			
 		assertNotNull controller.response.contentAsString
 		assertEquals expectedResult, controller.response.contentAsString 
-		def expectedTask = Task.findByName('Bootstrap Webserver')
+		def expectedTask = Task.findByName('Setup WebLogic')		
 		def expectedColumn = Column.findByName('In Progress')
-		assertEquals expectedTask.column, expectedColumn
-		def task = Task.get(1)
-		assertEquals task.column, expectedColumn
-		assertNotNull Column.get(2).tasks.find {it.id == 1}
-		assertEquals Task.get(1).column.id , 2		
-		assertNull Task.list().find { it == null }
+		assertEquals expectedColumn, expectedTask.column 
     }
 	
 	void testInvalidRespondeForMissingTask() {
