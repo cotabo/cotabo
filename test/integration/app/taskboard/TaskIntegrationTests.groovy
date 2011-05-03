@@ -15,21 +15,18 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 	void testCreationAddToColumn() {
 		//Preperation
 		def col = Column.findByName('ToDo')
-		def user = User.findByUsername('admin')
-		def color = Color.findByColorCode('#FFFFFF')
-		def prio = Priority.findByName('critical')
+		def user = User.findByUsername('admin')				
 		
 		assertNotNull col
-		assertNotNull user
-		assertNotNull color
-		assertNotNull prio
+		assertNotNull user				
 		
 		def newCol =col.addToTasks(
 			name: 'mytask',
 			durationHours: 0.5,
-			color: color,
-			priority: prio,
-			creator: user
+			creator: user,
+			sortorder: 100,
+			priority: 'Critical',
+			color: '#faf77a'
 		)
 		assertTrue newCol.validate()
 		assertNotNull newCol.save()
