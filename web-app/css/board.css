@@ -66,6 +66,7 @@
 	line-height:22px;
 	overflow:hidden;
 	text-align: center;	
+	cursor: move;
 }
 .task-header div.head_name {
 	float:left;

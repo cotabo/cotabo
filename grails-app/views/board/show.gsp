@@ -12,7 +12,7 @@
 			 *
 			 */
 			var handleClickHeader = function(event) {
-				$(this).parent('div').next('div').toggle();
+				$(this).parent('div').next('div').toggle('blind', {}, 200);
 				if ($(this).hasClass('ui-icon-carat-1-n')) {
 					$(this).removeClass('ui-icon-carat-1-n').addClass('ui-icon-carat-1-s');
 				}
@@ -127,6 +127,8 @@
 					
 				});
 			});	
+			
+			$(".task-content").enableSelection();
         	//Update on document load time.
         	setElementCountOnColumn();	 
 			//Apply the click handle to all expand/collapse icons

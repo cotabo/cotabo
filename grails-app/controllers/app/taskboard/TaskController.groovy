@@ -28,7 +28,14 @@ class TaskController {
 		bindData(taskInstance, params, ['column','creator','assignee','sortorder'])
 		taskInstance.column = Column.list().first()				
 		taskInstance.creator = User.findByUsername(springSecurityService.principal.username)
-		taskInstance.assignee = User.get(params.assignee)		
+		if (params.assignee && params.assignee.trim() != '') {
+			try {
+				taskInstance.assignee = User.get(params.assignee)
+			}
+			catch (org.hibernate.TypeMismatchException e) {
+				render e.message
+			}
+		}		
 		//Get the highest sortorder of the current column + 1
 		taskInstance.sortorder = Task.createCriteria().get {
 			eq("column", taskInstance.column)

@@ -44,7 +44,7 @@ class Task implements Comparable {
 	
 	int compareTo(obj) {
 		sortorder <=> obj?.sortorder
-	}	
+	}
 	
 	static mapping = {
 		sort sortorder:'asc'		

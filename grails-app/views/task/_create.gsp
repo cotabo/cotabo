@@ -7,9 +7,9 @@
 		if (checkForSuccess(data, '#createTaskForm')) {
 			//TODO: close the dialog with animation to the bottom of the first column
 			$('div.column:first > ul').append(data);
-			$('div.column:first > ul > li:last > .task-header > .ui-icon-carat-1-n').click();
+			$('div.column:first > ul > li:last >').scroll();
 			$('#createTaskForm').dialog('close');
-			$('div.column:first > ul > li:last > .task-header').effect('Bounce');
+			$('div.column:first > ul > li:last > .task-header').effect('highlight', {}, 600);
 		}
 		return false;
 	}	
@@ -73,7 +73,7 @@
     					<g:set var="assignees" value="${(boardInstance.users +  boardInstance.admins).unique()}"/>
     					<g:select name="assignee" 
     						from="${assignees}" 
-    						noSelection="${['null':'']}"
+    						noSelection="${['':'']}"
     						value=""
     						optionKey="id"
 						/>

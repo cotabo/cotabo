@@ -31,8 +31,11 @@ body {
 	position:absolute;
 	right:30px;
 	top:2px;
-	
 }
+.head .logo span {
+	font-size: 52px;
+}
+
 .head span#user p {
 	margin-left:20px;
 	margin-top: 10px;

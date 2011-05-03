@@ -97,6 +97,10 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 				<table>
 					<tbody>
 						<tr>
+							<td><b>Id:</b></td>
+							<td>#1</td>
+						</tr>
+						<tr>
 							<td><b>Description:</b></td>
 							<td>test description</td>
 						</tr>

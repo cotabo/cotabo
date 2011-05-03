@@ -70,6 +70,10 @@ class BoardTagLib {
 				<table>
 					<tbody>
 						<tr>
+							<td><b>Id:</b></td>
+							<td>#${attrs.task?.id ?: ''}</td>
+						</tr>
+						<tr>
 							<td><b>Description:</b></td>
 							<td>${attrs.task?.description ?: ''}</td>
 						</tr>

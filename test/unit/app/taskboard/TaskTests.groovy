@@ -54,8 +54,10 @@ class TaskTests extends GrailsUnitTestCase {
 			color: '#faf77a',
 			priority: 'Critical'
 		)
-		assertTrue task.validate()
+		assertTrue task.validate()		
 		assertNotNull task.save()
+		assertNotNull task.dateCreated
+		assertNotNull task.lastUpdated
 		assertNotNull Task.findByName('mytask')		
     }
 	
