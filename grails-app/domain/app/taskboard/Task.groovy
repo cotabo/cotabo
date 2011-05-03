@@ -11,7 +11,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 class Task implements Comparable {
 
 	//Relationships
-	static belongsTo = [ column : Column ]
+	static belongsTo = [ column : Column ]	
 	User creator
 	User assignee
 	

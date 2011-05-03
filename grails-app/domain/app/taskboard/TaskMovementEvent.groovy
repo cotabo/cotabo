@@ -9,7 +9,7 @@ package app.taskboard
  * @author Robert Krombholz
  *
  */
-final class TaskMovementEvent {
+class TaskMovementEvent {
 	//The task that this event applies too
 	Task task
 	//From which column it was moved
