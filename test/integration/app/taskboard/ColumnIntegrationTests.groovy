@@ -12,10 +12,7 @@ class ColumnIntegrationTests extends GrailsUnitTestCase {
     }
 	
 	void testblah() {
-		Column.list()[0].tasks.each {
-			println it.sortorder
-		}
-		
+
 	}
 
 

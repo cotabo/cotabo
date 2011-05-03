@@ -40,7 +40,7 @@ class ColumnControllerTests extends GrailsUnitTestCase {
 		def expectedResult = '{"returncode":1,"message":"Either the column or the Task that you have specified does not exist."}'
 		def controller = new ColumnController()
 		controller.params.id = 100
-		controller.params.taskid = 1
+		controller.params.taskid = 2
 		def result = controller.updatetasks()
 		assertNotNull controller.response.contentAsString
 		assertEquals expectedResult, controller.response.contentAsString

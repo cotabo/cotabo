@@ -22,8 +22,8 @@ class TaskService {
 	 * @return a message which is empty then the update was successfull.
 	 */
     String updateSortOrder(List sortedNewTaskIdsTargetColumn) {
-		try {
-			updateTaskOrder(newTaskOrderIdList)
+		try {			
+			updateTaskOrder(sortedNewTaskIdsTargetColumn)
 			sessionFactory?.getCurrentSession()?.flush()
 			return ''
 		}
@@ -53,6 +53,7 @@ class TaskService {
 		def fromColumnInstance = Column.get(fromColumnId)
 		def toColumnInstance = Column.get(tooColumnId)
 		def taskInstance = Task.get(taskId)
+		println "Moving ${taskInstance?.id} too column ${toColumnInstance?.id}"
 		if (fromColumnInstance && toColumnInstance && taskInstance) {
 			fromColumnInstance.removeFromTasks(taskInstance)
 			toColumnInstance.addToTasks(taskInstance)
@@ -114,10 +115,8 @@ class TaskService {
 				def tmpTask = Task.get(obj)
 				//Set the current iteration index as the sort order to maintain
 				//as the user sees it.
-				tmpTask.sortorder = idx
-				if (!tmpTask.save(flush:false)) {
-					flash.message = "Error ordering Task items [$tmpTask]. Entry not valid."
-				}
+				tmpTask.sortorder = idx				
+				tmpTask.save(flush:false)
 			}
 			sessionFactory?.getCurrentSession()?.flush()
 		}
