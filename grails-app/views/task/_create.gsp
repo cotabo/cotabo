@@ -106,5 +106,6 @@
     		</tbody>
     	</table>
     </div>
+    <g:hiddenField name="board" value="${boardInstance.id}"/>
     </g:form>
 </div>

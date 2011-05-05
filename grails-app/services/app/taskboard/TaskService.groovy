@@ -67,8 +67,7 @@ class TaskService {
 		
 		def fromColumnInstance = Column.get(fromColumnId)
 		def toColumnInstance = Column.get(tooColumnId)
-		def taskInstance = Task.get(taskId)
-		println "Moving ${taskInstance?.id} too column ${toColumnInstance?.id}"
+		def taskInstance = Task.get(taskId)		
 		if (fromColumnInstance && toColumnInstance && taskInstance) {
 			fromColumnInstance.removeFromTasks(taskInstance)
 			toColumnInstance.addToTasks(taskInstance)

@@ -28,7 +28,7 @@ class TaskController {
 		//Bind data but excluse column, creator, assignee & sortorder
 		bindData(taskInstance, params, ['column','creator','assignee','sortorder'])
 		
-		taskInstance.column = Column.list().first()
+		taskInstance.column = Board.get(params.board).columns.first()
 		taskInstance.creator = User.findByUsername(springSecurityService.principal.username)
 		if (params.assignee && params.assignee.trim() != '') {
 			try {
