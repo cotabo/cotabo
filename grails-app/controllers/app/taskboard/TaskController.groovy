@@ -4,6 +4,7 @@ import grails.converters.*
 
 class TaskController {
 	def springSecurityService
+	def taskService
 	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -22,11 +23,12 @@ class TaskController {
         return [taskInstance: taskInstance]
     }
 
-    def save = {		
-        def taskInstance = new Task()
+    def save = {				
+		def taskInstance = new Task()
 		//Bind data but excluse column, creator, assignee & sortorder
 		bindData(taskInstance, params, ['column','creator','assignee','sortorder'])
-		taskInstance.column = Column.list().first()				
+		
+		taskInstance.column = Column.list().first()
 		taskInstance.creator = User.findByUsername(springSecurityService.principal.username)
 		if (params.assignee && params.assignee.trim() != '') {
 			try {
@@ -35,7 +37,8 @@ class TaskController {
 			catch (org.hibernate.TypeMismatchException e) {
 				render e.message
 			}
-		}		
+		}
+		
 		//Get the highest sortorder of the current column + 1
 		taskInstance.sortorder = Task.createCriteria().get {
 			eq("column", taskInstance.column)
@@ -43,16 +46,11 @@ class TaskController {
 				max("sortorder")
 			}
 		} + 1
-		
-		
-        if (taskInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'task.label', default: 'Task'), taskInstance.id])}"
+	
+		taskInstance = taskService.saveTask(taskInstance)	
+					
+        if (!taskInstance.hasErrors()) {            
 			withFormat {
-				html {
-					redirect(action: "show", id: taskInstance.id)
-				}
-				//Would normally expect json as we also send the accept heade
-				//on the request but somehow this is negotiated based on the content-type
 				form {
 					render(template:"show",model:[taskInstance:taskInstance])
 				}
@@ -60,16 +58,10 @@ class TaskController {
         }
         else {						
 			withFormat {
-				//Would normally expect json as we also send the json accept header
-				//on the request but somehow this is negotiated based on the content-type
-				form {		
-					println taskInstance as JSON
+				form {							
 					//We render all errors on the client side								
 					render taskInstance.errors as JSON					
 				}
-				html {
-					render(view: "create", model: [taskInstance: taskInstance])
-				}	
 			}	            
         }
     }

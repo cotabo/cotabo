@@ -12,7 +12,22 @@ class TaskService {
 
     static transactional = true
 	def sessionFactory
+	def springSecurityService
 
+	/**
+	 * This method persists task object and generates the necessary events
+	 * from the request parameters.
+	 * 
+	 * @param taskInstance with all necessary properties set.
+	 * @return a task object. Either persistest or with errors populated (use hasErrors()).
+	 */
+	Task saveTask(Task taskInstance) {	
+		if(taskInstance.validate()) {	
+			taskInstance.save(flush:true)
+			createMovementEvent(taskInstance, null, taskInstance.column)
+		}
+		return taskInstance
+	}
 
 	/**
 	 * Updates the sort order of all tasks at the db level as per their
@@ -86,11 +101,15 @@ class TaskService {
 			tooColumn: tooColumn)
 		//And 2 ColumnStatusEntries to capture the state of 
 		//both column after the movement happened.
-		events << new ColumnStatusEntry(
-			column: fromColumn,
-			//We need to create a new collection here
-			tasks: fromColumn.tasks.collect{it}
-		)
+		if (fromColumn) {
+			//Might be zero in terms of task creation
+			events << new ColumnStatusEntry(
+				column: fromColumn,
+				//We need to create a new collection here
+				tasks: fromColumn.tasks.collect{it}
+			)
+		} 
+
 		events << new ColumnStatusEntry(
 			column: tooColumn,
 			//We need to create a new collection here
