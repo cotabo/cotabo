@@ -13,7 +13,6 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
         super.tearDown()
     }
 
-	
 	void testUpdateSortOrder() {		
 		def tasks = [1,3,2,4,5]		
 		taskService.updateSortOrder(tasks)
@@ -61,12 +60,30 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		assertEquals newExpectedTasksForColumn1, ColumnStatusEntry.findAllByColumn(Column.get(1))[1].tasks.collect{it.id}
 		assertEquals newExpectedTasksForColumn2, ColumnStatusEntry.findAllByColumn(Column.get(2))[1].tasks.collect{it.id}
 		
+	}
+	
+	void testSaveTask() {
+		def col = Column.findByName('ToDo')
+		def user = User.findByUsername('admin')
 		
+		def task = new Task(
+			name: 'mytask',
+			durationHours: 0.5,
+			creator: user,
+			sortorder: 100,
+			priority: 'Critical',
+			color: '#faf77a',
+			column: col
+		)
 		
+		task = taskService.saveTask(task)
+		assertEquals 0, task.errors.errorCount 
 		
+		//Check if our tasks appears in the last ColumnStatusEntry
+		assertNotNull ColumnStatusEntry.findAllByColumn(Column.findByName('ToDo')).last().tasks.find{it==task}
 		
-		
-		
+		assertEquals 1, TaskMovementEvent.findAllByTask(task).size()
+
 		
 	}
 }
