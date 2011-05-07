@@ -56,6 +56,7 @@ class BoardTagLib {
 	/**
 	 * attrs: 
 	 * 	task 	[required]
+	 *  hide    [true,false] > hides task content if setted to true
 	 * 	
 	 */
 	def task = {attrs, body ->
@@ -64,9 +65,9 @@ class BoardTagLib {
 			<div class="task-header ui-state-default">
 				<div class="head_color" style="background:${attrs.task?.color};"></div>
 				<div class="head_name">${attrs.task?.name}</div>
-				<span class="ui-icon ui-icon ui-icon-carat-1-n"/>
+				<span class="ui-icon ui-icon ui-icon-carat-1-${attrs.hide ? 's' : 'n'}"/>
 			</div>
-			<div class="task-content ui-widget-content">
+			<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'none' : 'block'}">
 				<table>
 					<tbody>
 						<tr>

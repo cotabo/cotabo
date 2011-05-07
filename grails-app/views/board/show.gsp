@@ -12,14 +12,19 @@
 			 *
 			 */
 			var handleClickHeader = function(event) {
-				$(this).parent('div').next('div').toggle('blind', {}, 200);
-				if ($(this).hasClass('ui-icon-carat-1-n')) {
-					$(this).removeClass('ui-icon-carat-1-n').addClass('ui-icon-carat-1-s');
+				//console.time('native'); 				
+				var north = $(this).hasClass('ui-icon-carat-1-n');
+				if (north) {
+					$(this).removeClass('ui-icon-carat-1-n')
+						.addClass('ui-icon-carat-1-s')
+						.parent('div').next('div').css('display', 'none')					
 				}
-				else if ($(this).hasClass('ui-icon-carat-1-s')){
-					$(this).removeClass('ui-icon-carat-1-s').addClass('ui-icon-carat-1-n');
-					
+				else {
+					$(this).removeClass('ui-icon-carat-1-s')
+						.addClass('ui-icon-carat-1-n')
+						.parent('div').next('div').css('display', 'block');										
 				}		
+				//console.timeEnd('native'); 
 				return false;
 			}	  
         
@@ -132,10 +137,8 @@
         	//Update on document load time.
         	setElementCountOnColumn();	 
 			//Apply the click handle to all expand/collapse icons
-			$('.task-header .ui-icon').live('click', handleClickHeader);
-			//Collapse all items in the last column onLoad
-			$('.column:last > ul > li > .task-header > .ui-icon-carat-1-n').click();
-			$('.column:first > ul > li > .task-header > .ui-icon-carat-1-n').click();
+			$('.task-header .ui-icon').live('click', handleClickHeader);			
+
         </jq:jquery>
     </head>
     <body>    	
@@ -144,7 +147,13 @@
     		<g:each in="${boardInstance.columns}" var="column">
     		<tb:column column="${column}">
     			<g:each in="${column.tasks}" var="task">
-    			<tb:task task="${task}"/>
+    			<g:if test="${(column == boardInstance.columns.first()) || (column == boardInstance.columns.last()) }">
+    				<g:set var="hide" value="${true}" />  				
+    			</g:if>
+    			<g:else>
+    				<g:set var="hide" value="${false}" />
+    			</g:else>
+    			<tb:task task="${task}" hide="${hide}"/>
     			</g:each>
     		</tb:column>
     		</g:each>

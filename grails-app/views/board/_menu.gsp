@@ -15,12 +15,13 @@
 		icons: {
 			secondary: 'ui-icon-carat-1-n'
 		}
-	}).click(function() {		
-		$('.column .task-header .ui-icon').each(function() {			
-			if ($(this).hasClass('ui-icon-carat-1-n')) {
-				$(this).click();
-			}
-		});		
+	}).click(function() {
+		console.time('native');		
+		var matched = $('#board > div.column > ul > li > div.task-header > span.ui-icon-carat-1-n')		 		 	
+		for (var i=0;i< matched.size();i++)	{
+			$(matched[i]).click();		
+		}
+		console.timeEnd('native'); 
 		return true;
 	});
 	
@@ -28,12 +29,13 @@
 		icons: {
 			secondary: 'ui-icon-carat-1-s'
 		}
-	}).click(function() {		
-		$('.column .task-header .ui-icon').each(function() {			
-			if ($(this).hasClass('ui-icon-carat-1-s')) {
-				$(this).click();
-			}
-		});		
+	}).click(function() {	
+		console.time('native');	
+		var matched = $('#board > div.column > ul > li > div.task-header > span.ui-icon-carat-1-s')	
+		for (var i=0;i< matched.size();i++)	{
+			$(matched[i]).click();
+		}
+		console.timeEnd('native'); 
 		return true;
 	});
 	
