@@ -93,11 +93,16 @@ class TaskService {
 	 */
 	private void createMovementEvent(Task task, Column fromColumn, Column tooColumn) {
 		def events = []
+		//Get the current logged-in user
+		def principal = springSecurityService.principal
+		def user = User.findByUsername(principal.username)
+		
 		//We create 1 task Movement event ...
 		events << new TaskMovementEvent(
 			task: task, 
 			fromColumn: fromColumn,
-			tooColumn: tooColumn)
+			tooColumn: tooColumn,
+			user: user)
 		//And 2 ColumnStatusEntries to capture the state of 
 		//both column after the movement happened.
 		if (fromColumn) {

@@ -52,7 +52,7 @@ class TaskMovementEventTests extends GrailsUnitTestCase {
 		def col2 = Column.findByName('mycolumn2')
 		def task = Task.findByName('mytask')
 		
-		def event = new TaskMovementEvent(task: task, fromColumn: col1, tooColumn: col2)
+		def event = new TaskMovementEvent(task: task, fromColumn: col1, tooColumn: col2, user: User.findByUsername('testuser'))
 		assertTrue event.validate()
 		assertNotNull event.save()
 		assertNotNull event.dateCreated
@@ -64,7 +64,7 @@ class TaskMovementEventTests extends GrailsUnitTestCase {
 		def col2 = Column.findByName('mycolumn2')
 		def task = Task.findByName('mytask')
 		
-		def event = new TaskMovementEvent(task: task, fromColumn: col1, tooColumn: col2)
+		def event = new TaskMovementEvent(task: task, fromColumn: col1, tooColumn: col2, user: User.findByUsername('testuser'))
 		assertTrue event.validate()
 		assertNotNull event.save()
 		

@@ -1,9 +1,11 @@
 package app.taskboard
 
 import grails.test.*
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 	def taskService
+	def springSecurityUtils
 	
     protected void setUp() {
         super.setUp()
@@ -15,7 +17,10 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 
 	void testUpdateSortOrder() {		
 		def tasks = [1,3,2,4,5]		
-		taskService.updateSortOrder(tasks)
+		//We need to be authenticated for that
+		SpringSecurityUtils.doWithAuth('user') {
+			taskService.updateSortOrder(tasks)
+		}
 		def taskList = tasks.collect{Task.get(it)}
 		
 		assertEquals taskList.collect{it.id}, Column.get(1).tasks.collect{it.id}	
@@ -26,8 +31,12 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		def tooColumn = 2
 		def task = 3
 		def order =[6,3,7]
-		
-		def result = taskService.moveTask(order, fromColumn, tooColumn, task)
+				
+		def result
+		//We need to be authenticated for that
+		SpringSecurityUtils.doWithAuth('user') {
+			result = taskService.moveTask(order, fromColumn, tooColumn, task)
+		}
 		
 		assertEquals '', result
 		
@@ -36,6 +45,7 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		
 		//Testing the generated events
 		assertEquals 1, TaskMovementEvent.list().size()
+		assertEquals User.findByUsername('user'), TaskMovementEvent.list()[0].user
 		assertEquals 2, ColumnStatusEntry.list().size()
 		
 		def expectedTasksForColumn1 = Column.get(1).tasks.collect{it.id}
@@ -46,8 +56,12 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		
 		task = 4
 		order = [6,3,4,7]
-		//Move another task an see whether the tasks on the event objects stay the same
-		result =  taskService.moveTask(order, fromColumn, tooColumn, task)
+		
+		//We need to be authenticated for that
+		SpringSecurityUtils.doWithAuth('user') {
+			//Move another task an see whether the tasks on the event objects stay the same
+			result =  taskService.moveTask(order, fromColumn, tooColumn, task)
+		}
 		assertEquals '', result
 		assertEquals 2, TaskMovementEvent.list().size()
 		assertEquals 4, ColumnStatusEntry.list().size()
@@ -76,7 +90,10 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 			column: col
 		)
 		
-		task = taskService.saveTask(task)
+		//We need to be authenticated for that
+		SpringSecurityUtils.doWithAuth('user') {
+			task = taskService.saveTask(task)
+		}
 		assertEquals 0, task.errors.errorCount 
 		
 		//Check if our tasks appears in the last ColumnStatusEntry

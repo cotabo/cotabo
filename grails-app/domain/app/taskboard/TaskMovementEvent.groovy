@@ -16,6 +16,8 @@ class TaskMovementEvent {
 	Column fromColumn
 	//Too which column it was moved
 	Column tooColumn
+	//The user who moved it
+	User user
 	
 	//When this event occured
 	Date dateCreated
@@ -26,6 +28,7 @@ class TaskMovementEvent {
 		//In case of the first column
 		fromColumn nullable:true
 		tooColumn nullable:false
+		user nullable:false
     }			
 	
 	def beforeUpdate() {

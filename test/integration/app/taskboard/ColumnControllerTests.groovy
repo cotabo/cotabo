@@ -1,6 +1,7 @@
 package app.taskboard
 
 import grails.test.*
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class ColumnControllerTests extends GrailsUnitTestCase {
     protected void setUp() {
@@ -18,7 +19,11 @@ class ColumnControllerTests extends GrailsUnitTestCase {
 		controller.params.fromColumn = 1
 		controller.params.toColumn = 2
 		controller.params.taskid = 2
-		def result = controller.updatetasks()			
+		def result
+		//We need to be authenticated for that
+		SpringSecurityUtils.doWithAuth('user') {
+			result = controller.updatetasks()
+		}			
 		assertNotNull controller.response.contentAsString
 		assertEquals expectedResult, controller.response.contentAsString 
 		def expectedTask = Task.findByName('Setup WebLogic')		
