@@ -1,8 +1,10 @@
 import app.taskboard.*
 import grails.util.Environment
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class BootStrap {
 	def springSecurityService
+	def taskService
 
     def init = { servletContext ->
 		def userRole = Role.findByAuthority("ROLE_USER") ?: new Role(authority: "ROLE_USER").save()
@@ -37,7 +39,6 @@ class BootStrap {
 		def env = Environment.currentEnvironment.name			
 		if (env == 'test' || env == 'development') {
 			log.info 'Creating test data...'			
-
 			
 			def user = User.findByUsername('user')
 			def admin = User.findByUsername('admin')			
@@ -75,6 +76,42 @@ class BootStrap {
 				admins: [admin],				
 			)								
 			board.save(flush:true)
+			
+			//Now we create some tasks and move them across the board in order 
+			//to get some proper event data that we can test with
+			def eventTestTasks = []
+			for (i in 1..80) {
+				eventTestTasks << new Task(
+					name:"Task $i", 
+					description:'Description $i',
+					durationHours:3.5, 
+					creator:user, 
+					assignee:user, 
+					sortorder:15+i, 
+					priority:'Critical', 
+					color:'#fa7a88',
+					column: Column.findByName('ToDo')
+				)
+			}
+			SpringSecurityUtils.doWithAuth('user') {
+				eventTestTasks.each { taskService.saveTask(it) }
+			}
+			def eventTasks = Task.findAllByNameLike('Task %')
+			assert eventTasks.size() == 80
+			def secondColumnTaskIdList = Column.findByName('In Progress').tasks.collect{it.id}
+			//First we move all out 80 tasks to the second column
+			for (task in eventTasks) {
+				SpringSecurityUtils.doWithAuth('user') {
+					taskService.moveTask secondColumnTaskIdList << task.id, task.column.id, Column.findByName('In Progress').id, task.id
+				}				
+			}
+			eventTasks = Task.findAllByNameLike('Task %')
+			//than all to the last column
+			for (task in eventTasks) {
+				SpringSecurityUtils.doWithAuth('user') {
+					taskService.moveTask secondColumnTaskIdList << task.id, task.column.id, Column.findByName('Done!').id, task.id
+				}
+			}					
 		}
     }
     def destroy = {
