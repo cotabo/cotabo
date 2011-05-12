@@ -37,7 +37,7 @@
 		}
 		console.timeEnd('native'); 
 		return true;
-	});
+	}).parent().buttonset();
 	
 	/**
 	 * Dialog with form content.

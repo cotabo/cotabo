@@ -13,28 +13,29 @@
     </head>
     <body>    
 		<div class="head-back"></div>		
-        <div class="page-wrap ui-widget-content">
-        	<div class="head ui-state-default ui-corner-top">
-        		<span id="user">
-        			<p>
+        <div class="page-wrap">
+        	<div class="head">			
+        		<span id="user">     
+
         				<sec:ifLoggedIn>
         					Welcome <sec:loggedInUserInfo field="username"/>! 
         				</sec:ifLoggedIn>
         				<sec:ifNotLoggedIn>
         					Please <g:link controller="login" class="head_link">login...</g:link>
-        				</sec:ifNotLoggedIn>
-        			</p>
-        		</span>
+        				</sec:ifNotLoggedIn>        			
+						
+        		</span>				
         		<div class="logo">        			
         			<img src="${resource(dir:'images',file:'logo.png')}"/>
         		</div>
 
-        	</div>     
-        	<div class="sub-head ui-widget-header ui-corner-bottom">
-        		<!-- every sub page can specivy a content tag with the name 'toolbar' -->
-        		<!-- see http://grails.org/doc/latest/guide/6.%20The%20Web%20Layer.html#6.2.5%20Sitemesh%20Content%20Blocks -->
-        		<g:pageProperty name="page.toolbar"/>        		
-        	</div>   
+        	</div>    
+			<div class="sub-head">
+					<!-- every sub page can specivy a content tag with the name 'toolbar' -->
+					<!-- see http://grails.org/doc/latest/guide/6.%20The%20Web%20Layer.html#6.2.5%20Sitemesh%20Content%20Blocks -->
+					<g:pageProperty name="page.toolbar"/>        		
+			</div>   			
+
         	<g:layoutBody />
         </div>
     </body>
