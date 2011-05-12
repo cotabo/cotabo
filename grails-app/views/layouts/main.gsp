@@ -1,7 +1,7 @@
 <html>
     <head>
         <title><g:layoutTitle default="Taskboard"/></title>        
-        <link rel="stylesheet" href="${resource(dir:'css',file:'jquery-ui-1.8.11.custom.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'jquery-ui-1.8.12.custom.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />        
         <g:javascript library="jquery" plugin="jquery"/>
@@ -25,9 +25,8 @@
         				</sec:ifNotLoggedIn>
         			</p>
         		</span>
-        		<div class="logo">
-        			<span>Taskboard</span>
-        			<!-- <img src="${resource(dir:'images',file:'logo.png')}"/> -->
+        		<div class="logo">        			
+        			<img src="${resource(dir:'images',file:'logo.png')}"/>
         		</div>
 
         	</div>     
