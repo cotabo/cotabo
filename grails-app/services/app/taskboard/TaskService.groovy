@@ -91,7 +91,7 @@ class TaskService {
 	 * @param fromColumn
 	 * @param tooColumn
 	 */
-	private void createMovementEvent(Task task, Column fromColumn, Column tooColumn) {
+	private void createMovementEvent(Task task, Column fromColumn, Column tooColumn) {		
 		def events = []
 		//Get the current logged-in user
 		def principal = springSecurityService.principal

@@ -2,7 +2,7 @@ package app.taskboard
 
 import grails.test.*
 
-class TaskTests extends GrailsUnitTestCase {
+class TaskTests extends GrailsUnitTestCase {		
     protected void setUp() {
         super.setUp()
 		mockConfig '''

@@ -1,20 +1,17 @@
 package app.taskboard
 
-import grails.test.*
+import grails.test.ControllerUnitTestCase;
 
-class BoardControllerTests extends ControllerUnitTestCase {
-	def dashbardService
+class DashboardServiceTests extends ControllerUnitTestCase {
     protected void setUp() {
         super.setUp()
-		
     }
 
     protected void tearDown() {
         super.tearDown()
     }
 
-    void testColulativeFlowData() {
-		
+    void testSomething() {
 
     }
 }
