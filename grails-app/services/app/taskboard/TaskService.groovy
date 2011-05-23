@@ -55,13 +55,15 @@ class TaskService {
 	 * @param fromColumnId the column id from where a task is moved
 	 * @param tooColumnId the column id where the task is moved too
 	 * @param taskId the task that should be moved
+	 * @param dateCreated Optional - this is only for testing purposes - normally hibernate/grails will set this.
 	 * @return a message which is empty then the update was successfull.
 	 */
 	String moveTask(
 			List sortedNewTaskIdsTargetColumn, 
 			def fromColumnId, 
 			def tooColumnId, 
-			def taskId ) {						
+			def taskId,
+			Date dateCreated = null) {						
 		
 		updateTaskOrder(sortedNewTaskIdsTargetColumn)
 		
@@ -74,7 +76,7 @@ class TaskService {
 			fromColumnInstance.save()
 			toColumnInstance.save()			
 			sessionFactory?.getCurrentSession()?.flush()
-			createMovementEvent(taskInstance, fromColumnInstance, toColumnInstance)
+			createMovementEvent(taskInstance, fromColumnInstance, toColumnInstance, dateCreated)
 			return ''
 		}
 		else {
