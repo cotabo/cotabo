@@ -87,11 +87,12 @@ class TaskService {
 	 *  Private method that creates & persists all events when a task is moved.
 	 * 	<b>Note:</b> this should be called after the movement is done.
 	 * 
-	 * @param task
-	 * @param fromColumn
-	 * @param tooColumn
+	 * @param task The task that was transfered.
+	 * @param fromColumn The column object from which the task was transfered.
+	 * @param tooColumn The column object to which the task was transfered.
+	 * @param dateCreated Optional - this is only for testing purposes - normally hibernate/grails will set this.
 	 */
-	private void createMovementEvent(Task task, Column fromColumn, Column tooColumn) {		
+	private void createMovementEvent(Task task, Column fromColumn, Column tooColumn, Date dateCreated = null) {		
 		def events = []
 		//Get the current logged-in user
 		def principal = springSecurityService.principal
@@ -102,7 +103,8 @@ class TaskService {
 			task: task, 
 			fromColumn: fromColumn,
 			tooColumn: tooColumn,
-			user: user)
+			user: user,
+			dateCreated: dateCreated)
 		//And 2 ColumnStatusEntries to capture the state of 
 		//both column after the movement happened.
 		if (fromColumn) {
@@ -110,7 +112,8 @@ class TaskService {
 			events << new ColumnStatusEntry(
 				column: fromColumn,
 				//We need to create a new collection here
-				tasks: fromColumn.tasks.collect{it}
+				tasks: fromColumn.tasks.collect{it},
+				dateCreated: dateCreated
 			)
 		} 
 
