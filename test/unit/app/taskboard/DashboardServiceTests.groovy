@@ -3,7 +3,7 @@ package app.taskboard
 import grails.test.*
 import grails.test.ControllerUnitTestCase;
 
-class DashboardServiceTests extends GrailsUnitTestCase {
+class DashboardServiceTests extends TaskBoardUnitTest {
     protected void setUp() {
         super.setUp()
     }
