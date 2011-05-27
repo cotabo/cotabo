@@ -93,7 +93,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 				<div class="head_name">mytask</div>
 				<span class="ui-icon ui-icon ui-icon-carat-1-n"/>
 			</div>
-			<div class="task-content ui-widget-content">
+			<div class="task-content ui-widget-content" style="display:block">
 				<table>
 					<tbody>
 						<tr>
