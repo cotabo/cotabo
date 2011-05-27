@@ -2,10 +2,9 @@ package app.taskboard
 
 import grails.test.*
 
-class UserTests extends GrailsUnitTestCase {
+class UserTests extends TaskBoardUnitTest {
     protected void setUp() {
-        super.setUp()
-		mockDomain(User)
+        super.setUp()		
     }
 
     protected void tearDown() {
@@ -14,7 +13,7 @@ class UserTests extends GrailsUnitTestCase {
 
     void testSuccessfullCreation() {
 		def user = new User(
-				username: 'testuser',
+				username: 'testuser1',
 				password: 'testpassword',
 				firstname: 'firstname',
 				lastname: 'lastname',
@@ -23,12 +22,12 @@ class UserTests extends GrailsUnitTestCase {
 		assertTrue user.validate()
 		def userId = user.save()
 		assertNotNull userId		
-		assertEquals 1, User.list().size()
+		assertNotNull User.findByUsername('testuser1')
     }
 	
 	void testFailWrongEmail() {
 		def user = new User(
-			username: 'testuser',
+			username: 'testuser1',
 			password: 'testpassword',
 			firstname: 'firstname',
 			lastname: 'lastname',
@@ -52,7 +51,7 @@ class UserTests extends GrailsUnitTestCase {
 	
 	void testFailBlankPassword() {
 		def user = new User(
-			username: 'testuser',
+			username: 'testuser1',
 			password: ' ',
 			firstname: 'firstname',
 			lastname: 'lastname',
@@ -62,7 +61,7 @@ class UserTests extends GrailsUnitTestCase {
 	
 	void testFailSmallPassword() {
 		def user = new User(
-			username: 'testuser',
+			username: 'testuser1',
 			//minSize is 5
 			password: 'pass',
 			firstname: 'firstname',
@@ -75,7 +74,7 @@ class UserTests extends GrailsUnitTestCase {
 	
 	void testUnUniqueUsername() {
 		def user = new User(
-			username: 'testuser',
+			username: 'testuser1',
 			password: 'testpassword',
 			firstname: 'firstname',
 			lastname: 'lastname',
@@ -83,7 +82,7 @@ class UserTests extends GrailsUnitTestCase {
 		)
 		assertNotNull user.save()
 		def user2 = new User(
-			username: 'testuser',
+			username: 'testuser1',
 			password: 'testpassword',
 			firstname: 'firstname',
 			lastname: 'lastname',

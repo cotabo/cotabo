@@ -15,6 +15,7 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 	
 	def taskService
 	protected final Date startDate = Date.parse("dd/MM/yyyy HH:mm:ss SSS", "02/04/2011 13:13:13 013")
+	
     protected void setUp() {
         super.setUp()
 		taskService = new TaskService()
