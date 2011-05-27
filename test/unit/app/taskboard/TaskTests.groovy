@@ -2,36 +2,9 @@ package app.taskboard
 
 import grails.test.*
 
-class TaskTests extends GrailsUnitTestCase {		
+class TaskTests extends TaskBoardUnitTest {		
     protected void setUp() {
-        super.setUp()
-		mockConfig '''
-			taskboard.colors = ['#faf77a', '#fa7a88', '#bcbcf5', '#f9d7a9']
-			taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
-	    '''
-		mockDomain(User,[
-			new User(
-				username: 'testuser',
-				password: 'testpassword',
-				firstname: 'firstname',
-				lastname: 'lastname',
-				email: 'e@mail.com'
-			)]
-		)
-		
-		//Board>Column/User relationship mocking
-		def column = new Column(name:'mycolumn')
-		def board = new Board(name:'myboard')
-		def user = User.findByUsername('testuser')		
-		board.columns = [column]
-		board.users = [user]
-		column.board = board
-		
-		mockDomain(Task)
-		mockDomain(Column, [column])
-		mockDomain(Board, [board])
-		
-		
+        super.setUp()		
     }
 
     protected void tearDown() {
@@ -40,7 +13,7 @@ class TaskTests extends GrailsUnitTestCase {
 
     void testCreation() {
 		//Preperation
-		def col = Column.findByName('mycolumn')
+		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
 		assertNotNull user				
@@ -63,7 +36,7 @@ class TaskTests extends GrailsUnitTestCase {
 	
 	void testCreationWithAssignee() {
 		//Preperation
-		def col = Column.findByName('mycolumn')
+		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
 		assertNotNull user				
@@ -85,7 +58,7 @@ class TaskTests extends GrailsUnitTestCase {
 	
 	void testCreationDurationHoursInt() {
 		//Preperation
-		def col = Column.findByName('mycolumn')
+		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
 		assertNotNull user				
@@ -105,7 +78,7 @@ class TaskTests extends GrailsUnitTestCase {
 	
 	void testFailBlankName() {
 		//Preperation
-		def col = Column.findByName('mycolumn')
+		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
 		assertNotNull user				
@@ -126,7 +99,7 @@ class TaskTests extends GrailsUnitTestCase {
 	
 	void testFailTooLongName() {
 		//Preperation
-		def col = Column.findByName('mycolumn')
+		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
 		assertNotNull user				
@@ -149,7 +122,7 @@ class TaskTests extends GrailsUnitTestCase {
 	
 	void testFailDurationHoursTooLong() {
 		//Preperation
-		def col = Column.findByName('mycolumn')
+		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
 		assertNotNull user				
@@ -189,7 +162,7 @@ class TaskTests extends GrailsUnitTestCase {
 	
 	void testFailWithoutcreator() {
 		//Preperation
-		def col = Column.findByName('mycolumn')						
+		def col = Column.findByName('todo')						
 		assertNotNull col						
 		
 		def task = new Task(
@@ -207,7 +180,7 @@ class TaskTests extends GrailsUnitTestCase {
 	
 	void testFailWithoutColor() {
 		//Preperation
-		def col = Column.findByName('mycolumn')
+		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')
 		assertNotNull col
 		assertNotNull user
@@ -229,7 +202,7 @@ class TaskTests extends GrailsUnitTestCase {
 	
 	void testFailWithoutPriority() {
 		//Preperation
-		def col = Column.findByName('mycolumn')
+		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')
 		assertNotNull col
 		assertNotNull user
@@ -249,7 +222,7 @@ class TaskTests extends GrailsUnitTestCase {
 	
 	void testFailNotConfiguredColor() {
 		//Preperation
-		def col = Column.findByName('mycolumn')
+		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')
 		assertNotNull col
 		assertNotNull user
@@ -270,7 +243,7 @@ class TaskTests extends GrailsUnitTestCase {
 	
 	void testFailNotConfiguredPriority() {
 		//Preperation
-		def col = Column.findByName('mycolumn')
+		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')
 		assertNotNull col
 		assertNotNull user
