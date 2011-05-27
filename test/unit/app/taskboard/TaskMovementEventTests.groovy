@@ -2,45 +2,9 @@ package app.taskboard
 
 import grails.test.*
 
-class TaskMovementEventTests extends GrailsUnitTestCase {
+class TaskMovementEventTests extends TaskBoardUnitTest {
     protected void setUp() {
         super.setUp()
-		mockConfig '''
-			taskboard.colors = ['#faf77a', '#fa7a88', '#bcbcf5', '#f9d7a9']
-			taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
-	    '''
-		mockDomain(User,[
-			new User(
-				username: 'testuser',
-				password: 'testpassword',
-				firstname: 'firstname',
-				lastname: 'lastname',
-				email: 'e@mail.com'
-			)]
-		)
-		
-		//Board>Column/User relationship mocking
-		def column = new Column(name:'mycolumn')
-		def column2 = new Column(name:'mycolumn2')
-		def board = new Board(name:'myboard')
-		def user = User.findByUsername('testuser')		
-		board.columns = [column]
-		board.users = [user]
-		column.board = board
-		
-
-		mockDomain(Column, [column, column2])
-		mockDomain(Board, [board])
-		mockDomain(Task, [new Task(
-			name: 'mytask',
-			durationHours: 0.5,
-			column: column,
-			creator: user,
-			sortorder: 1,
-			color: '#faf77a',
-			priority: 'Critical'
-		)])
-		mockDomain(TaskMovementEvent)		
     }
 
     protected void tearDown() {   
@@ -48,20 +12,23 @@ class TaskMovementEventTests extends GrailsUnitTestCase {
     }
 
     void testEventCreation() {
-		def col1 = Column.findByName('mycolumn')
-		def col2 = Column.findByName('mycolumn2')
-		def task = Task.findByName('mytask')
+		def col1 = Column.findByName('todo')
+		def col2 = Column.findByName('wip')
+		
+		def task = Task.findByName('todotask')
 		
 		def event = new TaskMovementEvent(task: task, fromColumn: col1, tooColumn: col2, user: User.findByUsername('testuser'))
-		assertTrue event.validate()
+		def result = event.validate()
+		event.errors.allErrors.each {println it}
+		assertTrue result
 		assertNotNull event.save()
 		assertNotNull event.dateCreated
 		
     }
 	
 	void failOnUpdate() {
-		def col1 = Column.findByName('mycolumn')
-		def col2 = Column.findByName('mycolumn2')
+		def col1 = Column.findByName('todo')
+		def col2 = Column.findByName('wip')
 		def task = Task.findByName('mytask')
 		
 		def event = new TaskMovementEvent(task: task, fromColumn: col1, tooColumn: col2, user: User.findByUsername('testuser'))

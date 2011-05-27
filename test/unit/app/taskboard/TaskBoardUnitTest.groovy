@@ -106,13 +106,12 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		//After doing all this stuff we want to add at least 1 task to todo & wip
 		def todoCol = Column.findByName('todo')
 		def wipCol = Column.findByName('wip') 
-		todoCol.addToTasks(new Task(name: "todotask", durationHours: 0.5,
-				creator: user, sortorder: 100, color: '#faf77a', priority: 'Critical'))
-		wipCol.addToTasks (new Task(name: "wiptask", durationHours: 0.5,
-			creator: user, sortorder: 100, color: '#faf77a', priority: 'Critical'))
-		todoCol.save()
-		wipCol.save()
-		
+		new Task(name: "todotask", durationHours: 0.5, column: todoCol,
+				creator: user, sortorder: 100, color: '#faf77a', priority: 'Critical').save()
+		new Task(name: "wiptask", durationHours: 0.5, column: wipCol,
+			creator: user, sortorder: 100, color: '#faf77a', priority: 'Critical').save()
+		todoCol.addToTasks(Task.findByName('todotask'))
+		wipCol.addToTasks(Task.findByName('wiptask'))
     }
 
     protected void tearDown() {
@@ -134,8 +133,17 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		}
 		assertNotNull Board.findByName('myboard')
 		assertNotNull Column.findByName('todo')
+		assertEquals 1, Column.findByName('todo').tasks.size()
 		assertNotNull Column.findByName('wip')
+		assertEquals 1, Column.findByName('wip').tasks.size()
 		assertNotNull Column.findByName('done')
+		assertEquals 20, Column.findByName('done').tasks.size()
 		assertNotNull User.findByUsername('testuser')
+		def todoTask = Task.findByName('todotask')
+		def wipTask = Task.findByName('wiptask') 
+		assertNotNull todoTask
+		assertNotNull todoTask.column
+		assertNotNull wipTask
+		assertNotNull wipTask.column
 	}
 }
