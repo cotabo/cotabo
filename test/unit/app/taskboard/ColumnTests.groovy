@@ -2,20 +2,9 @@ package app.taskboard
 
 import grails.test.*
 
-class ColumnTests extends GrailsUnitTestCase {
+class ColumnTests extends TaskBoardUnitTest {
     protected void setUp() {
         super.setUp()
-		mockDomain(Column)
-		mockDomain(Board)
-		mockDomain(User, [
-			new User(
-				username: 'testuser',
-				password: 'testpassword',
-				firstname: 'firstname',
-				lastname: 'lastname',
-				email: 'e@mail.com'
-			)]
-		)
     }
 
     protected void tearDown() {
@@ -23,11 +12,7 @@ class ColumnTests extends GrailsUnitTestCase {
     }
 
     void testColumnCreation() {
-		//Preparation
-		def user = User.findByUsername('testuser')
-		assertNotNull user
-		def myboard = new Board(name:'myboard')
-			.addToUsers(user)
+		def myboard = Board.findByName('myboard')
 			
 		def column = new Column(name:'mycolumn', board:myboard)
 		
@@ -36,11 +21,7 @@ class ColumnTests extends GrailsUnitTestCase {
     }
 	
 	void testFailNameNull() {
-		//Preparation
-		def user = User.findByUsername('testuser')
-		assertNotNull user
-		def myboard = new Board(name:'myboard')
-			.addToUsers(user)
+		def myboard = Board.findByName('myboard')
 			
 		def column = new Column(board:myboard)
 		assertFalse column.validate()
@@ -49,11 +30,7 @@ class ColumnTests extends GrailsUnitTestCase {
 	}
 	
 	void testFailNameTooLong() {
-		//Preparation
-		def user = User.findByUsername('testuser')
-		assertNotNull user
-		def myboard = new Board(name:'myboard')
-			.addToUsers(user)
+		def myboard = Board.findByName('myboard')
 			
 		def column = new Column(name:'123456789012345678901234567',board:myboard)
 		assertFalse column.validate()
@@ -62,12 +39,8 @@ class ColumnTests extends GrailsUnitTestCase {
 	}
 	
 	void testFailTooHighLimit() {
-		//Preparation
-		def user = User.findByUsername('testuser')
-		assertNotNull user
-		def myboard = new Board(name:'myboard')
-			.addToUsers(user)
-			
+		def myboard = Board.findByName('myboard')
+		
 		def column = new Column(name:'mycolumn', limit:76, board:myboard)
 		assertFalse column.validate()
 		assertEquals 1, column.errors.allErrors.size()
@@ -75,11 +48,7 @@ class ColumnTests extends GrailsUnitTestCase {
 	}
 	
 	void testFailTooLongDescription() {
-		//Preparation
-		def user = User.findByUsername('testuser')
-		assertNotNull user
-		def myboard = new Board(name:'myboard')
-			.addToUsers(user)
+		def myboard = Board.findByName('myboard')
 			
 		def desc = '''
 			This text is longer than 255 characters.
