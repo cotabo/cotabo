@@ -2,21 +2,9 @@ package app.taskboard
 
 import grails.test.*
 
-class BoardTests extends GrailsUnitTestCase {
+class BoardTests extends TaskBoardUnitTest {
     protected void setUp() {
-		super.setUp()
-		
-		mockDomain(Board)
-		mockDomain(Column)				
-		mockDomain(User, [
-			new User(
-				username: 'testuser',
-				password: 'testpassword',
-				firstname: 'firstname',
-				lastname: 'lastname',
-				email: 'e@mail.com'
-			)]
-		)        
+		super.setUp()     
     }
 
     protected void tearDown() {
@@ -28,21 +16,23 @@ class BoardTests extends GrailsUnitTestCase {
 		def user = User.findByUsername('testuser')
 		assertNotNull user
 		//Preparation - Column definition without save
-		def column = new Column(name:'mycolumn')								
+		def column = Column.findByName('todo')							
 		
-		def board = new Board(name:'myboard')
+		def board = new Board(name:'MyNewBoard')
 			.addToUsers(user)
 			.addToColumns(column)
 			.addToAdmins(user)						
 		
-			
-		assertTrue board.validate()
+		
+		def result = board.validate()		
+		assertTrue result
+		
 		assertNotNull board.save()
-		def returnedBoard = Board.findByName('myboard') 
+		def returnedBoard = Board.findByName('MyNewBoard') 
 		assertNotNull returnedBoard
 		assertNotNull returnedBoard.columns
 		assertNotNull returnedBoard.users
-		assertEquals 'mycolumn', returnedBoard.columns.first().name
+		assertEquals 'todo', returnedBoard.columns.first().name
 		assertEquals 'testuser', returnedBoard.users.first().username						
     }
 	
@@ -51,12 +41,12 @@ class BoardTests extends GrailsUnitTestCase {
 		def user = User.findByUsername('testuser')							
 		assertNotNull user
 							
-		def board = new Board(name:'myboard')
+		def board = new Board(name:'MyNewBoard')
 			.addToUsers(user)
 			.addToAdmins(user)						
 			
-		assertFalse board.validate()
-		assertEquals 1, board.errors.allErrors.size()
+		assertFalse board.validate()		
+		assertEquals 1, board.errors.allErrors.size()		
 		assertNull board.save()
 	}
 	
@@ -65,9 +55,9 @@ class BoardTests extends GrailsUnitTestCase {
 		def user = User.findByUsername('testuser')							
 		assertNotNull user
 		//Preparation - Column definition without save
-		def column = new Column(name:'mycolumn')
+		def column = Column.findByName('todo')
 							
-		def board = new Board(name:'myboard')
+		def board = new Board(name:'MyNewBoard')
 			.addToColumns(column)
 			.addToAdmins(user)						
 			
@@ -81,7 +71,7 @@ class BoardTests extends GrailsUnitTestCase {
 		def user = User.findByUsername('testuser')		
 		assertNotNull user
 		//Preparation - Column definition without save
-		def column = new Column(name:'mycolumn')
+		def column = Column.findByName('todo')
 							
 		def board = new Board()
 			.addToUsers(user)
@@ -89,7 +79,7 @@ class BoardTests extends GrailsUnitTestCase {
 			.addToAdmins(user)						
 			
 		assertFalse board.validate()
-		assertEquals 1, board.errors.allErrors.size()
+		assertEquals 1, board.errors.allErrors.size()		
 		assertNull board.save()
 	}
 	
@@ -98,7 +88,7 @@ class BoardTests extends GrailsUnitTestCase {
 		def user = User.findByUsername('testuser')						
 		assertNotNull user
 		//Preparation - Column definition without save
-		def column = new Column(name:'mycolumn')
+		def column = Column.findByName('todo')	
 					
 		def description = '''
 			This test is longer than 255 Characters.
@@ -115,7 +105,7 @@ class BoardTests extends GrailsUnitTestCase {
 			This test is longer than 255 Characters.
 		'''
 		
-		def board = new Board(name:'myboard', description: description)
+		def board = new Board(name:'MyNewBoard', description: description)
 			.addToUsers(user)
 			.addToColumns(column)
 			.addToAdmins(user)						
@@ -144,7 +134,7 @@ class BoardTests extends GrailsUnitTestCase {
 			new Column(name:'mycolumn11'),
 		]
 		
-		def board = new Board(name:'myboard')
+		def board = new Board(name:'MyNewBoard')
 			.addToUsers(user)		
 			.addToAdmins(user)						
 			
@@ -161,9 +151,9 @@ class BoardTests extends GrailsUnitTestCase {
 		//Preparation - get the user
 		def user = User.findByUsername('testuser')						
 		assertNotNull user
-		def column = new Column(name:'mycolumn')
+		def column = Column.findByName('todo')	
 							
-		def board = new Board(name:'myboard')
+		def board = new Board(name:'MyNewBoard')
 			.addToUsers(user)
 			.addToColumns(column)						
 			
@@ -176,10 +166,10 @@ class BoardTests extends GrailsUnitTestCase {
 		//Preparation - get the user
 		def user = User.findByUsername('testuser')						
 		assertNotNull user
-		def column = new Column(name:'mycolumn')
+		def column = Column.findByName('todo')
 		
 		//Calling addToAdmins 6 times. Limit is 5.
-		def board = new Board(name:'myboard')
+		def board = new Board(name:'MyNewBoard')
 			.addToUsers(user)
 			.addToColumns(column)						
 			.addToAdmins(user)

@@ -122,5 +122,10 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 			assertEquals 2, TaskMovementEvent.findAllByDateCreated(startDate-2.days).size()
 			assertEquals 4, ColumnStatusEntry.findAllByDateCreated(startDate-2.days).size()
 		}
+		assertNotNull Board.findByName('myboard')
+		assertNotNull Column.findByName('todo')
+		assertNotNull Column.findByName('wip')
+		assertNotNull Column.findByName('done')
+		assertNotNull User.findByUsername('testuser')
 	}
 }
