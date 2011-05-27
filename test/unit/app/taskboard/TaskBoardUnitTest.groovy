@@ -69,8 +69,7 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		def todo = []		//
 		for(i in 1..20) {
 			todo << new Task(name: "testtask$i", durationHours: 0.5, column: column1,
-				creator: user, sortorder: i, color: '#faf77a', priority: 'Critical'
-			)			
+				creator: user, sortorder: i, color: '#faf77a', priority: 'Critical')			
 		}
 		mockDomain(Task, todo)
 		mockDomain(TaskMovementEvent)
@@ -102,7 +101,18 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 				taskService.moveTask orderedTaskIdListWip, Column.findByName('todo').id, Column.findByName('wip').id, task.id, startDate-idx.days
 				taskService.moveTask orderedTaskIdListDone, Column.findByName('wip').id, Column.findByName('done').id, task.id, startDate-idx.days
 			}								
-		}							
+		}
+		
+		//After doing all this stuff we want to add at least 1 task to todo & wip
+		def todoCol = Column.findByName('todo')
+		def wipCol = Column.findByName('wip') 
+		todoCol.addToTasks(new Task(name: "todotask", durationHours: 0.5,
+				creator: user, sortorder: 100, color: '#faf77a', priority: 'Critical'))
+		wipCol.addToTasks (new Task(name: "wiptask", durationHours: 0.5,
+			creator: user, sortorder: 100, color: '#faf77a', priority: 'Critical'))
+		todoCol.save()
+		wipCol.save()
+		
     }
 
     protected void tearDown() {
