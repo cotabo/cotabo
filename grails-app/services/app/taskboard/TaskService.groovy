@@ -106,9 +106,8 @@ class TaskService {
 			fromColumn: fromColumn,
 			tooColumn: tooColumn,
 			user: user,
-			dateCreated: dateCreated)
-		//And 2 ColumnStatusEntries to capture the state of 
-		//both column after the movement happened.
+			dateCreated: dateCreated)		
+		//We only add the 1st column if not empty (maybe empty when new task is created)
 		if (fromColumn) {
 			//Might be zero in terms of task creation
 			events << new ColumnStatusEntry(
@@ -116,14 +115,16 @@ class TaskService {
 				//We need to create a new collection here
 				tasks: fromColumn.tasks.collect{it},
 				dateCreated: dateCreated
-			)
-		} 
-
+			)			
+		}		
+		//And another column status entry for the target (this always exists)
 		events << new ColumnStatusEntry(
 			column: tooColumn,
 			//We need to create a new collection here
-			tasks: tooColumn.tasks.collect{it}
-		)
+			//to not hold the same reference as the original Column
+			tasks: tooColumn.tasks.collect{it},
+			dateCreated: dateCreated
+		)		
 		//Save everything		
 		events.each {it.save(flush:false)}
 		sessionFactory?.getCurrentSession()?.flush()
