@@ -99,7 +99,8 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 			orderedTaskIdListDone << task.id
 			// starting from my birthday :P			
 			use(TimeCategory) {		
-				def times = []				
+							
+				println "${(startDate+idx.days).time}" 	
 				taskService.moveTask orderedTaskIdListWip, Column.findByName('todo').id, Column.findByName('wip').id, task.id, startDate+idx.days
 				taskService.moveTask orderedTaskIdListDone, Column.findByName('wip').id, Column.findByName('done').id, task.id, startDate+idx.days
 			}								
