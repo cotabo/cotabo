@@ -70,11 +70,13 @@ class BootStrap {
 				.addToTasks(testTasks.done1)
 			def board = new Board(
 				name:'My Test Board', 
-				description:'This test board is to track the tasks of our Test project', 
-				columns:[column1,column2,column3],
+				description:'This test board is to track the tasks of our Test project', 				
 				users: [user,admin],
 				admins: [admin],				
-			)								
+			)
+			board.addToColumns(column1)
+				.addToColumns(column2)
+				.addToColumns(column3)
 			board.save(flush:true)
 			
 			//Now we create some tasks and move them across the board in order 
