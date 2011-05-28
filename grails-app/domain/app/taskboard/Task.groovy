@@ -19,6 +19,9 @@ class Task implements Comparable {
 	Date dateCreated
 	Date lastUpdated
 	
+	Date workflowStartDate
+	Date workflowEndDate
+	
 	String name
 	String description
 	double durationHours
@@ -35,6 +38,8 @@ class Task implements Comparable {
 		sortorder nullable:false, min:0
 		priority nullable:false, validator: {val, obj -> val in grailsConfig.config.taskboard.priorities }
 		color nullable:false, validator: {val, obj -> val in grailsConfig.config.taskboard.colors }
+		workflowStartDate nullable: true
+		workflowEndDate nullable:true
     }
 	
 	@Override
