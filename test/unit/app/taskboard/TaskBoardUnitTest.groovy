@@ -98,9 +98,10 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 			orderedTaskIdListWip << task.id
 			orderedTaskIdListDone << task.id
 			// starting from my birthday :P			
-			use(TimeCategory) {				
-				taskService.moveTask orderedTaskIdListWip, Column.findByName('todo').id, Column.findByName('wip').id, task.id, startDate-idx.days
-				taskService.moveTask orderedTaskIdListDone, Column.findByName('wip').id, Column.findByName('done').id, task.id, startDate-idx.days
+			use(TimeCategory) {		
+				def times = []				
+				taskService.moveTask orderedTaskIdListWip, Column.findByName('todo').id, Column.findByName('wip').id, task.id, startDate+idx.days
+				taskService.moveTask orderedTaskIdListDone, Column.findByName('wip').id, Column.findByName('done').id, task.id, startDate+idx.days
 			}								
 		}
 		
@@ -129,8 +130,8 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		
 		use(TimeCategory) {			
 			//Expecting 2 moves on a given day (todo > wip, wip > done)
-			assertEquals 2, TaskMovementEvent.findAllByDateCreated(startDate-2.days).size()
-			assertEquals 4, ColumnStatusEntry.findAllByDateCreated(startDate-2.days).size()
+			assertEquals 2, TaskMovementEvent.findAllByDateCreated(startDate+2.days).size()
+			assertEquals 4, ColumnStatusEntry.findAllByDateCreated(startDate+2.days).size()
 		}
 		assertNotNull Board.findByName('myboard')
 		assertNotNull Column.findByName('todo')
