@@ -40,8 +40,11 @@
 		  		"td", {}, [
 					"input", {type: "text", size: 2, name:"columns["+this.columnIndex+"].limit", value:"0"}
 	    		],
+		  		"td", {}, [
+					"input", {type: "radio", name:"columns["+this.columnIndex+"].workflowStartColumn"}
+	    		],
 	    		"td", {},[
-	    			"a", {href:'#', class:'delete'}, '&nbsp;'
+	    			"a", {href:'#', class:'delete'}, 'delete this column definition'
 	    		]
 			]
 		]

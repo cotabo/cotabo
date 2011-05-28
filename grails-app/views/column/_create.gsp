@@ -5,6 +5,7 @@
    				<th>Name</th>
  				<th>Short description</th>
  				<th>Task limit</th>
+ 				<th>Workflow start</th>
  				<th>&nbsp;</th>
    			</tr>
    			<g:each in="${boardInstance.columns}" var="column" status="i">
@@ -19,7 +20,10 @@
   					<g:textField name="columns[$i].limit" size="2" maxlength="2" value="${boardInstance?.columns[i]?.limit}" />
   				</td>
   				<td>
-  					<a href="#" class="delete">&nbsp;</a>	
+  					<g:radio name="workflowStart" checked="${i == 0 ? true : false }" value="$i"/>
+  				</td>
+  				<td>
+  					<a href="#" class="delete">delete this column definition</a>	
   				</td>
   			</tr>	     					
    			</g:each> 

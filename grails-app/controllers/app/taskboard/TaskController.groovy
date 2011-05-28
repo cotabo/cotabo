@@ -46,9 +46,9 @@ class TaskController {
 			projections {
 				max("sortorder")
 			}
-		} 
+		} 		
 		//Set it to 1 on the first task
-		taskInstance.sortorder = sortOrder ?: 1
+		taskInstance.sortorder = sortOrder ? sortOrder+1 : 1		
 	
 		taskInstance = taskService.saveTask(taskInstance)	
 					

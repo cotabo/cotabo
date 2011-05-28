@@ -59,7 +59,7 @@ class BoardController {
 		assert user != null		
 		boardInstance.users = [user]
 		boardInstance.admins = [user]
-		
+		boardInstance.columns[params.workflowStart as int].workflowStartColumn = true
 
 		if (boardInstance.validate() && boardInstance.save(flush:true)){	
 			redirect(action: "show", id: boardInstance.id)			

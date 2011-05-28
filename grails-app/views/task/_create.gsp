@@ -4,12 +4,13 @@
 	 */
 	var submitCallback = function(data, textStatus, jqXHR) {
 		//See utils.js for definition of checkForSuccess
-		if (checkForSuccess(data, '#createTaskForm')) {
-			//TODO: close the dialog with animation to the bottom of the first column
+		if (checkForSuccess(data, '#createTaskForm')) {						
 			$('div.column:first > ul').append(data);
 			$('div.column:first > ul > li:last >').scroll();
-			$('#createTaskForm').dialog('close');
+			setElementCountOnColumn();	
+			$('#createTaskForm').dialog('close');			
 			$('div.column:first > ul > li:last > .task-header').effect('highlight', {}, 600);
+					
 		}
 		return false;
 	}	

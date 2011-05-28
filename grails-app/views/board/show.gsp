@@ -30,10 +30,10 @@
         
         	/**
         	 * Update all column task counts.
-        	 * 
+        	 * Setting this on the window as we need it in a different script block (task creation)
         	 */   
-        	var setElementCountOnColumn = function() {
-    			$(".column").each(function(index){	
+        	window.setElementCountOnColumn = function() {        		
+    			$(".column").each(function(index){	    			
 					var size = $(this).children("ul").children("li").size();
 					if (size == null) {
 						size = 0 ;
