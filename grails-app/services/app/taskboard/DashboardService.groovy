@@ -24,13 +24,10 @@ class DashboardService {
 	 * @param time
 	 * @return
 	 */
-	ColumnStatusEntry getColumnStatusForTime(Date time) {
-		def criteria = ColumnStatusEntry.createCriteria()
-		def results = criteria.get {
-			le('dateCreated', time)
-			maxResults(1)
-			order('dateCreated','desc') 
-		}
+	ColumnStatusEntry getColumnStatusForDate(Column column, Date time) {		
+		return ColumnStatusEntry.findByColumnAndDateCreatedLessThanEquals(column, time, [max:1, order:'desc'])
 	}
+	
+	
 	
 }
