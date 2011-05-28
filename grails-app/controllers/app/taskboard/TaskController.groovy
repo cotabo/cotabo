@@ -39,13 +39,16 @@ class TaskController {
 			}
 		}
 		
+		
 		//Get the highest sortorder of the current column + 1
 		taskInstance.sortorder = Task.createCriteria().get {
 			eq("column", taskInstance.column)
 			projections {
 				max("sortorder")
 			}
-		} + 1
+		} 
+		//Set it to 1 on the first task
+		taskInstance.sortorder ?: 1
 	
 		taskInstance = taskService.saveTask(taskInstance)	
 					
