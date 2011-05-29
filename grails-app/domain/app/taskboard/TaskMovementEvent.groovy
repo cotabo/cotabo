@@ -42,10 +42,10 @@ class TaskMovementEvent {
 	def afterInsert = {
 		def lastColumnOnBoard = tooColumn.board.columns.last()
 		if(tooColumn == lastColumnOnBoard) {
-			task.workflowEndDate = dateCreated
+			task.workflowEndDate = dateCreated				
 		}		
 		else if (tooColumn.workflowStartColumn) {
-			task.workflowStartDate = dateCreated
+			task.workflowStartDate = dateCreated			
 		} 
 	}
 }

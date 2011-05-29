@@ -48,16 +48,18 @@ class DashboardService {
 	 * @param too [optional] too when
 	 * @return the average thoughput time in miliseconds
 	 */
-	long getAverageCycleTime(Board board, Date from, Date too) {
+	long getAverageCycleTime(Board board, Date from=null, Date too=null) {
 		def workflowEndColumn = board.columns.last()
 		def resultTasks 
 		if (from && too) {
-			resultTasks = Task.findByColumnAndWorkflowEndDateBetween(workflowEndColumn, from, too)
+			resultTasks = Task.findAllByColumnAndWorkflowEndDateBetween(workflowEndColumn, from, too)
 		}
 		else {
-			resultTasks = Task.findByColumnAndWorkflowEndDateNotNull(workflowEndColumn)
+			resultTasks = Task.findAllByColumnAndWorkflowEndDateIsNotNull(workflowEndColumn)
 		}
-		long summTime = resultTasks.collect{it.workflowEndDate - it.workflowStartDate}.sum()
+		//This is assuming that workflowEndSate & workflowSartDate is always filles when
+		//a task is in the last column.
+		long sumTime = resultTasks.collect{it.workflowEndDate.time - it.workflowStartDate.time}.sum()
 		return sumTime / resultTasks.size()
 	}
 	

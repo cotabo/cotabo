@@ -21,10 +21,10 @@ class TaskService {
 	 * @param taskInstance with all necessary properties set.
 	 * @return a task object. Either persistest or with errors populated (use hasErrors()).
 	 */
-	Task saveTask(Task taskInstance) {	
+	Task saveTask(Task taskInstance, Date dateCreated = null) {	
 		if(taskInstance.validate()) {	
 			taskInstance.save(flush:true)
-			createMovementEvent(taskInstance, null, taskInstance.column)
+			createMovementEvent(taskInstance, null, taskInstance.column, dateCreated)
 		}
 		return taskInstance
 	}

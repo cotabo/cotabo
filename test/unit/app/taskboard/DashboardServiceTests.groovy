@@ -74,4 +74,12 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 		}
 		assertEquals expected, dashboardService.getCDFDataForColumn(Column.findByName('done'), from, too)
 	}
+	
+	void testGetAverageCycleTime() {
+		def board = Board.findByName('myboard')
+		//Our workflowStartColumn is 'wip' and every tasks needs 4 hours to be handled
+		long expected = 4*60*60*1000					
+		assertEquals expected, dashboardService.getAverageCycleTime(board)
+		
+	}
 }
