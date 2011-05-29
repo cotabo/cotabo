@@ -52,7 +52,7 @@ class BootStrap {
 				todo5: 	[name:'Apply Configuration Management', description:'Apply configuration management',durationHours:8.0, creator:user, assignee:user, sortorder:5, priority:'Normal', color:'#faf77a'],
 				done1: 	[name:'Request machines', description:'Request machines at the DataCenter',durationHours:48.0, creator:user, assignee:user, sortorder:1, priority:'Normal', color:'#bcbcf5'],
 			]
-			def column1 = new Column(name:'ToDo', limit:15)
+			def column1 = new Column(name:'ToDo', limit:15, workflowStartColumn:true)
 			def column2 = new Column(name:'In Progress', limit:4)
 			def column3 = new Column(name:'Done!')
 			//Relate everything togather
