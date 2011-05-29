@@ -13,7 +13,7 @@ import groovy.time.TimeCategory
  */
 class TaskBoardUnitTest extends GrailsUnitTestCase {
 	
-	def taskService
+	protected taskService
 	protected final Date startDate = Date.parse("dd/MM/yyyy HH:mm:ss SSS", "02/04/2011 13:13:13 013")
 	
     protected void setUp() {
@@ -98,9 +98,7 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 			orderedTaskIdListWip << task.id
 			orderedTaskIdListDone << task.id
 			// starting from my birthday :P			
-			use(TimeCategory) {		
-							
-				println "${(startDate+idx.days).time}" 	
+			use(TimeCategory) {												
 				taskService.moveTask orderedTaskIdListWip, Column.findByName('todo').id, Column.findByName('wip').id, task.id, startDate+idx.days
 				taskService.moveTask orderedTaskIdListDone, Column.findByName('wip').id, Column.findByName('done').id, task.id, startDate+idx.days
 			}								

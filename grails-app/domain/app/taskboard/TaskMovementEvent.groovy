@@ -31,16 +31,6 @@ class TaskMovementEvent {
 		user nullable:false
     }	
 			
-	/**
-	 * This shouldn't be updated but @Immutable doesn't work on
-	 * Grails domain classes.
-	 * 
-	 * @return
-	 */
-	def beforeUpdate() {
-		//Throw an exception when someone tries to update this
-		throw new EventUpdateException(this.task)
-	}
 	
 	/**
 	 * We want to set the workflowEndDate when we generate the events

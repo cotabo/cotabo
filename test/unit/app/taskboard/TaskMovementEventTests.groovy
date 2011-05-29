@@ -2,9 +2,10 @@ package app.taskboard
 
 import grails.test.*
 
-class TaskMovementEventTests extends TaskBoardUnitTest {
+class TaskMovementEventTests extends TaskBoardUnitTest {	
+	
     protected void setUp() {
-        super.setUp()
+        super.setUp()		
     }
 
     protected void tearDown() {   
@@ -25,23 +26,32 @@ class TaskMovementEventTests extends TaskBoardUnitTest {
 		assertNotNull event.dateCreated
 		
     }
+		
 	
-	void failOnUpdate() {
+	void testWorkflowTimestampSetting() {
 		def col1 = Column.findByName('todo')
 		def col2 = Column.findByName('wip')
-		def task = Task.findByName('mytask')
+		def col3 = Column.findByName('done')
 		
-		def event = new TaskMovementEvent(task: task, fromColumn: col1, tooColumn: col2, user: User.findByUsername('testuser'))
-		assertTrue event.validate()
-		assertNotNull event.save()
+		def task = new Task(
+			name: 'workflowtesttask',
+			durationHours: 0.5,
+			column: col1,
+			creator: User.findByUsername('testuser'),
+			sortorder: 1,
+			color: '#faf77a',
+			priority: 'Critical'
+		)
+		taskService.saveTask task
+		//We emulate a movement from todo > wip (only the events for that)
+		def event1 = new TaskMovementEvent(task: task, fromColumn: col1, tooColumn: col2, user: User.findByUsername('testuser'))
+		event1.save()
+		//We emulate a movement from wip > done (only the events for that)
+		def event2 = new TaskMovementEvent(task: task, fromColumn: col2, tooColumn: col3, user: User.findByUsername('testuser'))
+		event2.save()
 		
-		try{
-			event.dateCreated = new Date()
-			event.save()
-		}
-		catch(Exception e) {
-			assertEquals 'EventUpdateException', e.class.name
-		}
-		
+		//Now we should have the workflowStartDate & workflowEndDate setted properly on the task
+		assertNotNull Task.findByName('workflowtesttask').workflowStartDate
+		assertNotNull Task.findByName('workflowtesttask').workflowEndDate
 	}
 }
