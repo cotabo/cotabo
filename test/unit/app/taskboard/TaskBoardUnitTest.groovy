@@ -51,7 +51,7 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		mockDomain(UserRole)
 		
 		//Board>Column/User relationship mocking
-		def column1 = new Column(name:'todo')
+		def column1 = new Column(name:'todo', workflowStartColumn:true)
 		def column2 = new Column(name:'wip')
 		def column3 = new Column(name:'done')
 		def board = new Board(name:'myboard')
