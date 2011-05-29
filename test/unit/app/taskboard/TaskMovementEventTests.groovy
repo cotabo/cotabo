@@ -46,12 +46,16 @@ class TaskMovementEventTests extends TaskBoardUnitTest {
 		//We emulate a movement from todo > wip (only the events for that)
 		def event1 = new TaskMovementEvent(task: task, fromColumn: col1, tooColumn: col2, user: User.findByUsername('testuser'))
 		event1.save()
+		def expectedDateStart = event1.dateCreated
 		//We emulate a movement from wip > done (only the events for that)
 		def event2 = new TaskMovementEvent(task: task, fromColumn: col2, tooColumn: col3, user: User.findByUsername('testuser'))
 		event2.save()
-		
+		def expectedDateEnd = event2.dateCreated
+		println "$expectedDateStart.time, ${Task.findByName('workflowtesttask').workflowStartDate.time}"
 		//Now we should have the workflowStartDate & workflowEndDate setted properly on the task
 		assertNotNull Task.findByName('workflowtesttask').workflowStartDate
 		assertNotNull Task.findByName('workflowtesttask').workflowEndDate
+		assertEquals expectedDateStart, Task.findByName('workflowtesttask').workflowStartDate
+		assertEquals expectedDateEnd, Task.findByName('workflowtesttask').workflowEndDate
 	}
 }

@@ -100,9 +100,10 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 			// starting from my birthday :P			
 			use(TimeCategory) {												
 				taskService.moveTask orderedTaskIdListWip, Column.findByName('todo').id, Column.findByName('wip').id, task.id, startDate+idx.days
-				taskService.moveTask orderedTaskIdListDone, Column.findByName('wip').id, Column.findByName('done').id, task.id, startDate+idx.days
+				//We emulate keeping each tasks for 4 hour in the WIP column
+				taskService.moveTask orderedTaskIdListDone, Column.findByName('wip').id, Column.findByName('done').id, task.id, startDate+(idx.days+4.hours)			
 			}								
-		}
+		}		
 		
 		//After doing all this stuff we want to add at least 1 task to todo & wip
 		def todoCol = Column.findByName('todo')
@@ -128,9 +129,9 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		assertEquals 80, ColumnStatusEntry.list().size()			
 		
 		use(TimeCategory) {			
-			//Expecting 2 moves on a given day (todo > wip, wip > done)
-			assertEquals 2, TaskMovementEvent.findAllByDateCreated(startDate+2.days).size()
-			assertEquals 4, ColumnStatusEntry.findAllByDateCreated(startDate+2.days).size()
+			//Expecting 1 moves at this timestamp (todo > wip)
+			assertEquals 1, TaskMovementEvent.findAllByDateCreated(startDate+2.days).size()
+			assertEquals 2, ColumnStatusEntry.findAllByDateCreated(startDate+2.days).size()
 		}
 		assertNotNull Board.findByName('myboard')
 		assertNotNull Column.findByName('todo')

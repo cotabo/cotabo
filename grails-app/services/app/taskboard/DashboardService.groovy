@@ -38,6 +38,28 @@ class DashboardService {
 		
 	}
 
+	/**
+	 * Returns the average thoughput time of tasks though the board
+	 * in milliseconds. If no range (from & too) is given it will be calculated
+	 * for the whole time that the board exists.
+	 * 
+	 * @param board The board that you want to have the data for
+	 * @param from [optional] from when
+	 * @param too [optional] too when
+	 * @return the average thoughput time in miliseconds
+	 */
+	long getAverageCycleTime(Board board, Date from, Date too) {
+		def workflowEndColumn = board.columns.last()
+		def resultTasks 
+		if (from && too) {
+			resultTasks = Task.findByColumnAndWorkflowEndDateBetween(workflowEndColumn, from, too)
+		}
+		else {
+			resultTasks = Task.findByColumnAndWorkflowEndDateNotNull(workflowEndColumn)
+		}
+		long summTime = resultTasks.collect{it.workflowEndDate - it.workflowStartDate}.sum()
+		return sumTime / resultTasks.size()
+	}
 	
 	/**
 	 * Utility method that provides the latest ColumnStatus entry for a given time.
