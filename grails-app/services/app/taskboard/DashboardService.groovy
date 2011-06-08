@@ -37,6 +37,37 @@ class DashboardService {
 		return sb.toString()
 		
 	}
+	
+	/**
+	 * Generates CSV data for the lead-time of all tasks in the last column.	 
+	 *
+	 * Will look like this:
+	 * <milliseconds-since-1970_of_done_date>,<hours>
+	 *
+	 */
+	def getLeadTimeData(Board board, Date from=null, Date too=null) {
+		StringBuffer sb = new StringBuffer()
+
+		def entries
+		def ordering = [sort:'dateCreated', order:'asc']
+		def lastColumn = board.columns.last()
+		if(!from && ! too) {
+			entries = Task.findAllByColumn(lastColumn, ordering)
+		}
+		else {
+			entries = Task.findAllByColumnAndWorkflowEndDateBetween(lastColumn, from, too, ordering)	
+		}
+		
+		def hoursDate
+		entries.each { task ->			
+			use(TimeCategory) {
+				hoursDate = task.workflowEndDate - task.workflowStartDate
+				sb << "${task.workflowEndDate.time},${hoursDate.hours}\n"
+			}
+		}
+		return sb.toString()
+	}
+
 
 	/**
 	 * Returns the average thoughput time of tasks though the board
