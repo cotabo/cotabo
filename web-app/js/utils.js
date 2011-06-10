@@ -80,3 +80,24 @@ var taskTpl = function () {
 		]
 	];
 }
+
+/**
+ * Gets the data for the Colulative Flow Diagram for a single column 
+ * and splits the returning CSV data <timestamp,value>
+ * into a series of Arrays so that it can be used directly by Flot
+ * to be inserted as a data series.
+ *
+ * @param columnId - the column ID that you want to get data for
+ * @return Array of arrays for each data point
+ */
+var getCsvCDFDataForColumn = function (columnId) {
+		//Setting asynchronous ajax to false because we want to load the data
+		//before executing the diagram-generation code.
+		$.ajaxSetup({async:false});
+		var resultData
+		$.get('../getCdfDataForColumn/'+columnId, function(data) {
+			resultData = $.csv(',', 0)(data);	
+		});
+		$.ajaxSetup({async:true});
+		return resultData
+}

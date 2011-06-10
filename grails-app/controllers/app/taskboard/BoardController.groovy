@@ -6,6 +6,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 @Secured(['ROLE_USER'])
 class BoardController {
 	def springSecurityService
+	def dashboardService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	
@@ -140,4 +141,27 @@ class BoardController {
             redirect(action: "list")
         }
     }
+	
+
+	def comulativeflowchart = {		
+		def boardInstance = Board.get(params.id)
+		if(!boardInstance) {
+			flash.message = "Board with it [${params.id}] not found"
+		}
+		[boardInstance: boardInstance]
+	}
+	
+	def getCdfDataForColumn = {
+		def columnInstance = Column.get(params.id)
+		if (!columnInstance) {
+			flash.message = "Column ID does not exist"
+			render flash.message
+		}
+		def result = dashboardService.getCDFDataForColumn(columnInstance, params.from, params.too)
+		render result
+	}
+	
+	
+	
+	
 }

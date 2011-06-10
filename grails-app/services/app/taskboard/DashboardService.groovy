@@ -33,7 +33,7 @@ class DashboardService {
 		entries.each{
 			//As the JavaScript timestamp is in milliseconds we need to multiply by 1000
 			sb << "${it.dateCreated.time},${it.tasks.size()}\n"
-		}
+		}		
 		return sb.toString()
 		
 	}
