@@ -22,8 +22,10 @@ class TaskService {
 	 * @return a task object. Either persistest or with errors populated (use hasErrors()).
 	 */
 	Task saveTask(Task taskInstance, Date dateCreated = null) {	
-		if(taskInstance.validate()) {	
-			taskInstance.save(flush:true)
+		if(taskInstance.validate()) {
+			taskInstance.column.addToTasks(taskInstance).save()
+			//saving both as addTo somehow here doesn't seem to main both ends of the relation
+			taskInstance.save()	
 			createMovementEvent(taskInstance, null, taskInstance.column, dateCreated)
 		}
 		return taskInstance
