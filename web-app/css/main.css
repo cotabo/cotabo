@@ -136,3 +136,8 @@ input.error {
 .italic {
 	font-style:italic;
 }
+
+#report_container {
+	width: 70%;
+	margin: 0 auto;
+}

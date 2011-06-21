@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="main" />        
+        <meta name="layout" content="report" />        
         <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />				
 		<script language="javascript" type="text/javascript" src="${resource(dir:'js/jquery-plugins',file:'jquery.flot.min.js')}"></script>
 		<script language="javascript" type="text/javascript" src="${resource(dir:'js/jquery-plugins',file:'jquery.flot.stack.js')}"></script>
@@ -23,12 +23,11 @@
 		</g:each>
 		
 		$.plot($('#cfd_placeholder'), [						
-			<g:each in="${boardInstance.columns.sort{a,b->b.id<=>a.id}}" var="column" status="i">
+			<g:each in="${boardInstance.columns}" var="column" status="i">
 			{
 				label: '${column.name}',
 				data: dataArray[${column.id}],
-				lines: { show: true, fill: true },
-				stack:1			
+				lines: { show: true, fill: true }
 			}
 			<g:if test="${i != (boardInstance.columns.size() -1)}">
 			,

@@ -10,5 +10,4 @@ class TaskServiceTests extends TaskBoardUnitTest {
 	protected void tearDown() {
 		super.tearDown()
 	}
-
 }
