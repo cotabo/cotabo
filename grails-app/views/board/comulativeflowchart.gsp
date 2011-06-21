@@ -2,11 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="report" />        
-        <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />				
-		<script language="javascript" type="text/javascript" src="${resource(dir:'js/jquery-plugins',file:'jquery.flot.min.js')}"></script>
-		<script language="javascript" type="text/javascript" src="${resource(dir:'js/jquery-plugins',file:'jquery.flot.stack.js')}"></script>
-		<script language="javascript" type="text/javascript" src="${resource(dir:'js/jquery-plugins',file:'jquery.csv.js')}"></script>
+        <meta name="layout" content="report" />                
         <title>TaskBoard - Comulative Flow Diagram for ${boardInstance?.name}</title>  
 	</head>
 	<body>
