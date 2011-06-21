@@ -12,16 +12,14 @@ package app.taskboard
  */
 class ColumnStatusEntry {	
 	
-	Column column
-	SortedSet tasks
-	static hasMany = [ tasks : Task ]
+	Column column	
+	int tasks = 0
 	
 	//Grails tracked creation date
 	Date dateCreated
 
     static constraints = {
-		column nullable:false
-		tasks nullable:false
+		column nullable:false		
     }
 	
 	def beforeUpdate() {

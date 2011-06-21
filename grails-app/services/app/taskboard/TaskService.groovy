@@ -112,17 +112,17 @@ class TaskService {
 			//Might be zero in terms of task creation
 			events << new ColumnStatusEntry(
 				column: fromColumn,
-				//We need to create a new collection here
-				tasks: fromColumn.tasks.collect{it},
+				//Just saving the number of tasks that after the movement
+				tasks: fromColumn.tasks?.size() ?: 0,
 				dateCreated: dateCreated
 			)			
 		}		
 		//And another column status entry for the target (this always exists)
 		events << new ColumnStatusEntry(
 			column: tooColumn,
-			//We need to create a new collection here
-			//to not hold the same reference as the original Column
-			tasks: tooColumn.tasks.collect{it},
+			//Just saving the number of tasks that after the movement
+			//Need to handle the case where the target column is empty
+			tasks: tooColumn.tasks?.size() ?: 0,
 			dateCreated: dateCreated
 		)		
 		//Save everything		

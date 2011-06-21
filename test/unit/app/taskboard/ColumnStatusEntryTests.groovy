@@ -15,11 +15,11 @@ class ColumnStatusEntryTests extends TaskBoardUnitTest {
 		def col = Column.findByName('todo')	
 		assertNotNull col
 		assertNotNull col.tasks	
-		def entry = new ColumnStatusEntry(column:col, tasks:col.tasks.clone())
+		def entry = new ColumnStatusEntry(column:col, tasks:col.tasks.size())
 		
 		assertTrue entry.validate()
 		assertNotNull entry.save()
-		assertEquals col.tasks, entry.tasks
+		assertEquals col.tasks.size(), entry.tasks
     }
 	
 }
