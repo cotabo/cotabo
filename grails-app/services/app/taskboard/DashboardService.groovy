@@ -51,7 +51,7 @@ class DashboardService {
 		StringBuffer sb = new StringBuffer()
 
 		def entries
-		def ordering = [sort:'dateCreated', order:'asc']
+		def ordering = [sort:'workflowEndDate', order:'asc']
 		def lastColumn = board.columns.last()
 		if(!from && ! too) {
 			entries = Task.findAllByColumn(lastColumn, ordering)
@@ -62,7 +62,7 @@ class DashboardService {
 		
 		def hoursDate
 		entries.each { task ->			
-			use(TimeCategory) {
+			use(TimeCategory) {			
 				hoursDate = task.workflowEndDate - task.workflowStartDate
 				sb << "${task.workflowEndDate.time},${hoursDate.hours}\n"
 			}
