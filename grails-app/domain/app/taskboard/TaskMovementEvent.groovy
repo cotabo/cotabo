@@ -29,23 +29,24 @@ class TaskMovementEvent {
 		fromColumn nullable:true
 		tooColumn nullable:false
 		user nullable:false
-    }	
-			
+    }
+
 	
 	/**
 	 * We want to set the workflowEndDate when we generate the events
 	 * in case that the target column is the last one on the board.
-	 * 
+	 *
 	 * We also set the workflowStartDate when the targetColumn for this event
 	 * is the first one in the workflow (this can be user-defined on board-creation)
 	 */
 	def afterInsert = {
 		def lastColumnOnBoard = tooColumn.board.columns.last()
-		if(tooColumn == lastColumnOnBoard) {
-			task.workflowEndDate = dateCreated				
-		}		
+		if(tooColumn.id == lastColumnOnBoard.id) {
+			task.workflowEndDate = dateCreated
+		}
 		else if (tooColumn.workflowStartColumn) {
-			task.workflowStartDate = dateCreated			
-		} 
+			task.workflowStartDate = dateCreated
+		}
+		task.save()
 	}
 }
