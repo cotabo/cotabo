@@ -149,8 +149,7 @@ class BoardController {
 			flash.message = "Board with it [${params.id}] not found"
 		}
 		[boardInstance: boardInstance]
-	}
-	
+	}	
 	def getCdfDataForColumn = {
 		def columnInstance = Column.get(params.id)
 		if (!columnInstance) {
@@ -161,7 +160,22 @@ class BoardController {
 		render result
 	}
 	
-	
+	def leadtimechart = {
+		def boardInstance = Board.get(params.id)
+		if(!boardInstance) {
+			flash.message = "Board with it [${params.id}] not found"
+		}
+		[boardInstance: boardInstance]
+	}	
+	def getLeadTimeData = {
+		def boardInstance = Board.get(params.id)
+		if(!boardInstance) {
+			flash.message = "Board ID [${params.id}] does not exist."
+			render flash.message
+		}
+		def result = dashboardService.getLeadTimeData(boardInstance, params.from, params.too)
+		render result
+	}
 	
 	
 }

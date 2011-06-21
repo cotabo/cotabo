@@ -91,13 +91,33 @@ var taskTpl = function () {
  * @return Array of arrays for each data point
  */
 var getCsvCDFDataForColumn = function (columnId) {
-		//Setting asynchronous ajax to false because we want to load the data
-		//before executing the diagram-generation code.
-		$.ajaxSetup({async:false});
-		var resultData
-		$.get('../getCdfDataForColumn/'+columnId, function(data) {
-			resultData = $.csv(',', 0)(data);	
-		});
-		$.ajaxSetup({async:true});
-		return resultData
+	//Setting asynchronous ajax to false because we want to load the data
+	//before executing the diagram-generation code.
+	$.ajaxSetup({async:false});
+	var resultData
+	$.get('../getCdfDataForColumn/'+columnId, function(data) {
+		resultData = $.csv(',', 0)(data);	
+	});
+	$.ajaxSetup({async:true});
+	return resultData
+}
+
+/**
+ * Get the data for displaying the lead-time and receives the CSV data
+ * <timestamp,value> into a series of Arrays so that is can be used directly
+ * by jQuery Flot as time-series data.
+ * 
+ * @param boardId - the board the the data should be got for.
+ * return Array of arrays for each data point.
+ */
+var getLeadTimeData = function(boardId) {
+	//Setting asynchronous ajax to false because we want to load the data
+	//before executing the diagram-generation code.
+	$.ajaxSetup({async:false});
+	var resultData
+	$.get('../getLeadTimeData/'+boardId, function(data) {
+		resultData = $.csv(',', 0)(data);
+	});
+	$.ajaxSetup({async:true});
+	return resultData
 }
