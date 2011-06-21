@@ -25,8 +25,10 @@
         				</sec:ifNotLoggedIn>        			
 						
         		</span>				
-        		<div class="logo">        			
+        		<div class="logo">  
+        			<a href="${request.contextPath}">      			
         			<img src="${resource(dir:'images',file:'logo.png')}"/>
+        			</a>
         		</div>
 
         	</div>    
