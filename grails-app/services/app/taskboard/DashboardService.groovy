@@ -93,7 +93,10 @@ class DashboardService {
 		//This is assuming that workflowEndSate & workflowSartDate is always filles when
 		//a task is in the last column.
 		long sumTime = resultTasks.collect{it.workflowEndDate.time - it.workflowStartDate.time}.sum()
-		return sumTime / resultTasks.size()
+		def result = sumTime / resultTasks.size()
+		//we have milliseconds in the result
+		def resultHours = result / 60 / 60 / 1000
+		return resultHours
 	}
 	
 	/**

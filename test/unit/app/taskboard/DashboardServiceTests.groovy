@@ -95,7 +95,7 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 	void testGetAverageCycleTime() {
 		def board = Board.findByName('myboard')
 		//Our workflowStartColumn is 'wip' and every tasks needs 4 hours to be handled
-		long expected = 4*60*60*1000					
+		long expected = 4					
 		assertEquals expected, dashboardService.getAverageCycleTime(board)
 		
 	}
