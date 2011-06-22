@@ -27,7 +27,12 @@
 			{
 				label: 'Lead time (hours)',
 				data: getLeadTimeData(${boardInstance.id}),
-				lines: { show: true, fill: true }
+				lines: { show: true }
+			},
+			{
+				label: 'Tasks in progress',
+				data: getWorkflowTaskAmountData(${boardInstance.id}),
+				lines: { show: true, fill:true }
 			}			
 		],
 		{

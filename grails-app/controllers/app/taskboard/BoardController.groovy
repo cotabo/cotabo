@@ -166,7 +166,7 @@ class BoardController {
 			flash.message = "Board with it [${params.id}] not found"
 		}
 		[boardInstance: boardInstance]
-	}	
+	}		
 	def getLeadTimeData = {
 		def boardInstance = Board.get(params.id)
 		if(!boardInstance) {
@@ -175,8 +175,16 @@ class BoardController {
 		}
 		def result = dashboardService.getLeadTimeData(boardInstance, params.from, params.too)
 		render result
+	}	
+	def getWorkflowTaskAmountData = {
+		def boardInstance = Board.get(params.id)
+		if(!boardInstance) {
+			flash.message = "Board ID [${params.id}] does not exist."
+			render flash.message
+		}
+		def result = dashboardService.getTaskCountInWorkflowData(boardInstance)
+		render result
 	}
-	
 	def getAverageCycleTime = {
 		def boardInstance = Board.get(params.id)
 		if (!boardInstance) {
@@ -186,4 +194,5 @@ class BoardController {
 		def result = dashboardService.getAverageCycleTime(boardInstance, params.from, params.too)
 		render result
 	}	
+	
 }

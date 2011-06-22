@@ -30,12 +30,14 @@ class DashboardService {
 		else {
 			entries = ColumnStatusEntry.findAllByColumnAndDateCreatedBetween(column, from, too, ordering)	
 		}
-		sb << "${entries.first().dateCreated.time},0\n"
-		entries.each{
-			//As the JavaScript timestamp is in milliseconds we need to multiply by 1000
-			sb << "${it.dateCreated.time},${it.tasks}\n"
+		if(entries) {
+			sb << "${entries.first().dateCreated.time},0\n"
+			entries.each{
+				//As the JavaScript timestamp is in milliseconds we need to multiply by 1000
+				sb << "${it.dateCreated.time},${it.tasks}\n"
+			}
+			sb << "${new Date().time},${entries.last().tasks}\n"
 		}
-		sb << "${new Date().time},${entries.last().tasks}\n"
 		return sb.toString()
 		
 	}
@@ -144,14 +146,14 @@ class DashboardService {
 			//For each status entry that we found			
 			composedList.each { columnStatusEntry ->				
 				def allColumnsEntries = []
-				//over all columns				
+				//over all columns								
 				allWorkflowCollumns.each {
 					//Try to find a corresponding ColumnStatusEntry
 					def tmpEntry = getColumnStatusForDate(it, columnStatusEntry.dateCreated)
 					if (tmpEntry){
-						allColumnsEntries << tmpEntry						
-					}
-				}					
+						allColumnsEntries << tmpEntry								
+					}														
+				}									
 				//Sum the tasks of all found entries
 				def taskSum = allColumnsEntries.sum{it.tasks}
 				sb.append("${columnStatusEntry.dateCreated.time},${taskSum}\n")
