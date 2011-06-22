@@ -55,7 +55,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 	
 	void testColumn() {
 		def expected = """
-		<div class="column" style="width:33%;">
+		<div class="column" style="width:33.2333333333%;">
 			<span class="title">
 				<p>koffer</p>
 				<span>
