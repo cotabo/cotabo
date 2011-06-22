@@ -95,7 +95,7 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 	void testGetAverageCycleTime() {
 		def board = Board.findByName('myboard')
 		//Our workflowStartColumn is 'wip' and every tasks needs 4 hours to be handled
-		long expected = 4					
+		long expected = 4				
 		assertEquals expected, dashboardService.getAverageCycleTime(board)
 		
 	}
@@ -150,8 +150,33 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 	}
 	
 	void testGetTaskCountInWorkflowData() {
-		//We just expect one task to be there - see our test data in TaskBoardUnitTest
-		def expected = "${this.startDate.time},1"
-		assertEquasl expected, dashboardService.getTaskCountInWorkflowData(Board.findByName('myboard'))
+		//prepare findAllEnteredByColumn as boolean dynamic finders
+		//doesn't seem to work on mocked Domain objects
+		ColumnStatusEntry.metaClass.static.findAllEnteredByColumn = { Column column ->
+			def all = delegate.findAllByColumn(column)			
+			return all.findAll{it.entered}				
+		}
+		//Building the expected
+		StringBuilder sb = new StringBuilder()
+		//This is added by the service method for better graph
+		sb.append("${startDate.time},0\n")
+		//There is another task that we add on the startDate to the wip column in our testdata
+		sb.append("${startDate.time},1\n")
+		for(i in 0..19) {
+			use(TimeCategory) {
+				//See TaskBoardUnitTest - we're moving always a task to wip
+				//and 4 hours later too done.
+				sb.append("${(startDate + i.days).time},1\n")
+				sb.append("${((startDate + i.days)+4.hours).time},0\n")				
+			}
+		}		
+		def expected = sb.toString()
+		
+		//We need to pop the last element as this will be the current timestamp (not testable)
+		def result = dashboardService.getTaskCountInWorkflowData(Board.findByName('myboard'))
+		def resultList = result.readLines()		
+		resultList.pop()
+				
+		assertEquals expected.readLines(), resultList
 	}
 }
