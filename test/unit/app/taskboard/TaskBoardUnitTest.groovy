@@ -113,11 +113,17 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		
 		//After doing all this stuff we want to add at least 1 task to todo & wip
 		def todoCol = Column.findByName('todo')
-		def wipCol = Column.findByName('wip') 
-		new Task(name: "todotask", durationHours: 0.5, column: todoCol,
-				creator: user, sortorder: 100, color: '#faf77a', priority: 'Critical').save()
-		new Task(name: "wiptask", durationHours: 0.5, column: wipCol,
-			creator: user, sortorder: 100, color: '#faf77a', priority: 'Critical').save()
+		def wipCol = Column.findByName('wip')
+		//We save a todo task for further testing 
+		taskService.saveTask(
+			new Task(name: "todotask", durationHours: 0.5, column: todoCol,
+				creator: user, sortorder: 100, color: '#faf77a', priority: 'Critical'),
+			startDate)
+		//We save a wip task for further testing
+		taskService.saveTask(
+			new Task(name: "wiptask", durationHours: 0.5, column: wipCol,
+				creator: user, sortorder: 100, color: '#faf77a', priority: 'Critical'),
+			startDate)
 		todoCol.addToTasks(Task.findByName('todotask'))
 		wipCol.addToTasks(Task.findByName('wiptask'))
     }
@@ -128,13 +134,15 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 	
 	
 	void testOwnMockup() {
-		//Expecting 60 overall movements as we're moving 2 times + 1 event for creation for 20 tasks
-		assertEquals 60, TaskMovementEvent.list().size()
+		//Expecting 62 overall movements as we're moving 2 times + 1 event for creation for 20 tasks 
+		// + 2 single task creations
+		assertEquals 62, TaskMovementEvent.list().size()
 		
 		//Extecting 100 ColumnStatusEntries 
 		//80 = 40 moves
 		//+ 20 = 20 creates
-		assertEquals 100, ColumnStatusEntry.list().size()			
+		//+ 2 (for 2 single task creations - creation created only 1 ColumnStatusEntry)
+		assertEquals 102, ColumnStatusEntry.list().size()			
 		
 		use(TimeCategory) {			
 			//Expecting 1 moves at this timestamp (todo > wip)
