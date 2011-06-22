@@ -177,5 +177,13 @@ class BoardController {
 		render result
 	}
 	
-	
+	def getAverageCycleTime = {
+		def boardInstance = Board.get(params.id)
+		if (!boardInstance) {
+			flash.message = "Board ID [${params.id}] does not exist."
+			render flash.message
+		}
+		def result = dashboardService.getAverageCycleTime(boardInstance, params.from, params.too)
+		render result
+	}	
 }
