@@ -27,7 +27,10 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 	void testGetCDFDataForColumn() {
 		
 		//our startDate (so the latest one) was 
-		def expected = '''1301757193013,1
+		//Always starting with a 0 value for the first timestamp
+		//for better graph output.
+		def expected = '''1301757193013,0
+1301757193013,1
 1301843593013,2
 1301929993013,3
 1302016393013,4
@@ -48,14 +51,21 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 1303312393013,19
 1303398793013,20
 '''	
+		def result = dashboardService.getCDFDataForColumn(Column.findByName('done'))
+		def resultList = result.readLines()
+		//Need to remove the last line as this is the current timestamp
+		//which is not really testable
+		resultList.pop()
 		
-		assertEquals expected, dashboardService.getCDFDataForColumn(Column.findByName('done'))
+		
+		assertEquals expected.readLines(), resultList
 	}
 	
 	void testGetCDFDataForColumnWithDateRestriction() {
 		
 		//our startDate (so the latest one) was
-		def expected = '''1302016393013,4
+		def expected = '''1302016393013,0
+1302016393013,4
 1302102793013,5
 1302189193013,6
 1302275593013,7
@@ -72,7 +82,14 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 			//Including the 10th day where we had 11 tasks in
 			too = startDate + 10.days + 4.hours + 20.seconds
 		}
-		assertEquals expected, dashboardService.getCDFDataForColumn(Column.findByName('done'), from, too)
+		def result = dashboardService.getCDFDataForColumn(Column.findByName('done'), from, too)
+		def resultList = result.readLines()
+		//Need to remove the last line as this is the current timestamp
+		//which is not really testable
+		resultList.pop()
+		
+		//Comparing both line collections		
+		assertEquals expected.readLines(), resultList
 	}
 	
 	void testGetAverageCycleTime() {
@@ -130,5 +147,11 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 		
 		def board = Board.findByName('myboard')
 		assertEquals expected, dashboardService.getLeadTimeData(board, from, too)
+	}
+	
+	void testGetTaskCountInWorkflowData() {
+		//We just expect one task to be there - see our test data in TaskBoardUnitTest
+		def expected = "${this.startDate.time},1"
+		assertEquasl expected, dashboardService.getTaskCountInWorkflowData(Board.findByName('myboard'))
 	}
 }
