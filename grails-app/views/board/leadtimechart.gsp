@@ -23,17 +23,17 @@
 				$("span#ald").append(data);
 			}
 		);					
-		$.plot($('#cfd_placeholder'), [									
-			{
-				label: 'Lead time (hours)',
-				data: getLeadTimeData(${boardInstance.id}),
-				lines: { show: true }
-			},
+		$.plot($('#cfd_placeholder'), [
 			{
 				label: 'Tasks in progress',
 				data: getWorkflowTaskAmountData(${boardInstance.id}),
 				lines: { show: true, fill:true }
-			}			
+			},								
+			{
+				label: 'Lead time (hours)',
+				data: getLeadTimeData(${boardInstance.id}),
+				lines: { show: true }
+			}		
 		],
 		{
 			xaxis: {
