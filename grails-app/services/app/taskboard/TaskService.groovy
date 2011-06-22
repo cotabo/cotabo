@@ -116,6 +116,7 @@ class TaskService {
 				column: fromColumn,
 				//Just saving the number of tasks that after the movement
 				tasks: fromColumn.tasks?.size() ?: 0,
+				entered: false,
 				dateCreated: dateCreated
 			)			
 		}		
@@ -125,6 +126,7 @@ class TaskService {
 			//Just saving the number of tasks that after the movement
 			//Need to handle the case where the target column is empty
 			tasks: tooColumn.tasks?.size() ?: 0,
+			entered: true,
 			dateCreated: dateCreated
 		)		
 		//Save everything		
