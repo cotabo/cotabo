@@ -1,11 +1,12 @@
 package app.taskboard
 
 /**
- * Representing a message that contains all information about a TaskMovement.
+ * Representing an immutable message that contains all information about a TaskMovement.
  * 
  * @author rkrombho
  *
  */
+@Immutable
 class TaskMovementMessage {
 	//IDs
 	int task
