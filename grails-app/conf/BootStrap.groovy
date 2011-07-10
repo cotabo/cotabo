@@ -84,15 +84,36 @@ class BootStrap {
 			SpringSecurityUtils.doWithAuth('user') {	
 				testTasks.wip.each {
 					def persistedTask = Task.findByName(it.name)
-					taskService.moveTask tmpIdList << persistedTask.id , persistedTask.column.id, Column.findByName('In Progress').id, persistedTask.id
+					tmpIdList << persistedTask.id
+					def movementMessage = new TaskMovementMessage(
+						task: persistedTask.id,
+						fromColumn: persistedTask.column.id,
+						toColumn: Column.findByName('In Progress').id,
+						newTaskOrderIdList: tmpIdList
+					)
+					taskService.moveTask movementMessage
 				}
 				testTasks.done.each {
 					def persistedTask = Task.findByName(it.name)
-					taskService.moveTask tmpIdList << persistedTask.id, persistedTask.column.id, Column.findByName('In Progress').id, persistedTask.id
+					tmpIdList << persistedTask.id
+					def movementMessage = new TaskMovementMessage(
+						task: persistedTask.id,
+						fromColumn: persistedTask.column.id,
+						toColumn: Column.findByName('In Progress').id,
+						newTaskOrderIdList: tmpIdList
+					)
+					taskService.moveTask movementMessage
 				}
 				testTasks.done.each {
 					def persistedTask = Task.findByName(it.name)
-					taskService.moveTask tmpIdList << persistedTask.id, persistedTask.column.id, Column.findByName('Done!').id, persistedTask.id
+					tmpIdList << persistedTask.id
+					def movementMessage = new TaskMovementMessage(
+						task: persistedTask.id,
+						fromColumn: persistedTask.column.id,
+						toColumn: Column.findByName('Done!').id,
+						newTaskOrderIdList: tmpIdList
+					)
+					taskService.moveTask movementMessage
 				}				
 			}	
 			
@@ -122,14 +143,28 @@ class BootStrap {
 			//First we move all out 80 tasks to the second column
 			for (task in eventTasks) {
 				SpringSecurityUtils.doWithAuth('user') {
-					taskService.moveTask secondColumnTaskIdList << task.id, task.column.id, Column.findByName('In Progress').id, task.id
+					secondColumnTaskIdList << task.id
+					def movementMessage = new TaskMovementMessage(
+						task: task.id,
+						fromColumn: task.column.id,
+						toColumn: Column.findByName('In Progress').id,
+						newTaskOrderIdList: secondColumnTaskIdList
+					)
+					taskService.moveTask movementMessage
 				}				
 			}
 			eventTasks = Task.findAllByNameLike('Task %')
 			//than all to the last column
 			for (task in eventTasks) {
 				SpringSecurityUtils.doWithAuth('user') {
-					taskService.moveTask secondColumnTaskIdList << task.id, task.column.id, Column.findByName('Done!').id, task.id
+					secondColumnTaskIdList << task.id
+					def movementMessage = new TaskMovementMessage(
+						task: task.id,
+						fromColumn: task.column.id,
+						toColumn: Column.findByName('Done!').id,
+						newTaskOrderIdList: secondColumnTaskIdList
+					)
+					taskService.moveTask movementMessage
 				}
 			}					
 		}
