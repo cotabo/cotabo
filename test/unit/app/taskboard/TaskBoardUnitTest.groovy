@@ -100,11 +100,23 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 			orderedTaskIdListWip << task.id
 			orderedTaskIdListDone << task.id
 			// starting from my birthday :P			
-			use(TimeCategory) {														
+			use(TimeCategory) {			
+				def movementMessage1 = new TaskMovementMessage(
+					task: task.id,
+					fromColumn: Column.findByName('todo').id,
+					toColumn: Column.findByName('wip').id,
+					newTaskOrderIdList: orderedTaskIdListWip
+				)
+				def movementMessage2 = 	new TaskMovementMessage(
+					task: task.id,
+					fromColumn: Column.findByName('wip').id,
+					toColumn: Column.findByName('done').id,
+					newTaskOrderIdList: orderedTaskIdListWip
+				)										
 				//Move too wip
-				taskService.moveTask orderedTaskIdListWip, Column.findByName('todo').id, Column.findByName('wip').id, task.id, startDate+idx.days
+				taskService.moveTask movementMessage1, startDate+idx.days
 				//We emulate keeping each tasks for 4 hour in the WIP column
-				taskService.moveTask orderedTaskIdListDone, Column.findByName('wip').id, Column.findByName('done').id, task.id, startDate+(idx.days+4.hours)			
+				taskService.moveTask movementMessage2, startDate+(idx.days+4.hours)			
 			}								
 		}		
 		//Now we realle move the tasks too done
