@@ -62,8 +62,7 @@ class TaskService {
 	 */
 	String moveTask(TaskMovementMessage message, Date dateCreated = null) {						
 		
-		updateTaskOrder(message.newTaskOrderIdList)
-		
+		updateTaskOrder(message.newTaskOrderIdList)		
 		def fromColumnInstance = Column.get(message.fromColumn)
 		def toColumnInstance = Column.get(message.toColumn)
 		def taskInstance = Task.get(message.task)		

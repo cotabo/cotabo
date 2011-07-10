@@ -81,7 +81,7 @@
 						setElementCountOnColumn();
 						//If an element is moved to the last column
 						if (toColumnId == $(".column:last > ul").attr('id').split('_')[1]) {
-							//and it it ellapsed			
+							//and it is ellapsed			
 							if ($(ui.item).children('div:first').children('span').hasClass('ui-icon-carat-1-n')) {
 								//Collapse it
 								$(ui.item).children('div:first').children('span').click()
@@ -139,6 +139,11 @@
 			//Apply the click handle to all expand/collapse icons
 			$('.task-header .ui-icon').live('click', handleClickHeader);			
 
+			/**
+			 * Subscribing the atmosphere channel for this board and register
+			 * the taskMovementCallback
+			 */
+			 subscribeChannel('${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}', taskMovementCallback);
         </jq:jquery>
     </head>
     <body>    	

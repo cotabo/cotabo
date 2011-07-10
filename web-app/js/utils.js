@@ -80,7 +80,79 @@ var taskTpl = function () {
 		]
 	];
 }
+/************** Atmosphere Stuff *************/ 
 
+/**
+ * Subscribes the an atmosphere channel for the given boardId.
+ * @param boardId The id of the current board context
+ */
+var subscribeChannel = function(channelString, callback) {
+	//Closing all active requests if there are any
+	$.atmosphere.close(); 
+    $.atmosphere.subscribe(channelString,
+    	callback,
+    	//Use WebSockets as the first choice but use streaming if
+    	//either the server or the client doesn't support WebSockets.
+    	$.atmosphere.request={transport:'websocket', fallbackTransport:'streaming'}
+	);    
+}
+
+/**
+ * Function to be registered for atmosphere taskMovement events.
+ * This moves tasks (or reorders them) based on the response date 
+ * which was generated out of the TaskMovementMessage.
+ * @param response JSON representation of TaskMovementMessage
+ */
+var taskMovementCallback = function(response) {	
+	if (response.status == 200 && response.state != 'connected' && response.state != 'closed') {
+		var data = $.parseJSON(response.responseBody);		
+		var taskDom = $('li#task_'+data.task);
+		var toColumnDom = $('ul#column_'+data.toColumn);
+		var fromColumnDom = $('ul#column_'+data.fromColumn);		
+		
+		var foundFlag = false;
+		var successorDom = null;				
+		//Find the task DOM that comes after the one moved in the newEntryIdList
+		//so that we can use .before() to insert the task on the correct place.
+		for (var i = 0; i < data.newTaskOrderIdList.length; i++) {			
+			if (foundFlag == true) {						
+				//We reached the successor of the moved task and select that piece of DOM
+				successorDom = $('li#task_'+data.newTaskOrderIdList[i]);
+				//Quit the loop when found
+				break;
+			}
+			if (data.newTaskOrderIdList[i] == data.task) {
+				foundFlag = true;
+			}
+		}
+		if (successorDom != null) {
+			//TODO: check whether it is already moved - in this case
+			//this is our own message and we don't need to do the DOM manupilation
+			$(taskDom).draggable( "disable" )
+			var targetPosition = $(successorDom).position();
+			$(taskDom).addClass('ui-state-active')
+			$(taskDom).fadeOut(500, function() {
+				$(taskDom).removeClass('ui-state-active')
+				$(taskDom).insertBefore($(successorDom));
+				$(taskDom).fadeIn(500);
+			});			
+			
+			/*
+			$(taskDom).animate({
+				left: targetPosition.left,
+				top: targetPosition.top				
+			}, 1000, function() {
+				$(taskDom).insertBefore($(successorDom));
+				$(taskDom).css('position','static')
+			})
+			*/
+			$(taskDom).draggable( "enable" )
+		}		
+	}
+}
+
+
+/************** Reporting Stuff **************/ 
 /**
  * Gets the data for the Colulative Flow Diagram for a single column 
  * and splits the returning CSV data <timestamp,value>
@@ -135,3 +207,4 @@ var syncGetOnCSVReturningController = function(objectId, action) {
 	$.ajaxSetup({async:true});
 	return resultData;
 }
+

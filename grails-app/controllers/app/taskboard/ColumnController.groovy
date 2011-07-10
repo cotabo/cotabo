@@ -6,14 +6,29 @@ import grails.converters.*
 class ColumnController {
 	
 	def taskService
+	def boardUpdateService
 	
     def updatetasks = {
-		def newTaskOrderIdList = buildSortOrderListFromParam(params['order[]'])
-		
-		def message =  taskService.moveTask(newTaskOrderIdList, params.fromColumn, 
-							params.toColumn, params.taskid)		
-		def retCode = message? 1 : 0
-		def result = [returncode: retCode, message:message]
+		//Prepare the movement message
+		def newTaskOrderIdList = buildSortOrderListFromParam(params['order[]'])		
+		def movementMessage = new TaskMovementMessage(
+			task:params.taskid.toInteger().intValue(), 
+			fromColumn: params.fromColumn.toInteger().intValue(), 
+			toColumn: params.toColumn.toInteger().intValue(), 
+			newTaskOrderIdList: newTaskOrderIdList
+		)		
+		//Do the Task moving work
+		def resultMessage =  taskService.moveTask(movementMessage)				
+		def retCode = resultMessage? 1 : 0
+		//Atmosphere stuff - Broadcast this update to the board specific channel
+		if (retCode == 0) {
+			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+			//We just do nothing if there is no broadcaster int he session.
+			if (broadcaster)
+				boardUpdateService.sendTaskMovementMessage(movementMessage, broadcaster)			
+		}
+		//Return code & message will be handled by the client.
+		def result = [returncode: retCode, message:resultMessage]
 		render result as JSON
     }
 	
