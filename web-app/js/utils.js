@@ -125,29 +125,36 @@ var taskMovementCallback = function(response) {
 				foundFlag = true;
 			}
 		}
-		if (successorDom != null) {
-			//TODO: check whether it is already moved - in this case
-			//this is our own message and we don't need to do the DOM manupilation
-			$(taskDom).draggable( "disable" )
-			var targetPosition = $(successorDom).position();
-			$(taskDom).addClass('ui-state-active')
-			$(taskDom).fadeOut(500, function() {
-				$(taskDom).removeClass('ui-state-active')
+		
+		//TODO: check whether it is already moved - in this case
+		//this is our own message and we don't need to do the DOM manupilation
+		$(taskDom).draggable( "disable" )
+		var targetPosition = $(successorDom).position();
+		$(taskDom).addClass('ui-state-active')
+		$(taskDom).fadeOut(500, function() {
+			$(taskDom).removeClass('ui-state-active')
+			if (successorDom != null) {
 				$(taskDom).insertBefore($(successorDom));
-				$(taskDom).fadeIn(500);
-			});			
-			
-			/*
-			$(taskDom).animate({
-				left: targetPosition.left,
-				top: targetPosition.top				
-			}, 1000, function() {
-				$(taskDom).insertBefore($(successorDom));
-				$(taskDom).css('position','static')
-			})
-			*/
-			$(taskDom).draggable( "enable" )
-		}		
+			}
+			//Assuming an empty column or a move to the bottom
+			else {
+				$(toColumnDom).append($(taskDom))
+			}
+			$(taskDom).fadeIn(500);
+		});			
+		
+		/*
+		$(taskDom).animate({
+			left: targetPosition.left,
+			top: targetPosition.top				
+		}, 1000, function() {
+			$(taskDom).insertBefore($(successorDom));
+			$(taskDom).css('position','static')
+		})
+		*/
+		$(taskDom).draggable( "enable" )
+		
+
 	}
 }
 
