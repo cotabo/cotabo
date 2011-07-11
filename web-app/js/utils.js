@@ -105,10 +105,17 @@ var subscribeChannel = function(channelString, callback) {
  */
 var taskMovementCallback = function(response) {	
 	if (response.status == 200 && response.state != 'connected' && response.state != 'closed') {
+		
 		var data = $.parseJSON(response.responseBody);		
 		var taskDom = $('li#task_'+data.task);
 		var toColumnDom = $('ul#column_'+data.toColumn);
 		var fromColumnDom = $('ul#column_'+data.fromColumn);		
+						
+		//Do nothing when task is already in target column
+		//(meaning that this client triggered the message / callback)
+		if ($(taskDom).parent().attr('id') == $(toColumnDom).attr('id')) {
+			return;
+		}
 		
 		var foundFlag = false;
 		var successorDom = null;				
