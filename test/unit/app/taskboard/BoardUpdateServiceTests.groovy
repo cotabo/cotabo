@@ -11,16 +11,17 @@ import org.codehaus.groovy.grails.plugins.testing.GrailsMockHttpSession
 
 
 class BoardUpdateServiceTests extends GrailsUnitTestCase {
-	private atmosphereResource
-	private atmosphereResourceEvent
-	private boardUpdateService
+	
+	private atmosphereResourceControl
+	private atmosphereResourceEventControl 
+	
 	
     protected void setUp() {
         super.setUp()
 		//We create loose mocks as we don't care about the order
 		//(would get too complicated)
-		def atmosphereResourceControl = mockFor(AtmosphereResource, true)
-		def atmosphereResourceEventControl = mockFor(AtmosphereResourceEvent, true)
+		atmosphereResourceControl = mockFor(AtmosphereResource, true)
+		atmosphereResourceEventControl = mockFor(AtmosphereResourceEvent, true)
 		def broadcasterFactoryControl = mockFor(BroadcasterFactory, true)
 		def broadcasterControl  = mockFor(Broadcaster, true)
 				
@@ -33,10 +34,9 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 				getParameter: { String param -> return 1 }
 			)
 		}
-		atmosphereResourceControl.demand.getResponse(1..1) {
-			return new Expando(
-				writer: new StringWriter()
-			)
+		def resp = new Expando(writer: new StringWriter())
+		atmosphereResourceControl.demand.getResponse(2..2) {
+			return resp
 		}		
 		//This gets called during compairson of mocked objects
 		atmosphereResourceControl.demand.toString(2..2) {
@@ -56,12 +56,18 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 		
 		//Mocking AtmosphereResourceEvent
 		def theResource
-		atmosphereResourceEventControl.demand.getResource(1..1) {
+		atmosphereResourceEventControl.demand.getResource(2..2) {
 			return theResource
 		}
 		atmosphereResourceEventControl.demand.setResource(1..1) { asource ->
 			theResource = asource
 		}
+		atmosphereResourceEventControl.demand.isResuming(1..1) { return false }
+		atmosphereResourceEventControl.demand.isResumedOnTimeout(1..1) { return false }
+		def message
+		atmosphereResourceEventControl.demand.setMessage(1..1) { m -> message = m }
+		atmosphereResourceEventControl.demand.getMessage(2..2) { return message }
+		
 				
 		//Mocking Broadcaster
 		def resources = []
@@ -90,32 +96,40 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 			)
 			return exp
 		}
-		
-		//Create the mock instances
-		atmosphereResource = atmosphereResourceControl.createMock()
-		atmosphereResourceEvent = atmosphereResourceEventControl.createMock()
-		boardUpdateService = new BoardUpdateService()
     }
 
     protected void tearDown() {
         super.tearDown()
     }
 
-    void testOnRequestClosure() {		
+    void testOnRequestClosure() {
+		def atmosphereResource = atmosphereResourceControl.createMock()
+		def boardUpdateService = new BoardUpdateService()
 		boardUpdateService.onRequest(atmosphereResource)		
 		def expectedBC = BroadcasterFactory.default.lookup(
 				 DefaultBroadcaster.class,
 				 '/atmosphere/boardupdate/1',
 				 true
 		)		
-
 		//Check whether the expected broadcaster is set on the resource
 		assertEquals expectedBC, atmosphereResource.getBroadcaster()
 		//Check whether the resource is added to the broadcaster
 		assertEquals atmosphereResource.broadcaster.getResources(), [atmosphereResource]		
 		//Check whether the resource was put in the session
-		assertEquals atmosphereResource, atmosphereResource.request.session.getAttribute('boardBroadacster')
-		
-		 
+		assertEquals atmosphereResource, atmosphereResource.request.session.getAttribute('boardBroadacster')				
     }
+	
+	void testOnStateChange() {
+		def atmosphereResource = atmosphereResourceControl.createMock()
+		def atmosphereResourceEvent = atmosphereResourceEventControl.createMock()
+		def boardUpdateService = new BoardUpdateService()
+		//Prepare the object
+		atmosphereResourceEvent.message = '{"test":"test"}'
+		atmosphereResourceEvent.resource = atmosphereResource
+		//The expectec message to be written to the responseWriter
+		def expectedMessage = "<script>parent.callback('{\"test\":\"test\"}');</script>"
+		//Call the service closure
+		boardUpdateService.onStateChange(atmosphereResourceEvent)
+		assertEquals expectedMessage, atmosphereResourceEvent.resource.response.writer.toString() 
+	}
 }
