@@ -136,10 +136,16 @@ var taskMovementCallback = function(response) {
 		//TODO: check whether it is already moved - in this case
 		//this is our own message and we don't need to do the DOM manupilation
 		$(taskDom).draggable( "disable" )
-		var targetPosition = $(successorDom).position();
-		$(taskDom).addClass('ui-state-active')
-		$(taskDom).fadeOut(500, function() {
-			$(taskDom).removeClass('ui-state-active')
+		//Find the target for the animation
+		var targetId
+		if(successorDom != null) {
+			targetId = $(successorDom).attr('id');
+		}
+		else {
+			targetId = $(toColumnDom).children("li:last").attr('id');
+		}
+		var effectOptions = { to: "#"+targetId, className: "ui-effects-transfer" };
+		$(taskDom).effect('transfer', effectOptions, 1500, function() {
 			if (successorDom != null) {
 				$(taskDom).insertBefore($(successorDom));
 			}
@@ -150,15 +156,6 @@ var taskMovementCallback = function(response) {
 			$(taskDom).fadeIn(500);
 		});			
 		
-		/*
-		$(taskDom).animate({
-			left: targetPosition.left,
-			top: targetPosition.top				
-		}, 1000, function() {
-			$(taskDom).insertBefore($(successorDom));
-			$(taskDom).css('position','static')
-		})
-		*/
 		$(taskDom).draggable( "enable" )
 		
 

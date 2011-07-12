@@ -141,3 +141,5 @@ input.error {
 	width: 70%;
 	margin: 0 auto;
 }
+
+.ui-effects-transfer { border: 4px dotted gray; } 
