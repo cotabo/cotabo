@@ -2,8 +2,11 @@
 	/**
 	 * Callback function for task create form submit.
 	 */
-	var submitCallback = function(data, textStatus, jqXHR) {
-		//See utils.js for definition of checkForSuccess
+	var submitCallback = function(data, textStatus, jqXHR) {	    
+		//we're ignoring the normal response currently as
+		//the DOM will be created by the atmosphere message callback
+		//TODO: remove this + the controller code
+		/*
 		if (checkForSuccess(data, '#createTaskForm')) {						
 			var createdDom = $('div.column:first > ul').append(data);			
 			setElementCountOnColumn();	
@@ -13,7 +16,9 @@
 			$('div.column:first > ul > li:last > .task-header').effect('highlight', {}, 1000);
 					
 		}
+		*/
 		return false;
+		
 	}	
 	
 	/**

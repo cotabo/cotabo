@@ -192,17 +192,14 @@ var taskMovementCallback = function(data) {
  * @param data JSON representation of task tata
  * @returns
  */
-var taskCreationCallback = function(data) {
-	//Only if the task is not already there (meaning that we received our own message)
-	var lastId = $("div.column:first > ul").children("li:last").attr('id');
-	if (lastId != 'task_'+data.id) {
-		//Only if the task does not yet exist (means that we self created it)	
-		var createdDom = $("div.column:first").children("ul").tplAppend(data, taskTpl);	
-		setElementCountOnColumn();	
-		var position = $(createdDom).position()
-		$('html, body').animate({scrollTop:position.top}, 'slow');	
-		$('div.column:first > ul > li:last > .task-header').effect('highlight', {}, 1000);
-	}	
+var taskCreationCallback = function(data) {		
+	//Only if the task does not yet exist (means that we self created it)	
+	var createdDom = $("div.column:first").children("ul").tplAppend(data, taskTpl);
+	$('#createTaskForm').dialog('close');
+	setElementCountOnColumn();	
+	var position = $(createdDom).position()	
+	$('html, body').animate({scrollTop:position.top}, 'slow');	
+	$('div.column:first > ul > li:last > .task-header').effect('highlight', {}, 1000);	
 }
 
 
