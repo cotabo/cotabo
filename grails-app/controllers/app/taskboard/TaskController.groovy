@@ -54,7 +54,8 @@ class TaskController {
 		taskInstance = taskService.saveTask(taskInstance)
 
         if (!taskInstance.hasErrors()) { 
-			broadcastTaskCreation(taskInstance.properties)
+			//Distribute this creation as atmosphere message
+			broadcastTaskCreation(taskInstance.toMessage())
 			withFormat {
 				form {
 					render(template:"show",model:[taskInstance:taskInstance])

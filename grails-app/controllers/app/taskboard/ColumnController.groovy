@@ -1,7 +1,7 @@
 package app.taskboard
 
 import java.util.ArrayList;
-import grails.converters.*
+import grails.converters.JSON
 
 class ColumnController {
 	

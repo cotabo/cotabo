@@ -106,12 +106,16 @@ var subscribeChannel = function(channelString, callback) {
 var atmosphereCallback = function(response) {
 	if (response.status == 200 && response.state != 'connected' && response.state != 'closed') {
 		var data = $.parseJSON(response.responseBody);		
-		switch(data.type) {
-			case "task_movement":
-				taskMovementCallback(data);
-			case "task_creation":
-				taskCreationCallback(data);
-				
+		if (data != null) {			
+			switch(data.type) {
+				case "task_movement":
+					taskMovementCallback(data);
+					break;
+				case "task_creation":
+					taskCreationCallback(data);
+					break;
+					
+			}
 		}
 	}
 } 

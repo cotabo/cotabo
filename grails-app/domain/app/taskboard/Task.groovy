@@ -54,5 +54,21 @@ class Task implements Comparable {
 	static mapping = {
 		sort sortorder:'asc'		
 	}
+	
+	def toMessage() {		
+		return [
+			'creator':"${creator}",
+			'assignee':"${assignee}",
+			'sortorder':sortorder,
+			'dateCreated':dateCreated,						
+			'workflowStartDate':workflowStartDate,
+			'workflowEndDate':workflowEndDate,			
+			'name':name,
+			'description':description,
+			'durationHours':durationHours,
+			'priority':priority,
+			'color':color
+		]
+	}
 
 }
