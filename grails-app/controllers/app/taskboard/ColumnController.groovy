@@ -11,19 +11,19 @@ class ColumnController {
 	
     def updatetasks = {
 		//Prepare the movement message
-		def newTaskOrderIdList = buildSortOrderListFromParam(params['order[]'])		
+		def newTaskOrderIdList = buildSortOrderListFromParam(params['order[]'])
+		def taskMovementMessage = [
+			task:params.taskid.toInteger().intValue(),
+			fromColumn: params.fromColumn.toInteger().intValue(),
+			toColumn: params.toColumn.toInteger().intValue(),
+			newTaskOrderIdList: newTaskOrderIdList
+		]		
 		//Do the Task moving work
 		def resultMessage =  taskService.moveTask(movementMessage)				
 		def retCode = resultMessage? 1 : 0
 		//Atmosphere stuff - Broadcast this update to the board specific channel
-		if (retCode == 0) {
-			broadcastTaslkMovement(
-				task:params.taskid.toInteger().intValue(),
-				fromColumn: params.fromColumn.toInteger().intValue(),
-				toColumn: params.toColumn.toInteger().intValue(),
-				newTaskOrderIdList: newTaskOrderIdList
-			)
-		}
+		if (retCode == 0)
+			broadcastTaslkMovement(taskMovementMessage)
 		//Return code & message will be handled by the client.
 		def result = [returncode: retCode, message:resultMessage]
 		render result as JSON

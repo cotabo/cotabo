@@ -85,34 +85,34 @@ class BootStrap {
 				testTasks.wip.each {
 					def persistedTask = Task.findByName(it.name)
 					tmpIdList << persistedTask.id
-					def movementMessage = new TaskMovementMessage(
+					def movementMessage = [
 						task: persistedTask.id,
 						fromColumn: persistedTask.column.id,
 						toColumn: Column.findByName('In Progress').id,
 						newTaskOrderIdList: tmpIdList
-					)
+					]
 					taskService.moveTask movementMessage
 				}
 				testTasks.done.each {
 					def persistedTask = Task.findByName(it.name)
 					tmpIdList << persistedTask.id
-					def movementMessage = new TaskMovementMessage(
+					def movementMessage = [
 						task: persistedTask.id,
 						fromColumn: persistedTask.column.id,
 						toColumn: Column.findByName('In Progress').id,
 						newTaskOrderIdList: tmpIdList
-					)
+					]
 					taskService.moveTask movementMessage
 				}
 				testTasks.done.each {
 					def persistedTask = Task.findByName(it.name)
 					tmpIdList << persistedTask.id
-					def movementMessage = new TaskMovementMessage(
+					def movementMessage = [
 						task: persistedTask.id,
 						fromColumn: persistedTask.column.id,
 						toColumn: Column.findByName('Done!').id,
 						newTaskOrderIdList: tmpIdList
-					)
+					]
 					taskService.moveTask movementMessage
 				}				
 			}	
@@ -144,12 +144,12 @@ class BootStrap {
 			for (task in eventTasks) {
 				SpringSecurityUtils.doWithAuth('user') {
 					secondColumnTaskIdList << task.id
-					def movementMessage = new TaskMovementMessage(
+					def movementMessage = [
 						task: task.id,
 						fromColumn: task.column.id,
 						toColumn: Column.findByName('In Progress').id,
 						newTaskOrderIdList: secondColumnTaskIdList
-					)
+					]
 					taskService.moveTask movementMessage
 				}				
 			}
@@ -158,12 +158,12 @@ class BootStrap {
 			for (task in eventTasks) {
 				SpringSecurityUtils.doWithAuth('user') {
 					secondColumnTaskIdList << task.id
-					def movementMessage = new TaskMovementMessage(
+					def movementMessage = [
 						task: task.id,
 						fromColumn: task.column.id,
 						toColumn: Column.findByName('Done!').id,
 						newTaskOrderIdList: secondColumnTaskIdList
-					)
+					]
 					taskService.moveTask movementMessage
 				}
 			}					

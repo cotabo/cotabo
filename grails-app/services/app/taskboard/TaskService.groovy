@@ -60,7 +60,7 @@ class TaskService {
 	 * @param dateCreated Optional - this is only for testing purposes - normally hibernate/grails will set this.
 	 * @return a message which is empty then the update was successfull.
 	 */
-	String moveTask(TaskMovementMessage message, Date dateCreated = null) {						
+	String moveTask(def message, Date dateCreated = null) {						
 		
 		updateTaskOrder(message.newTaskOrderIdList)		
 		def fromColumnInstance = Column.get(message.fromColumn)
