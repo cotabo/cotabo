@@ -5,11 +5,12 @@
 	var submitCallback = function(data, textStatus, jqXHR) {
 		//See utils.js for definition of checkForSuccess
 		if (checkForSuccess(data, '#createTaskForm')) {						
-			$('div.column:first > ul').append(data);
-			$('div.column:first > ul > li:last >').scroll();
+			var createdDom = $('div.column:first > ul').append(data);			
 			setElementCountOnColumn();	
-			$('#createTaskForm').dialog('close');			
-			$('div.column:first > ul > li:last > .task-header').effect('highlight', {}, 600);
+			$('#createTaskForm').dialog('close');		
+			var position = $(createdDom).position()
+            $('html, body').animate({scrollTop:position.top}, 'slow');  	
+			$('div.column:first > ul > li:last > .task-header').effect('highlight', {}, 1000);
 					
 		}
 		return false;

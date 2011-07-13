@@ -57,7 +57,7 @@ class ColumnController {
 	/**
 	 * Distributes the given message to the users registered broadcaster.
 	 * 
-	 * @param message Something that can be converted to JSON
+	 * @param message whatever message should be sent over atmosphere
 	 */
 	private void broadcastTaskMovement(message) {
 		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		

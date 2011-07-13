@@ -57,6 +57,7 @@ class Task implements Comparable {
 	
 	def toMessage() {		
 		return [
+			'id':this.id,
 			'creator':"${creator}",
 			'assignee':"${assignee}",
 			'sortorder':sortorder,
