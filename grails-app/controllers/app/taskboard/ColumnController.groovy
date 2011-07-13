@@ -8,24 +8,21 @@ class ColumnController {
 	def taskService
 	def boardUpdateService
 	
+	
     def updatetasks = {
 		//Prepare the movement message
 		def newTaskOrderIdList = buildSortOrderListFromParam(params['order[]'])		
-		def movementMessage = new TaskMovementMessage(
-			task:params.taskid.toInteger().intValue(), 
-			fromColumn: params.fromColumn.toInteger().intValue(), 
-			toColumn: params.toColumn.toInteger().intValue(), 
-			newTaskOrderIdList: newTaskOrderIdList
-		)		
 		//Do the Task moving work
 		def resultMessage =  taskService.moveTask(movementMessage)				
 		def retCode = resultMessage? 1 : 0
 		//Atmosphere stuff - Broadcast this update to the board specific channel
 		if (retCode == 0) {
-			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
-			//We just do nothing if there is no broadcaster int he session.
-			if (broadcaster)
-				boardUpdateService.sendTaskMovementMessage(movementMessage, broadcaster)			
+			broadcastTaslkMovement(
+				task:params.taskid.toInteger().intValue(),
+				fromColumn: params.fromColumn.toInteger().intValue(),
+				toColumn: params.toColumn.toInteger().intValue(),
+				newTaskOrderIdList: newTaskOrderIdList
+			)
 		}
 		//Return code & message will be handled by the client.
 		def result = [returncode: retCode, message:resultMessage]
@@ -55,6 +52,18 @@ class ColumnController {
 		return newTaskOrderIdList.collect {
 			it.split('_')[1].toInteger().intValue()
 		}
+	}
+	
+	/**
+	 * Distributes the given message to the users registered broadcaster.
+	 * 
+	 * @param message Something that can be converted to JSON
+	 */
+	private void broadcastTaslkMovement(message) {
+		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+		//We just do nothing if there is no broadcaster int he session.
+		if (broadcaster)
+			boardUpdateService.sendTaskMovementMessage(movementMessage, broadcaster)
 	}
 
 }

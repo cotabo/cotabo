@@ -92,7 +92,7 @@ class BoardUpdateService {
 	}
 	
 	/**
-	 * Broadcasting a the given message as as JSON string to the given broadcaster.
+	 * Asynchronously broadcasting a the given message as as JSON string to the given broadcaster.
 	 * 
 	 * @param broadcaster The Atmosphere Broadcaster object that the message should be distributed too.
 	 * @param TaskMovementMessage The message contianing information about the movement.
