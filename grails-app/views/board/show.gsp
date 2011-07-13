@@ -141,9 +141,9 @@
 
 			/**
 			 * Subscribing the atmosphere channel for this board and register
-			 * the taskMovementCallback
+			 * the atmosphereCallback
 			 */
-			 subscribeChannel('${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}', taskMovementCallback);
+			 subscribeChannel('${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}', atmosphereCallback);
         </jq:jquery>
     </head>
     <body>    	

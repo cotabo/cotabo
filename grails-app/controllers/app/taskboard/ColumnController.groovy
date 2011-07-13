@@ -23,7 +23,7 @@ class ColumnController {
 		def retCode = resultMessage? 1 : 0
 		//Atmosphere stuff - Broadcast this update to the board specific channel
 		if (retCode == 0)
-			broadcastTaslkMovement(taskMovementMessage)
+			broadcastTaskMovement(taskMovementMessage)
 		//Return code & message will be handled by the client.
 		def result = [returncode: retCode, message:resultMessage]
 		render result as JSON
@@ -59,11 +59,13 @@ class ColumnController {
 	 * 
 	 * @param message Something that can be converted to JSON
 	 */
-	private void broadcastTaslkMovement(message) {
-		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+	private void broadcastTaskMovement(message) {
+		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
 		//We just do nothing if there is no broadcaster int he session.
-		if (broadcaster)
-			boardUpdateService.sendTaskMovementMessage(movementMessage, broadcaster)
+		if (broadcaster) {
+			message.type = 'task_movement'
+			boardUpdateService.broadcastMessage(message, broadcaster)
+		}
 	}
 
 }

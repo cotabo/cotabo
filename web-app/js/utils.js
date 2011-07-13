@@ -103,63 +103,85 @@ var subscribeChannel = function(channelString, callback) {
  * which was generated out of the TaskMovementMessage.
  * @param response JSON representation of TaskMovementMessage
  */
-var taskMovementCallback = function(response) {	
+var atmosphereCallback = function(response) {
 	if (response.status == 200 && response.state != 'connected' && response.state != 'closed') {
-		
 		var data = $.parseJSON(response.responseBody);		
-		var taskDom = $('li#task_'+data.task);
-		var toColumnDom = $('ul#column_'+data.toColumn);
-		var fromColumnDom = $('ul#column_'+data.fromColumn);		
-						
-		//Do nothing when task is already in target column
-		//(meaning that this client triggered the message / callback)
-		if ($(taskDom).parent().attr('id') == $(toColumnDom).attr('id')) {
-			return;
+		switch(data.type) {
+			case "task_movement":
+				taskMovementCallback(data);
+			case "task_creation":
+				taskCreationCallback(data);
+				
 		}
-		
-		var foundFlag = false;
-		var successorDom = null;				
-		//Find the task DOM that comes after the one moved in the newEntryIdList
-		//so that we can use .before() to insert the task on the correct place.
-		for (var i = 0; i < data.newTaskOrderIdList.length; i++) {			
-			if (foundFlag == true) {						
-				//We reached the successor of the moved task and select that piece of DOM
-				successorDom = $('li#task_'+data.newTaskOrderIdList[i]);
-				//Quit the loop when found
-				break;
-			}
-			if (data.newTaskOrderIdList[i] == data.task) {
-				foundFlag = true;
-			}
-		}
-		
-		//TODO: check whether it is already moved - in this case
-		//this is our own message and we don't need to do the DOM manupilation
-		$(taskDom).draggable( "disable" )
-		//Find the target for the animation
-		var targetId
-		if(successorDom != null) {
-			targetId = $(successorDom).attr('id');
-		}
-		else {
-			targetId = $(toColumnDom).children("li:last").attr('id');
-		}
-		var effectOptions = { to: "#"+targetId, className: "ui-effects-transfer" };
-		$(taskDom).effect('transfer', effectOptions, 1500, function() {
-			if (successorDom != null) {
-				$(taskDom).insertBefore($(successorDom));
-			}
-			//Assuming an empty column or a move to the bottom
-			else {
-				$(toColumnDom).append($(taskDom))
-			}
-			$(taskDom).fadeIn(500);
-		});			
-		
-		$(taskDom).draggable( "enable" )
-		
-
 	}
+} 
+
+/**
+ * Expecting task (id), toColumn (id), fromColumn (id) in the JSON.
+ * Moves the task DOM element to the target position and does the animation of it.
+ * 
+ * @param data JSON representation of task movement tata
+ * @returns
+ */
+var taskMovementCallback = function(data) {					
+	var taskDom = $('li#task_'+data.task);
+	var toColumnDom = $('ul#column_'+data.toColumn);
+	var fromColumnDom = $('ul#column_'+data.fromColumn);		
+					
+	//Do nothing when task is already in target column
+	//(meaning that this client triggered the message / callback)
+	if ($(taskDom).parent().attr('id') == $(toColumnDom).attr('id')) {
+		return;
+	}	
+	var foundFlag = false;
+	var successorDom = null;				
+	//Find the task DOM that comes after the one moved in the newEntryIdList
+	//so that we can use .before() to insert the task on the correct place.
+	for (var i = 0; i < data.newTaskOrderIdList.length; i++) {			
+		if (foundFlag == true) {						
+			//We reached the successor of the moved task and select that piece of DOM
+			successorDom = $('li#task_'+data.newTaskOrderIdList[i]);
+			//Quit the loop when found
+			break;
+		}
+		if (data.newTaskOrderIdList[i] == data.task) {
+			foundFlag = true;
+		}
+	}	
+	//TODO: check whether it is already moved - in this case
+	//this is our own message and we don't need to do the DOM manupilation
+	$(taskDom).draggable( "disable" )
+	//Find the target for the animation
+	var targetId
+	if(successorDom != null) {
+		targetId = $(successorDom).attr('id');
+	}
+	else {
+		targetId = $(toColumnDom).children("li:last").attr('id');
+	}
+	var effectOptions = { to: "#"+targetId, className: "ui-effects-transfer" };
+	$(taskDom).effect('transfer', effectOptions, 1500, function() {
+		if (successorDom != null) {
+			$(taskDom).insertBefore($(successorDom));
+		}
+		//Assuming an empty column or a move to the bottom
+		else {
+			$(toColumnDom).append($(taskDom))
+		}
+		$(taskDom).fadeIn(500);
+	});			
+	
+	$(taskDom).draggable( "enable" )	
+}
+
+/**
+ * Expecting all domain properties of a Task object in represented as JSON.
+ * 
+ * @param data JSON representation of task tata
+ * @returns
+ */
+var taskCreationCallback = function(data) {
+	alert(data);	
 }
 
 

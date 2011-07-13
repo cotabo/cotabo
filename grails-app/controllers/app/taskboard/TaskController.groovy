@@ -5,7 +5,8 @@ import grails.converters.*
 class TaskController {
 	def springSecurityService
 	def taskService
-	
+	def boardUpdateService
+		
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index = {
@@ -48,11 +49,12 @@ class TaskController {
 			}
 		} 		
 		//Set it to 1 on the first task
-		taskInstance.sortorder = sortOrder ? sortOrder+1 : 1		
-	
-		taskInstance = taskService.saveTask(taskInstance)	
-					
-        if (!taskInstance.hasErrors()) {            
+		taskInstance.sortorder = sortOrder ? sortOrder+1 : 1
+
+		taskInstance = taskService.saveTask(taskInstance)
+
+        if (!taskInstance.hasErrors()) { 
+			broadcastTaskCreation(taskInstance.properties)
 			withFormat {
 				form {
 					render(template:"show",model:[taskInstance:taskInstance])
@@ -62,8 +64,8 @@ class TaskController {
         else {						
 			withFormat {
 				form {							
-					//We render all errors on the client side								
-					render taskInstance.errors as JSON					
+					//We render all errors on the client side
+					render taskInstance.errors as JSON
 				}
 			}	            
         }
@@ -135,5 +137,19 @@ class TaskController {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
             redirect(action: "list")
         }
+    }
+	
+	/**
+	* Distributes the given message to the users registered broadcaster.
+	*
+	* @param message Something that can be converted to JSON
+	*/
+    private void broadcastTaskCreation(message) {
+		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
+		//We just do nothing if there is no broadcaster int he session.
+		if (broadcaster) {
+			message.type = 'task_creation'
+		   	boardUpdateService.broadcastMessage(message, broadcaster)
+		}
     }
 }
