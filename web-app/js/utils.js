@@ -47,15 +47,23 @@ var checkForSuccess = function(responseData, formContainerSelector) {
  * 
  */
 var taskTpl = function () {
+	var theId = this.id
 	return [ 
 		"li", {class:'ui-widget', id:'task_'+this.id}, [
 			"div", {class:'task-header ui-state-default'}, [
-				"div", {}, this.name,
-				"span", {class:'ui-icon ui-icon ui-icon-arrowthickstop-1-n'}
+				"div", {class:'head_color', style:'background:'+this.color}, ,
+				"div", {class:'head_name'}, this.name,
+				"span", {class:'ui-icon ui-icon ui-icon-carat-1-n'}, 
 			],
-			"div", {class:'task-content ui-widget-content', style:'background:'+this.color}, [
+			"div", {class:'task-content ui-widget-content', style:'display:block;'}, [
 				"table", {}, [
 					"tbody", {}, [
+						"tr", {}, [
+							"td", {}, [
+								"b", {}, 'Id:'									
+							],
+							"td", {}, ''+this.id//this.id							
+						],					              
 						"tr", {}, [
 							"td", {}, [
 								"b", {}, 'Description'									
@@ -185,7 +193,16 @@ var taskMovementCallback = function(data) {
  * @returns
  */
 var taskCreationCallback = function(data) {
-	alert(data);	
+	//Only if the task is not already there (meaning that we received our own message)
+	var lastId = $("div.column:first > ul").children("li:last").attr('id');
+	if (lastId != 'task_'+data.id) {
+		//Only if the task does not yet exist (means that we self created it)	
+		var createdDom = $("div.column:first").children("ul").tplAppend(data, taskTpl);	
+		setElementCountOnColumn();	
+		var position = $(createdDom).position()
+		$('html, body').animate({scrollTop:position.top}, 'slow');	
+		$('div.column:first > ul > li:last > .task-header').effect('highlight', {}, 1000);
+	}	
 }
 
 
