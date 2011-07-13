@@ -97,7 +97,8 @@ class BoardUpdateService {
 	 * @param broadcaster The Atmosphere Broadcaster object that the message should be distributed too.
 	 * @param TaskMovementMessage The message contianing information about the movement.
 	 */
-    void sendTaskMovementMessage(def message, Broadcaster broadcaster) {		
+    void sendTaskMovementMessage(def message, Broadcaster broadcaster) {
+		message.type = 'task_movement'
 		broadcaster.broadcast(message as JSON)
     }
 }
