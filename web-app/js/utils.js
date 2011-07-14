@@ -13,6 +13,31 @@ var resetDialogErrors = function(dialogSelector) {
 }
 
 /**
+ * Update all columns task counts.
+ * Setting this on the window as we need it in a different script block (task creation)
+ */   
+var setElementCountOnColumn = function() {        		
+	$(".column").each(function(index){	    			
+		var size = $(this).children("ul").children("li").size();
+		if (size == null) {
+			size = 0 ;
+		}
+		//Set the current number of elements to the element count for each column
+		var pValueDom = $(this).children("span").children("span").children("p.value");
+		var pLimitDom = $(this).children("span").children("span").children("p.limit");
+		pValueDom.text(size);
+		if (pValueDom.text() == pLimitDom.text() || parseInt(pValueDom.text()) > parseInt(pLimitDom.text())) {
+			$(pValueDom).addClass('red-font');
+		}
+		else {
+			if ($(pValueDom.hasClass('red-font'))) {
+				pValueDom.removeClass('red-font');
+			}
+		}
+	});
+	
+}  
+/**
  * Checks for errors in a JSON response of a validated Grails domain object.
  * It prints error messages and applies the .error class to all invalid input elements 
  * (assuming they have the same name as the class property).

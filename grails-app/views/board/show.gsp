@@ -27,33 +27,6 @@
 				//console.timeEnd('native'); 
 				return false;
 			}	  
-        
-        	/**
-        	 * Update all column task counts.
-        	 * Setting this on the window as we need it in a different script block (task creation)
-        	 */   
-        	window.setElementCountOnColumn = function() {        		
-    			$(".column").each(function(index){	    			
-					var size = $(this).children("ul").children("li").size();
-					if (size == null) {
-						size = 0 ;
-					}
-					//Set the current number of elements to the element count for each column
-					var pValueDom = $(this).children("span").children("span").children("p.value");
-					var pLimitDom = $(this).children("span").children("span").children("p.limit");
-					pValueDom.text(size);
-					if (pValueDom.text() == pLimitDom.text() || parseInt(pValueDom.text()) > parseInt(pLimitDom.text())) {
-						$(pValueDom).addClass('red-font');
-					}
-					else {
-						if ($(pValueDom.hasClass('red-font'))) {
-							pValueDom.removeClass('red-font');
-						}
-					}
-				});
-				
-        	}  
-  
         	
         	/**
         	 * Callback for a connected sortable receiving a new Task object.
