@@ -1,35 +1,12 @@
 <jq:jquery>
 	/**
-	 * Callback function for task create form submit.
-	 */
-	var submitCallback = function(data, textStatus, jqXHR) {	    
-		//we're ignoring the normal response currently as
-		//the DOM will be created by the atmosphere message callback
-		//TODO: remove this + the controller code
-		/*
-		if (checkForSuccess(data, '#createTaskForm')) {						
-			var createdDom = $('div.column:first > ul').append(data);			
-			setElementCountOnColumn();	
-			$('#createTaskForm').dialog('close');		
-			var position = $(createdDom).position()
-            $('html, body').animate({scrollTop:position.top}, 'slow');  	
-			$('div.column:first > ul > li:last > .task-header').effect('highlight', {}, 1000);
-					
-		}
-		*/
-		return false;
-		
-	}	
-	
-	/**
 	 * Submit event overwrite for the task create form.
 	 */	
 	$('#taskForm').submit(function() {		
 		$.ajax({		
 			type: 'POST',
 			url: $(this).attr('action'),
-			data: $(this).serialize(),				
-			success: submitCallback
+			data: $(this).serialize()			
 		 });					 
 		 //Don't really submit
 		 return false;
