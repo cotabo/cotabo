@@ -172,7 +172,7 @@ var taskMovementCallback = function(data) {
 		targetId = $(toColumnDom).children("li:last").attr('id');
 	}
 	var effectOptions = { to: "#"+targetId, className: "ui-effects-transfer" };
-	$(taskDom).effect('transfer', effectOptions, 1500, function() {
+	$(taskDom).effect('transfer', effectOptions, 1000, function() {
 		if (successorDom != null) {
 			$(taskDom).insertBefore($(successorDom));
 		}
@@ -196,12 +196,17 @@ var taskMovementCallback = function(data) {
 var taskCreationCallback = function(data) {
 	//helper div for the animation see board/_menu.gsp	
 	var helper = $("#new_task_helper");
-	var targetId = $("div.column:first > ul > li:last").attr('id')	
+	var targetId = $("div.column:first > ul > li:last").attr('id');
+	//In case that the column is empty	
+	if (targetId == null) {		
+		targetId = $("div.column:first > ul").attr('id');
+	}	
+	//alert(targetdId);
 	var effectOptions = { to: "#"+targetId, className: "ui-effects-transfer" };
 	$('#createTaskForm').dialog('close');
 	
 	$(helper).css('display','block');	
-	$(helper).effect('transfer', effectOptions, 1500,function() {
+	$(helper).effect('transfer', effectOptions, 1000,function() {
 		var createdDom = $("div.column:first").children("ul").tplAppend(data, taskTpl);
 		setElementCountOnColumn();	
 	});
