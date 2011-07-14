@@ -171,6 +171,9 @@ var taskMovementCallback = function(data) {
 	else {
 		targetId = $(toColumnDom).children("li:last").attr('id');
 	}
+	if (targetId == null) {
+		targetId = $(toColumnDom).attr('id');
+	}	
 	var effectOptions = { to: "#"+targetId, className: "ui-effects-transfer" };
 	$(taskDom).effect('transfer', effectOptions, 1000, function() {
 		if (successorDom != null) {
