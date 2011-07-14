@@ -56,12 +56,8 @@ class TaskController {
         if (!taskInstance.hasErrors()) { 
 			//Distribute this creation as atmosphere message
 			broadcastTaskCreation(taskInstance.toMessage())
-			//And write the normal response out
-			withFormat {
-				form {
-					render(template:"show",model:[taskInstance:taskInstance])
-				}
-			}            
+			//Render nothing as this will be done by atmosphere
+			render ''     
         }
         else {						
 			withFormat {
