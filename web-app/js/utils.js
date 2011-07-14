@@ -227,6 +227,9 @@ var taskMovementCallback = function(data) {
 			$(toColumnDom).append($(taskDom))
 		}
 		$(taskDom).fadeIn(500);
+		if (data.type == 'task_movement') {
+			setElementCountOnColumn();
+		}
 	});			
 	
 	$(taskDom).draggable( "enable" )	
