@@ -119,6 +119,9 @@ var atmosphereCallback = function(response) {
 				case "task_movement":
 					taskMovementCallback(data);
 					break;
+				case "task_reordering":
+					taskMovementCallback(data);
+					break;
 				case "task_creation":
 					taskCreationCallback(data);
 					break;
@@ -142,9 +145,24 @@ var taskMovementCallback = function(data) {
 					
 	//Do nothing when task is already in target column
 	//(meaning that this client triggered the message / callback)
-	if ($(taskDom).parent().attr('id') == $(toColumnDom).attr('id')) {
+	if ($(taskDom).parent().attr('id') == $(toColumnDom).attr('id') &&
+			data.type == 'task_movement' ) {
 		return;
-	}	
+	}
+	else if(data.type == 'task_reordering') {
+		//This is for checking whether it was a reorder triggered from this cliebt
+		var correctOrder = true
+		var collection = $(toColumnDom).children('li').toArray()
+		for (var i = 0; i < collection.length; i++) {
+			if ($(collection[i]).attr('id') != 'task_'+data.newTaskOrderIdList[i]) {
+				correctOrder = false;
+			}
+		}
+		if (correctOrder) {
+			return;
+		}		
+	}
+	
 	var foundFlag = false;
 	var successorDom = null;				
 	//Find the task DOM that comes after the one moved in the newEntryIdList
@@ -187,6 +205,21 @@ var taskMovementCallback = function(data) {
 	});			
 	
 	$(taskDom).draggable( "enable" )	
+}
+
+/**
+ * Doing the reordering + animation of sorta inside a column.
+ * 
+ * @param data JSON representation of task movement tata 
+ * @returns
+ */
+var taskReorderingCallback = function(data) {
+	var taskDom = $('li#task_'+data.task);
+	var toColumnDom = $('ul#column_'+data.toColumn);
+	var fromColumnDom = $('ul#column_'+data.fromColumn);	
+
+
+	
 }
 
 /**

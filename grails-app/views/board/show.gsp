@@ -106,6 +106,7 @@
 					type: 'POST',
 					url: '<g:createLink controller="column" action="updatesortorder"/>/'+toColumnId,
 					data: {
+					    taskid: taskId,
 						order: $(this).sortable("toArray")
 					},
 					error: function(xhr, errorType, exception) {

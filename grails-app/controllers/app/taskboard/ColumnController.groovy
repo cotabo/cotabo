@@ -23,18 +23,36 @@ class ColumnController {
 		def retCode = resultMessage? 1 : 0
 		//Atmosphere stuff - Broadcast this update to the board specific channel
 		if (retCode == 0)
-			broadcastTaskMovement(movementMessage)
+			broadcastTaskMovement(movementMessage, 'task_movement')
 		//Return code & message will be handled by the client.
 		def result = [returncode: retCode, message:resultMessage]
 		render result as JSON
     }
 	
+	/**
+	 * This action is called in two situations:
+	 * 1.: When a task is moved to an other column in order to update the sort order of the source column
+	 * 2.: When a task is moved in the same column (sorting) in order to update the column.
+	 */
 	def updatesortorder = {
 		def newTaskOrderIdList = buildSortOrderListFromParam(params['order[]'])
 
 		def message = taskService.updateSortOrder(newTaskOrderIdList)
 		
 		def retCode = message? 1 : 0
+		if (retCode == 0) {	
+			//This means that this actions was called for situation 2. (see comments on action).			
+			if(newTaskOrderIdList.contains(params.taskid.toInteger().intValue())) {				
+				def movementMessage = [
+					task:params.taskid.toInteger().intValue(),
+					fromColumn: params.id,
+					toColumn: params.id,
+					newTaskOrderIdList: newTaskOrderIdList
+				]
+				//Also this is a task movement (only within the same column)
+				broadcastTaskMovement(movementMessage, 'task_reordering')
+			}
+		}
 		def result = [returncode: retCode, message:message]
 		render result as JSON	
 	}
@@ -59,11 +77,11 @@ class ColumnController {
 	 * 
 	 * @param message whatever message should be sent over atmosphere
 	 */
-	private void broadcastTaskMovement(message) {
+	private void broadcastTaskMovement(message, String type) {
 		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
 		//We just do nothing if there is no broadcaster int he session.
 		if (broadcaster) {
-			message.type = 'task_movement'
+			message.type = type
 			boardUpdateService.broadcastMessage(message, broadcaster)
 		}
 	}
