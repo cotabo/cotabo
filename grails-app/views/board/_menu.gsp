@@ -62,8 +62,9 @@
 	});
 	
 </jq:jquery>
-<content tag="toolbar">	
-	<span id="toolbar">
+<content tag="toolbar">
+    <div id="new_task_helper"></div>	
+	<span id="toolbar">	   
 		<button id="b_new_task">new task</button>
 		<button id="b_collapse">collapse all tasks</button>
 		<button id="b_expand">expand all tasks</button>

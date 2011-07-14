@@ -188,18 +188,24 @@ var taskMovementCallback = function(data) {
 
 /**
  * Expecting all domain properties of a Task object in represented as JSON.
+ * Doing the task creation animation + inserting the actual dom element.
  * 
  * @param data JSON representation of task tata
  * @returns
  */
-var taskCreationCallback = function(data) {		
-	//Only if the task does not yet exist (means that we self created it)	
-	var createdDom = $("div.column:first").children("ul").tplAppend(data, taskTpl);
+var taskCreationCallback = function(data) {
+	//helper div for the animation see board/_menu.gsp	
+	var helper = $("#new_task_helper");
+	var targetId = $("div.column:first > ul > li:last").attr('id')	
+	var effectOptions = { to: "#"+targetId, className: "ui-effects-transfer" };
 	$('#createTaskForm').dialog('close');
-	setElementCountOnColumn();	
-	var position = $(createdDom).position()	
-	$('html, body').animate({scrollTop:position.top}, 'slow');	
-	$('div.column:first > ul > li:last > .task-header').effect('highlight', {}, 1000);	
+	
+	$(helper).css('display','block');	
+	$(helper).effect('transfer', effectOptions, 1500,function() {
+		var createdDom = $("div.column:first").children("ul").tplAppend(data, taskTpl);
+		setElementCountOnColumn();	
+	});
+	$(helper).css('display','none');		
 }
 
 

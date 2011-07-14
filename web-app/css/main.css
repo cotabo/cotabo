@@ -142,4 +142,5 @@ input.error {
 	margin: 0 auto;
 }
 
-.ui-effects-transfer { border: 4px dotted gray; } 
+.ui-effects-transfer { border: 2px dotted grey;background-color:#336699;opacity: .4;}
+#new_task_helper {width:90px;height:25px;position:absolute;background-color:#336699;opacity: .4;display:none;}
