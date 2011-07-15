@@ -70,7 +70,9 @@ class TaskService {
 			fromColumnInstance.removeFromTasks(taskInstance)
 			toColumnInstance.addToTasks(taskInstance)
 			fromColumnInstance.save()
-			toColumnInstance.save()			
+			toColumnInstance.save()	
+			//Making the user who pulled the task - the assignee
+			taskInstance.assignee = User.findByUsername(springSecurityService.principal.username)
 			sessionFactory?.getCurrentSession()?.flush()
 			createMovementEvent(taskInstance, fromColumnInstance, toColumnInstance, dateCreated)
 			return ''
