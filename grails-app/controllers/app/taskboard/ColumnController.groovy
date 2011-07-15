@@ -36,25 +36,30 @@ class ColumnController {
 	 */
 	def updatesortorder = {
 		def newTaskOrderIdList = buildSortOrderListFromParam(params['order[]'])
-
-		def message = taskService.updateSortOrder(newTaskOrderIdList)
-		
-		def retCode = message? 1 : 0
-		if (retCode == 0) {	
-			//This means that this actions was called for situation 2. (see comments on action).			
-			if(newTaskOrderIdList.contains(params.taskid.toInteger().intValue())) {				
-				//Also this is a task movement (only within the same column)
-				broadcastTaskMovement(
-					task:params.taskid.toInteger().intValue(),
-					fromColumn: params.id,
-					toColumn: params.id,
-					newTaskOrderIdList: newTaskOrderIdList, 
-					'task_reordering'
-				)
+		if (newTaskOrderIdList) {
+			def message = taskService.updateSortOrder(newTaskOrderIdList)		
+			def retCode = message? 1 : 0
+			if (retCode == 0) {	
+				//This means that this actions was called for situation 2. (see comments on action).			
+				if(newTaskOrderIdList.contains(params.taskid.toInteger().intValue())) {				
+					//Also this is a task movement (only within the same column)
+					broadcastTaskMovement(
+						task:params.taskid.toInteger().intValue(),
+						fromColumn: params.id,
+						toColumn: params.id,
+						newTaskOrderIdList: newTaskOrderIdList, 
+						'task_reordering'
+					)
+				}
 			}
+			def result = [returncode: retCode, message:message]
+			render result as JSON
 		}
-		def result = [returncode: retCode, message:message]
-		render result as JSON	
+		else {
+			//Happens e.g. when there this is triggered for source column by
+			//moving the last task of a column - just render nothing.
+			return ''
+		}
 	}
 	
 	/**

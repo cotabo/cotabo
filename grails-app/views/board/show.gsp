@@ -100,7 +100,7 @@
 					cursor:"move",
 					distance:30,
 					opacity:0.7,
-					placeholder:'ui-state-highlight',
+					placeholder:'ui-effects-transfer',
 					receive: updateConnectedColumn,
 					stop: updateColumn
 					
@@ -115,7 +115,7 @@
 
 			/**
 			 * Subscribing the atmosphere channel for this board and register
-			 * the atmosphereCallback
+			 * the atmosphereCallback - see utils.js
 			 */
 			 subscribeChannel('${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}', atmosphereCallback);
         </jq:jquery>
