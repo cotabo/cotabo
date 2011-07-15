@@ -62,7 +62,7 @@ class BootStrap {
 			use(TimeCategory) {	
 				testTasks = [
 					wip: 	[
-						[column:column2,  name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, sortorder:1, priority:'Critical', color:'#fa7a88', workflowStartDate: new Date() - 10.hours],
+						[column:column2, name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, sortorder:1, priority:'Critical', color:'#fa7a88', workflowStartDate: new Date() - 10.hours],
 						[column:column2, name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, creator:user, assignee:user, sortorder:2, priority:'Normal', color:'#faf77a', workflowStartDate: new Date() - 9.hours]
 					],
 					todo: 	[

@@ -13,12 +13,13 @@ class ColumnControllerTests extends GrailsUnitTestCase {
     }
 
     void testValidResponse() {
-
 		def expectedResult = '{"returncode":0,"message":""}'
 		def controller = new ColumnController()
 		controller.params.fromColumn = 1
 		controller.params.toColumn = 2
-		controller.params.taskid = 2
+		//The 'Setup WebLogic' task
+		controller.params.taskid = 4
+		
 		def result
 		//We need to be authenticated for that
 		SpringSecurityUtils.doWithAuth('user') {
