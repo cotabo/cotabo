@@ -13,9 +13,9 @@ class ColumnController {
 		//Prepare the movement message
 		def newTaskOrderIdList = buildSortOrderListFromParam(params['order[]'])
 		def movementMessage = [
-			task:params.taskid.toInteger().intValue(),
-			fromColumn: params.fromColumn.toInteger().intValue(),
-			toColumn: params.toColumn.toInteger().intValue(),
+			task:params.taskid?.toInteger()?.intValue(),
+			fromColumn: params.fromColumn?.toInteger()?.intValue(),
+			toColumn: params.toColumn?.toInteger()?.intValue(),
 			newTaskOrderIdList: newTaskOrderIdList
 		]		
 		//Do the Task moving work
@@ -43,14 +43,14 @@ class ColumnController {
 		if (retCode == 0) {	
 			//This means that this actions was called for situation 2. (see comments on action).			
 			if(newTaskOrderIdList.contains(params.taskid.toInteger().intValue())) {				
-				def movementMessage = [
+				//Also this is a task movement (only within the same column)
+				broadcastTaskMovement(
 					task:params.taskid.toInteger().intValue(),
 					fromColumn: params.id,
 					toColumn: params.id,
-					newTaskOrderIdList: newTaskOrderIdList
-				]
-				//Also this is a task movement (only within the same column)
-				broadcastTaskMovement(movementMessage, 'task_reordering')
+					newTaskOrderIdList: newTaskOrderIdList, 
+					'task_reordering'
+				)
 			}
 		}
 		def result = [returncode: retCode, message:message]
@@ -67,7 +67,7 @@ class ColumnController {
 	private List buildSortOrderListFromParam(def orderParam) {
 		def newTaskOrderIdList = orderParam instanceof String?
 			[orderParam]:orderParam as ArrayList
-		return newTaskOrderIdList.collect {
+		return newTaskOrderIdList?.collect {
 			it.split('_')[1].toInteger().intValue()
 		}
 	}
