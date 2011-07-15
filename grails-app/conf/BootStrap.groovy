@@ -69,7 +69,7 @@ class BootStrap {
 						[column:column1, name:'Setup Webserver', description:'Install & configure Apache',durationHours:1.5, creator:user, assignee:user, sortorder:1, priority:'Major', color:'#f9f21a', workflowStartDate: new Date() - 9.hours],					 
 						[column:column1, name:'Setup WebLogic', description:'Install base software and configure domain.',durationHours:6.0, creator:user, assignee:user, sortorder:2, priority:'Low', color:'#f9f21a', workflowStartDate: new Date() - 7.hours],
 						[column:column1, name:'Install application', description:'Install the application software as describes by the Vendor',durationHours:8.0, creator:user, assignee:user, sortorder:3, priority:'Critical', color:'#1a2ff9', workflowStartDate: new Date() - 4.hours],
-						[column:column1, name:'Configure Monitoring', description:'Setup all monitors (Filesystem, proceses, logs etc)',durationHours:16.0, creator:user, assignee:user, sortorder:4, priority:'Normal', color:'#f2360', workflowStartDate: new Date() - 2.hours],
+						[column:column1, name:'Configure Monitoring', description:'Setup all monitors (Filesystem, proceses, logs etc)',durationHours:16.0, creator:user, assignee:user, sortorder:4, priority:'Normal', color:'#f40101', workflowStartDate: new Date() - 2.hours],
 						[column:column1, name:'Apply Configuration Management', description:'Apply configuration management',durationHours:8.0, creator:user, assignee:user, sortorder:5, priority:'Normal', color:'#f9f21a', workflowStartDate: new Date() - 12.hours]
 					],
 					done: 	[

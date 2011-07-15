@@ -100,7 +100,7 @@ grails.views.javascript.library="jquery"
 
 //Application specific configuratuib
 //TODO: pull this out to a seperate file
-taskboard.colors = ['#f9f21a', '#f2360', '#1a2ff9', '#059408']
+taskboard.colors = ['#f9f21a', '#f40101', '#1a2ff9', '#059408']
 taskboard.default.colors = '#f9f21a'
 taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
 taskboard.default.priority = 'Normal'
