@@ -57,8 +57,8 @@ class ColumnController {
 		}
 		else {
 			//Happens e.g. when there this is triggered for source column by
-			//moving the last task of a column - just render nothing.
-			return ''
+			//moving the last task of a column - just render nothing.			
+			render ''
 		}
 	}
 	
