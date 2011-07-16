@@ -84,8 +84,9 @@ class BoardUpdateService {
 				flush()
 			}
 		} else {			
-			event.resource.response.setContentType("text/javascript;charset=ISO-8859-1")
-			event.resource.response.writer.with {
+			event.resource.response.setContentType('text/javascript;charset=UTF-8')
+			event.resource.response.setCharacterEncoding('UTF-8')
+			event.resource.response.writer.with {				
 				write "<script>parent.callback('${event.message}');</script>"
 				flush()
 			}

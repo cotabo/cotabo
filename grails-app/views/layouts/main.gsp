@@ -1,6 +1,6 @@
 <html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <head>        
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
         <title><g:layoutTitle default="Taskboard"/></title>        
         <link rel="stylesheet" href="${resource(dir:'css',file:'jquery-ui-1.8.12.custom.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />

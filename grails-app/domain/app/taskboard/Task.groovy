@@ -58,17 +58,17 @@ class Task implements Comparable {
 	def toMessage() {		
 		return [
 			'id':this.id,
-			'creator':"${creator}",
-			'assignee':"${assignee}",
-			'sortorder':sortorder,
-			'dateCreated':dateCreated,						
-			'workflowStartDate':workflowStartDate,
-			'workflowEndDate':workflowEndDate,			
-			'name':name,
-			'description':description,
-			'durationHours':durationHours,
-			'priority':priority,
-			'color':color
+			'creator':"${creator.encodeAsHTML()}",
+			'assignee':"${assignee.encodeAsHTML()}",
+			'sortorder':sortorder.encodeAsHTML(),
+			'dateCreated':dateCreated.encodeAsHTML(),						
+			'workflowStartDate':workflowStartDate.encodeAsHTML(),
+			'workflowEndDate':workflowEndDate.encodeAsHTML(),			
+			'name':name.encodeAsHTML(),
+			'description':description.encodeAsHTML(),
+			'durationHours':durationHours.encodeAsHTML(),
+			'priority':priority.encodeAsHTML(),
+			'color':color.encodeAsHTML()
 		]
 	}
 
