@@ -149,8 +149,9 @@ var atmosphereCallback = function(response) {
 					break;
 				case "task_creation":
 					taskCreationCallback(data);
+					break;	
+				default:
 					break;
-					
 			}
 		}
 	}
@@ -333,4 +334,3 @@ var syncGetOnCSVReturningController = function(objectId, action) {
 	$.ajaxSetup({async:true});
 	return resultData;
 }
-
