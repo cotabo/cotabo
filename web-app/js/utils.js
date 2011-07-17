@@ -168,7 +168,12 @@ var taskMovementCallback = function(data) {
 	var taskDom = $('li#task_'+data.task);
 	var toColumnDom = $('ul#column_'+data.toColumn);
 	var fromColumnDom = $('ul#column_'+data.fromColumn);		
-					
+	
+	//Updating the assignee on task movements in any case
+	if(data.type == 'task_movement') {
+		$('td#task_'+data.task+'_assignee').html(data.assignee);
+	} 
+	
 	//Do nothing when task is already in target column
 	//(meaning that this client triggered the message / callback)
 	if ($(taskDom).parent().attr('id') == $(toColumnDom).attr('id') &&
@@ -226,7 +231,7 @@ var taskMovementCallback = function(data) {
 		//Assuming an empty column or a move to the bottom
 		else {
 			$(toColumnDom).append($(taskDom))
-		}
+		}		
 		$(taskDom).fadeIn(500);
 		if (data.type == 'task_movement') {
 			setElementCountOnColumn();

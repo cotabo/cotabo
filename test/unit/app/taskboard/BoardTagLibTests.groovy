@@ -2,10 +2,14 @@ package app.taskboard
 
 
 import grails.test.*
+import org.codehaus.groovy.grails.plugins.codecs.HTMLCodec
 
 class BoardTagLibTests extends TagLibUnitTestCase {
     protected void setUp() {
         super.setUp()	
+		//Mocking encodeAsHtml()		
+		String.metaClass.encodeAsHTML = {HTMLCodec.encode(delegate)}	
+		
 		mockConfig '''
 			taskboard.colors = ['#faf77a', '#fa7a88', '#bcbcf5', '#f9d7a9']
 			taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
@@ -98,19 +102,19 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 					<tbody>
 						<tr>
 							<td><b>Id:</b></td>
-							<td>#1</td>
+							<td id="task_1_id">#1</td>
 						</tr>
 						<tr>
 							<td><b>Description:</b></td>
-							<td>test description</td>
+							<td id="task_1_description">test description</td>
 						</tr>
 						<tr>
 							<td><b>Priority:</b></td>
-							<td>Critical</td>
+							<td id="task_1_priority">Critical</td>
 						</tr>
 						<tr>
 							<td><b>Assignee:</b></td>
-							<td>firstname lastname</td>
+							<td id="task_1_assignee">firstname lastname</td>
 						</tr>
 					</tbody>
 				</table>

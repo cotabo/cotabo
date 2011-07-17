@@ -36,7 +36,7 @@ class BoardTagLib {
 		if (attrs.column?.limit > 0) {
 			out << """
 					<p>/</p>
-					<p class="limit">${attrs.column?.limit?.encodeAsHTML()}</p>"""
+					<p class="limit">${attrs.column?.limit?.toString().encodeAsHTML()}</p>"""
 			
 		}
 		out << '''
@@ -73,19 +73,19 @@ class BoardTagLib {
 					<tbody>
 						<tr>
 							<td><b>Id:</b></td>
-							<td>#${attrs.task?.id ?: ''}</td>
+							<td id="task_${attrs.task.id}_id">#${attrs.task?.id ?: ''}</td>
 						</tr>
 						<tr>
 							<td><b>Description:</b></td>
-							<td>${attrs.task?.description?.encodeAsHTML() ?: ''}</td>
+							<td id="task_${attrs.task.id}_description">${attrs.task?.description?.encodeAsHTML() ?: ''}</td>
 						</tr>
 						<tr>
 							<td><b>Priority:</b></td>
-							<td>${attrs.task?.priority?.encodeAsHTML()}</td>
+							<td id="task_${attrs.task.id}_priority">${attrs.task?.priority?.encodeAsHTML()}</td>
 						</tr>
 						<tr>
 							<td><b>Assignee:</b></td>
-							<td>${attrs.task?.assignee?.encodeAsHTML() ?: ''}</td>
+							<td id="task_${attrs.task.id}_assignee">${attrs.task?.assignee?.toString().encodeAsHTML() ?: ''}</td>
 						</tr>
 					</tbody>
 				</table>
