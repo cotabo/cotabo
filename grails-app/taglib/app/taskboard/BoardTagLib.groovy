@@ -61,36 +61,42 @@ class BoardTagLib {
 	 * 	
 	 */
 	def task = {attrs, body ->
-		out << """
-		<li class="ui-widget" id="task_${attrs.task.id}">
-			<div class="task-header ui-state-default">
-				<div class="head_color" style="background:${attrs.task?.color.encodeAsHTML()};"></div>
-				<div class="head_name">${attrs.task?.name?.encodeAsHTML()}</div>
-				<span class="ui-icon ui-icon ui-icon-carat-1-${attrs.hide ? 's' : 'n'}"/>
-			</div>
-			<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'none' : 'block'}">
-				<table>
-					<tbody>
-						<tr>
-							<td><b>Id:</b></td>
-							<td id="task_${attrs.task.id}_id">#${attrs.task?.id ?: ''}</td>
-						</tr>
-						<tr>
-							<td><b>Description:</b></td>
-							<td id="task_${attrs.task.id}_description">${attrs.task?.description?.encodeAsHTML() ?: ''}</td>
-						</tr>
-						<tr>
-							<td><b>Priority:</b></td>
-							<td id="task_${attrs.task.id}_priority">${attrs.task?.priority?.encodeAsHTML()}</td>
-						</tr>
-						<tr>
-							<td><b>Assignee:</b></td>
-							<td id="task_${attrs.task.id}_assignee">${attrs.task?.assignee?.toString().encodeAsHTML() ?: ''}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</li>
-		"""					
+		if (!attrs.task) {
+			out << ''
+			return
+		}
+		else {
+			out << """		
+			<li class="ui-widget" id="task_${attrs.task.id}">
+				<div class="task-header ui-state-default">
+					<div class="head_color" style="background:${attrs.task?.color?.encodeAsHTML()};"></div>
+					<div class="head_name">${attrs.task?.name?.encodeAsHTML()}</div>
+					<span class="ui-icon ui-icon ui-icon-carat-1-${attrs.hide ? 's' : 'n'}"/>
+				</div>
+				<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'none' : 'block'}">
+					<table>
+						<tbody>
+							<tr>
+								<td><b>Id:</b></td>
+								<td id="task_${attrs.task.id}_id">#${attrs.task?.id ?: ''}</td>
+							</tr>
+							<tr>
+								<td><b>Description:</b></td>
+								<td id="task_${attrs.task.id}_description">${attrs.task?.description?.encodeAsHTML() ?: ''}</td>
+							</tr>
+							<tr>
+								<td><b>Priority:</b></td>
+								<td id="task_${attrs.task.id}_priority">${attrs.task?.priority?.encodeAsHTML()}</td>
+							</tr>
+							<tr>
+								<td><b>Assignee:</b></td>
+								<td id="task_${attrs.task.id}_assignee">${attrs.task?.assignee?.toString().encodeAsHTML() ?: ''}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</li>
+			"""	
+		}				
 	}
 }
