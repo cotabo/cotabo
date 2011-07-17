@@ -34,7 +34,7 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 				getParameter: { String param -> return 1 }
 			)
 		}
-		def resp = new Expando(writer: new StringWriter())
+		def resp = new Expando(writer: new StringWriter(), setContentType: {})
 		atmosphereResourceControl.demand.getResponse(2..2) {
 			return resp
 		}		
