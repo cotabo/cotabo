@@ -46,7 +46,7 @@
     					<label for="description" alt="A description of the Task" class="optional">description</label>
     				</td>
     				<td>
-    					<g:textArea name="description" cols="30" rows="3"/>
+    					<g:textArea name="description" cols="30" rows="3" maxlength="254"/>
     				</td>
     			</tr>
  			    <tr>
