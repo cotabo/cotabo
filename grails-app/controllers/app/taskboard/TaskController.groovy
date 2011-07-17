@@ -24,8 +24,18 @@ class TaskController {
         return [taskInstance: taskInstance]
     }
 
-    def save = {				
-		def taskInstance = new Task()
+    def save = {
+		def taskInstance
+		if (params.id) {
+			taskInstance = Task.get(params.id.toInteger().integerValue())
+			if (!taskInstance) {
+				render "Task with id ${params.id} does not exist."
+			}
+		}				
+		else {
+			taskInstance = new Task()
+		}
+		
 		//Bind data but excluse column, creator, assignee & sortorder
 		bindData(taskInstance, params, ['column','creator','assignee','sortorder'])
 		
