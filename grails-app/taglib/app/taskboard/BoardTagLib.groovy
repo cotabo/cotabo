@@ -10,7 +10,7 @@ class BoardTagLib {
 	def board = {attrs, body ->
 		out << """
 		<div id="board">
-			<h2>${attrs.board?.name}</h2>
+			<h2>${attrs.board?.name?.encodeAsHTML()}</h2>
 		"""						
 		body() ? out << body() :
 		out << """
@@ -29,14 +29,14 @@ class BoardTagLib {
 		out << """
 		<div class="column" style="width:${width}%;">
 			<span class="title">
-				<p>${attrs.column?.name}</p>
+				<p>${attrs.column?.name?.encodeAsHTML()}</p>
 				<span>
 					<p class="value">&nbsp;</p>"""
 		
 		if (attrs.column?.limit > 0) {
 			out << """
 					<p>/</p>
-					<p class="limit">${attrs.column?.limit}</p>"""
+					<p class="limit">${attrs.column?.limit?.encodeAsHTML()}</p>"""
 			
 		}
 		out << '''
@@ -64,8 +64,8 @@ class BoardTagLib {
 		out << """
 		<li class="ui-widget" id="task_${attrs.task.id}">
 			<div class="task-header ui-state-default">
-				<div class="head_color" style="background:${attrs.task?.color};"></div>
-				<div class="head_name">${attrs.task?.name}</div>
+				<div class="head_color" style="background:${attrs.task?.color.encodeAsHTML()};"></div>
+				<div class="head_name">${attrs.task?.name?.encodeAsHTML()}</div>
 				<span class="ui-icon ui-icon ui-icon-carat-1-${attrs.hide ? 's' : 'n'}"/>
 			</div>
 			<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'none' : 'block'}">
@@ -77,15 +77,15 @@ class BoardTagLib {
 						</tr>
 						<tr>
 							<td><b>Description:</b></td>
-							<td>${attrs.task?.description ?: ''}</td>
+							<td>${attrs.task?.description?.encodeAsHTML() ?: ''}</td>
 						</tr>
 						<tr>
 							<td><b>Priority:</b></td>
-							<td>${attrs.task?.priority}</td>
+							<td>${attrs.task?.priority?.encodeAsHTML()}</td>
 						</tr>
 						<tr>
 							<td><b>Assignee:</b></td>
-							<td>${attrs.task?.assignee ?: ''}</td>
+							<td>${attrs.task?.assignee?.encodeAsHTML() ?: ''}</td>
 						</tr>
 					</tbody>
 				</table>
