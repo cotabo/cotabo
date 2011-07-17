@@ -46,7 +46,7 @@ grails.json.legacy.builder = false
 // enabled native2ascii conversion of i18n properties files
 grails.enable.native2ascii = true
 // whether to install the java.util.logging bridge for sl4j. Disable for AppEngine!
-grails.logging.jul.usebridge = true
+grails.logging.jul.usebridge = false
 // packages to include in Spring bean scanning
 grails.spring.bean.packages = []
 
@@ -87,7 +87,8 @@ log4j = {
 
     warn   'org.mortbay.log'
 	
-	debug  'app.taskboard'
+	debug  'org.atmosphere.cpr',
+		   'app.taskboard'
 }
 
 // Added by the Spring Security Core plugin:
