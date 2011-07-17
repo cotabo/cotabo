@@ -34,8 +34,8 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 				getParameter: { String param -> return 1 }
 			)
 		}
-		def resp = new Expando(writer: new StringWriter(), setContentType: {})
-		atmosphereResourceControl.demand.getResponse(2..2) {
+		def resp = new Expando(writer: new StringWriter(), setContentType: {}, setCharacterEncoding: {})
+		atmosphereResourceControl.demand.getResponse(4..4) {
 			return resp
 		}		
 		//This gets called during compairson of mocked objects
@@ -56,7 +56,7 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 		
 		//Mocking AtmosphereResourceEvent
 		def theResource
-		atmosphereResourceEventControl.demand.getResource(2..2) {
+		atmosphereResourceEventControl.demand.getResource(4..4) {
 			return theResource
 		}
 		atmosphereResourceEventControl.demand.setResource(1..1) { asource ->
