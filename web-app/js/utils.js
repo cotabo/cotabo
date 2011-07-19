@@ -142,7 +142,7 @@ var atmosphereCallback = function(response) {
 			var data = $.parseJSON(response.responseBody);
 		}
 		catch (e) {
-			alert('Error: '+e+'\nJSON: '+response.responseBody)
+			//alert('Error: '+e+'\nJSON: '+response.responseBody)
 		}
 		if (data != null) {			
 			switch(data.type) {
