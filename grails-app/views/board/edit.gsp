@@ -1,6 +1,6 @@
 
 
-<%@ page import="app.taskboard.Board" %>
+<%@ page import="org.cotabo.Board" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -70,7 +70,7 @@
                                   <label for="users"><g:message code="board.users.label" default="Users" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: boardInstance, field: 'users', 'errors')}">
-                                    <g:select name="users" from="${app.taskboard.User.list()}" multiple="yes" optionKey="id" size="5" value="${boardInstance?.users*.id}" />
+                                    <g:select name="users" from="${org.cotabo.User.list()}" multiple="yes" optionKey="id" size="5" value="${boardInstance?.users*.id}" />
                                 </td>
                             </tr>
                         

@@ -1,6 +1,6 @@
 
 
-<%@ page import="app.taskboard.Board" %>
+<%@ page import="org.cotabo.Board" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

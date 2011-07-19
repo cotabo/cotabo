@@ -1,4 +1,4 @@
-import app.taskboard.*
+import org.cotabo.*
 import grails.util.Environment
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import groovy.time.TimeCategory

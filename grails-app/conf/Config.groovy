@@ -88,13 +88,13 @@ log4j = {
     warn   'org.mortbay.log'
 	
 	debug  'org.atmosphere.cpr',
-		   'app.taskboard'
+		   'org.cotabo'
 }
 
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'app.taskboard.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'app.taskboard.UserRole'
-grails.plugins.springsecurity.authority.className = 'app.taskboard.Role'
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.cotabo.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.cotabo.UserRole'
+grails.plugins.springsecurity.authority.className = 'org.cotabo.Role'
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.Annotation
 //JQuery plugin
 grails.views.javascript.library="jquery"
