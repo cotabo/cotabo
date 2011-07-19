@@ -42,6 +42,18 @@ class BoardUpdateService {
 	 * Based on this - we will put the user in a channel called /atmosphere/boardupdate/&lt;boardId&gt;
 	 */
 	 def onRequest = { event ->		 
+		 //Setting content type
+		 event.response.setContentType('text/html;charset=UTF-8')
+		 //Setting proper cache headers
+		 event.response.addHeader("Cache-Control", "no-store")
+		 event.response.addHeader("Cache-Control", "no-cache")
+		 event.response.addHeader("Cache-Control", "must-revalidate");
+		 event.response.addHeader("Pragma", "no-cache");
+		 //For FireFox (see http://www-archive.mozilla.org/projects/netlib/http/http-caching-faq.html)	
+		 event.response.addHeader("Expires", "0")
+		 //Suspending the request - waiting for events
+		 event.suspend()
+		 
 		 //We create try to get (or create a new one if not yet there) a broadcaster
 		 //For the boardId that was sent as a request parameter
 		 def boardSpecificBroadcaster =
@@ -64,8 +76,6 @@ class BoardUpdateService {
 		 //We put this AtmosphereResource into the users session
 		 //So that it can be found on the next request to the controller
 		 event.request.session.setAttribute('boardBroadacster', event)
-		 //Waiting for events
-		 event.suspend()
 
 	}
 
