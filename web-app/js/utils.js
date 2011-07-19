@@ -126,7 +126,7 @@ var subscribeChannel = function(channelString, callback) {
     	callback,
     	//Use WebSockets as the first choice but use streaming if
     	//either the server or the client doesn't support WebSockets.
-    	$.atmosphere.request={transport:'websocket', fallbackTransport:'streaming'}
+    	$.atmosphere.request={transport:'websocket', fallbackTransport:'streaming', dataType:'json'}
 	);    
 }
 
@@ -138,7 +138,12 @@ var subscribeChannel = function(channelString, callback) {
  */
 var atmosphereCallback = function(response) {
 	if (response.status == 200 && response.state != 'connected' && response.state != 'closed') {
-		var data = $.parseJSON(response.responseBody);		
+		try {
+			var data = $.parseJSON(response.responseBody);
+		}
+		catch (e) {
+			alert('Error: '+e+'\nJSON: '+response.responseBody)
+		}
 		if (data != null) {			
 			switch(data.type) {
 				case "task_movement":
