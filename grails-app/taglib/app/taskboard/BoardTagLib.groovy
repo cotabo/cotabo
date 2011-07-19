@@ -62,8 +62,7 @@ class BoardTagLib {
 	 */
 	def task = {attrs, body ->
 		if (!attrs.task) {
-			out << ''
-			return
+			out << ''			
 		}
 		else {
 			out << """		
