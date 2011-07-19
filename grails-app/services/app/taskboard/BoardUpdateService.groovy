@@ -1,5 +1,7 @@
 package app.taskboard
 
+import java.util.concurrent.TimeUnit;
+
 import org.atmosphere.cpr.Broadcaster;
 import org.atmosphere.cpr.BroadcasterFactory
 import org.atmosphere.cpr.DefaultBroadcaster
@@ -59,7 +61,7 @@ class BoardUpdateService {
 		 //We set the newly retrieved broadcaste for this user
 		 event.setBroadcaster(boardSpecificBroadcaster)		 
 		 //We subscribe the user to the broadcaster
-		 boardSpecificBroadcaster.addAtmosphereResource(event)		 		 
+		 boardSpecificBroadcaster.addAtmosphereResource(event)		 		 		
 		 
 		 //We put this AtmosphereResource into the users session
 		 //So that it can be found on the next request to the controller
@@ -76,6 +78,8 @@ class BoardUpdateService {
 		 event.response.addHeader("Expires", "0")
 		 //Suspending the request - waiting for events
 		 event.suspend()
+		 
+		 boardSpecificBroadcaster.scheduleFixedBroadcast '{"type":"keepalive"}', 30, TimeUnit.SECONDS
 
 	}
 
@@ -88,9 +92,12 @@ class BoardUpdateService {
 	 */
 	def onStateChange = { event ->				
 		if (!event.message) return
+		//Removing this event from the broadcatster?
+		//Display a message?
+		if (event.isCancelled()) return
 		if (event.isResuming() || event.isResumedOnTimeout()) {
 			event.resource.response.writer.with {
-				write "resuming"
+				write '{"type":"resuming"}'
 				flush()
 			}
 		} else {			
