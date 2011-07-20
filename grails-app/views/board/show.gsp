@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />        
         <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />
-        <title>TaskBoard - ${boardInstance?.name}</title>
+        <title>Cotabo - ${boardInstance?.name}</title>
         <jq:jquery>  
     		/**
 			 * Expand/Collapse tasks on click of the exapnd icon.

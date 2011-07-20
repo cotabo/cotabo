@@ -7,10 +7,10 @@
         <meta name="layout" content="main" />        
         <link rel="stylesheet" href="${resource(dir:'css',file:'board_create.css')}" />        
         <script type="text/javascript" src="${resource(dir:'js', file:'board_create.js')}"></script>
-        <title>Taskboard - create board</title>
+        <title>Cotabo - create new board</title>
     </head>
     <body>	
-    	<h1>New Taskboard</h1>		   
+    	<h1>new taskboard</h1>		   
 	    <g:if test="${flash.message}">
 	    <div class="message">${flash.message}</div>
 	    </g:if>
@@ -22,8 +22,8 @@
 	    <g:form action="save">    	       
 	    <div id="tabs">	    
 		    	<ul>
-		    		<li><a href="#board_details">Board information</a></li>
-		    		<li><a href="#columns">Column definition</a></li>
+		    		<li><a href="#board_details">board information</a></li>
+		    		<li><a href="#columns">column definition</a></li>
 		    	</ul>	    				 	
 				<div id="board_details"> 
 					<g:render template="/info" model="[messagecode: 'board.create.description']"/>  

@@ -1,7 +1,7 @@
 <g:applyLayout name="main">
 <html>
     <head>    	
-        <title><g:layoutTitle default="Taskboard - report"/></title>
+        <title><g:layoutTitle default="Cotabo - report"/></title>
         <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />				
 		<script language="javascript" type="text/javascript" src="${resource(dir:'js/jquery-plugins',file:'jquery.flot.min.js')}"></script>
 		<script language="javascript" type="text/javascript" src="${resource(dir:'js/jquery-plugins',file:'jquery.flot.stack.js')}"></script>

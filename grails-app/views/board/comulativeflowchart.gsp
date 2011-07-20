@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="report" />                
-        <title>TaskBoard - Comulative Flow Diagram for ${boardInstance?.name}</title>  
+        <title>Cotabo - Comulative Flow Diagram for ${boardInstance?.name}</title>  
 	</head>
 	<body>
 	<h2>Comulative Flow Diagram - ${boardInstance.name}</h2>
