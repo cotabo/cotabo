@@ -48,5 +48,5 @@ class TaskMovementEvent {
 			task.workflowStartDate = dateCreated
 		}
 		task.save()
-	}
+	}	
 }

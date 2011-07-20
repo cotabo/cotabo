@@ -65,8 +65,10 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		mockDomain(Column, [column1, column2, column3])
 		mockDomain(Board, [board])
 		mockDomain(Task)
+		mockDomain(Block)
 		mockDomain(TaskMovementEvent)
 		mockDomain(ColumnStatusEntry)
+		
 		
 		//We need to disable the overwriting of the dateCreated field
 		//the mock is too good four our purposes as during tests

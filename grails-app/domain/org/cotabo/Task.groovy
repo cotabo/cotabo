@@ -10,8 +10,15 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
  */
 class Task implements Comparable {
 
+	//This is determined at runtime by the related blocks
+	static transients = ["blocked"]
+	
 	//Relationships
 	static belongsTo = [ column : Column ]	
+	//Blocked states
+	static hasMany = [ blocks : Block ]
+	List blocks = []
+	
 	User creator
 	User assignee
 	
@@ -26,7 +33,7 @@ class Task implements Comparable {
 	String description
 	double durationHours
 	String priority
-	String color	
+	String color		
 	
     static constraints = {
 		name blank:false, maxSize:100
@@ -71,5 +78,38 @@ class Task implements Comparable {
 			'color':color.encodeAsHTML()
 		]
 	}
+	
+   /**
+	* Marking this task as blocked or resolves the blocked state.
+	* 
+	* @param blocked true means setting this task to blocked. false means resolving the blocked situation
+	*/
+   void setBlocked(boolean blocked) {
+	   //Potentially finding the block
+	   def block = Block.findByTaskAndDateClosedIsNull(this)
+	   if (blocked) {
+		   if (block) {
+			   //Do nothing when someone wants to add a block
+			   //if there is still an open block for this task
+			   return
+		   }
+		   def newblock = new Block(task:this).save()
+		   blocks << newblock		    
+	   }
+	   else {
+		   block.dateClosed = new Date()
+		   block.save()		   
+	   }
+   }
+   
+   /**
+    * Checks whether this task is blocked.
+    * @return true if it is blocked
+    */
+   boolean isBlocked() {
+	   //Potentially finding the block
+	   def block = Block.findByTaskAndDateClosedIsNull(this)
+	   block ? true : false
+   }
 
 }

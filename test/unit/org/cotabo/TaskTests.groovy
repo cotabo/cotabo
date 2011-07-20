@@ -261,4 +261,35 @@ class TaskTests extends TaskBoardUnitTest {
 		assertNull task.save()
 		assertNull Task.findByName('mytask')
 	}	
+	
+	void testSetBlocked() {
+		//Getting a test task created in super class
+		def task = Task.findByName('testtask3')
+		task.blocked = true
+		assertTrue task.validate()
+		task.save()
+		def block = Block.findByTask(task)
+		println Block.list()
+		assertNotNull block
+		assertEquals 1, task.blocks.size()
+		assertNull block.dateClosed
+		
+		//calling isBlocked
+		assertTrue task.blocked
+		
+		task.blocked = false		
+		assertTrue task.validate()
+		task.save()
+		assertEquals 1, task.blocks.size()
+		assertNotNull task.blocks.first().dateClosed			
+	}
+	
+	void testSettingBlockedMultipleTimes() {
+		def task = Task.findByName('testtask4')
+		task.blocked = true
+		task.blocked = true
+		task.save()
+		assertEquals 1, task.blocks.size()
+		
+	}
 }
