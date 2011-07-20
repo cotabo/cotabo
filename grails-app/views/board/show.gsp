@@ -2,8 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="main" />
-        <link  href="//fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css" >
+        <meta name="layout" content="main" />        
         <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />
         <title>TaskBoard - ${boardInstance?.name}</title>
         <jq:jquery>  
