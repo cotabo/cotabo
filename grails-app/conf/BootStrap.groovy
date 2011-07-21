@@ -39,7 +39,7 @@ class BootStrap {
 		
 		def env = Environment.currentEnvironment.name			
 		if (env == 'test' || env == 'development') {
-			log.info 'Creating test data...'			
+			println 'Creating test data...'			
 			
 			def user = User.findByUsername('user')
 			def admin = User.findByUsername('admin')
@@ -63,7 +63,7 @@ class BootStrap {
 				testTasks = [
 					wip: 	[
 						[column:column2, name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, sortorder:1, priority:'Critical', color:'#1a2ff9', workflowStartDate: new Date() - 10.hours],
-						[column:column2, name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, creator:user, assignee:user, sortorder:2, priority:'Normal', color:'#059408', workflowStartDate: new Date() - 9.hours]
+						[column:column2, name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, creator:user, assignee:user, sortorder:2, priority:'Normal', color:'#059408', workflowStartDate: new Date() - 9.hours]						
 					],
 					todo: 	[
 						[column:column1, name:'Setup Webserver', description:'Install & configure Apache',durationHours:1.5, creator:user, assignee:user, sortorder:1, priority:'Major', color:'#f9f21a', workflowStartDate: new Date() - 9.hours],					 
@@ -92,6 +92,9 @@ class BootStrap {
 						newTaskOrderIdList: tmpIdList
 					]
 					taskService.moveTask movementMessage
+										
+					persistedTask.blocked = true
+					persistedTask.save()
 				}
 				testTasks.done.each {
 					def persistedTask = Task.findByName(it.name)

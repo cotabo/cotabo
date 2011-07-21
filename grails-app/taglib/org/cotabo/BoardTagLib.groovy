@@ -68,6 +68,7 @@ class BoardTagLib {
 			out << """		
 			<li class="ui-widget" id="task_${attrs.task.id}">
 				<div class="task-header ui-state-default">
+					<div class="${attrs.task?.blocked ? 'blocked' : ''}"></div>
 					<div class="head_color" style="background:${attrs.task?.color?.encodeAsHTML()};"></div>
 					<div class="head_name">${attrs.task?.name?.encodeAsHTML()}</div>
 					<span class="ui-icon ui-icon ui-icon-carat-1-${attrs.hide ? 's' : 'n'}"/>

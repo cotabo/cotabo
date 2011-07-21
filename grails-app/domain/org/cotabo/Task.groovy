@@ -85,20 +85,24 @@ class Task implements Comparable {
 	* @param blocked true means setting this task to blocked. false means resolving the blocked situation
 	*/
    void setBlocked(boolean blocked) {
-	   //Potentially finding the block
-	   def block = Block.findByTaskAndDateClosedIsNull(this)
+	   //Potentially finding an open Block
+	   def block = this.blocks.find{it.dateClosed == null}
 	   if (blocked) {
 		   if (block) {
 			   //Do nothing when someone wants to add a block
 			   //if there is still an open block for this task
 			   return
 		   }
-		   def newblock = new Block(task:this).save()
-		   blocks << newblock		    
+		   Block.withNewSession {
+			   this.addToBlocks(new Block())			   			   
+		   }
+		   
 	   }
 	   else {
-		   block.dateClosed = new Date()
-		   block.save()		   
+		   Block.withNewSession {
+			   block.dateClosed = new Date()
+			   block.save()
+		   }		   
 	   }
    }
    
@@ -108,8 +112,16 @@ class Task implements Comparable {
     */
    boolean isBlocked() {
 	   //Potentially finding the block
-	   def block = Block.findByTaskAndDateClosedIsNull(this)
+	   def block = this.blocks.find{it.dateClosed == null}
 	   block ? true : false
    }
 
+   /**
+    * Workaround as sometimes the get... is called instead of is...
+    * while reading the property
+    * @return
+    */
+   boolean getBlocked() {
+	   return this.isBlocked()
+   }
 }
