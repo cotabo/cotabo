@@ -55,8 +55,12 @@ class TaskController {
 		taskInstance = taskService.saveTask(taskInstance)
 
         if (!taskInstance.hasErrors()) {
+			def principal = springSecurityService.principal
+			def user = User.findByUsername(principal.username)
+			def notification = "${user} created task #${taskInstance.id} (${taskInstance.name})."
+			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
 			//Distribute this creation as atmosphere message
-			broadcastMessage (taskInstance.toMessage(), 'task_creation')
+			boardUpdateService.broadcastMessage(broadcaster, taskInstance.toMessage(), 'task_creation', notification)
 			
 			//Render nothing as this will be done by atmosphere
 			render ''     
@@ -122,13 +126,18 @@ class TaskController {
 			}
 			
             if (!taskInstance.hasErrors() && taskInstance.save(flush: true)) {
+				def principal = springSecurityService.principal
+				def user = User.findByUsername(principal.username)				
+				def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
 				//distinguishing messages between block updates and normal updates
 				if(settedBlock) {
+					def notification = "${user} marked task #${params.taskid} (${taskInstance.name}) as blocked."
 					def block_message = [task:taskInstance.id, blocked:!wasBlocked]
-					broadcastMessage(block_message, 'task_block')
+					boardUpdateService.broadcastMessage(broadcaster, block_message, 'task_block', notification)
 				}
 				else {
-					broadcastMessage(taskInstance.toMessage(), 'task_update')
+					def notification = "${user} updated task #${params.taskid} (${taskInstance.name})."
+					boardUpdateService.broadcastMessage(broadcaster, taskInstance.toMessage(), 'task_update', notification)
 				}
                 render ''
             }
@@ -164,20 +173,5 @@ class TaskController {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
             redirect(action: "list")
         }
-    }
-	
-	/**
-	* Distributes the given message to the users registered broadcaster.
-	*
-	* @param message Something that can be converted to JSON
-	* @param type the type string that will be used in the client code
-	*/
-    private void broadcastMessage(message, type) {
-		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
-		//We just do nothing if there is no broadcaster int he session.
-		if (broadcaster) {
-			message.type = type
-		   	boardUpdateService.broadcastMessage(message, broadcaster)
-		}
-    }
+    }	
 }

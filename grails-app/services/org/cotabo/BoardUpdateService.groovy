@@ -114,10 +114,26 @@ class BoardUpdateService {
 	 * Asynchronously broadcasting a the given message as as JSON string to the given broadcaster.
 	 * 
 	 * @param broadcaster The Atmosphere Broadcaster object that the message should be distributed too.
-	 * @param TaskMovementMessage The message contianing information about the movement.
+	 * @param message The message contianing information about the movement.
 	 */
-    void broadcastMessage(def message, Broadcaster broadcaster) {			
+    private void broadcastMessage(def message, Broadcaster broadcaster) {			
 		broadcaster.broadcast(message as JSON)
     }
 	
+	/**
+	 * Distributes the given message to the users registered broadcaster.
+	 *
+	 * @param broadcaster The atmosphere broadcaster
+	 * @param message whatever message should be sent over atmosphere
+     * @param the type-string that will be used in client code
+     * @param notification A notification that can be used on the client to display a message
+	 */
+	public void broadcastMessage(def broadcaster, def message, String type, def notification) {	   
+	   //We just do nothing if there is no broadcaster int he session.
+	   if (broadcaster) {
+		   message.type = type
+		   message.notification = notification
+		   broadcastMessage(message, broadcaster)
+	   }
+	}
 }
