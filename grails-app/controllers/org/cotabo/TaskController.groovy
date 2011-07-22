@@ -25,17 +25,8 @@ class TaskController {
     }
 
     def save = {
-		def taskInstance
-		if (params.id) {
-			taskInstance = Task.get(params.id.toInteger().integerValue())
-			if (!taskInstance) {
-				render "Task with id ${params.id} does not exist."
-			}
-		}				
-		else {
-			taskInstance = new Task()
-		}
-		
+		def taskInstance = new Task()
+				
 		//Bind data but excluse column, creator, assignee & sortorder
 		bindData(taskInstance, params, ['column','creator','assignee','sortorder'])
 		
@@ -63,9 +54,10 @@ class TaskController {
 
 		taskInstance = taskService.saveTask(taskInstance)
 
-        if (!taskInstance.hasErrors()) { 
+        if (!taskInstance.hasErrors()) {
 			//Distribute this creation as atmosphere message
-			broadcastTaskCreation(taskInstance.toMessage())
+			broadcastMessage (taskInstance.toMessage(), 'task_creation')
+
 			//Render nothing as this will be done by atmosphere
 			render ''     
         }
@@ -152,11 +144,11 @@ class TaskController {
 	*
 	* @param message Something that can be converted to JSON
 	*/
-    private void broadcastTaskCreation(message) {
+    private void broadcastMessage(message, type) {
 		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
 		//We just do nothing if there is no broadcaster int he session.
 		if (broadcaster) {
-			message.type = 'task_creation'
+			message.type = type
 		   	boardUpdateService.broadcastMessage(message, broadcaster)
 		}
     }
