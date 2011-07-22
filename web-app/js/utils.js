@@ -144,8 +144,14 @@ var atmosphereCallback = function(response) {
 		}
 		catch (e) {
 			//alert('Error: '+e+'\nJSON: '+response.responseBody)
-		}
-		if (data != null) {			
+		}		
+		if (data != null) {
+			if(data.notification != null) {
+				$.pnotify({
+					pnotify_text: data.notification,					
+					pnotify_history: true					
+				});
+			}
 			switch(data.type) {
 				case "task_movement":
 					taskMovementCallback(data);

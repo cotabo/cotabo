@@ -6,6 +6,12 @@
         <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />
         <title>Cotabo - ${boardInstance?.name}</title>
         <jq:jquery>  
+            /**
+             * Subscribing the atmosphere channel for this board and register
+             * the atmosphereCallback - see utils.js
+             */
+             subscribeChannel('${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}', atmosphereCallback);
+             
     		/**
 			 * Expand/Collapse tasks on click of the exapnd icon.
 			 *
@@ -111,29 +117,21 @@
         	setElementCountOnColumn();	 
 			//Apply the click handle to all expand/collapse icons
 			$('.task-header .ui-icon').live('click', handleClickHeader);			
-
+			 
 			/**
-			 * Subscribing the atmosphere channel for this board and register
-			 * the atmosphereCallback - see utils.js
-			 */
-			 subscribeChannel('${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}', atmosphereCallback);
-			 
-			 /**
-			  * Handles a click on the block icon - updating the task on the server-side and
-			  * by that distributing a task_block message type to all subscribed clients.
-			  * 
-			  */
-			 var block_click_callback = function() {
-                var wasBlocked = $(this).hasClass('blocked');                
-                var taskId = $(this).parents('li').attr('id');                
-			    $.ajax({        
-		          type: 'POST',
-		          url: '${createLink(controller:'task', action:'update')}/'+taskId.split('_')[1],
-		          data: {wasBlocked:wasBlocked}       
-		        });        
-			 }
-			 
-			 $('.block-box').live('click', block_click_callback);
+			 * Handles a click on the block icon - updating the task on the server-side and
+			 * by that distributing a task_block message type to all subscribed clients.
+			 * 
+			 */		 			
+			$('.block-box').live('click', function() {
+				var wasBlocked = $(this).hasClass('blocked');                
+				var taskId = $(this).parents('li').attr('id');                
+				$.ajax({        
+				  type: 'POST',
+				  url: '${createLink(controller:'task', action:'update')}/'+taskId.split('_')[1],
+				  data: {wasBlocked:wasBlocked}       
+			    }); 
+			});
         </jq:jquery>
     </head>
     <body>    	

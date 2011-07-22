@@ -131,12 +131,12 @@ class TaskController {
 				def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
 				//distinguishing messages between block updates and normal updates
 				if(settedBlock) {
-					def notification = "${user} marked task #${params.taskid} (${taskInstance.name}) as blocked."
+					def notification = "${user} marked task #${params.id} (${taskInstance.name}) as ${wasBlocked ? 'unblocked' : 'blocked'}."
 					def block_message = [task:taskInstance.id, blocked:!wasBlocked]
 					boardUpdateService.broadcastMessage(broadcaster, block_message, 'task_block', notification)
 				}
 				else {
-					def notification = "${user} updated task #${params.taskid} (${taskInstance.name})."
+					def notification = "${user} updated task #${params.id} (${taskInstance.name})."
 					boardUpdateService.broadcastMessage(broadcaster, taskInstance.toMessage(), 'task_update', notification)
 				}
                 render ''

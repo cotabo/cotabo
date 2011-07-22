@@ -4,11 +4,13 @@
         <title><g:layoutTitle default="Cotabo"/></title>        
         <link rel="stylesheet" href="${resource(dir:'css',file:'jquery-ui-1.8.12.custom.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'jquery.pnotify.default.css')}" />
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />        
         <g:javascript library="jquery" plugin="jquery"/>
         <script type="text/javascript" src="${resource(dir:'js/jquery-ui', file:'jquery-ui-1.8.6.custom.min.js')}"></script>
         <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.flydom-3.1.1.js')}"></script>
         <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.atmosphere.js')}"></script>
+        <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.pnotify.min.js')}"></script>        
         <script type="text/javascript" src="${resource(dir:'js', file:'utils.js')}"></script>
         <g:layoutHead />
         
