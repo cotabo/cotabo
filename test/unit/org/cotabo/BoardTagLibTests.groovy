@@ -91,36 +91,37 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 	
 	void testTask() {
 		def expected= """
-		<li class="ui-widget" id="task_1">
-			<div class="task-header ui-state-default">
-				<div class="head_color" style="background:#faf77a;"></div>
-				<div class="head_name">mytask</div>
-				<span class="ui-icon ui-icon ui-icon-carat-1-n"/>
-			</div>
-			<div class="task-content ui-widget-content" style="display:block">
-				<table>
-					<tbody>
-						<tr>
-							<td><b>Id:</b></td>
-							<td id="task_1_id">#1</td>
-						</tr>
-						<tr>
-							<td><b>Description:</b></td>
-							<td id="task_1_description">test description</td>
-						</tr>
-						<tr>
-							<td><b>Priority:</b></td>
-							<td id="task_1_priority">Critical</td>
-						</tr>
-						<tr>
-							<td><b>Assignee:</b></td>
-							<td id="task_1_assignee">firstname lastname</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</li>
-		"""
+			<li class="ui-widget" id="task_1">
+				<div class="task-header ui-state-default">
+					<div class="head_color" style="background:#faf77a;"></div>
+					<div class="head_name">mytask</div>
+					<div class="block-box not-blocked"></div>
+					<span class="ui-icon ui-icon-carat-1-n"/>
+				</div>
+				<div class="task-content ui-widget-content" style="display:block">
+					<table>
+						<tbody>
+							<tr>
+								<td><b>Id:</b></td>
+								<td id="task_1_id">#1</td>
+							</tr>
+							<tr>
+								<td><b>Description:</b></td>
+								<td id="task_1_description">test description</td>
+							</tr>
+							<tr>
+								<td><b>Priority:</b></td>
+								<td id="task_1_priority">Critical</td>
+							</tr>
+							<tr>
+								<td><b>Assignee:</b></td>
+								<td id="task_1_assignee">firstname lastname</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</li>
+			"""
 		
 		def user = User.findByUsername('testuser')
 		def theTask = new Task(

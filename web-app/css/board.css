@@ -75,7 +75,8 @@
 	float:right;
 	margin-top: 3px;	
 	cursor: pointer;
-	height: 20px;		
+	height: 20px;	
+	margin-right:3px;	
 }
 .task-header div.head_color {
 	float:left;
@@ -109,4 +110,18 @@ div.task-content * td {
 
 #toolbar {	
 	padding: 10px 6px;
+}
+.block-box {
+	float:right;
+    top:+5px;
+    width:17px;
+    height:17px;
+    cursor:pointer; 
+    margin: 3px;
+}
+.blocked {			
+	background: url('../images/stop.png') no-repeat;	
+}
+.not-blocked {
+	background: url('../images/stop_greyed.png') no-repeat;    
 }
