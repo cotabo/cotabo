@@ -117,6 +117,23 @@
 			 * the atmosphereCallback - see utils.js
 			 */
 			 subscribeChannel('${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}', atmosphereCallback);
+			 
+			 /**
+			  * Handles a click on the block icon - updating the task on the server-side and
+			  * by that distributing a task_block message type to all subscribed clients.
+			  * 
+			  */
+			 var block_click_callback = function() {
+                var wasBlocked = $(this).hasClass('blocked');                
+                var taskId = $(this).parents('li').attr('id');                
+			    $.ajax({        
+		          type: 'POST',
+		          url: '${createLink(controller:'task', action:'update')}/'+taskId.split('_')[1],
+		          data: {wasBlocked:wasBlocked}       
+		        });        
+			 }
+			 
+			 $('.block-box').live('click', block_click_callback);
         </jq:jquery>
     </head>
     <body>    	

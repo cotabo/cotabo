@@ -34,9 +34,9 @@ var setElementCountOnColumn = function() {
 				pValueDom.removeClass('red-font');
 			}
 		}
-	});
-	
+	});	
 }  
+
 /**
  * Checks for errors in a JSON response of a validated Grails domain object.
  * It prints error messages and applies the .error class to all invalid input elements 
@@ -60,6 +60,7 @@ var checkForSuccess = function(responseData, formContainerSelector) {
 		return true;
 	}
 }
+
 
 /**
  * Representing a skeleton task object that can be rendered 
@@ -155,6 +156,9 @@ var atmosphereCallback = function(response) {
 				case "task_creation":
 					taskCreationCallback(data);
 					break;	
+				case "task_block":
+					taskBlockCallback(data);
+					break;
 				default:
 					break;
 			}
@@ -286,6 +290,22 @@ var taskCreationCallback = function(data) {
 		setElementCountOnColumn();	
 	});
 	$(helper).css('display','none');		
+}
+
+/**
+ * Markes the corresponding tasks in the gui as blocked / unblocked.
+ * 
+ * @param data JSON representing the task block data (only {task:<id>, block:<boolean>} 
+ * @returns
+ */
+var taskBlockCallback = function(data) {
+	var taskBlockDiv = $('li#task_'+data.task).find('div.block-box');	
+	if((data.blocked == true) && $(taskBlockDiv).hasClass('not-blocked')) {
+		$(taskBlockDiv).removeClass('not-blocked').addClass('blocked');
+	}
+	else if ((data.blocked == false) && $(taskBlockDiv).hasClass('blocked')){
+		$(taskBlockDiv).removeClass('blocked').addClass('not-blocked');		
+	}
 }
 
 

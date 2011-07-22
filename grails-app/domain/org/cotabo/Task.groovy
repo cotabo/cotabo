@@ -85,24 +85,24 @@ class Task implements Comparable {
 	* @param blocked true means setting this task to blocked. false means resolving the blocked situation
 	*/
    void setBlocked(boolean blocked) {
-	   //Potentially finding an open Block
-	   def block = this.blocks.find{it.dateClosed == null}
+	   def block = this.blocks.find{!it.dateClosed}
+	   //Potentially finding an open Block	   
 	   if (blocked) {
 		   if (block) {
 			   //Do nothing when someone wants to add a block
 			   //if there is still an open block for this task
 			   return
 		   }
+		   //While creating new objects - we need to to that within a different session		   
 		   Block.withNewSession {
-			   this.addToBlocks(new Block())			   			   
+			   this.addToBlocks(new Block())
 		   }
-		   
 	   }
-	   else {
-		   Block.withNewSession {
+	   else {		   		   
+		   if(block) {				   
 			   block.dateClosed = new Date()
 			   block.save()
-		   }		   
+		   }
 	   }
    }
    

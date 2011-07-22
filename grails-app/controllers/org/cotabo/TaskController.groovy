@@ -57,7 +57,7 @@ class TaskController {
         if (!taskInstance.hasErrors()) {
 			//Distribute this creation as atmosphere message
 			broadcastMessage (taskInstance.toMessage(), 'task_creation')
-
+			
 			//Render nothing as this will be done by atmosphere
 			render ''     
         }
@@ -94,7 +94,7 @@ class TaskController {
     }
 
     def update = {
-        def taskInstance = Task.get(params.id)
+        def taskInstance = Task.get(params.id.toLong())
         if (taskInstance) {
             if (params.version) {
                 def version = params.version.toLong()
@@ -105,18 +105,45 @@ class TaskController {
                     return
                 }
             }
-            taskInstance.properties = params
+						
+			boolean settedBlock = false 			
+			boolean wasBlocked = params.wasBlocked?.toBoolean()?.booleanValue()
+			//If we have a 'wasBlocked' param which equals to the current task status
+            if(params.wasBlocked && (taskInstance.blocked == wasBlocked)) {			
+				//Flip the blocked status	
+				taskInstance.blocked = !wasBlocked	
+				//saving that this was a blocked status update
+				settedBlock = true
+			}
+			//else it is a normal update on the task and we bind everything necessary
+			else {
+				//Bind data but excluse column, creator, assignee & sortorder
+				bindData(taskInstance, params, ['column','creator','assignee','sortorder'])
+			}
+			
             if (!taskInstance.hasErrors() && taskInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'task.label', default: 'Task'), taskInstance.id])}"
-                redirect(action: "show", id: taskInstance.id)
+				//distinguishing messages between block updates and normal updates
+				if(settedBlock) {
+					def block_message = [task:taskInstance.id, blocked:!wasBlocked]
+					broadcastMessage(block_message, 'task_block')
+				}
+				else {
+					broadcastMessage(taskInstance.toMessage(), 'task_update')
+				}
+                render ''
             }
             else {
-                render(view: "edit", model: [taskInstance: taskInstance])
+				//TODO: fix this - sending a common JSON piece back when something went wrong
+				//and react and the error callback on the client for this request.
+				render taskInstance.errors as JSON				
+                //render(view: "edit", model: [taskInstance: taskInstance])
             }
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
-            redirect(action: "list")
+			//TODO:  fix this - sending a common JSON piece back when task wasn't found
+			render 'ERROR - task not found'
+            //flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
+            
         }
     }
 
@@ -143,6 +170,7 @@ class TaskController {
 	* Distributes the given message to the users registered broadcaster.
 	*
 	* @param message Something that can be converted to JSON
+	* @param type the type string that will be used in the client code
 	*/
     private void broadcastMessage(message, type) {
 		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
