@@ -116,7 +116,7 @@ class BoardUpdateService {
 	 * @param broadcaster The Atmosphere Broadcaster object that the message should be distributed too.
 	 * @param message The message contianing information about the movement.
 	 */
-    private void broadcastMessage(def message, Broadcaster broadcaster) {			
+    private void broadcastMessageAsJSON(def message, Broadcaster broadcaster) {			
 		broadcaster.broadcast(message as JSON)
     }
 	
@@ -128,12 +128,12 @@ class BoardUpdateService {
      * @param the type-string that will be used in client code
      * @param notification A notification that can be used on the client to display a message
 	 */
-	public void broadcastMessage(def broadcaster, def message, String type, def notification) {	   
+	public void broadcastMessage(Broadcaster broadcaster, def message, String type, def notification = null) {	   
 	   //We just do nothing if there is no broadcaster int he session.
 	   if (broadcaster) {
 		   message.type = type
 		   message.notification = notification
-		   broadcastMessage(message, broadcaster)
+		   broadcastMessageAsJSON(message, broadcaster)
 	   }
 	}
 }

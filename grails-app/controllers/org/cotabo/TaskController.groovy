@@ -60,7 +60,12 @@ class TaskController {
 			def notification = "${user} created task #${taskInstance.id} (${taskInstance.name})."
 			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
 			//Distribute this creation as atmosphere message
-			boardUpdateService.broadcastMessage(broadcaster, taskInstance.toMessage(), 'task_creation', notification)
+			boardUpdateService.broadcastMessage(
+				broadcaster, 
+				taskInstance.toMessage(), 
+				MessageType.TASK_CREATION, 
+				notification
+			)
 			
 			//Render nothing as this will be done by atmosphere
 			render ''     
@@ -133,11 +138,21 @@ class TaskController {
 				if(settedBlock) {
 					def notification = "${user} marked task #${params.id} (${taskInstance.name}) as ${wasBlocked ? 'unblocked' : 'blocked'}."
 					def block_message = [task:taskInstance.id, blocked:!wasBlocked]
-					boardUpdateService.broadcastMessage(broadcaster, block_message, 'task_block', notification)
+					boardUpdateService.broadcastMessage(
+						broadcaster,
+						block_message,
+						MessageType.TASK_BLOCK,
+						notification
+					)
 				}
 				else {
 					def notification = "${user} updated task #${params.id} (${taskInstance.name})."
-					boardUpdateService.broadcastMessage(broadcaster, taskInstance.toMessage(), 'task_update', notification)
+					boardUpdateService.broadcastMessage(
+						broadcaster,
+						taskInstance.toMessage(), 
+						MessageType.TASK_UPDATE,
+						notification
+					)
 				}
                 render ''
             }

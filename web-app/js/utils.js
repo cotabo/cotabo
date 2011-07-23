@@ -165,6 +165,9 @@ var atmosphereCallback = function(response) {
 				case "task_block":
 					taskBlockCallback(data);
 					break;
+				case "chat_message":
+					chatMessageCallback(data);
+					break;
 				default:
 					break;
 			}
@@ -266,9 +269,6 @@ var taskReorderingCallback = function(data) {
 	var taskDom = $('li#task_'+data.task);
 	var toColumnDom = $('ul#column_'+data.toColumn);
 	var fromColumnDom = $('ul#column_'+data.fromColumn);	
-
-
-	
 }
 
 /**
@@ -311,6 +311,26 @@ var taskBlockCallback = function(data) {
 	}
 	else if ((data.blocked == false) && $(taskBlockDiv).hasClass('blocked')){
 		$(taskBlockDiv).removeClass('blocked').addClass('not-blocked');		
+	}
+}
+
+/**
+ * Handles the chat message distributes by atmosphere.
+ * 
+ * @param data  JSON representing the chat message (notably chat_message:<string>)
+ * @returns
+ */
+var chatMessageCallback = function(data) {	
+	//pnotify custom stack definition
+	var stack_bottomleft = {"dir1": "right", "dir2": "up"};
+	if (data.chat_message != null) {
+		$.pnotify({
+			pnotify_text: data.chat_message,					
+			pnotify_history: true,
+			pnotify_addclass: 'stack-bottomleft',
+			pnotify_stack: stack_bottomleft,
+			pnotify_notice_icon: 'ui-icon ui-icon-comment'
+		});
 	}
 }
 

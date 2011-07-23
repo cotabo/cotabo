@@ -7,6 +7,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 class BoardController {
 	def springSecurityService
 	def dashboardService
+	def boardUpdateService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	
@@ -142,6 +143,20 @@ class BoardController {
         }
     }
 	
+	def chat = {
+		def message = params.message.encodeAsHTML()
+		if (message) {
+			def user = User.findByUsername(springSecurityService.principal.username)
+			message = "${user.encodeAsHTML()}: ${message}"
+			boardUpdateService.broadcastMessage (
+				session.getAttribute("boardBroadacster")?.broadcaster,
+				[chat_message: message],
+				MessageType.CHAT_MESSAGE
+			)
+		}
+		render ''
+		
+	}
 
 	def comulativeflowchart = {		
 		def boardInstance = Board.get(params.id)

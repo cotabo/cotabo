@@ -32,7 +32,12 @@ class ColumnController {
 			def column = Column.get(params.toColumn?.toInteger()?.intValue())
 			def notification = "${user} moves #${params.taskid} too column '${column}'"
 			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster 
-			boardUpdateService.broadcastMessage(broadcaster, movementMessage, 'task_movement', notification)
+			boardUpdateService.broadcastMessage(
+				broadcaster, 
+				movementMessage, 
+				MessageType.TASK_MOVEMENT, 
+				notification
+			)
 		}
 		//Return code & message will be handled by the client.
 		def result = [returncode: retCode, message:resultMessage]
@@ -63,7 +68,12 @@ class ColumnController {
 						newTaskOrderIdList: newTaskOrderIdList
 					]
 					//Also this is a task movement (only within the same column)					
-					boardUpdateService.broadcastMessage(broadcaster, bcmessage, 'task_reordering', notification)															
+					boardUpdateService.broadcastMessage(
+						broadcaster, 
+						bcmessage, 
+						MessageType.TASK_REORDERING, 
+						notification
+					)															
 				}
 			}
 			def result = [returncode: retCode, message:message]
