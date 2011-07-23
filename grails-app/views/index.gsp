@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Welcome to TaskBoard</title>
+        <title>Welcome to Cotabo</title>
         <meta name="layout" content="main" />
         <style type="text/css" media="screen">
 
@@ -41,14 +41,15 @@
     </head>
     <body>
         <div>
-            <h1>Welcome to TaskBoard</h1>
-            <p>Congratulations, you are on the best way to improve the management of your Tasks. This site
+            <h1>Welcome to Cotabo</h1>
+            <p>
+            Congratulations, you are on the best way to improve the management of your Tasks. This site
             will help you structuring all your tasks. It provides something similar to an electronic whiteboard 
             that you can use to spread task across dirtributed teams.
-            All this stuff is inspired by Kanban - which is an "agile"</p>
+            </p>
             <p>You can create multiple Boards for multiple projects or workstreams.
-            You will be surprised but the amount of data that can be pulled out of the usage of this tool in order to 
-            measure your throughput.</p>
+            You will be surprised about the amount of data that can be pulled out of the usage of a tool like this in order to 
+            measure and improve your throughput.</p>
 
             <div id="controllerList" class="dialog">
                 <h2>Available Controllers:</h2>
