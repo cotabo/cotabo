@@ -31,7 +31,7 @@ class ColumnController {
 			def user = User.findByUsername(principal.username)
 			def column = Column.get(params.toColumn?.toInteger()?.intValue())
 			def notification = "${user} moves #${params.taskid} too column '${column}'"
-			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster 
 			boardUpdateService.broadcastMessage(broadcaster, movementMessage, 'task_movement', notification)
 		}
 		//Return code & message will be handled by the client.
@@ -90,22 +90,4 @@ class ColumnController {
 			it.split('_')[1].toInteger().intValue()
 		}
 	}
-	
-	/**
-	 * Distributes the given message to the users registered broadcaster.
-	 * 
-	 * @param message whatever message should be sent over atmosphere
-	 * @param the type-string that will be used in client code
-	 * @param notification A notification that can be used on the client to display a message
-	 */
-	private void broadcastTaskMovement(message, String type, String notification) {
-		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
-		//We just do nothing if there is no broadcaster int he session.
-		if (broadcaster) {
-			message.type = type
-			message.notification = notification
-			boardUpdateService.broadcastMessage(message, broadcaster)
-		}
-	}
-
 }
