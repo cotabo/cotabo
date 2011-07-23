@@ -2,6 +2,7 @@
  * Utility functions for general reuse
  */
 
+
 /**
  * resets the state of a dialog (removing errors etc.)
  * 

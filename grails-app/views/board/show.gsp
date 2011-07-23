@@ -65,10 +65,6 @@
 								$(ui.item).children('div:first').children('span').click()
 							}
 						}
-					},
-					error: function(xhr, errorType, exception) {
-						$(ui.sender).sortable('cancel');
-						alert('Error updateing the column: ' + errorType);
 					}
 				});				
 			}
@@ -86,10 +82,6 @@
 					data: {
 					    taskid: taskId,
 						order: $(this).sortable("toArray")
-					},
-					error: function(xhr, errorType, exception) {
-						$(this).sortable('cancel');
-						alert('Error updateing the column: ' + errorType);
 					}
 				});
 			}

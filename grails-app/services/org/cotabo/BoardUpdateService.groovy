@@ -85,7 +85,7 @@ class BoardUpdateService {
 		 if (!scheduledChannels.find{it == channel}) {
 			 boardSpecificBroadcaster.scheduleFixedBroadcast '{"type":"keepalive"}', 30, TimeUnit.SECONDS
 			 scheduledChannels << channel			 
-		 }
+		 }		 
 
 	}
 

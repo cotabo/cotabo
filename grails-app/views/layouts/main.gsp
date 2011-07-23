@@ -43,6 +43,38 @@
 			</div>   			
 
         	<g:layoutBody />
+        	<div id="error_dialog"></div>
+        	<jq:jquery>
+        	/**
+			 * Global AJAX error handling.
+			 * Always expecting JSON containing {"title":"error_title", "message":"error_message"}
+			 */
+			$.ajaxSetup({
+			    error: function(jqXHR, textStatus, errorThrown) {			         
+			        var message 
+			        var title = ''
+			        try {       
+			            var data = $.parseJSON(jqXHR.responseText);
+			            title = data.title;
+			            message = data.message
+			        }
+			        catch(e) {
+			            if(jqXHR.responseText != null && jqXHR.responseText != '') {
+			                message = jqXHR.responseText
+			            }
+			            else {
+			                message = 'Server seems not to be available. Please refresh the site to be sure.'
+			            }
+			        }
+			        $.pnotify({
+			            pnotify_title: title,
+			            pnotify_text: message,                  
+			            pnotify_shadow: true,           
+			            pnotify_type: 'error'           
+			        });
+			    }
+			});
+        	</jq:jquery>
         </div>
     </body>
 </html>
