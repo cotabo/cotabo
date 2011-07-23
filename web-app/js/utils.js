@@ -79,6 +79,7 @@ var taskTpl = function () {
 			"div", {class:'task-header ui-state-default'}, [
 				"div", {class:'head_color', style:'background:'+this.color}, ,
 				"div", {class:'head_name'}, this.name,
+				"div", {class:'block-box not-blocked'}, ,
 				"span", {class:'ui-icon ui-icon ui-icon-carat-1-n'}, 
 			],
 			"div", {class:'task-content ui-widget-content', style:'display:block;'}, [
@@ -149,7 +150,9 @@ var atmosphereCallback = function(response) {
 			if(data.notification != null) {
 				$.pnotify({
 					pnotify_text: data.notification,					
-					pnotify_history: true					
+					pnotify_history: true,
+					pnotify_shadow: true,
+					pnotify_delay: 20000
 				});
 			}
 			switch(data.type) {
@@ -313,23 +316,28 @@ var taskBlockCallback = function(data) {
 		$(taskBlockDiv).removeClass('blocked').addClass('not-blocked');		
 	}
 }
-
+//Custom stack for chat messages - needs to be out of the function scope:
+//see http://sourceforge.net/projects/pines/forums/forum/960539/topic/4495970
+var stack_topleft = {"dir1": "down", "dir2": "right", "push": "top"};
 /**
  * Handles the chat message distributes by atmosphere.
  * 
  * @param data  JSON representing the chat message (notably chat_message:<string>)
  * @returns
  */
-var chatMessageCallback = function(data) {	
-	//pnotify custom stack definition
-	var stack_bottomleft = {"dir1": "right", "dir2": "up"};
+var chatMessageCallback = function(data) {		
 	if (data.chat_message != null) {
+		
 		$.pnotify({
+			pnotify_title: data.chat_user,
 			pnotify_text: data.chat_message,					
-			pnotify_history: true,
-			pnotify_addclass: 'stack-bottomleft',
-			pnotify_stack: stack_bottomleft,
-			pnotify_notice_icon: 'ui-icon ui-icon-comment'
+			pnotify_shadow: true,
+			pnotify_history: true,			
+			pnotify_notice_icon: 'ui-icon ui-icon-comment',
+			pnotify_delay: 15000,
+			pnotify_addclass: 'stack-topleft',			
+			pnotify_stack: stack_topleft,
+			pnotify_nonblock: false
 		});
 	}
 }

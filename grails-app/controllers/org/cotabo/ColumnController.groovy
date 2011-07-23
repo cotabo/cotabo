@@ -30,7 +30,7 @@ class ColumnController {
 			def principal = springSecurityService.principal
 			def user = User.findByUsername(principal.username)
 			def column = Column.get(params.toColumn?.toInteger()?.intValue())
-			def notification = "${user} moves #${params.taskid} too column '${column}'"
+			def notification = "${user} moved #${params.taskid} to column '${column}'"
 			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster 
 			boardUpdateService.broadcastMessage(
 				broadcaster, 

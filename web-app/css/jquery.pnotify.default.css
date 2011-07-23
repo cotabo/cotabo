@@ -80,9 +80,8 @@ html > body .ui-pnotify {
 	margin: 0 auto;
 }
 /* Alternate stack initial positioning. */
-.ui-pnotify.stack-bottomleft {
-    bottom: 15px;
+.ui-pnotify.stack-topleft {
+    top: 15px;
     left: 15px;
-    top: auto;
     right: auto;
 }

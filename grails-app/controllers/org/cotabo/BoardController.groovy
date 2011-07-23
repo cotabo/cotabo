@@ -146,16 +146,14 @@ class BoardController {
 	def chat = {
 		def message = params.message.encodeAsHTML()
 		if (message) {
-			def user = User.findByUsername(springSecurityService.principal.username)
-			message = "${user.encodeAsHTML()}: ${message}"
+			def user = User.findByUsername(springSecurityService.principal.username)			
 			boardUpdateService.broadcastMessage (
 				session.getAttribute("boardBroadacster")?.broadcaster,
-				[chat_message: message],
+				[chat_user:user.toString(), chat_message: message],
 				MessageType.CHAT_MESSAGE
 			)
 		}
-		render ''
-		
+		render ''				
 	}
 
 	def comulativeflowchart = {		
