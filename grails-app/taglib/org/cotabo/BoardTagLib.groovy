@@ -90,7 +90,7 @@ class BoardTagLib {
 							</tr>
 							<tr>
 								<td><b>Assignee:</b></td>
-								<td id="task_${attrs.task.id}_assignee">${attrs.task?.assignee?.toString().encodeAsHTML() ?: ''}</td>
+								<td id="task_${attrs.task.id}_assignee">${attrs.task?.assignee?.toString()?.encodeAsHTML() ?: ''}</td>
 							</tr>
 						</tbody>
 					</table>
