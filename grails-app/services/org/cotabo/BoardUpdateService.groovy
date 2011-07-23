@@ -25,7 +25,9 @@ class BoardUpdateService {
 	//This actually makes this service an AtmosphereHandler
 	static atmosphere = [mapping: '/atmosphere/boardupdate']
 	
-	
+	//Holds the channel strings for all broadcasters that
+	//already have a scheduled broadcast
+	def scheduledChannels = []
 	/**
 	 * See http://atmosphere.java.net/nonav/apidocs/org/atmosphere/cpr/AtmosphereHandler.html#onRequest(org.atmosphere.cpr.AtmosphereResource)
 	 * 
@@ -46,22 +48,24 @@ class BoardUpdateService {
 	 def onRequest = { event ->		 
 		 //We create try to get (or create a new one if not yet there) a broadcaster
 		 //For the boardId that was sent as a request parameter
+		 def channel = '/atmosphere/boardupdate/'+event.request.getParameter('boardId')
 		 def boardSpecificBroadcaster =
 			 BroadcasterFactory.default.lookup(
 				 DefaultBroadcaster.class,
-				 '/atmosphere/boardupdate/'+event.request.getParameter('boardId'),
+				 channel,
 				 true
 			 )
 		 def sessRes = event.request.session.getAttribute('boardBroadacster')		 
 		 if(sessRes) {
 			 //We need to remove the AtmosphereResource from the session
 			 //from its broadcaster.
-			 sessRes.broadcaster.removeAtmosphereResource(sessRes)			 
+			 sessRes.broadcaster.removeAtmosphereResource(sessRes)
+			 sessRes.broadcaster = null
 		 }
 		 //We set the newly retrieved broadcaste for this user
 		 event.setBroadcaster(boardSpecificBroadcaster)		 
 		 //We subscribe the user to the broadcaster
-		 boardSpecificBroadcaster.addAtmosphereResource(event)		 		 		
+		 boardSpecificBroadcaster.addAtmosphereResource(event)
 		 
 		 //We put this AtmosphereResource into the users session
 		 //So that it can be found on the next request to the controller
@@ -78,8 +82,10 @@ class BoardUpdateService {
 		 event.response.addHeader("Expires", "0")
 		 //Suspending the request - waiting for events
 		 event.suspend()
-		 
-		 boardSpecificBroadcaster.scheduleFixedBroadcast '{"type":"keepalive"}', 30, TimeUnit.SECONDS
+		 if (!scheduledChannels.find{it == channel}) {
+			 boardSpecificBroadcaster.scheduleFixedBroadcast '{"type":"keepalive"}', 30, TimeUnit.SECONDS
+			 scheduledChannels << channel			 
+		 }
 
 	}
 
