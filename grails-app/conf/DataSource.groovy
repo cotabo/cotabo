@@ -25,12 +25,16 @@ environments {
     }
     production {
         dataSource {
-			dialect = org.hibernate.dialect.MySQLInnoDBDialect
-			driverClassName = 'com.mysql.jdbc.Driver'
-			username = 'n/a'
-			password = 'n/a'
-			url = 'jdbc:mysql://localhost/db?useUnicode=true&characterEncoding=utf8'			
-            dbCreate = "update"            
+			//Use the below for CloudFoundry deployment
+//			dialect = org.hibernate.dialect.MySQLInnoDBDialect
+//			driverClassName = 'com.mysql.jdbc.Driver'
+//			username = 'n/a'
+//			password = 'n/a'
+//			url = 'jdbc:mysql://localhost/db?useUnicode=true&characterEncoding=utf8'			
+//            dbCreate = "update"       
+            
+			//For usual deployments -  
+			jndiName = "java:comp/env/jdbc/cotabo"
         }
     }
 }
