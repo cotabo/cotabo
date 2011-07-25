@@ -2,9 +2,11 @@ package org.cotabo
 
 import java.util.concurrent.TimeUnit;
 
+import org.atmosphere.client.JavascriptClientFilter;
 import org.atmosphere.cpr.Broadcaster;
 import org.atmosphere.cpr.BroadcasterFactory
 import org.atmosphere.cpr.DefaultBroadcaster
+import org.atmosphere.util.XSSHtmlFilter;
 
 import grails.converters.JSON
 
@@ -80,9 +82,13 @@ class BoardUpdateService {
 		 event.response.addHeader("Pragma", "no-cache");
 		 //For FireFox (see http://www-archive.mozilla.org/projects/netlib/http/http-caching-faq.html)
 		 event.response.addHeader("Expires", "0")
-		 //Suspending the request - waiting for events
+		 //Suspending the request - waiting for events		 
 		 event.suspend()
+		 
+		 //First subscriber to this broadcaster
 		 if (!scheduledChannels.find{it == channel}) {
+			 boardSpecificBroadcaster.broadcasterConfig.addFilter(new JavascriptClientFilter())
+			 boardSpecificBroadcaster.broadcasterConfig.addFilter(new XSSHtmlFilter())
 			 boardSpecificBroadcaster.scheduleFixedBroadcast '{"type":"keepalive"}', 30, TimeUnit.SECONDS
 			 scheduledChannels << channel			 
 		 }		 
@@ -110,7 +116,7 @@ class BoardUpdateService {
 			event.resource.response.setContentType('text/javascript;charset=UTF-8')
 			event.resource.response.setCharacterEncoding('UTF-8')
 			event.resource.response.writer.with {				
-				write "<script>parent.callback('${event.message}');</script>"
+				write event.message.toString()
 				flush()
 			}
 		}
