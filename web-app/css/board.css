@@ -117,11 +117,12 @@ div.task-content * td {
     width:17px;
     height:17px;
     cursor:pointer; 
-    margin: 3px;
+    margin: 3px;    
 }
 .blocked {			
 	background: url('../images/stop.png') no-repeat;	
 }
 .not-blocked {
-	background: url('../images/stop_greyed.png') no-repeat;    
+	background: url('../images/stop_greyed.png') no-repeat;
+	opacity: .3;    
 }
