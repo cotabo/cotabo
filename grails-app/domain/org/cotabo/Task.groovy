@@ -59,6 +59,8 @@ class Task implements Comparable {
 	}
 	
 	static mapping = {
+		//column is a reserver word in MySQL
+		column column:'cotabo_column'
 		sort sortorder:'asc'		
 	}
 	

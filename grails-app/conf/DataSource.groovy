@@ -26,7 +26,7 @@ environments {
     production {
         dataSource {
 			//Use the below for CloudFoundry deployment
-//			dialect = org.hibernate.dialect.MySQLInnoDBDialect
+//			dialect = 'org.hibernate.dialect.MySQLInnoDBDialect'
 //			driverClassName = 'com.mysql.jdbc.Driver'
 //			username = 'n/a'
 //			password = 'n/a'

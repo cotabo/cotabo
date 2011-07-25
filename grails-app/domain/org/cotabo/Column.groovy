@@ -31,6 +31,10 @@ class Column {
 		return name
 	}
 	static mapping = {
+		//column is a reserverd word in MySQL
+		table 'cotabo_column'
+		//also 'limit'
+		limit column: 'column_limit'
 		tasks sort:'sortorder'
 
 	}
