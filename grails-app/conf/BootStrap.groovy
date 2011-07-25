@@ -62,18 +62,18 @@ class BootStrap {
 			use(TimeCategory) {	
 				testTasks = [
 					wip: 	[
-						[column:column2, name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, sortorder:1, priority:'Critical', color:'#1a2ff9', workflowStartDate: new Date() - 10.hours],
-						[column:column2, name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, creator:user, assignee:user, sortorder:2, priority:'Normal', color:'#059408', workflowStartDate: new Date() - 9.hours]						
+						[column:column2, name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, sortorder:1, priority:'Critical', color:'#85fd81', workflowStartDate: new Date() - 10.hours],
+						[column:column2, name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, creator:user, assignee:user, sortorder:2, priority:'Normal', color:'#fafaa8', workflowStartDate: new Date() - 9.hours]						
 					],
 					todo: 	[
-						[column:column1, name:'Setup Webserver', description:'Install & configure Apache',durationHours:1.5, creator:user, assignee:user, sortorder:1, priority:'Major', color:'#f9f21a', workflowStartDate: new Date() - 9.hours],					 
-						[column:column1, name:'Setup WebLogic', description:'Install base software and configure domain.',durationHours:6.0, creator:user, assignee:user, sortorder:2, priority:'Low', color:'#f9f21a', workflowStartDate: new Date() - 7.hours],
-						[column:column1, name:'Install application', description:'Install the application software as describes by the Vendor',durationHours:8.0, creator:user, assignee:user, sortorder:3, priority:'Critical', color:'#1a2ff9', workflowStartDate: new Date() - 4.hours],
-						[column:column1, name:'Configure Monitoring', description:'Setup all monitors (Filesystem, proceses, logs etc)',durationHours:16.0, creator:user, assignee:user, sortorder:4, priority:'Normal', color:'#f40101', workflowStartDate: new Date() - 2.hours],
-						[column:column1, name:'Apply Configuration Management', description:'Apply configuration management',durationHours:8.0, creator:user, assignee:user, sortorder:5, priority:'Normal', color:'#f9f21a', workflowStartDate: new Date() - 12.hours]
+						[column:column1, name:'Setup Webserver', description:'Install & configure Apache',durationHours:1.5, creator:user, assignee:user, sortorder:1, priority:'Major', color:'#fafaa8', workflowStartDate: new Date() - 9.hours],					 
+						[column:column1, name:'Setup WebLogic', description:'Install base software and configure domain.',durationHours:6.0, creator:user, assignee:user, sortorder:2, priority:'Low', color:'#fafaa8', workflowStartDate: new Date() - 7.hours],
+						[column:column1, name:'Install application', description:'Install the application software as describes by the Vendor',durationHours:8.0, creator:user, assignee:user, sortorder:3, priority:'Critical', color:'#faaca8', workflowStartDate: new Date() - 4.hours],
+						[column:column1, name:'Configure Monitoring', description:'Setup all monitors (Filesystem, proceses, logs etc)',durationHours:16.0, creator:user, assignee:user, sortorder:4, priority:'Normal', color:'#81b6fd', workflowStartDate: new Date() - 2.hours],
+						[column:column1, name:'Apply Configuration Management', description:'Apply configuration management',durationHours:8.0, creator:user, assignee:user, sortorder:5, priority:'Normal', color:'#faaca8', workflowStartDate: new Date() - 12.hours]
 					],
 					done: 	[
-						[column:column3, name:'Request machines', description:'Request machines at the DataCenter',durationHours:48.0, creator:user, assignee:user, sortorder:1, priority:'Normal', color:'#1a2ff9', workflowStartDate: new Date() - 10.hours, workflowEndDate: new Date() - 1.hour]
+						[column:column3, name:'Request machines', description:'Request machines at the DataCenter',durationHours:48.0, creator:user, assignee:user, sortorder:1, priority:'Normal', color:'#fafaa8', workflowStartDate: new Date() - 10.hours, workflowEndDate: new Date() - 1.hour]
 					]
 				]
 			}
@@ -133,7 +133,7 @@ class BootStrap {
 					assignee:user, 
 					sortorder:15+i, 
 					priority:'Normal', 
-					color:'#f9f21a',
+					color:'#fafaa8',
 					column: Column.findByName('ToDo')
 				)
 			}
