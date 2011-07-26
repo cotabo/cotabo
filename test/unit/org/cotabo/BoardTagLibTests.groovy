@@ -100,11 +100,11 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 				</div>
 				<div class="task-content ui-widget-content" style="display:block">
 					<table>
+						<colgroup>
+							<col width="25%"/>
+							<col width="75%"/>
+						</colgroup>
 						<tbody>
-							<tr>
-								<td><b>Id:</b></td>
-								<td id="task_1_id">#1</td>
-							</tr>
 							<tr>
 								<td><b>Description:</b></td>
 								<td id="task_1_description">test description</td>

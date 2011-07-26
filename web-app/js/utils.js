@@ -85,13 +85,11 @@ var taskTpl = function () {
 			],
 			"div", {class:'task-content ui-widget-content', style:'display:block;'}, [
 				"table", {}, [
-					"tbody", {}, [
-						"tr", {}, [
-							"td", {}, [
-								"b", {}, 'Id:'									
-							],
-							"td", {}, ''+this.id//this.id							
-						],					              
+				    "colgroup", {}, [
+				        "col", {width:'25%'}, ,
+				        "col", {width:'75%'}, 
+				    ],
+					"tbody", {}, [	              
 						"tr", {}, [
 							"td", {}, [
 								"b", {}, 'Description'									

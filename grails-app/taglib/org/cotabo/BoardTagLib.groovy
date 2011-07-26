@@ -75,11 +75,11 @@ class BoardTagLib {
 				</div>
 				<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'none' : 'block'}">
 					<table>
+						<colgroup>
+							<col width="25%"/>
+							<col width="75%"/>
+						</colgroup>
 						<tbody>
-							<tr>
-								<td><b>Id:</b></td>
-								<td id="task_${attrs.task.id}_id">#${attrs.task?.id ?: ''}</td>
-							</tr>
 							<tr>
 								<td><b>Description:</b></td>
 								<td id="task_${attrs.task.id}_description">${attrs.task?.description?.encodeAsHTML() ?: ''}</td>
