@@ -87,28 +87,6 @@ class TaskController {
         }
     }
 
-    def show = {
-        def taskInstance = Task.get(params.id)
-        if (!taskInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            [taskInstance: taskInstance]
-        }
-    }
-
-    def edit = {
-        def taskInstance = Task.get(params.id)
-        if (!taskInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            return [taskInstance: taskInstance]
-        }
-    }
-
     def update = {
         def taskInstance = Task.get(params.id.toLong())
         if (taskInstance) {
