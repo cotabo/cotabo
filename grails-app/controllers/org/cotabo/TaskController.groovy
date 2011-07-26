@@ -39,7 +39,7 @@ class TaskController {
 		}
 		//Assign the creator
 		def creator = User.findByUsername(springSecurityService.principal.username)
-		taskInstance.creator = user
+		taskInstance.creator = creator
 		
 		def assignee = User.get(params.assignee.trim())
 		//No check on assignee as this may be null - leave this to the constraints
