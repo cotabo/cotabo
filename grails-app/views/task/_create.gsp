@@ -65,14 +65,6 @@
     			</tr>
     			<tr>
     				<td>
-    					<label for="duration" alt="The duration of the task (in hours)" class="optional">duration (h)</label>
-    				</td>
-    				<td>
-    					<g:textField name="duration" size="3"/>
-    				</td>
-    			</tr>
-    			<tr>
-    				<td>
     					<label for="priority" alt="The priority of this task">priority *</label>
     				</td>
     				<td>
@@ -89,7 +81,7 @@
     			</tr>
     		</tbody>
     	</table>
-    </div>
+    </div>    
     <g:hiddenField name="board" value="${boardInstance.id}"/>
     </g:form>
 </div>
