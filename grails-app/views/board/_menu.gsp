@@ -55,8 +55,7 @@
 		width: 400,
 		modal: true,
 		buttons: {
-			"create task": function() {
-				resetDialogErrors('#createTaskForm');				
+			"create task": function() {						
 				$('#taskForm').submit();				
 			},			
 			"cancel": function() {
@@ -66,9 +65,6 @@
 		open: function() {
 		  //Focusing the create task button by default on opening
 		  $('.ui-dialog-buttonpane button:first').focus();
-		},
-		close: function() {
-			resetDialogErrors('#createTaskForm');		
 		}
 	});
 	
