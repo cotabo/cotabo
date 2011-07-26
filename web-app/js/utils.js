@@ -79,7 +79,7 @@ var taskTpl = function () {
 		"li", {class:'ui-widget', id:'task_'+this.id}, [
 			"div", {class:'task-header ui-state-default'}, [
 				"div", {class:'head_color', style:'background:'+this.color}, ,
-				"div", {class:'head_name'}, this.name,
+				"div", {class:'head_name'}, '#' + this.id + ' - ' +this.name,
 				"div", {class:'block-box not-blocked'}, ,
 				"span", {class:'ui-icon ui-icon ui-icon-carat-1-n'}, 
 			],
