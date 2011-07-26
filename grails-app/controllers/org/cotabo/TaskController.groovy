@@ -31,16 +31,19 @@ class TaskController {
 		bindData(taskInstance, params, ['column','creator','assignee','sortorder'])
 		
 		taskInstance.column = Board.get(params.board).columns.first()
-		taskInstance.creator = User.findByUsername(springSecurityService.principal.username)
-		if (params.assignee && params.assignee.trim() != '') {
-			try {
-				taskInstance.assignee = User.get(params.assignee)
-			}
-			catch (org.hibernate.TypeMismatchException e) {
-				render e.message
-			}
+		//Render error when the user is not logged in
+		if(!springSecurityService.isLoggedIn()) {
+			def resp = [title: 'No user session', message: 'You\'r not logged in.\nPlease refresh the site to re-login.' ]
+			render (status: 503, contentType:'application/json', text: resp as JSON)
+			return
 		}
+		//Assign the creator
+		def creator = User.findByUsername(springSecurityService.principal.username)
+		taskInstance.creator = user
 		
+		def assignee = User.get(params.assignee.trim())
+		//No check on assignee as this may be null - leave this to the constraints
+		taskInstance.assignee =assignee		
 		
 		//Get the highest sortorder of the current column + 1
 		def sortOrder = Task.createCriteria().get {
@@ -74,7 +77,11 @@ class TaskController {
 			withFormat {
 				form {							
 					//We render all errors on the client side
-					render taskInstance.errors as JSON
+					def resp = [
+						title: 'Task could not be saved', 
+						message: taskInstance.errors.join('\n') 
+					]
+					render(status: 503, contentType:'application/json', text: resp as JSON)
 				}
 			}	            
         }
