@@ -51,8 +51,8 @@
 	 */
 	$('#createTaskForm').dialog({
 		autoOpen: false,
-		height: 450,
-		width: 450,
+		height: 400,
+		width: 400,
 		modal: true,
 		buttons: {
 			"create task": function() {
