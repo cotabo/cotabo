@@ -2,15 +2,33 @@
  * Utility functions for general reuse
  */
 
-
 /**
- * resets the state of a dialog (removing errors etc.)
- * 
- * @param dialogSelector: The selector for the dialog container element.
+ * toggles the task creation dialog to an update dialog and backwards
  */
-var resetDialogErrors = function(dialogSelector) {
-	$(dialogSelector+' :input').removeClass('error');
-	$(dialogSelector+' div.ui-state-error').remove();
+var toggleTaskCreateUpdateDialog = function(createUrl, updateUrl, taskId) {
+    //Mdify the create form/dialog that it can be used for updates
+    var container = $('#createTaskForm');
+    var form = $('#taskForm');
+    var button = $('.ui-dialog-buttonpane button:first > span')
+    var oldTitle = $(container).dialog( "option", "title");      
+    var oldAction = $(form).attr('action');    
+    var oldButton = $(button).html();
+     
+    if ('new task' == oldTitle) {    	
+    	$(container).dialog( "option", "title", 'update task' );    	
+    	$(form).attr('action', updateUrl + '/' + taskId);
+    	$(button).html('update task');
+    	$(container).dialog( "option", "close", function() {
+    		toggleTaskCreateUpdateDialog(createUrl, updateUrl, taskId);
+    	});
+    }
+    else {
+    	$(container).dialog( "option", "title", 'new task');
+    	$(form).attr('action', createUrl);
+    	$(button).html('create task');
+    	$(container).dialog( "option", "close", null);
+    }   
+    
 }
 
 /**

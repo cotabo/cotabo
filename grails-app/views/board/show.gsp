@@ -124,6 +124,15 @@
 				  data: {wasBlocked:wasBlocked}       
 			    }); 
 			});
+
+            var createUrl = '<g:createLink controller="task" action="save"/>'
+            var updateUrl = '<g:createLink controller="task" action="update"/>'
+            
+			$('div.task-content').dblclick(function() {
+			    var id = $(this).closest('li').attr('id').split('_')[1];
+                toggleTaskCreateUpdateDialog(createUrl, updateUrl, id);	
+                $('#createTaskForm').dialog('open');		     			     			     			     			  
+			});
         </jq:jquery>
     </head>
     <body>    	
