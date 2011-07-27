@@ -86,9 +86,8 @@
 	height:12px;
 }
 
-div.task-content {	
-	
-	padding-left: 8px;
+div.task-content {		
+	padding: 5px;
 }
 
 div.task-content * td {	
