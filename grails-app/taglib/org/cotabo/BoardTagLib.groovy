@@ -68,10 +68,11 @@ class BoardTagLib {
 			out << """
 			<li class="ui-widget" id="task_${attrs.task.id}">
 				<div class="task-header ui-state-default">
-					<div class="head_color" style="background:${attrs.task?.color?.encodeAsHTML()};"></div>
+					<div class="head_color" style="background-color:${attrs.task?.color?.encodeAsHTML()};"></div>
+					<div id="color_helper" style="display:none;">${attrs.task?.color?.encodeAsHTML()}</div>
 					<div class="head_name">#${attrs.task?.id ?: ''} - ${attrs.task?.name?.encodeAsHTML()}</div>
 					<div class="block-box ${attrs.task?.blocked ? 'blocked' : 'not-blocked'}"></div>
-					<span class="ui-icon ui-icon-carat-1-${attrs.hide ? 's' : 'n'}"/>
+					<span class="ui-icon ui-icon-carat-1-${attrs.hide ? 's' : 'n'}"/>					
 				</div>
 				<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'none' : 'block'}">
 					<table>

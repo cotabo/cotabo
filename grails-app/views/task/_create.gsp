@@ -16,9 +16,7 @@
 	$('#color > option').each(function() {
 		$(this).attr("style", "background-color:"+this.value);
 	});
-	var updateSelectColor = function() {		
-		$('#color').attr("style", $('#color > option:selected').attr("style"));
-	}
+    //see utils.js
 	updateSelectColor();
 	$('#color').change(updateSelectColor);
 	

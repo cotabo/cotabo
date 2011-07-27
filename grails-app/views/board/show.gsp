@@ -103,8 +103,7 @@
 					
 				});
 			});	
-			
-			$(".task-content").enableSelection();
+						
         	//Update on document load time.
         	setElementCountOnColumn();	 
 			//Apply the click handle to all expand/collapse icons
@@ -133,8 +132,11 @@
 			$('div.task-content').dblclick(function() {
 			    var id = $(this).closest('li').attr('id').split('_')[1];
 			    //See utils.js
-                toggleTaskCreateUpdateDialog(createUrl, updateUrl, id);	
-                $('#createTaskForm').dialog('open');		     			     			     			     			  
+                toggleTaskCreateUpdateDialog(createUrl, updateUrl, id);
+                loadTaskContentToDialog(this);                  
+                $('#createTaskForm').dialog('open');	
+                
+                     			     			     			     			  
 			});
 			
 			

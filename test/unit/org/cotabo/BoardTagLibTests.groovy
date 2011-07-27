@@ -94,6 +94,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			<li class="ui-widget" id="task_1">
 				<div class="task-header ui-state-default">
 					<div class="head_color" style="background:#faf77a;"></div>
+					<div id="color_helper" style="display:none;">#faf77a</div>
 					<div class="head_name">#1 - mytask</div>
 					<div class="block-box not-blocked"></div>
 					<span class="ui-icon ui-icon-carat-1-n"/>

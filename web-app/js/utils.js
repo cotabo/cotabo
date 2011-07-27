@@ -27,8 +27,59 @@ var toggleTaskCreateUpdateDialog = function(createUrl, updateUrl, taskId) {
     	$(form).attr('action', createUrl);
     	$(button).html('create task');
     	$(container).dialog( "option", "close", null);
-    }   
-    
+    }       
+}
+
+
+/**
+ * Loads the task contents into the task update form
+ * @param taskContentDom - the task-content DOM element (can use 'this' in a callback on it)
+ * @return the taskID as a string
+ */
+var loadTaskContentToDialog = function(taskContentDom) {	
+	var task_id = $(taskContentDom).closest('li').attr('id');
+	var id = task_id.split('_')[1]
+	var values = new Array();	
+	
+	var name = $.trim($(taskContentDom).prev().children('.head_name').html().split('-')[1]);	
+	var desc = $(taskContentDom).find('td#'+task_id+'_description').html();	
+	var assignee = $(taskContentDom).find('td#'+task_id+'_assignee').html();	
+	var prio = $(taskContentDom).find('td#'+task_id+'_priority').html();	
+	var color = $(taskContentDom).prev().children('#color_helper').html();	
+	
+	var form = $('#taskForm');
+	$(form).find('#name').val(name);
+	$(form).find('#description').val(desc);	
+	var assigneeOption = findSelectOptionFromHtml($(form).find('#assignee > option'), assignee);	
+	$(assigneeOption).attr('selected', true);
+	$(form).find('#priority').val(prio);
+	$(form).find('#color > option[value="'+color+'"]').attr('selected', true);
+	//$(colorOption).attr('selected', true);
+	
+	updateSelectColor();
+}
+
+/**
+ * Finds the option from the given options that has the given html value
+ * @param options - the option set to search
+ * @param html - the html string
+ * @returns
+ */
+var findSelectOptionFromHtml = function(options, html) {
+	var found =	$(options).each(function() {		
+		if ($(this).html() == html) {			
+			return this;
+		}
+	});
+	return found;
+}
+
+/**
+ * Updates the background-color of a select to its option value
+ * @returns
+ */
+var updateSelectColor = function() {		
+	$('#color').attr("style", $('#color > option:selected').attr("style"));
 }
 
 /**
@@ -96,7 +147,8 @@ var taskTpl = function () {
 	return [ 
 		"li", {class:'ui-widget', id:'task_'+this.id}, [
 			"div", {class:'task-header ui-state-default'}, [
-				"div", {class:'head_color', style:'background:'+this.color}, ,
+				"div", {class:'head_color', style:'background-color:'+this.color}, ,
+				"div", {id:'color_helper', style:'display:none'}, this.color,
 				"div", {class:'head_name'}, '#' + this.id + ' - ' +this.name,
 				"div", {class:'block-box not-blocked'}, ,
 				"span", {class:'ui-icon ui-icon ui-icon-carat-1-n'}, 
