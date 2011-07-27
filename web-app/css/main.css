@@ -73,10 +73,13 @@ p {
 	text-align: justify;	
 }
 a, a:visited {	
-	color:#373737;
+	color:#373737;	
 }
 a:hover, a:visited:hover {
 	color:#09597b;	
+}
+a img {
+	border:none;
 }
 
 table {
