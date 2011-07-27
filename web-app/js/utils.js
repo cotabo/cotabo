@@ -307,8 +307,7 @@ var taskCreationCallback = function(data) {
 		targetId = $("div.column:first > ul").attr('id');
 	}	
 	//alert(targetdId);
-	var effectOptions = { to: "#"+targetId, className: "ui-effects-transfer" };
-	$('#createTaskForm').dialog('close');
+	var effectOptions = { to: "#"+targetId, className: "ui-effects-transfer" };	
 	
 	$(helper).css('display','block');	
 	$(helper).effect('transfer', effectOptions, 1000,function() {

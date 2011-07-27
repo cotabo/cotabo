@@ -7,7 +7,8 @@
 			type: 'POST',
 			url: $(this).attr('action'),
 			data: $(this).serialize()			
-		 });					 
+		 });	
+		 $('#createTaskForm').dialog('close');				 
 		 //Don't really submit
 		 return false;
 	});
