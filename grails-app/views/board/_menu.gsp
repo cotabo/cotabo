@@ -16,12 +16,12 @@
 			secondary: 'ui-icon-carat-1-n'
 		}
 	}).click(function() {
-		console.time('native');		
+		//console.time('native');		
 		var matched = $('#board > div.column > ul > li > div.task-header > span.ui-icon-carat-1-n')		 		 	
 		for (var i=0;i< matched.size();i++)	{
 			$(matched[i]).click();		
 		}
-		console.timeEnd('native'); 
+		//console.timeEnd('native'); 
 		return true;
 	});
 	
@@ -99,9 +99,9 @@
     <div id="new_task_helper"></div>	
 	<span id="toolbar">	   
 		<button id="b_new_task">new task</button>
-		<button id="b_collapse">collapse all tasks</button>
-		<button id="b_expand">expand all tasks</button>
 		<button id="b_chat">chat message</button>
+		<button id="b_collapse">collapse all tasks</button>
+		<button id="b_expand">expand all tasks</button>		
 	</span>	
 	<div id="chat_dialog" title="Chat message">
 	   <form id="chat_form">
