@@ -45,28 +45,7 @@
 	}).click(function() {
 	   $('#chat_dialog').dialog('open');
 	}).parent().buttonset();
-	
-	/**
-	 * Dialog with form content.
-	 */
-	$('#createTaskForm').dialog({
-		autoOpen: false,
-		height: 400,
-		width: 400,
-		modal: true,
-		buttons: {
-			"create task": function() {						
-				$('#taskForm').submit();				
-			},			
-			"cancel": function() {
-				$( this ).dialog( "close" );
-			}
-		},
-		open: function() {
-		  //Focusing the create task button by default on opening
-		  $('.ui-dialog-buttonpane button:first').focus();
-		}
-	});
+
 	
 	var postChatMessage = function() {
 	    var message = $('#chat_form').serialize();
