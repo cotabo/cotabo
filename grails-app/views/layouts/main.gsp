@@ -9,6 +9,7 @@
         <g:javascript library="jquery" plugin="jquery"/>
         <script type="text/javascript" src="${resource(dir:'js/jquery-ui', file:'jquery-ui-1.8.6.custom.min.js')}"></script>
         <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.flydom-3.1.1.js')}"></script>
+        <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.flydom.extension.js')}"></script>
         <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.atmosphere.js')}"></script>
         <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.pnotify.min.js')}"></script>        
         <script type="text/javascript" src="${resource(dir:'js', file:'utils.js')}"></script>

@@ -127,7 +127,7 @@
             /**
              * For Task updates
              */         
-			$('div.task-content').dblclick(function() {
+			$('div.task-content').live('dblclick', function() {
 			     var id = $(this).closest('li').attr('id').split('_')[1];
 			     $.ajax({
 			         type: 'GET',

@@ -74,19 +74,19 @@ var taskTpl = function () {
 					"tbody", {}, [	              
 						"tr", {}, [
 							"td", {}, [
-								"b", {}, 'Description'									
+								"b", {}, 'Description:'									
 							],
 							"td", {}, this.description								
 						],
 						"tr", {}, [
 							"td", {}, [
-								"b", {}, 'Priority'									
+								"b", {}, 'Priority:'									
 							],
 							"td", {}, this.priority								
 						],
 						"tr", {}, [
 							"td", {}, [
-								"b", {}, 'Assignee'									
+								"b", {}, 'Assignee:'									
 							],
 							"td", {}, this.assignee		
 						]
@@ -148,6 +148,9 @@ var atmosphereCallback = function(response) {
 					break;	
 				case "task_block":
 					taskBlockCallback(data);
+					break;
+				case "task_update":
+					taskUpdateCallback(data);
 					break;
 				case "chat_message":
 					chatMessageCallback(data);
@@ -296,6 +299,27 @@ var taskBlockCallback = function(data) {
 		$(taskBlockDiv).removeClass('blocked').addClass('not-blocked');		
 	}
 }
+
+/**
+ * Updates the task on the board
+ * 
+ * @param data JSON representing the task
+ * @returns
+ */
+var taskUpdateCallback = function(data) {
+	var id = data.id;
+	var taskDom = $('li#task_'+data.id);	
+	var nextDom = $(taskDom).next('li');
+	var column = $(taskDom).parents('ul');	
+	taskDom.remove();
+	if (nextDom == null || nextDom == 'undefined' || $(nextDom).length == 0) {
+		$(column).tplAppend(data, taskTpl);
+	}
+	else {
+		$(nextDom).tplInsertBefore(data,taskTpl);
+	}
+}
+
 //Custom stack for chat messages - needs to be out of the function scope:
 //see http://sourceforge.net/projects/pines/forums/forum/960539/topic/4495970
 var stack_topleft = {"dir1": "down", "dir2": "right", "push": "top"};
