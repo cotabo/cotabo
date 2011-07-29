@@ -55,7 +55,7 @@
                         <label for="name" alt="A short task name">name *</label>
                     </td>
                     <td>                        
-                        <g:textField name="name" maxlength="25" value="${taskInstance.name.encodeAsHTML()}"></g:textField>
+                        <g:textField name="name" maxlength="25" value="${taskInstance.name}"></g:textField>
                     </td>
                 </tr>
                 <tr>
@@ -63,7 +63,7 @@
                         <label for="description" alt="A description of the Task" class="optional">description</label>
                     </td>
                     <td>
-                        <g:textArea name="description" cols="30" rows="3" maxlength="254">${taskInstance.description.encodeAsHTML()}</g:textArea>
+                        <g:textArea name="description" cols="30" rows="3" maxlength="254">${taskInstance.description}</g:textArea>
                     </td>
                 </tr>
                 <tr>
@@ -84,7 +84,7 @@
                         <label for="priority" alt="The priority of this task">priority *</label>
                     </td>
                     <td>
-                        <g:select from="${grailsApplication.config.taskboard.priorities*.encodeAsHTML()}" value="${taskInstance.priority.encodeAsHTML()}" name="priority"></g:select>
+                        <g:select from="${grailsApplication.config.taskboard.priorities}" value="${taskInstance.priority}" name="priority"></g:select>
                     </td>
                 </tr>
                 <tr>
@@ -92,7 +92,7 @@
                         <label for="color" alt="The color with this this task gets displayed">color *</label>
                     </td>
                     <td>
-                        <g:select id="update_color" from="${grailsApplication.config.taskboard.colors*.encodeAsHTML()}" value="${taskInstance.color.encodeAsHTML()}" name="color"></g:select>
+                        <g:select id="update_color" from="${grailsApplication.config.taskboard.colors}" value="${taskInstance.color}" name="color"></g:select>
                     </td>
                 </tr>
             </tbody>
