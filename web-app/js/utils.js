@@ -35,29 +35,6 @@ var setElementCountOnColumn = function() {
 	});	
 }  
 
-/**
- * Checks for errors in a JSON response of a validated Grails domain object.
- * It prints error messages and applies the .error class to all invalid input elements 
- * (assuming they have the same name as the class property).
- * 
- * @params responseData: the response data from the server as evaluated JSON object.
- * @params formContainerSelector: the selector for the container in which the form sits in (e.g. a div representing a jQuery dialog).
- * 
- * @returns true if the request was successfull or false when errors appeared during server side validation.
- */
-var checkForSuccess = function(responseData, formContainerSelector) {	
-	if(responseData.errors != null) {
-		$(formContainerSelector).prepend('<div class="ui-state-error ui-corner-all"></div>');
-		$(responseData.errors).each(function(index, element) {
-			$(formContainerSelector + ' > .ui-state-error').append('<p><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span>' + element.message + '</p>');
-			$(formContainerSelector + ' :input[name="'+element.field+'"]').addClass('error');
-		});
-		return false;
-	}
-	else {
-		return true;
-	}
-}
 
 /**
  * Callback function for the returned html that represents the edit dialog.
