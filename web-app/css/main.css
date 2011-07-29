@@ -24,7 +24,7 @@ body {
 	min-height: 90%;
 }
 .head {
-	margin:0 auto;
+	margin:0px auto;
 	width:1000px;	
 	overflow:hidden;
 	height:100px;
@@ -33,11 +33,16 @@ body {
 }
 .head  #user {
 	float:left;
-	margin-top:20px;
+	color:#ffffff;
+	font-size:14px;
 }
-.head .logo {	
+.head  #user a,
+.head  #user a:visited {
+	color:#ffffff;
+}
+.head .logo {		
 	float:right;	
-	margin-top:15px;	
+	margin-top:23px;	
 }
 .head .logo span {
 	font-size: 52px;
