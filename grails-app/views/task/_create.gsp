@@ -14,10 +14,6 @@
             "cancel": function() {
                 $( this ).dialog( "close" );
             }
-        },
-        open: function() {
-          //Focusing the create task button by default on opening
-          $('.ui-dialog-buttonpane button:first').focus();
         }
     });
     
