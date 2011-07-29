@@ -3,83 +3,11 @@
  */
 
 /**
- * toggles the task creation dialog to an update dialog and backwards
- */
-var toggleTaskCreateUpdateDialog = function(createUrl, updateUrl, taskId) {
-    //Mdify the create form/dialog that it can be used for updates
-    var container = $('#createTaskForm');
-    var form = $('#taskForm');
-    var button = $('.ui-dialog-buttonpane button:first > span')
-    var oldTitle = $(container).dialog( "option", "title");      
-    var oldAction = $(form).attr('action');    
-    var oldButton = $(button).html();
-     
-    if ('new task' == oldTitle) {    	
-    	$(container).dialog( "option", "title", 'update task' );    	
-    	$(form).attr('action', updateUrl + '/' + taskId);
-    	$(button).html('update task');
-    	$(container).dialog( "option", "close", function() {
-    		toggleTaskCreateUpdateDialog(createUrl, updateUrl, taskId);
-    	});
-    }
-    else {
-    	$(container).dialog( "option", "title", 'new task');
-    	$(form).attr('action', createUrl);
-    	$(button).html('create task');
-    	$(container).dialog( "option", "close", null);
-    }       
-}
-
-
-/**
- * Loads the task contents into the task update form
- * @param taskContentDom - the task-content DOM element (can use 'this' in a callback on it)
- * @return the taskID as a string
- */
-var loadTaskContentToDialog = function(taskContentDom) {	
-	var task_id = $(taskContentDom).closest('li').attr('id');
-	var id = task_id.split('_')[1]
-	var values = new Array();	
-	
-	var name = $.trim($(taskContentDom).prev().children('.head_name').html().split('-')[1]);	
-	var desc = $(taskContentDom).find('td#'+task_id+'_description').html();	
-	var assignee = $(taskContentDom).find('td#'+task_id+'_assignee').html();	
-	var prio = $(taskContentDom).find('td#'+task_id+'_priority').html();	
-	var color = $(taskContentDom).prev().children('#color_helper').html();	
-	
-	var form = $('#taskForm');
-	$(form).find('#name').val(name);
-	$(form).find('#description').val(desc);	
-	var assigneeOption = findSelectOptionFromHtml($(form).find('#assignee > option'), assignee);	
-	$(assigneeOption).attr('selected', true);
-	$(form).find('#priority').val(prio);
-	$(form).find('#color > option[value="'+color+'"]').attr('selected', true);
-	//$(colorOption).attr('selected', true);
-	
-	updateSelectColor();
-}
-
-/**
- * Finds the option from the given options that has the given html value
- * @param options - the option set to search
- * @param html - the html string
- * @returns
- */
-var findSelectOptionFromHtml = function(options, html) {
-	var found =	$(options).each(function() {		
-		if ($(this).html() == html) {			
-			return this;
-		}
-	});
-	return found;
-}
-
-/**
  * Updates the background-color of a select to its option value
  * @returns
  */
 var updateSelectColor = function() {		
-	$('#color').attr("style", $('#color > option:selected').attr("style"));
+	
 }
 
 /**
@@ -131,6 +59,13 @@ var checkForSuccess = function(responseData, formContainerSelector) {
 	}
 }
 
+/**
+ * Callback function for the returned html that represents the edit dialog.
+ */
+var appendUpdateDialogToDOM = function(data, textStatus, jqXHR) {
+	//This also evaluates the contained script elements
+	$('body').append(data);
+}
 
 /**
  * Representing a skeleton task object that can be rendered 

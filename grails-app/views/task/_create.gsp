@@ -16,9 +16,10 @@
 	$('#color > option').each(function() {
 		$(this).attr("style", "background-color:"+this.value);
 	});
-    //see utils.js
-	updateSelectColor();
-	$('#color').change(updateSelectColor);
+    
+	$('select[name="color"]').change(function(event) {
+	   $('select[name="color"]').attr("style", $('#color > option:selected').attr("style"));
+	}).change();
 	
 </jq:jquery>
 <div id="createTaskForm" title="new task">	

@@ -27,8 +27,8 @@ class TaskController {
     def save = {
 		def taskInstance = new Task()
 				
-		//Bind data but excluse column, creator, assignee & sortorder
-		bindData(taskInstance, params, ['column','creator','assignee','sortorder'])
+		//Bind data but excluse column, creator & sortorder
+		bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
 		
 		taskInstance.column = Board.get(params.board).columns.first()
 		//Render error when the user is not logged in
@@ -79,7 +79,7 @@ class TaskController {
 					//We render all errors on the client side
 					def resp = [
 						title: 'Task could not be saved', 
-						message: taskInstance.errors.join('\n') 
+						message: taskInstance.errors.allErrors.join('\n') 
 					]
 					render(status: 503, contentType:'application/json', text: resp as JSON)
 				}
@@ -111,8 +111,12 @@ class TaskController {
 			}
 			//else it is a normal update on the task and we bind everything necessary
 			else {
-				//Bind data but excluse column, creator, assignee & sortorder
-				bindData(taskInstance, params, ['column','creator','assignee','sortorder'])
+				//Bind data but exclude column, creator & sortorder
+				bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
+				println "assignee is ${params.assignee}"
+				def assignee = User.get(params.assignee.trim().toLong())
+				//No check on assignee as this may be null - leave this to the constraints
+				taskInstance.assignee =assignee
 			}
 			
             if (!taskInstance.hasErrors() && taskInstance.save(flush: true)) {
@@ -142,10 +146,11 @@ class TaskController {
                 render ''
             }
             else {
-				//TODO: fix this - sending a common JSON piece back when something went wrong
-				//and react and the error callback on the client for this request.
-				render taskInstance.errors as JSON				
-                //render(view: "edit", model: [taskInstance: taskInstance])
+				def message = [
+					title: "Error updating task ${params.id}",
+					message: taskInstance.errors.allErrors.join('\n') 
+				]
+				render(status: 503, contentType:'application/json', text: message as JSON)				
             }
         }
         else {
@@ -174,4 +179,15 @@ class TaskController {
             redirect(action: "list")
         }
     }	
+	
+	def edit = {
+		def taskInstance = Task.get(params.id)
+		if (taskInstance) {
+			render(template: 'edit', model:[taskInstance:taskInstance])
+		}
+		else {
+			def resp = [title: 'Task not found', message: "No Task with id #${params.id} exists." ]
+			render (status: 503, contentType:'application/json', text: resp as JSON)
+		}
+	}
 }
