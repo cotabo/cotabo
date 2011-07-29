@@ -112,8 +112,7 @@ class TaskController {
 			//else it is a normal update on the task and we bind everything necessary
 			else {
 				//Bind data but exclude column, creator & sortorder
-				bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
-				println "assignee is ${params.assignee}"
+				bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])				
 				def assignee = User.get(params.assignee.trim().toLong())
 				//No check on assignee as this may be null - leave this to the constraints
 				taskInstance.assignee =assignee
