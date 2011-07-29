@@ -103,7 +103,7 @@ class TaskController {
 			boolean settedBlock = false 			
 			boolean wasBlocked = params.wasBlocked?.toBoolean()?.booleanValue()
 			//If we have a 'wasBlocked' param which equals to the current task status
-            if(params.wasBlocked && (taskInstance.blocked == wasBlocked)) {			
+            if(taskInstance.blocked == wasBlocked) {			
 				//Flip the blocked status	
 				taskInstance.blocked = !wasBlocked	
 				//saving that this was a blocked status update
