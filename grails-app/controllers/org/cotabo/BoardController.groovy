@@ -49,8 +49,8 @@ class BoardController {
 		}
 		
 		if (!boardInstance) {
-			flash.message = "Board instance can not be found for name ${params.name}."
-			render(view: "create", model: [boardInstance: create()])
+			flash.message = "Board with id ${params.id} does not exist."
+			render(status: 404, view: "create", model: [boardInstance: create()])
 			return
 		}		 
 

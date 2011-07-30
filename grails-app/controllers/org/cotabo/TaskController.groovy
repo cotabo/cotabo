@@ -34,7 +34,7 @@ class TaskController {
 		//Render error when the user is not logged in
 		if(!springSecurityService.isLoggedIn()) {
 			def resp = [title: 'No user session', message: 'You\'r not logged in.\nPlease refresh the site to re-login.' ]
-			render (status: 503, contentType:'application/json', text: resp as JSON)
+			render (status: 403, contentType:'application/json', text: resp as JSON)
 			return
 		}
 		//Assign the creator
@@ -81,7 +81,7 @@ class TaskController {
 						title: 'Task could not be saved', 
 						message: taskInstance.errors.allErrors.join('\n') 
 					]
-					render(status: 503, contentType:'application/json', text: resp as JSON)
+					render(status: 500, contentType:'application/json', text: resp as JSON)
 				}
 			}	            
         }
@@ -149,14 +149,15 @@ class TaskController {
 					title: "Error updating task ${params.id}",
 					message: taskInstance.errors.allErrors.join('\n') 
 				]
-				render(status: 503, contentType:'application/json', text: message as JSON)				
+				render(status: 500, contentType:'application/json', text: message as JSON)				
             }
         }
         else {
-			//TODO:  fix this - sending a common JSON piece back when task wasn't found
-			render 'ERROR - task not found'
-            //flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
-            
+			def message = [
+				title: 'Task not found',
+				message: "Task with id ${params.id} does not exist."
+			]
+			render(status: 404, contentType:'application/json', text: message as JSON)            
         }
     }
 
@@ -185,8 +186,8 @@ class TaskController {
 			render(template: 'edit', model:[taskInstance:taskInstance])
 		}
 		else {
-			def resp = [title: 'Task not found', message: "No Task with id #${params.id} exists." ]
-			render (status: 503, contentType:'application/json', text: resp as JSON)
+			def resp = [title: 'Task not found', message: "Task with id ${params.id} does not exist." ]
+			render (status: 404, contentType:'application/json', text: resp as JSON)
 		}
 	}
 }
