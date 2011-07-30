@@ -74,7 +74,7 @@
                         <g:set var="assignees" value="${(taskInstance.column.board.users +  taskInstance.column.board.admins).unique()}"/>
                         <g:select name="assignee" 
                             from="${assignees}"                             
-                            value="${taskInstance.assignee}"
+                            value="${taskInstance.assignee.id}"
                             optionKey="id"
                         />
                     </td>
