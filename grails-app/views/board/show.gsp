@@ -4,141 +4,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />        
         <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />
+        <script type="text/javascript" src="${resource(dir:'js', file:'objectsandevents.js')}"></script>
+        <script type="text/javascript" src="${resource(dir:'js', file:'atmospherehandling.js')}"></script>
         <title>Cotabo - ${boardInstance?.name}</title>
-        <jq:jquery>  
+        <script type="text/javascript">
             /**
-             * Subscribing the atmosphere channel for this board and register
-             * the atmosphereCallback - see utils.js
+             * Global variable definition
              */
-             subscribeChannel('${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}', atmosphereCallback);
-             
-    		/**
-			 * Expand/Collapse tasks on click of the exapnd icon.
-			 *
-			 */
-			var handleClickHeader = function(event) {
-				//console.time('native'); 				
-				var north = $(this).hasClass('ui-icon-carat-1-n');
-				if (north) {
-					$(this).removeClass('ui-icon-carat-1-n')
-						.addClass('ui-icon-carat-1-s')
-						.parent('div').next('div').css('display', 'none')					
-				}
-				else {
-					$(this).removeClass('ui-icon-carat-1-s')
-						.addClass('ui-icon-carat-1-n')
-						.parent('div').next('div').css('display', 'block');										
-				}		
-				//console.timeEnd('native'); 
-				return false;
-			}	  
-        	
-        	/**
-        	 * Callback for a connected sortable receiving a new Task object.
-        	 * Updating the server side and taking case of updating the column counts. 
-        	 *
-        	 */	        	             
-        	var updateConnectedColumn = function(event, ui) {
-        		var toColumnId = $(this).attr('id').split('_')[1];
-				var taskId = $(ui.item).attr('id').split('_')[1]; 
-        		
-   				var fromColumnId = $(ui.sender).attr('id').split('_')[1];				
-											
-				//Post onto controller "column" and action "updatetasks"
-				$.ajax({
-					type: 'POST',
-					url: '<g:createLink controller="column" action="updatetasks"/>',
-					data: {
-						'fromColumn': fromColumnId, 
-						'toColumn': toColumnId,
-						'taskid': taskId,
-						'order': $(this).sortable("toArray")
-					},
-					success: function(data) {
-						//Update the task counts on each column
-						setElementCountOnColumn();
-						//If an element is moved to the last column
-						if (toColumnId == $(".column:last > ul").attr('id').split('_')[1]) {
-							//and it is ellapsed			
-							if ($(ui.item).children('div:first').children('span').hasClass('ui-icon-carat-1-n')) {
-								//Collapse it
-								$(ui.item).children('div:first').children('span').click()
-							}
-						}
-					}
-				});				
-			}
-
-			
-			/**
-			 * Can be used for the stop event. Updating only the column sort order
-			 */ 
-			var updateColumn = function(event, ui) {
-       			var toColumnId = $(this).attr('id').split('_')[1];
-				var taskId = $(ui.item).attr('id').split('_')[1]; 
-				$.ajax({
-					type: 'POST',
-					url: '<g:createLink controller="column" action="updatesortorder"/>/'+toColumnId,
-					data: {
-					    taskid: taskId,
-						order: $(this).sortable("toArray")
-					}
-				});
-			}
-				
-			//Sortable definition for the connected columns	
-			$(".column > ul").each(function(index) {			
-				$(this).sortable({			
-					//Connect the current sortable only with the next column
-					//connectWith:'.column ul:gt('+index+'):first',
-					connectWith:'.column ul',
-					appendTo: 'body',
-					containment:"#board",
-					cursor:"move",
-					distance:30,
-					opacity:0.7,
-					placeholder:'ui-effects-transfer',
-					receive: updateConnectedColumn,
-					stop: updateColumn
-					
-				});
-			});	
-						
-        	//Update on document load time.
-        	setElementCountOnColumn();	 
-			//Apply the click handle to all expand/collapse icons
-			$('.task-header .ui-icon').live('click', handleClickHeader);			
-			 
-			/**
-			 * Handles a click on the block icon - updating the task on the server-side and
-			 * by that distributing a task_block message type to all subscribed clients.
-			 * 
-			 */		 			
-			$('.block-box').live('click', function() {
-				var wasBlocked = $(this).hasClass('blocked');                
-				var taskId = $(this).parents('li').attr('id');                
-				$.ajax({        
-				  type: 'POST',
-				  url: '${createLink(controller:'task', action:'update')}/'+taskId.split('_')[1],
-				  data: {wasBlocked:wasBlocked}       
-			    }); 
-			});
-
-            /**
-             * For Task updates
-             */         
-			$('div.task-content').live('dblclick', function() {
-			     var id = $(this).closest('li').attr('id').split('_')[1];
-			     $.ajax({
-			         type: 'GET',
-			         url: '${createLink(controller:'task', action:'edit')}/'+id,
-			         dataType: 'html',
-			         success: appendUpdateDialogToDOM
-			     });			                     			     			     			     			 
-			});
-			
-			
-        </jq:jquery>
+             var atmosphereSubscriptionUrl = '${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}'
+             var moveTasksUrl = '${createLink(controller:"column", action:"updatetasks")}'
+             var updateSortorderUrl = '${createLink(controller:"column", action:"updatesortorder")}'
+             var updateTaskUrl = '${createLink(controller:'task', action:'update')}'
+             var editTaskUrl = '${createLink(controller:'task', action:'edit')}'
+             var chatUrl = '${createLink(controller:"board", action:"chat")}'
+        </script>
     </head>
     <body>    	
     	<tb:board board="${boardInstance}">

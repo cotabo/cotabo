@@ -6,6 +6,7 @@
 		<script language="javascript" type="text/javascript" src="${resource(dir:'js/jquery-plugins',file:'jquery.flot.min.js')}"></script>
 		<script language="javascript" type="text/javascript" src="${resource(dir:'js/jquery-plugins',file:'jquery.flot.stack.js')}"></script>
 		<script language="javascript" type="text/javascript" src="${resource(dir:'js/jquery-plugins',file:'jquery.csv.js')}"></script>        		
+		<script language="javascript" type="text/javascript" src="${resource(dir:'js',file:'reporting.js')}"></script>
         <g:layoutHead />        
     </head>
     <body>  
