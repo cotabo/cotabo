@@ -21,14 +21,9 @@
         <div class="page-wrap">
         	<div class="head">			
         		<span id="user">     
-
-        				<sec:ifLoggedIn>
-        					Welcome <sec:loggedInUserInfo field="username"/>! 
-        				</sec:ifLoggedIn>
-        				<sec:ifNotLoggedIn>
-        					Please <g:link controller="login" class="head_link">login...</g:link>
-        				</sec:ifNotLoggedIn>        			
-						
+     				<sec:ifNotLoggedIn>
+     					Please <g:link controller="login" class="head_link">login...</g:link>
+     				</sec:ifNotLoggedIn>
         		</span>				
         		<div class="logo">  
         			<a href="${request.contextPath}">      			
