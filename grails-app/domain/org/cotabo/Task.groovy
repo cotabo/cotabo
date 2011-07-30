@@ -77,7 +77,8 @@ class Task implements Comparable {
 			'description':description.encodeAsHTML(),
 			'durationHours':durationHours.encodeAsHTML(),
 			'priority':priority.encodeAsHTML(),
-			'color':color.encodeAsHTML()
+			'color':color.encodeAsHTML(),
+			'blocked':blocked
 		]
 	}
 	

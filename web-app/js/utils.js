@@ -56,13 +56,20 @@ var appendUpdateDialogToDOM = function(data, textStatus, jqXHR) {
  */
 var taskTpl = function () {
 	var theId = this.id
+	var blockedClass 
+	if (this.blocked) {
+		blockedClass='blocked'
+	}
+	else {
+		blockedClass='not-blocked'
+	}
 	return [ 
 		"li", {class:'ui-widget', id:'task_'+this.id}, [
 			"div", {class:'task-header ui-state-default'}, [
 				"div", {class:'head_color', style:'background-color:'+this.color}, ,
 				"div", {id:'color_helper', style:'display:none'}, this.color,
 				"div", {class:'head_name'}, '#' + this.id + ' - ' +this.name,
-				"div", {class:'block-box not-blocked'}, ,
+				"div", {class:'block-box ' + blockedClass}, ,
 				"span", {class:'ui-icon ui-icon ui-icon-carat-1-n'}, 
 			],
 			"div", {class:'task-content ui-widget-content', style:'display:block;'}, [
