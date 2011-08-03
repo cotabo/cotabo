@@ -1,2 +1,5 @@
 target
 web-app/WEB-INF/classes
+cotabo.iml
+.idea
+.idea/*
