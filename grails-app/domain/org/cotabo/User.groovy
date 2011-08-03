@@ -9,6 +9,7 @@ class User {
 	boolean accountExpired = false
 	boolean accountLocked = false
 	boolean passwordExpired = false
+	
 	String firstname
 	String lastname
 	String email
