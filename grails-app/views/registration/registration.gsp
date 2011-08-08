@@ -4,13 +4,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'registration.css')}" />
         <title>Cotabo - registration</title>
     </head>
     <body>
         <div>
             <h1>Cotabo registration</h1>
             <g:if test="${flash.message}">
-            <div class="ui-state-highlight">${flash.message}</div>
+            <g:render template="/info" model="[message: flash.message]"/>              
             </g:if>
             <g:hasErrors bean="${userInstance}">            
             <div class="ui-state-error">                
@@ -18,8 +19,7 @@
             </div>
             </g:hasErrors>
             <g:form action="register" >
-                <div>
-                    <table>
+                    <table class="registration">
                         <tbody>     
                             <tr>
                                 <td>
@@ -63,7 +63,25 @@
                                 <td class="${hasErrors(bean: userInstance, field: 'password', 'errors')}">
                                     <g:passwordField name="password" value="${userInstance?.password}" />
                                 </td>
-                            </tr>   
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <label for="imageCaptcha">Code:</label>
+                                </td>
+                                <td>
+                                    <g:textField name="captcha" />                                    
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    <jcaptcha:jpeg name="imageCaptcha" height="50px" width="200px" />
+                                </td>
+                            </tr>
+                              
                         </tbody>
                     </table>
                 </div>

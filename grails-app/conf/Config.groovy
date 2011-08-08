@@ -1,5 +1,21 @@
 import grails.plugins.springsecurity.SecurityConfigType
 
+import java.awt.Font
+import java.awt.Color
+import com.octo.captcha.service.multitype.GenericManageableCaptchaService
+import com.octo.captcha.engine.GenericCaptchaEngine
+import com.octo.captcha.image.gimpy.GimpyFactory
+import com.octo.captcha.component.word.wordgenerator.RandomWordGenerator
+import com.octo.captcha.component.image.wordtoimage.ComposedWordToImage
+import com.octo.captcha.component.image.fontgenerator.RandomFontGenerator
+import com.octo.captcha.component.image.backgroundgenerator.GradientBackgroundGenerator
+import com.octo.captcha.component.image.color.SingleColorGenerator
+import com.octo.captcha.component.image.textpaster.NonLinearTextPaster
+
+
+
+
+
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
@@ -105,3 +121,37 @@ taskboard.colors = ['#fafaa8', '#faaca8', '#85fd81', '#81b6fd']
 taskboard.default.colors = '#f9f21a'
 taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
 taskboard.default.priority = 'Normal'
+
+
+//JCaptcha stuff
+jcaptchas {
+	imageCaptcha = new GenericManageableCaptchaService(
+		new GenericCaptchaEngine(
+			new GimpyFactory(
+				new RandomWordGenerator(
+					"abcdefghijklmnopqrstuvwxyz1234567890"
+				),
+				new ComposedWordToImage(
+					new RandomFontGenerator(
+						20, // min font size
+						30, // max font size
+						[new Font("Arial", 0, 10)] as Font[]
+					),
+					new GradientBackgroundGenerator(
+						140, // width
+						35, // height
+						new SingleColorGenerator(new Color(51, 102, 153)),
+						new SingleColorGenerator(new Color(255, 255, 255))
+					),
+					new NonLinearTextPaster(
+						6, // minimal length of text
+						6, // maximal length of text
+						new Color(72, 72, 72)
+					)
+				)
+			)
+		),
+		180, // minGuarantedStorageDelayInSeconds
+		180000 // maxCaptchaStoreSize
+	)
+}

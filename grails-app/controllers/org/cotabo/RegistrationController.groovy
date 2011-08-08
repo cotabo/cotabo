@@ -3,6 +3,7 @@ package org.cotabo
 class RegistrationController {
 
 	def springSecurityService
+	def jcaptchaService
 	
     def index = { 
 		if(springSecurityService.isLoggedIn()) {
@@ -28,26 +29,29 @@ class RegistrationController {
 			//using the command object as a User object in the view to render errors.
 			render(view:"registration", model:[userInstance:command])
 		}
-		else {			
-			//TODO: send a mail with the registration details
-			//TODO: implement the saving of a user
-			def user = new User()
-			//binding the command data to the user 
-			bindData(user, command.properties, [exclude:['roles', 'password']])
-			//setting the encoded password
-			user.password = springSecurityService.encodePassword(command.password)
-			
-			if(user.save()) {
-				//Setting ROLE_USER by default				
-				UserRole.create(user, Role.findByAuthority('ROLE_USER'))
-				render(view:"welcome", model:[userInstance:user])
+		else {	
+			if (jcaptchaService.validateResponse("imageCaptcha", session.id, params.captcha)) {	
+				//TODO: send a mail with the registration details
+				//TODO: implement the saving of a user
+				def user = new User()
+				//binding the command data to the user 
+				bindData(user, command.properties, [exclude:['roles', 'password']])
+				//setting the encoded password
+				user.password = springSecurityService.encodePassword(command.password)
+				
+				if(user.save()) {
+					//Setting ROLE_USER by default				
+					UserRole.create(user, Role.findByAuthority('ROLE_USER'))
+					render(view:"welcome", model:[userInstance:user])
+				}
+				else {
+					render(view:"registration", userInstance:user)
+				}
 			}
 			else {
-				render(view:"registration", userInstance:user)
-			}
-			
-			
-			
+				flash.message = "The code that you entered doesn't match."
+				render(view:"registration", model:[userInstance:command])
+			}					
 		}
 		
 	} 
