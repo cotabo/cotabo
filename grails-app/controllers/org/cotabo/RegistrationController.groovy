@@ -9,7 +9,7 @@ class RegistrationController {
 		if(springSecurityService.isLoggedIn()) {
 			//TODO: implement as resource bundle message
 			flash.message = "You're already logged in - why do you want to register?"
-			render(controller:"board", action:"list")
+			redirect(controller:"board", action:"list")
 		}
 		else {
 			render(view:"registration", model:[roles:Role.list()])

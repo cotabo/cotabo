@@ -1,4 +1,7 @@
 @CHARSET "ISO-8859-1";
+.page-wrap {	
+	width:90%;
+}
 #board {
 	width:100%;
 	margin:0 auto;			
