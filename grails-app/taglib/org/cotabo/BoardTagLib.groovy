@@ -66,7 +66,7 @@ class BoardTagLib {
 		}
 		else {
 			out << """
-			<li class="ui-widget" id="task_${attrs.task.id}">
+			<li class="ui-widget ui-corner-all" id="task_${attrs.task.id}">
 				<div class="task-header ui-state-default">
 					<div class="head_color" style="background-color:${attrs.task?.color?.encodeAsHTML()};"></div>
 					<div id="color_helper" style="display:none;">${attrs.task?.color?.encodeAsHTML()}</div>

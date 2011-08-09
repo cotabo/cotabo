@@ -142,6 +142,16 @@ jQuery(function(){
 	     });			                     			     			     			     			 
 	});	
 	
+	/**
+	 * Mouse over/out for task header - adding/removing ui-state-hover
+	 */
+	var header = $('.task-header')
+	header.live('mouseover', function() {
+		$(this).addClass('ui-state-hover');
+	});
+	header.live('mouseout', function() {
+		$(this).removeClass('ui-state-hover');
+	});
 	
 	/********************************************************
 	 * Section for the Board itself (connected sortable columns etc.)

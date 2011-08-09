@@ -56,7 +56,7 @@ var taskTpl = function () {
 		blockedClass='not-blocked'
 	}
 	return [ 
-		"li", {class:'ui-widget', id:'task_'+this.id}, [
+		"li", {class:'ui-widget ui-corner-all', id:'task_'+this.id}, [
 			"div", {class:'task-header ui-state-default'}, [
 				"div", {class:'head_color', style:'background-color:'+this.color}, ,
 				"div", {id:'color_helper', style:'display:none'}, this.color,
