@@ -126,3 +126,19 @@ div.task-content * td {
 	background: url('../images/stop_greyed.png') no-repeat;
 	opacity: .3;    
 }
+
+.avatar {
+	background: url('../images/default_avatar.jpeg') no-repeat;
+	opacity: .3;
+	width: 16px; 
+	height: 16px;
+	margin: 2px;
+	display: block;
+	float: left;
+	overflow: hidden;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	-webkit-background-size: 100% 100%; 
+	background-size: 100% 100%;
+}
+
