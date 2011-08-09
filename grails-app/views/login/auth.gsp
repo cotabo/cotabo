@@ -25,6 +25,7 @@
 	border-top: 1px dashed gray;
 	margin-bottom: 5px;
 	height: 1%;
+	font-size:12px;	
 	
 }
 #login .inner .cssform input[type='text'] {
