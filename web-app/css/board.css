@@ -63,6 +63,7 @@
 	margin:5px 5px;		
 	overflow:hidden;
 	min-height: 20px;
+	
 }
 .task-header {	
 	line-height:22px;
@@ -93,12 +94,12 @@
 
 div.task-content {		
 	padding: 5px;	
-	border-top:none;
+	border-top:none;	
 }
 
 div.task-content * td {	
 	padding-left: 2px;
-	vertical-align:top;	
+	vertical-align:top;		
 }
 
 .not-first-column {
