@@ -1,12 +1,5 @@
 @CHARSET "ISO-8859-1";
-
 #submit_div { border-bottom: 1px solid #ccc; border-left: 1px solid #ccc; border-right: 1px solid #ccc; text-align: center; padding: 3px; } 
-#columns table { text-align: center; }
-#priority_list { list-style-type: none; margin: 0; padding: 0;}
-#priority_list li{ margin: 3px; float:left; text-align:center; width:24%;}
-#color_list { list-style-type: none; margin: 0; padding: 0;  }
-#color_list li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 50px; text-align: center; width: 250px; vertical-align: middle;}
-#color_list li.ui-selected { border: 3px solid #F39814;}
-.portlet-header { padding-bottom: 4px; padding-left: 0.2em; height: 1.4em; }
-.portlet-header .ui-icon { float: right; cursor:pointer; }
 button { margin-top:5px; }
+ul.column_list{list-style-type: none;}
+ul.column_list li {cursor: move;}

@@ -16,7 +16,7 @@
 		},
 		text: false
 	}).live('click', function() {
-		$(this).parents("tr").remove();
+		$(this).parents("li").remove();
 	});
 	
 	$(".move").button({
@@ -27,25 +27,31 @@
 	});
 	
 	
-	//The column add button        	
+	//the FlyDom template for a row that represents a column 	
 	var rowTpl = function() {
 		return [ 
-			"tr", {}, [
-				"td", {}, [
-					"input", {type: "text", name:"columns["+this.columnIndex+"].name"}
-	    		],
-		        "td", {}, [
-					"input", {type: "text", size: 50, name:"columns["+this.columnIndex+"].description"}
-	    		],
-		  		"td", {}, [
-					"input", {type: "text", size: 2, name:"columns["+this.columnIndex+"].limit", value:"0"}
-	    		],
-		  		"td", {}, [
-					"input", {type: "radio", name:"columns["+this.columnIndex+"].workflowStartColumn"}
-	    		],
-	    		"td", {},[
-	    			"a", {href:'#', class:'delete'}, 'delete this column definition'
-	    		]
+		    "li", {}, [
+		        "table", {}, [
+		        	"tbody", {}, [
+						"tr", {}, [
+							"td", {}, [
+								"input", {type: "text", name:"columns["+this.columnIndex+"].name"}
+				    		],
+					        "td", {}, [
+								"input", {type: "text", size: 50, name:"columns["+this.columnIndex+"].description"}
+				    		],
+					  		"td", {}, [
+								"input", {type: "text", size: 2, name:"columns["+this.columnIndex+"].limit", value:"0"}
+				    		],
+					  		"td", {}, [
+								"input", {type: "radio", name:"workflowStart", id:"workflowStart"} 
+				    		],
+				    		"td", {},[
+				    			"a", {href:'#', class:'delete'}, 'delete this column definition'
+				    		]
+						]
+					]
+				]
 			]
 		]
 	};        	
@@ -56,15 +62,32 @@
 	}).click(function(event) {
 		        		
 		var tplData = {
-			columnIndex: $("#columns_content > table > tbody > tr").size() -1
+			columnIndex: $("ul.column_list > li").length
 		};
-		var tpl = $("#columns_content > table > tbody").tplAppend(tplData, rowTpl);
-		$("#columns_content > table > tbody > tr:last > td:last > a").button({
+		var tpl = $("ul.column_list").tplAppend(tplData, rowTpl);
+		$("ul.column_list > li > table > tbody > tr:last > td:last > a").button({
 			icons: {
 				primary: "ui-icon-trash"
 			},
 			text:false        		
 		});        		   	
+	});
+	
+	var updateColumnNameOrdering = function() {
+		var columns = $("ul.column_list > li").toArray();		
+		for (var i = 0; i < columns.length; i++) {
+			var fields = $(columns[i]).find(":text").toArray();
+			for (var j = 0; j < fields.length; j++) {
+				var oldName = $(fields[j]).attr('name');
+				var newName = oldName.replace(/\d/, i);
+				//Setting the name and the ID to the new name
+				$(fields[j]).attr('name', newName);
+				$(fields[j]).attr('id', newName);
+			}									
+		}		
+	}
+	$("ul.column_list").sortable({
+		stop: updateColumnNameOrdering
 	});
 	
 	$("#tabs").tabs();
