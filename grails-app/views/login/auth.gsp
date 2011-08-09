@@ -20,11 +20,12 @@
 #login .inner .cssform p {
 	clear: left;
 	margin: 0;
-	padding: 5px 0 8px 0;
+	padding: 5px 0 20px 0;
 	padding-left: 105px;
 	border-top: 1px dashed gray;
 	margin-bottom: 5px;
 	height: 1%;
+	
 }
 #login .inner .cssform input[type='text'] {
 	width: 120px;
