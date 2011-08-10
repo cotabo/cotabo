@@ -32,6 +32,13 @@
 		return [ 
 		    "li", {}, [
 		        "table", {}, [
+		            "colgroup", {}, [
+		                "col", {width:"25%"}, ,
+		                "col", {width:"35%"}, ,
+		                "col", {width:"20%"}, ,
+		                "col", {width:"10%"}, ,
+		                "col", {width:"10%"}
+		            ],
 		        	"tbody", {}, [
 						"tr", {}, [
 							"td", {}, [
