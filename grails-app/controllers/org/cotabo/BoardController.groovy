@@ -2,6 +2,7 @@ package org.cotabo
 
 import grails.plugins.springsecurity.Secured
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
+import org.codehaus.groovy.runtime.typehandling.GroovyCastException
 
 @Secured(['ROLE_USER'])
 class BoardController {
