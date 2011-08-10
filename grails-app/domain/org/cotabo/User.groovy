@@ -17,7 +17,7 @@ class User {
 	List adminBoards
 	List userBoards
 	
-	static hasMany = [adminBoards: Board, userBoard: Board]
+	static hasMany = [adminBoards: Board, userBoards: Board]
 	static belongsTo = Board
 	
 		
