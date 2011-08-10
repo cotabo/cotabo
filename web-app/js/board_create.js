@@ -51,7 +51,7 @@
 								"input", {type: "text", size: 2, name:"columns["+this.columnIndex+"].limit", value:"0"}
 				    		],
 					  		"td", {}, [
-								"input", {type: "radio", name:"workflowStart", id:"workflowStart"} 
+								"input", {type: "radio", name:"workflowStart", id:"workflowStart", value:this.columnIndex} 
 				    		],
 				    		"td", {},[
 				    			"a", {href:'#', class:'delete'}, 'delete this column definition'
