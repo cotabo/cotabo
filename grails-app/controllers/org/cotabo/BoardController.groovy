@@ -35,7 +35,8 @@ class BoardController {
         return [
 			boardInstance: boardInstance, 
 			colors:grailsConfig.config.taskboard.colors, 
-			priorities:grailsConfig.config.taskboard.priorities 
+			priorities:grailsConfig.config.taskboard.priorities,
+			users:User.list() 
 		]
     }
 
@@ -52,22 +53,17 @@ class BoardController {
 			flash.message = "Board with id ${params.id} does not exist."
 			render(status: 404, view: "create", model: [boardInstance: create()])
 			return
-		}		 
-
-		bindData(boardInstance, params)	
-
-		def principal = springSecurityService.principal
-		def user = User.findByUsername(principal.username)
-		assert user != null		
-		boardInstance.users = [user]
-		boardInstance.admins = [user]
+		}					
+		
+		bindData(boardInstance, params)		
+				
 		boardInstance.columns[params.workflowStart as int].workflowStartColumn = true
 
 		if (boardInstance.validate() && boardInstance.save(flush:true)){	
 			redirect(action: "show", id: boardInstance.id)			
 		}
 		else {
-			render(view: "create", model: [boardInstance: boardInstance])
+			render(view: "create", model: [boardInstance: boardInstance, users: User.list()])
 		}
     }
 

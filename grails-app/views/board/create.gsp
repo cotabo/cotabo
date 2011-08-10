@@ -25,16 +25,20 @@
 		    	<ul>
 		    		<li><a href="#board_details">board information</a></li>
 		    		<li><a href="#columns">column definition</a></li>
+		    		<li><a href="#usermanagement">user management</a></li>
 		    	</ul>	    				 	
 				<div id="board_details"> 
 					<g:render template="/info" model="[messagecode: 'board.create.description']"/>  
 					<g:render template="/board/create"/>
 		     	</div>	
-		     	     	
 		     	<div id="columns">
 		     		<g:render template="/info" model="[messagecode: 'board.create.columns.description']"/>
 		     		<g:render template="/column/create"/>
-				</div>			 
+				</div>		
+				<div id="usermanagement">
+				    <g:render template="/info" model="[messagecode: 'board.create.usermanagement']"/>
+				    <g:render template="/board/usermanagement"/>
+				</div>	 
 		</div>    
 		<div id="submit_div">
 			<button class="save" type="submit">create board</button>

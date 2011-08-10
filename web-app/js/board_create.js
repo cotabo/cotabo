@@ -96,4 +96,33 @@
 		$(this).parents('li').remove()
 	});
 	
+	/**
+	 * Section for usermanagement
+	 */
+	$('#list_selectable, .user_droppable').sortable({
+		connectWith:".user_list",
+		over: function() {
+			if ($(this).hasClass('user_droppable')) {
+				$(this).addClass('ui-state-highlight');
+			}
+		},
+		out: function() {
+			if ($(this).hasClass('user_droppable')) {
+				$(this).removeClass('ui-state-highlight');
+			}
+		},
+		stop: function(event, ui) {
+			var id = $(ui.item).parent().find('li').size() -1;
+			var role = $(ui.item).parent().attr('id');			
+			if (role != 'list_selectable') {				
+				//Giving the hidden form fiels the correct name
+				$(ui.item).find('div > input[type="hidden"]').attr('name', role+'['+id+'].id');
+			}
+			else {				
+				//The initial state for users that don't have a role assigned
+				$(ui.item).find('div > input[type="hidden"]').attr('name', 'user['+id+']');
+			}
+			
+		}
+	}).disableSelection();;	
  });
