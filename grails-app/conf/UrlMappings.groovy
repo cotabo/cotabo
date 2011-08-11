@@ -6,6 +6,12 @@ class UrlMappings {
 				// apply constraints here
 			}
 		}
+		
+		"/user/avatar/$username" (controller: "user", action: "avatar") {
+			constraints {
+				
+			}
+		}
 
 		"/"(view:"/index")
 		"500"(view:'/error')
