@@ -4,10 +4,21 @@
 	        <div>
 	           <h4>${role}</h4>
 	           <ul id="${role}" class="user_droppable user_list ui-state-default">
+	               <g:if test="${edit}">
+	               <g:each in='${boardInstance."$role"}' var="user" status="i">
+	               <li class="user_item ui-state-default ">
+	                   <div class="div_user">
+	                   ${user}
+	                   <g:hiddenField name="${role}[${i}].id" value="${user.id}"/>
+	                   </div>
+	               </li>
+	               </g:each>
+	               </g:if>
 	           </ul>       
 	        </div>
         </g:each>
     </div>
+    
     
     <div id="users_selectable" class="um_div">        
         <ul id="list_selectable" class="user_list ui-state-highlight">

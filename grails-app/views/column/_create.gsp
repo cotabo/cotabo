@@ -40,7 +40,13 @@
 						<g:textField name="columns[$i].limit" size="2" maxlength="2" value="${boardInstance?.columns[i]?.limit}" />
 					</td>
 					<td>
-						<g:radio name="workflowStart" checked="${i == 0 ? true : false }" value="$i"/>
+					    <g:if test="${edit}">					        
+						    <g:set var="checked" value="${boardInstance?.columns[i]?.workflowStartColumn}"/>
+						</g:if>
+						<g:else>
+						    <g:set var="checked" value="${i == 0 ? true : false }"/>
+						</g:else>
+						<g:radio name="workflowStart" checked="${checked}" value="$i"/>
 					</td>
 					<td>
 						<a href="#" class="delete">delete this column definition</a>	

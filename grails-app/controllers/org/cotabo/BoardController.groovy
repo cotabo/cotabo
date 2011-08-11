@@ -42,21 +42,22 @@ class BoardController {
     }
 
     def save = {
-		def boardInstance
-		if (!params.id) {
-			boardInstance = new Board()
-		}
-		else {
-			boardInstance = Board.findByName(params.name)
-		}
+		//Update an existing instance if id is given
+		def boardInstance = params.id ? Board.get(params.id.toInteger()) : new Board()
 		
 		if (!boardInstance) {
 			flash.message = "Board with id ${params.id} does not exist."
-			render(status: 404, view: "create", model: [boardInstance: create()])
+			render(status: 404, view: "list")
 			return
 		}					
 		
-		bindData(boardInstance, params)	
+		//Need to clear the user collections as bindData 
+		//only adds & updated but it doesn't delete
+		boardInstance.admins = []
+		boardInstance.users = []
+		
+		bindData(boardInstance, params)
+
 		if(!boardInstance.admins) {			
 			//Adding the current user as admin if nothing specified			
 			boardInstance.admins = [User.findByUsername(springSecurityService.principal.username)]
@@ -64,7 +65,8 @@ class BoardController {
 				
 		boardInstance.columns[params.workflowStart as int].workflowStartColumn = true
 
-		if (boardInstance.validate() && boardInstance.save(flush:true)){	
+		if (boardInstance.validate() && boardInstance.save(flush:true)){
+			//TODO: send out an eMail for all users & admins	
 			redirect(action: "show", id: boardInstance.id)			
 		}
 		else {
@@ -94,7 +96,11 @@ class BoardController {
             redirect(action: "list")
         }
         else {
-            render(view:'create', model:[boardInstance:boardInstance])
+			def users = User.list()
+			//Isn't that groovy?
+			users -= boardInstance.admins
+			users -= boardInstance.users 
+            render(view:'create', model:[boardInstance:boardInstance, edit:true, users:users])
         }
     }
 
@@ -157,6 +163,27 @@ class BoardController {
 		render ''				
 	}
 
+	/**
+	 * Helper method that takes an array based request parameter
+	 * of user IDs and returns a list of User objects.
+	 * 
+	 * @param param - array based request parameter of user IDs
+	 * @return List of user objects
+	 */
+	public List<User> buildUserListFromParam(def param) {
+		println "param: $param"
+		def idList
+		if(param instanceof String) {
+			idList = [param.toInteger()]
+		} 
+		else {
+			def tmpList =  param as ArrayList
+			idList = tmpList.collect {it.toInteger()}
+		}
+		println "idList: $idList"
+		return idList.collect {User.get(it)}		
+	}
+	
 	def comulativeflowchart = {		
 		def boardInstance = Board.get(params.id)
 		if(!boardInstance) {

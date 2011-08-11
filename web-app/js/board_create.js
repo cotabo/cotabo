@@ -6,7 +6,7 @@
 	//The save button of the form at all
 	$(".save").button({
 		icons: {
-			primary: "ui-icon-locked"
+			primary: "ui-icon-disk"
 		}
 	});
 	//The column telete button
@@ -122,14 +122,17 @@
 		},
 		stop: function(event, ui) {
 			var id = $(ui.item).parent().find('li').size() -1;
-			var role = $(ui.item).parent().attr('id');			
+			var role = $(ui.item).parent().attr('id');
+			var hidden = $(ui.item).find('div > input[type="hidden"]');
 			if (role != 'list_selectable') {				
 				//Giving the hidden form fiels the correct name
-				$(ui.item).find('div > input[type="hidden"]').attr('name', role+'['+id+'].id');
+				hidden.attr('name', role+'['+id+'].id');
+				hidden.attr('id', role+'['+id+'].id');				
 			}
 			else {				
-				//The initial state for users that don't have a role assigned
-				$(ui.item).find('div > input[type="hidden"]').attr('name', 'user['+id+']');
+				//The initial state for users that don't have a role assigned				
+				hidden.attr('name', 'user['+id+']');
+				hidden.attr('id', 'user['+id+']');
 			}
 			
 		}
