@@ -22,9 +22,8 @@ class ColumnController {
 		//Do the Task moving work
 		def resultMessage =  taskService.moveTask(movementMessage)				
 		def retCode = resultMessage? 1 : 0
-		//Broadcasting also the assignee as this might be updated during 
-		//task movements.
-		movementMessage.assignee = Task.get(params.taskid?.toInteger()?.intValue()).assignee.toString()
+		//Broadcasting also the assignee as this might be updated during task movements. 
+		movementMessage.assignee = Task.get(params.taskid?.toInteger()?.intValue()).assignee?.username
 		//Atmosphere stuff - Broadcast this update to the board specific channel
 		if (retCode == 0) {
 			def principal = springSecurityService.principal

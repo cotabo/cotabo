@@ -96,15 +96,17 @@ var atmosphereCallback = function(response) {
  * @param data JSON representation of task movement tata
  * @returns
  */
-var taskMovementCallback = function(data) {					
+var taskMovementCallback = function(data) {
 	var taskDom = $('li#task_'+data.task);
 	var toColumnDom = $('ul#column_'+data.toColumn);
-	var fromColumnDom = $('ul#column_'+data.fromColumn);		
+	var fromColumnDom = $('ul#column_'+data.fromColumn);
 	
 	//Updating the assignee on task movements in any case
 	if(data.type == 'task_movement') {
-		$('td#task_'+data.task+'_assignee').html(data.assignee);
-	} 
+		//Update the assignee & the avatar
+		$('td#task_'+data.task+'_assignee').html(data.assignee);		
+		$('li#task_'+data.task+' > div > img.avatar').attr('src', avatarUrl + '/' + data.assignee);		
+	}
 	
 	//Do nothing when task is already in target column
 	//(meaning that this client triggered the message / callback)
