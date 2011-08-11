@@ -17,12 +17,13 @@
             /**
              * Global variable definition
              */
-             var atmosphereSubscriptionUrl = '${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}'
-             var moveTasksUrl = '${createLink(controller:"column", action:"updatetasks")}'
-             var updateSortorderUrl = '${createLink(controller:"column", action:"updatesortorder")}'
-             var updateTaskUrl = '${createLink(controller:'task', action:'update')}'
-             var editTaskUrl = '${createLink(controller:'task', action:'edit')}'
-             var chatUrl = '${createLink(controller:"board", action:"chat")}'
+             var atmosphereSubscriptionUrl = '${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}';
+             var moveTasksUrl = '${createLink(controller:"column", action:"updatetasks")}';
+             var updateSortorderUrl = '${createLink(controller:"column", action:"updatesortorder")}';
+             var updateTaskUrl = '${createLink(controller:'task', action:'update')}';
+             var editTaskUrl = '${createLink(controller:'task', action:'edit')}';
+             var chatUrl = '${createLink(controller:"board", action:"chat")}';
+             var avatarUrl = '${createLink(controller:'user', action:'avatar')}';
         </script>
     </head>
     <body>    	

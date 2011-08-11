@@ -136,7 +136,7 @@ div.task-content * td {
 
 .avatar {
 	background: url('../images/default_avatar.jpeg') no-repeat;
-	opacity: .3;
+	opacity: .7;
 	width: 16px; 
 	height: 16px;
 	margin: 2px;

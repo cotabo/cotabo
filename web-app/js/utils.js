@@ -58,7 +58,7 @@ var taskTpl = function () {
 	return [ 
 		"li", {class:'ui-widget ui-corner-all', id:'task_'+this.id}, [
 			"div", {class:'task-header ui-state-default'}, [
-			    "span", {class:'avatar'}, ,
+			    "img", {class:'avatar', src:avatarUrl+'/'+this.assignee}, ,
 				"div", {class:'head_color', style:'background-color:'+this.color}, ,
 				"div", {id:'color_helper', style:'display:none'}, this.color,
 				"div", {class:'head_name'}, '#' + this.id + ' - ' +this.name,

@@ -68,7 +68,7 @@ class Task implements Comparable {
 		return [
 			'id':this.id,
 			'creator':"${creator.encodeAsHTML()}",
-			'assignee':assignee ? assignee.encodeAsHTML() : '',
+			'assignee':assignee?.username ? assignee?.username?.encodeAsHTML() : '',
 			'sortorder':sortorder.encodeAsHTML(),
 			'dateCreated':dateCreated.encodeAsHTML(),						
 			'workflowStartDate':workflowStartDate.encodeAsHTML(),
