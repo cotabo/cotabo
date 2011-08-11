@@ -2,6 +2,8 @@ package org.cotabo
 
 class UserController {
 	
+	def springSecurityService
+	
 	def avatar = {
 		def avatarUser = User.findByUsername(params.username)
 		log.info("avatar_image for user: ${avatarUser}")
@@ -22,7 +24,10 @@ class UserController {
 	}
 
 	def upload_avatar = {
-		def user = User.findByUsername(params.username)
+		def user = User.findByUsername(springSecurityService.principal.username)
+		if(!user){
+			redirect(action:'addavatar')
+		}
 	    // Get the avatar file from the multi-part request
 		def f = request.getFile('avatar')
 
@@ -44,7 +49,7 @@ class UserController {
 			return;
 		}
 		flash.message = "Avatar (${user.avatarType}, ${user.avatar.size()} bytes) uploaded."
-	  redirect(action:'upload_avatar')
+	  redirect(action:'addavatar')
 	}
 
 }
