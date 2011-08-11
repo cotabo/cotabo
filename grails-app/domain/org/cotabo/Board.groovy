@@ -17,6 +17,7 @@ class Board {
 	List admins		
 	static hasMany = [ columns : Column, users : User, admins: User]
 	static mappedBy = [users: "userBoards", admins: "adminBoards"]
+	static belongsTo = User
 	
 	String name
 	String description

@@ -21,7 +21,6 @@ class User {
 	String avatarType
 	
 	static hasMany = [adminBoards: Board, userBoards: Board]
-	static belongsTo = Board
 	
 		
 
