@@ -16,6 +16,9 @@ class User {
 	
 	List adminBoards
 	List userBoards
+
+	byte[] avatar
+	String avatarType
 	
 	static hasMany = [adminBoards: Board, userBoards: Board]
 	static belongsTo = Board
@@ -28,6 +31,8 @@ class User {
 		email blank: false, email: true
 		username blank: false, unique: true
 		password blank: false, minSize: 5				
+		avatar nullable: true
+		avatarType nullable: true
 	}
 
 	static mapping = {
