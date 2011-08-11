@@ -90,7 +90,9 @@
 				//Setting the name and the ID to the new name
 				$(fields[j]).attr('name', newName);
 				$(fields[j]).attr('id', newName);
-			}									
+			}			
+			var radio = $(columns[i]).find(":radio")			
+			radio.attr('value', i);			
 		}		
 	}
 	$("ul.column_list").sortable({
