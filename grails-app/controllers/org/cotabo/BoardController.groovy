@@ -56,7 +56,11 @@ class BoardController {
 			return
 		}					
 		
-		bindData(boardInstance, params)		
+		bindData(boardInstance, params)	
+		if(!boardInstance.admins) {			
+			//Adding the current user as admin if nothing specified			
+			boardInstance.admins = [User.findByUsername(springSecurityService.principal.username)]
+		}	
 				
 		boardInstance.columns[params.workflowStart as int].workflowStartColumn = true
 
@@ -90,7 +94,7 @@ class BoardController {
             redirect(action: "list")
         }
         else {
-            return [boardInstance: boardInstance]
+            render(view:'create', model:[boardInstance:boardInstance])
         }
     }
 

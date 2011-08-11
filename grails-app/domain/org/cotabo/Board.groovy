@@ -29,7 +29,7 @@ class Board {
 		name blank:false, maxSize:25, unique: true
 		description nullable:true, blank:true, maxSize:254
 		columns nullable:false, maxSize:10
-		users nullable:false
+		users nullable:true
 		admins nullable:false, maxSize: 5		
     }
 	
