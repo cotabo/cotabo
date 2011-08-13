@@ -11,7 +11,7 @@
 	margin:0px auto;
 	text-align:left;
 	padding:5px 0;
-	font-size: .7em;
+	font-size: .85em;
 	
 	
 }
