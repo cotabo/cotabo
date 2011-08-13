@@ -3,25 +3,63 @@
         <meta http-equiv="content-type" content="text/html;charset=UTF-8">
         <title><g:layoutTitle default="Cotabo"/></title>        
         <link rel="stylesheet" href="${resource(dir:'css',file:'jquery-ui-1.8.12.custom.css')}" />        
-        <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />        
+        <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'jquery.superfish.css')}" />        
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <g:javascript library="jquery" plugin="jquery"/>
-        <script type="text/javascript" src="${resource(dir:'js/jquery-ui', file:'jquery-ui-1.8.6.custom.min.js')}"></script>                
+        <script type="text/javascript" src="${resource(dir:'js/jquery-ui', file:'jquery-ui-1.8.6.custom.min.js')}"></script>
+        <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.superfish.js')}"></script>
+        <script type="text/javascript" src="${resource(dir:'js', file:'base.js')}"></script>                
         <g:layoutHead />        
     </head>
     <body>    
 		<div class="head-back">
-            <div class="head">          
-                <span id="user">     
+            <div class="head">
+                <ul id="menu" class="sf-menu">
+
+                    <li>
+                        <g:link controller="board">my boards</g:link>
+                        <ul>
+                            <li>                                
+                                <g:link controller="board" action="list">list</g:link>
+                            </li>
+                            <li>                                
+                                <g:link controller="board" action="create">create</g:link>
+                            </li>
+                        </ul>
+                    </li>
                     <sec:ifNotLoggedIn>
-                        Please <g:link controller="login" class="head_link">login...</g:link>
+                    <li>                        
+                        <g:link controller="login" >login</g:link>
+                    </li>
                     </sec:ifNotLoggedIn>
-                </span>             
+                    <sec:ifLoggedIn>
+                    <li>                        
+                        <g:link controller="user" action="edit" >my profile</g:link>
+                    </li>
+                    <li>
+                        <g:link controller="logout">logout</g:link>
+                    </li>
+                    </sec:ifLoggedIn>
+                </ul>  
+                <!--                    
+                <div class="menu" class="ui-widged">
+                    <sec:ifNotLoggedIn>
+                    <span class="ui-state-default ui-corner-all">
+                        <g:link controller="login" >Login</g:link>
+                    </span>
+                    </sec:ifNotLoggedIn>
+                    <span class="ui-state-default">
+                        <g:link controller="board">Cotabos</g:link>
+                    </span>
+                </div>
+                -->     
                 <div class="logo">  
                     <a href="${request.contextPath}">               
                     <img src="${resource(dir:'images',file:'logo.png')}"/>
                     </a>
                 </div>
+                 
             </div>    
 		</div>		
         <div class="page-wrap">
