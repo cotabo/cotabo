@@ -11,6 +11,7 @@ class BoardTagLib {
 		out << """
 		<div id="board">
 			<h2>${attrs.board?.name?.encodeAsHTML()}</h2>
+			<p class="description">${attrs.board?.description?.encodeAsHTML()}</p>
 		"""						
 		body() ? out << body() :
 		out << """

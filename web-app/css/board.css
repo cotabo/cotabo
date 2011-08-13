@@ -19,7 +19,11 @@
     word-spacing: -0.3em;
 	color: #336699;
 }
-
+p.description {
+	text-align:center;
+	font-style: italic;
+	margin-bottom: 10px;	
+}
 .column {		
 	float:left;			
 	text-align:center;	
