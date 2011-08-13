@@ -121,9 +121,10 @@ input:focus, select:focus, textarea:focus {
 	text-decoration:none;
 	font-size:13px;
 	font-weight:bold;
+	color:#336699;
 }
 .highlighted_link:hover, .highlighted_link:active, .highlighted_link:visited {
-	color:#09597b;
+	color:#336699;
 }
 
 table.list tr th{

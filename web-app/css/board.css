@@ -45,11 +45,13 @@ p.description {
 	width:100%;
 }
 .column  .title p{
-	display:inline;
+	
 }
 .column  .title p{	
 	padding:0;
 	margin:0;
+	display:inline;
+	font-weight:bold;
 }
 .column ul {	
 	min-height:450px;
