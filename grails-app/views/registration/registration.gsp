@@ -28,15 +28,13 @@
                                 <td class="${hasErrors(bean: userInstance, field: 'username', 'errors')}">
                                     <g:textField name="username" value="${userInstance?.username}" />
                                 </td>
-                            </tr>                   
-                            <tr>
                                 <td>
                                     <label for="firstname"><g:message code="user.firstname.label" default="Firstname" /></label>
                                 </td>
                                 <td class="${hasErrors(bean: userInstance, field: 'firstname', 'errors')}">
                                     <g:textField name="firstname" value="${userInstance?.firstname}" />
                                 </td>
-                            </tr>
+                            </tr>                   
                         
                             <tr>
                                 <td>
@@ -45,16 +43,13 @@
                                 <td class="${hasErrors(bean: userInstance, field: 'lastname', 'errors')}">
                                     <g:textField name="lastname" value="${userInstance?.lastname}" />
                                 </td>
-                            </tr>
-                        
-                            <tr>
                                 <td>
                                     <label for="email"><g:message code="user.email.label" default="Email" /></label>
                                 </td>
                                 <td  class="${hasErrors(bean: userInstance, field: 'email', 'errors')}">
                                     <g:textField name="email" value="${userInstance?.email}" />
                                 </td>
-                            </tr>                        
+                            </tr>                    
                         
                             <tr>
                                 <td>
@@ -63,22 +58,26 @@
                                 <td class="${hasErrors(bean: userInstance, field: 'password', 'errors')}">
                                     <g:passwordField name="password" value="${userInstance?.password}" />
                                 </td>
-                            </tr>
-                            
-                            <tr>
                                 <td>
                                     <label for="imageCaptcha">Code:</label>
                                 </td>
                                 <td>
                                     <g:textField name="captcha" />                                    
-                                </td>                                
+                                </td>   
                             </tr>
+
                             <tr>
                                 <td>
                                     &nbsp;
                                 </td>
                                 <td>
-                                    <jcaptcha:jpeg name="imageCaptcha" height="50px" width="200px" />
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    <jcaptcha:jpeg name="imageCaptcha" height="30px" width="160px" />
                                 </td>
                             </tr>
                               
