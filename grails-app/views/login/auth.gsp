@@ -11,6 +11,7 @@
 	margin:0px auto;
 	text-align:left;
 	padding:5px 0;
+	font-size: .7em;
 	
 	
 }
@@ -67,8 +68,14 @@
 				<p>
 					<input type='submit' value='Login' />
 				</p>
+
 			</form>
+        <p>
+            Don't have an account? Please register 
+            <a href="<g:createLink controller="registration"/>" class="highlighted_link">here.</a>
+        </p>			
 		</div>
+      
 	</div>
 <script type='text/javascript'>
 <!--
