@@ -8,7 +8,7 @@
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <g:javascript library="jquery" plugin="jquery"/>
         <script type="text/javascript" src="${resource(dir:'js/jquery-ui', file:'jquery-ui-1.8.6.custom.min.js')}"></script>
-        <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.superfish.js')}"></script>
+        <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.superfish.js')}"></script>        
         <script type="text/javascript" src="${resource(dir:'js', file:'base.js')}"></script>                
         <g:layoutHead />        
     </head>
@@ -18,27 +18,46 @@
                 <ul id="menu" class="sf-menu">
 
                     <li>
-                        <g:link controller="board">my boards</g:link>
+                        <g:link controller="board">
+                            <span class="ui-icon ui-state-default ui-icon-image"></span>
+                            my boards
+                        </g:link>
                         <ul>
                             <li>                                
-                                <g:link controller="board" action="list">list</g:link>
+                                <g:link controller="board" action="create">
+                                    <span class="ui-icon ui-state-default ui-icon-document"></span>
+                                    create
+                                </g:link>
                             </li>
                             <li>                                
-                                <g:link controller="board" action="create">create</g:link>
+                                <g:link controller="board" action="list">
+                                    <span class="ui-icon ui-state-default ui-icon-note"></span>
+                                    list
+                                </g:link>
                             </li>
                         </ul>
                     </li>
                     <sec:ifNotLoggedIn>
                     <li>                        
-                        <g:link controller="login" >login</g:link>
+                        <g:link controller="login" >
+                            <span class="ui-icon ui-state-default ui-icon-arrowreturnthick-1-e"></span>
+                            login
+                        </g:link>
                     </li>
                     </sec:ifNotLoggedIn>
                     <sec:ifLoggedIn>
-                    <li>                        
-                        <g:link controller="user" action="edit" >my profile</g:link>
+                    <li>       
+                                                          
+                        <g:link controller="user" action="edit" >
+                            <span class="ui-icon ui-state-default ui-icon-person"></span>
+                            my profile
+                        </g:link>
                     </li>
-                    <li>
-                        <g:link controller="logout">logout</g:link>
+                    <li>                        
+                        <g:link controller="logout">
+                            <span class="ui-icon ui-state-default ui-icon-arrowreturnthick-1-w"></span>
+                            logout
+                        </g:link>
                     </li>
                     </sec:ifLoggedIn>
                 </ul>  

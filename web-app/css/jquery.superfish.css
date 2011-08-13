@@ -6,7 +6,7 @@
     list-style:     none;
 }
 .sf-menu {
-    line-height:    .9;
+    line-height:    11px;
 }
 .sf-menu ul {
     position:       absolute;
@@ -67,12 +67,19 @@ ul.sf-menu li li li.sfHover ul {
     color:          #ffffff;
     font-size:      .8em;
 }
+.sf-menu a span.ui-icon {
+	float:left;
+	margin-right:5px;
+	margin-top: -3px;
+}
 .sf-menu li {
     background:     #336699;
 }
+
 .sf-menu li li {
     background:     #4386c8;
 }
+ {float:left;}
 .sf-menu li li li {
     background:     #9AAEDB;
 }
