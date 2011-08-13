@@ -76,6 +76,7 @@ h3 {
 }
 p {	
 	text-align: justify;	
+	margin-bottom: 5px;	
 }
 a, a:visited {	
 	color:#373737;	
@@ -141,19 +142,7 @@ input.error {
 .italic {
 	font-style:italic;
 }
-.menu {	
-	float:right;
-	margin-top:3px;
-	overflow:hidden;
-	font-size: .75em;	
-}
-.menu span {
-	float:left;
-	padding:4px 10px;	
-}
-.menu span a, .menu span a:visited {	
-	
-}
+
 #report_container {
 	width: 70%;
 	margin: 0 auto;
