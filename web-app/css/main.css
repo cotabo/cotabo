@@ -36,7 +36,7 @@ body {
 }
 .head .logo {		
 	float:right;	
-	margin-top:23px;	
+	margin-top:32px;	
 }
 .head .logo span {
 	font-size: 52px;
@@ -141,7 +141,19 @@ input.error {
 .italic {
 	font-style:italic;
 }
-
+.menu {	
+	float:right;
+	margin-top:3px;
+	overflow:hidden;
+	font-size: .75em;	
+}
+.menu span {
+	float:left;
+	padding:4px 10px;	
+}
+.menu span a, .menu span a:visited {	
+	
+}
 #report_container {
 	width: 70%;
 	margin: 0 auto;
