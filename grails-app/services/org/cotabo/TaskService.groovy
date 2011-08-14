@@ -105,26 +105,16 @@ class TaskService {
 			tooColumn: tooColumn,
 			user: user,
 			dateCreated: dateCreated)		
-		//We only add the 1st column if not empty (maybe empty when new task is created)
-		if (fromColumn) {
-			//Might be zero in terms of task creation
+		
+		//Getting a snapshot of task count on each column
+		tooColumn.board.columns.each {
 			events << new ColumnStatusEntry(
-				column: fromColumn,
-				//Just saving the number of tasks that after the movement
-				tasks: fromColumn.tasks?.size() ?: 0,
-				entered: false,
+				column: it,
+				tasks: it.tasks?.size() ?: 0,
+				entered:false,
 				dateCreated: dateCreated
-			)			
-		}		
-		//And another column status entry for the target (this always exists)
-		events << new ColumnStatusEntry(
-			column: tooColumn,
-			//Just saving the number of tasks that after the movement
-			//Need to handle the case where the target column is empty
-			tasks: tooColumn.tasks?.size() ?: 0,
-			entered: true,
-			dateCreated: dateCreated
-		)		
+			)
+		}
 		//Save everything		
 		events.each {it.save(flush:false)}
 		sessionFactory?.getCurrentSession()?.flush()

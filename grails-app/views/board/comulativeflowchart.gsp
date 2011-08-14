@@ -15,7 +15,7 @@
 				
 		var dataArray = new Array()
 		<g:each in="${boardInstance.columns}" var="column" status="i">		
-		dataArray[${column.id}] = getCsvCDFDataForColumn(${column.id});	
+		dataArray[${column.id}] = getCsvCDFDataForColumn(${column.id});		
 		</g:each>
 		
 		$.plot($('#cfd_placeholder'), [						
@@ -23,7 +23,8 @@
 			{
 				label: '${column.name}',
 				data: dataArray[${column.id}],
-				lines: { show: true, fill: true }
+				lines: { show: true, fill: true},
+				stack: 1			
 			}
 			<g:if test="${i != (boardInstance.columns.size() -1)}">
 			,

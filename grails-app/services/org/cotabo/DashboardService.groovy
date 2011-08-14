@@ -24,19 +24,20 @@ class DashboardService {
 		
 		def entries 
 		def ordering = [sort:'dateCreated', order:'asc']
-		if(!from && ! too) {
+		if(!from && ! too) {			
 			entries = ColumnStatusEntry.findAllByColumn(column, ordering)
+			log.debug "Loading ${entries.size()} ColumnStatusEntries for column ${column.name}"
 		}
 		else {
 			entries = ColumnStatusEntry.findAllByColumnAndDateCreatedBetween(column, from, too, ordering)	
 		}
 		if(entries) {
+			//Starting from 0		
 			sb << "${entries.first().dateCreated.time},0\n"
 			entries.each{
 				//As the JavaScript timestamp is in milliseconds we need to multiply by 1000
 				sb << "${it.dateCreated.time},${it.tasks}\n"
 			}
-			sb << "${new Date().time},${entries.last().tasks}\n"
 		}
 		return sb.toString()
 		
