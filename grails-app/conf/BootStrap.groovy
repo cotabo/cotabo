@@ -48,14 +48,15 @@ class BootStrap {
 			def column3 = new Column(name:'Done!')
 			def board = new Board(
 				name:'My Test Board',
-				description:'This test board is to track the tasks of our Test project',
-				users: [user,admin],
-				admins: [admin],
-			)
-			board.addToColumns(column1)
+				description:'This test board is to track the tasks of our Test project'
+			).addToColumns(column1)
 				.addToColumns(column2)
 				.addToColumns(column3)
-			board.save(flush:true)
+			board.save()
+			
+			admin.addToAdminBoards(board).save()
+			user.addToUserBoards(board).save()
+			
 			
 			def testTasks
 
