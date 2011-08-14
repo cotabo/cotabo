@@ -53,31 +53,34 @@ class BoardController {
 		
 		//Need to clear the user collections as bindData 
 		//only adds & updated but it doesn't delete
-		boardInstance.admins = []
-		boardInstance.users = []		
-		bindData(boardInstance, params)
-		log.debug "Saved board with \n\tadmins: ${boardInstance.admins}\n\tusers: ${boardInstance.users}"
-
-		//bindData on the board doesn't maintain the other side ot the relation (user)
-		//Doing that manually
-		boardInstance.admins.each {
-			if(!it.adminBoards.find {boardInstance}) 
-				it.addToAdminBoards(boardInstance).save()
-		}
-		boardInstance.users.each {
-			if(!it.userBoards.find {boardInstance}) 
-				it.addToUserBoards(boardInstance).save()
-		}
+		//boardInstance.admins?.clear()
+		//boardInstance.users?.clear()	
 		
+		bindData(boardInstance, params)			
+				
 		if(!boardInstance.admins) {			
 			log.debug 'No admin user specified - using the currently logged-in user ('+springSecurityService.principal.username+')'
 			//Adding the current user as admin if nothing specified			
-			boardInstance.admins = [User.findByUsername(springSecurityService.principal.username)]
-		}	
-				
+			boardInstance.addToAdmins(User.findByUsername(springSecurityService.principal.username))
+		}			
+		
+		//On Update		
+		if(params.id) {
+			//bindData on the board doesn't maintain the other side of the relation (user)
+			//during updates - doing that manually
+			boardInstance.admins.each {
+				if(!it.adminBoards.find {boardInstance})
+					it.addToAdminBoards(boardInstance)
+			}
+			boardInstance.users.each {
+				if(!it.userBoards.find {boardInstance})
+					it.addToUserBoards(boardInstance)
+			}
+		}		
 		boardInstance.columns[params.workflowStart as int].workflowStartColumn = true
 
 		if (boardInstance.validate() && boardInstance.save(flush:true)){
+			log.debug "Saved board with \n\tadmins: ${boardInstance.admins}\n\tusers: ${boardInstance.users}"
 			//TODO: send out an eMail for all users & admins	
 			redirect(action: "show", id: boardInstance.id)			
 		}
