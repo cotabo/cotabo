@@ -60,8 +60,14 @@ class BoardController {
 
 		//bindData on the board doesn't maintain the other side ot the relation (user)
 		//Doing that manually
-		boardInstance.admins.each { it.addToAdminBoards(boardInstance).save()}
-		boardInstance.users.each { it.addToUserBoards(boardInstance).save()}
+		boardInstance.admins.each {
+			if(!it.adminBoards.find {boardInstance}) 
+				it.addToAdminBoards(boardInstance).save()
+		}
+		boardInstance.users.each {
+			if(!it.userBoards.find {boardInstance}) 
+				it.addToUserBoards(boardInstance).save()
+		}
 		
 		if(!boardInstance.admins) {			
 			log.debug 'No admin user specified - using the currently logged-in user ('+springSecurityService.principal.username+')'
@@ -177,8 +183,7 @@ class BoardController {
 	 * @param param - array based request parameter of user IDs
 	 * @return List of user objects
 	 */
-	public List<User> buildUserListFromParam(def param) {
-		println "param: $param"
+	public List<User> buildUserListFromParam(def param) {		
 		def idList
 		if(param instanceof String) {
 			idList = [param.toInteger()]
@@ -186,8 +191,7 @@ class BoardController {
 		else {
 			def tmpList =  param as ArrayList
 			idList = tmpList.collect {it.toInteger()}
-		}
-		println "idList: $idList"
+		}		
 		return idList.collect {User.get(it)}		
 	}
 	
