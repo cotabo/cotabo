@@ -11,9 +11,7 @@
             <div id="main_text">
 	            <p>
 		            Congratulations, you are on the best way to improve the management of your Tasks.
-		        </p>		        
-		        
-		        
+		        </p>		        		        		       
 		        <p>
 		            The aim of <b>Cotabo</b> is to provide you with a collaborative way of implementing Kanban like processes 
 		            across distributed teams that don't have the chance to work togather in the same room. 

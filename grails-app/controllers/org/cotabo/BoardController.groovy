@@ -17,8 +17,8 @@ class BoardController {
     }
 
     def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [boardInstanceList: Board.list(params), boardInstanceTotal: Board.count()]
+		def user = User.findByUsername(springSecurityService.principal.username)						
+        [adminBoards: user.adminBoards, userBoards: user.userBoards]
     }
 
     def create = {
@@ -54,11 +54,17 @@ class BoardController {
 		//Need to clear the user collections as bindData 
 		//only adds & updated but it doesn't delete
 		boardInstance.admins = []
-		boardInstance.users = []
-		
+		boardInstance.users = []		
 		bindData(boardInstance, params)
+		log.debug "Saved board with \n\tadmins: ${boardInstance.admins}\n\tusers: ${boardInstance.users}"
 
+		//bindData on the board doesn't maintain the other side ot the relation (user)
+		//Doing that manually
+		boardInstance.admins.each { it.addToAdminBoards(boardInstance).save()}
+		boardInstance.users.each { it.addToUserBoards(boardInstance).save()}
+		
 		if(!boardInstance.admins) {			
+			log.debug 'No admin user specified - using the currently logged-in user ('+springSecurityService.principal.username+')'
 			//Adding the current user as admin if nothing specified			
 			boardInstance.admins = [User.findByUsername(springSecurityService.principal.username)]
 		}	
@@ -97,6 +103,7 @@ class BoardController {
         }
         else {
 			def users = User.list()
+			log.debug "rendering board edit view with\n\tadmins:${boardInstance.admins}\n\tusers:${boardInstance.users}"
 			//Isn't that groovy?
 			users -= boardInstance.admins
 			users -= boardInstance.users 
