@@ -129,13 +129,14 @@ class BoardTagLib {
 					</li>
 					<li title="reporting">
 						<a href="${createLink(conroller:"board", action:"comulativeflowchart", id:"${attrs.board.id}")}">
-						<span class="ui-icon ui-state-default ui-icon-image"></span>						
+							<span class="ui-icon ui-state-default ui-icon-image"></span>						
+						</a>
 					</li>
 		"""
 		if(attrs.admin) {
 			out << """
 					<li title="edit this board">
-						<a href="createLink(conroller:"board" action:"edit", id:"${attrs.board.id}")}">
+						<a href="${createLink(conroller:"board", action:"edit", id:"${attrs.board.id}")}">
 							<span class="ui-icon ui-state-default ui-icon-wrench"></span>
 						</a>
 					</li>
