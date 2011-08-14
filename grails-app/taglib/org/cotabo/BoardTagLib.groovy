@@ -11,7 +11,7 @@ class BoardTagLib {
 		out << """
 		<div id="board">
 			<h2>${attrs.board?.name?.encodeAsHTML()}</h2>
-			<p class="description">${attrs.board?.description?.encodeAsHTML()}</p>
+			<p class="description">${attrs.board?.description?.encodeAsHTML() ?: ''}</p>
 		"""						
 		body() ? out << body() :
 		out << """
@@ -101,5 +101,73 @@ class BoardTagLib {
 			</li>
 			"""	
 		}				
+	}
+	
+	/**
+	 * Print a board summary for listing
+	 * attrs:
+	 * 		board: board Obect (required)
+	 * 		admin: (boolean) whether this summary should contain admin options or not
+	 */
+	def boardSummary = { attrs, body ->
+		if(!attrs.board) {
+			out << ''
+			return
+		}
+		out << """
+		<li class="board_summary ui-widget ui-corner-all">
+			<div class="summary_header ui-state-default">
+				
+				<a href='${createLink(conroller:"board", action:"show", id:"${attrs.board.id}")}' class="highlighted_link ">
+					<span class="ui-icon ui-state-default ui-icon-folder-open"></span>
+					${attrs.board.name.encodeAsHTML()}
+				</a>
+				<ul>
+					<li title="number of users">
+						<span class="ui-icon  ui-icon-person"></span>
+						${attrs.board.admins.size() + attrs.board.users?.size()}						
+					</li>
+					<li title="reporting">
+						<a href="${createLink(conroller:"board", action:"comulativeflowchart", id:"${attrs.board.id}")}">
+						<span class="ui-icon ui-state-default ui-icon-image"></span>						
+					</li>
+		"""
+		if(attrs.admin) {
+			out << """
+					<li title="edit this board">
+						<a href="createLink(conroller:"board" action:"edit", id:"${attrs.board.id}")}">
+							<span class="ui-icon ui-state-default ui-icon-wrench"></span>
+						</a>
+					</li>
+			"""
+		}
+		out << """
+				</ul>
+			</div>
+			
+			<div class="summary_content ui-widget-content">
+				${attrs.board.description ? attrs.board.description?.encodeAsHTML(): '&nbsp;'}
+				<table>
+					<tbody>
+						<tr>
+							<td><span class="ui-icon ui-icon-gear"></span>open tasks:</td>								
+							<td class="highlighted_link">
+								${attrs.board.columns.collect{it == attrs.board.columns.last()? 0 : it.tasks.size()}.sum()}
+							</td>
+						</tr>
+						<tr>
+							<td><span class="ui-icon ui-icon-gear"></span>tasks done:</td>								
+							<td class="highlighted_link">${attrs.board.columns.last().tasks.size()}</td>
+						</tr>
+						<tr>
+							<td><span class="ui-icon ui-icon-gear"></span>overall tasks:</td>
+							<td class="highlighted_link">${attrs.board.columns.collect{it.tasks.size()}.sum()}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</li>
+		"""
+		
 	}
 }

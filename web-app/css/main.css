@@ -155,3 +155,21 @@ input.error {
 
 
 .ui-widget *{font-size:12px !important;}
+
+ul.board_list {
+	width:45%;	
+	overflow:hidden;
+	float:left; 
+	margin-right:50px;   
+}
+ul.board_list li.board_summary {width:100%;margin-top:20px;}
+ul.board_list li.board_summary div.summary_header {padding:5px;overflow:hidden;}
+ul.board_list li.board_summary div.summary_header a {float:left;overflow:hidden;}
+ul.board_list li.board_summary div.summary_header > a span {float:left;margin-right:5px;}
+ul.board_list li.board_summary div.summary_header ul {float:right;}
+ul.board_list li.board_summary div.summary_header ul li {float:left;overflow:hidden;margin-left:5px;}
+ul.board_list li.board_summary div.summary_header ul li span {float:left;}
+ul.board_list li.board_summary div.summary_content {padding: 5px;}
+ul.board_list li.board_summary div.summary_content * td {overflow:hidden;}
+ul.board_list li.board_summary div.summary_content * td span {float:left;}
+
