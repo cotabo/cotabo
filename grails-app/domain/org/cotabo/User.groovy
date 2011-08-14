@@ -21,7 +21,7 @@ class User {
 	String avatarType
 	
 	static hasMany = [adminBoards: Board, userBoards: Board]
-	
+
 		
 
 	static constraints = {
@@ -32,6 +32,8 @@ class User {
 		password blank: false, minSize: 5				
 		avatar nullable: true
 		avatarType nullable: true
+		adminBoards nullable: true
+		userBoards nullable: true
 	}
 
 	static mapping = {

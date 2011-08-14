@@ -13,8 +13,8 @@ import java.util.List;
 class Board {
 	//Relationships
 	List columns
-	List users	
-	List admins		
+	Set users	
+	Set admins		
 	static hasMany = [ columns : Column, users : User, admins: User]
 	static mappedBy = [users: "userBoards", admins: "adminBoards"]
 	static belongsTo = User
