@@ -8,7 +8,7 @@ class BoardFilters {
             before = {
                 def board =  Board.get(params.id)							
 				def user = User.findByUsername(springSecurityService.principal.username)
-				if (!board.users.find{it == user} && !board.admins.find{it==user}) {
+				if (!board.users.find{it == user}) {
 					render(status:403, view:'notallowed', model:[boardInstance:board])
 					return false					
 				}

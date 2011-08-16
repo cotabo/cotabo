@@ -18,7 +18,7 @@ class BoardController {
 
     def list = {
 		def user = User.findByUsername(springSecurityService.principal.username)						
-        [adminBoards: user.adminBoards, userBoards: user.userBoards]
+        [adminBoards: user.getBoards(RoleEnum.ADMIN), userBoards: user.getBoards(RoleEnum.USER)]
     }
 
     def create = {
@@ -51,36 +51,41 @@ class BoardController {
 			return
 		}					
 		
-		//Need to clear the user collections as bindData 
-		//only adds & updated but it doesn't delete
-		//boardInstance.admins?.clear()
-		//boardInstance.users?.clear()	
-		
-		bindData(boardInstance, params)			
-				
-		if(!boardInstance.admins) {			
-			log.debug 'No admin user specified - using the currently logged-in user ('+springSecurityService.principal.username+')'
-			//Adding the current user as admin if nothing specified			
-			boardInstance.addToAdmins(User.findByUsername(springSecurityService.principal.username))
-		}			
-		
-		//On Update		
+		//On update
 		if(params.id) {
-			//bindData on the board doesn't maintain the other side of the relation (user)
-			//during updates - doing that manually
-			boardInstance.admins.each {
-				if(!it.adminBoards.find {boardInstance})
-					it.addToAdminBoards(boardInstance)
-			}
-			boardInstance.users.each {
-				if(!it.userBoards.find {boardInstance})
-					it.addToUserBoards(boardInstance)
-			}
-		}		
+			//Clear all user references for this board
+			UserBoard.removeAll(boardInstance)
+		}
+				
+		bindData(boardInstance, params)	
+		
+
 		boardInstance.columns[params.workflowStart as int].workflowStartColumn = true
 
 		if (boardInstance.validate() && boardInstance.save(flush:true)){
-			log.debug "Saved board with \n\tadmins: ${boardInstance.admins}\n\tusers: ${boardInstance.users}"
+			//After the board is saved
+			//Create a complete new set of relationships between users & boards
+			RoleEnum.each { role ->
+				List<String> userIdStrings = request.getParameterValues(role.toString()) as ArrayList
+				if (userIdStrings) {
+					List<Integer> userIds = userIdStrings.collect { it.toInteger() }
+					userIds.each { userId ->
+						if(userId) {
+							def user = User.get(userId)
+							println "Associating $user with $boardInstance and role ${role.toString()}"
+							UserBoard.create(user, boardInstance, RoleEnum."${role.toString()}", true)
+						}
+					}
+				}
+			}
+			
+			//If no User <> Board relationship created - create at least one admin
+			//with the currently logged-in user
+			if(!boardInstance.users) {
+				def user = User.findByUsername(principal.username)
+				UserBoard.create(user, boardInstance, RoleEnum.ADMIN)
+			}
+	
 			//TODO: send out an eMail for all users & admins	
 			redirect(action: "show", id: boardInstance.id)			
 		}
@@ -111,12 +116,10 @@ class BoardController {
             redirect(action: "list")
         }
         else {
-			def users = User.list()
-			log.debug "rendering board edit view with\n\tadmins:${boardInstance.admins}\n\tusers:${boardInstance.users}"
-			//Isn't that groovy?
-			users -= boardInstance.admins
-			users -= boardInstance.users 
-            render(view:'create', model:[boardInstance:boardInstance, edit:true, users:users])
+			def allUsers = User.list()			
+			//Need to remove already mapped users - Isn't that groovy?			
+			allUsers -= boardInstance.users 
+            render(view:'create', model:[boardInstance:boardInstance, edit:true, allUsers:allUsers])
         }
     }
 

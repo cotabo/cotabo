@@ -1,4 +1,5 @@
 <%@ page import="org.cotabo.Board" %>
+<%@ page import="org.cotabo.RoleEnum" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -12,7 +13,7 @@
     	Please contact one of the administrators to configure you for usage.</p>
     	
     	<ul>
-    		<g:each in="${boardInstance.admins}" var="admin">
+    		<g:each in="${boardInstance.getUsers(RoleEnum.ADMIN)}" var="admin">
     			<li><a href="mailto:${admin.email}">${admin.firstname} ${admin.lastname}</a></li>
     		</g:each>
     	</ul>
