@@ -10,7 +10,7 @@ import java.util.Date;
  *
  */
 class Block {
-	static belongsTo = [Task]
+	static belongsTo = [task: Task]
 	//Will be setted automatically - when the blocked situation occurs
 	Date dateCreated
 	//When the blocked situation is resolved.
