@@ -14,7 +14,10 @@
             "cancel": function() {
                 $( this ).dialog( "close" );
             }
-        }
+        },
+				close: function() {
+					 $("input").blur();
+				}
     });
     
 	/**

@@ -201,7 +201,7 @@ var taskCreationCallback = function(data) {
 		var createdDom = $("div.column:first").children("ul").tplAppend(data, taskTpl);
 		setElementCountOnColumn();	
 	});
-	$(helper).css('display','none');		
+	$(helper).css('display','none');
 }
 
 /**
