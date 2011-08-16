@@ -3,8 +3,34 @@
  * build up onload.
  */
 jQuery(function(){
+	 /********************************************************
+	 * Section for the keyboard navigation.
+	 ********************************************************/
+	 $(document).ready(function(){
+       $("body").keypress(function(e)
+       {
+       	 	var shortcutsDisabled = (e.srcElement instanceof HTMLInputElement);
+       	 	var code = (e.keyCode ? e.keyCode : e.which);
+           if(!shortcutsDisabled) {
+						 if (code == 110) /* 'n' */{
+							 $('#createTaskForm').dialog('open');
+						 }
+						 if (code == 115) /* 's' */ {
+							 $('#chat_dialog').dialog('open');
+						 }
+						 if (code == 101) /* 'e' */ {
+							 fn_expand.call();
+						 }
+						 if (code == 99) /* 'c' */ {
+							 fn_collapse.call();
+						 }
+						 e.preventDefault();
+           }
+       });
+     });
+		
 	/********************************************************
-	 * Section for the Boad menu and everything that belongs to it.
+	 * Section for the Board menu and everything that belongs to it.
 	 * refer: board/_menu template
 	 ********************************************************/	
 	/**
@@ -17,12 +43,9 @@ jQuery(function(){
 	}).click(function() {
 		$('#createTaskForm').dialog('open');
 		return true;
-	});		
-	$('#b_collapse').button({
-		icons: {
-			secondary: 'ui-icon-carat-1-n'
-		}
-	}).click(function() {
+	});
+	
+	var fn_collapse = function() {
 		//console.time('native');		
 		var matched = $('#board > div.column > ul > li > div.task-header > span.ui-icon-carat-1-n')		 		 	
 		for (var i=0;i< matched.size();i++)	{
@@ -30,12 +53,14 @@ jQuery(function(){
 		}
 		//console.timeEnd('native'); 
 		return true;
-	});	
-	$('#b_expand').button({
+	};
+	$('#b_collapse').button({
 		icons: {
-			secondary: 'ui-icon-carat-1-s'
+			secondary: 'ui-icon-carat-1-n'
 		}
-	}).click(function() {	
+	}).click(fn_collapse);
+
+	var fn_expand = function() {	
 		console.time('native');	
 		var matched = $('#board > div.column > ul > li > div.task-header > span.ui-icon-carat-1-s')	
 		for (var i=0;i< matched.size();i++)	{
@@ -43,7 +68,13 @@ jQuery(function(){
 		}
 		console.timeEnd('native'); 
 		return true;
-	});
+	};
+	$('#b_expand').button({
+		icons: {
+			secondary: 'ui-icon-carat-1-s'
+		}
+	}).click(fn_expand);
+	
 	$('#b_chat').button({
 	   icons: {
 	       secondary:'ui-icon-comment'
@@ -65,6 +96,7 @@ jQuery(function(){
 	    });               
 	    $('#chat_dialog').find('input').val('');
 	    $('#chat_dialog').dialog('close');
+	    $("input").blur();
 	    return false;
 	}
 	//Binding the submit event of the chat form
@@ -81,6 +113,9 @@ jQuery(function(){
 	           $('#chat_dialog').find('input').val('');
 	           $('#chat_dialog').dialog('close');
 	       }
+	   },
+	   close: function(){
+	   	 $("input").blur();
 	   }
 	});	
 	

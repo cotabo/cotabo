@@ -19,6 +19,7 @@
 	        close: function() {
 	           //removing ourself from the DOM on close
 	           $('div#taskUpdateDialog').remove();
+	           $("input").blur();
 	        }
 	    });
 	    
