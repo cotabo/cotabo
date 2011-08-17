@@ -7,6 +7,7 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 	def dashboardService 
     protected void setUp() {
         super.setUp()
+		mockLogging(DashboardService)
 		dashboardService = new DashboardService()
     }
 
