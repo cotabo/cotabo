@@ -28,6 +28,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 				email: 'e@mail.com'
 			)]
 		)
+		mockDomain(UserBoard)
 		//Preparation - get the user
 		def user = User.findByUsername('testuser')
 		assertNotNull user
