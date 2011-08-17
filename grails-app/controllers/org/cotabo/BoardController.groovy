@@ -55,11 +55,26 @@ class BoardController {
 		if(params.id) {
 			//Clear all user references for this board
 			UserBoard.removeAll(boardInstance)
+			//Deleting the columns deletes in on the client side
+			def deleteColumnList = params.deleteColumn instanceof String ? [params.deleteColumn]: params.deleteColumn as ArrayList
+			if (deleteColumnList) {
+				//Iterate over all on the client deleted columns
+				for (def i = 0; i < deleteColumnList.size(); i++) {
+					//The deleteColumnList[i] represents the index relatively to the board 
+					//(e.g. 0 is the first column of boardInstance.columns)
+					def toDeleteColumn = boardInstance.columns[deleteColumnList[i].toInteger()]
+					if (toDeleteColumn) {
+						//Remove it from the current boardInstance
+						boardInstance.columns.remove(toDeleteColumn)
+						//and delete the column itself
+						toDeleteColumn.delete()					
+					}	
+				}		
+			}								
 		}
 				
-		bindData(boardInstance, params)	
+		bindData(boardInstance, params)
 		
-
 		boardInstance.columns[params.workflowStart as int].workflowStartColumn = true
 
 		if (boardInstance.validate() && boardInstance.save(flush:true)){
@@ -71,8 +86,7 @@ class BoardController {
 					List<Integer> userIds = userIdStrings.collect { it.toInteger() }
 					userIds.each { userId ->
 						if(userId) {
-							def user = User.get(userId)
-							println "Associating $user with $boardInstance and role ${role.toString()}"
+							def user = User.get(userId)							
 							UserBoard.create(user, boardInstance, RoleEnum."${role.toString()}", true)
 						}
 					}

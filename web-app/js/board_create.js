@@ -16,7 +16,12 @@
 		},
 		text: false
 	}).live('click', function() {
-		$(this).parents("li").remove();
+		var li = $(this).parents("li");
+		var index = li.index();
+		var ul = $(li).parents("ul");
+		ul.append('<input type="hidden" name="deleteColumn" value="'+index+'"/>');					
+		li.remove();
+		
 	});
 	
 	$(".move").button({

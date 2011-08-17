@@ -17,7 +17,7 @@
         <meta name="layout" content="main" />        
         <link rel="stylesheet" href="${resource(dir:'css',file:'board_create.css')}" />
         <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.flydom-3.1.1.js')}"></script>        
-        <script type="text/javascript" src="${resource(dir:'js', file:'board_create.js')}"></script>
+        <script type="text/javascript" src="${resource(dir:'js', file:'board_create.js')}"></script>        
         <title>${title}</title>
     </head>
     <body>	
