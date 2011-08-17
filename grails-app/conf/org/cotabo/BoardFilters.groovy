@@ -4,7 +4,7 @@ class BoardFilters {
 	def springSecurityService
 	
     def filters = {
-        boardView(controller:'board', action:'show') {
+        boardShowView(controller:'board', action:'show') {
             before = {
                 def board =  Board.get(params.id)							
 				def user = User.findByUsername(springSecurityService.principal.username)
@@ -15,5 +15,15 @@ class BoardFilters {
 				return true;				
             }
         }
+		boardEditView(controller:'board', action:'edit') {
+			before = {
+				def board = Board.get(params.id)
+				def user = User.findByUsername(springSecurityService.principal.username)				
+				if (!board.getUsers(RoleEnum.ADMIN).find{it == user}) {
+					render(status:403, view:'notallowed', model:[boardInstance:board])
+					return false
+				}
+			}
+		}
     }
 }
