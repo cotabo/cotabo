@@ -37,7 +37,7 @@ class BoardController {
 			boardInstance: boardInstance, 
 			colors:grailsConfig.config.taskboard.colors, 
 			priorities:grailsConfig.config.taskboard.priorities,
-			users:User.list() 
+			allUsers:User.list() 
 		]
     }
 
