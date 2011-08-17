@@ -43,6 +43,7 @@
 	}).change();
 	
 </jq:jquery>
+<%@ page import="org.cotabo.RoleEnum" %>
 <div id="createTaskForm" title="new task">	
     <g:hasErrors bean="${boardInstance}">
 	    <div class="errors">
@@ -75,7 +76,7 @@
     					<label for="assignee" alt="The assignee for this task" class="optional">assignee</label>
     				</td>
     				<td>
-    					<g:set var="assignees" value="${(boardInstance.users +  boardInstance.admins).unique()}"/>
+    					<g:set var="assignees" value="${(boardInstance.getUsers(RoleEnum.USER) +  boardInstance.getUsers(RoleEnum.ADMIN)).unique()}"/>
     					<g:select name="assignee" 
     						from="${assignees}" 
     						noSelection="${['':'']}"

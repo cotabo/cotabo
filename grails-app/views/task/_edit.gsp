@@ -1,3 +1,4 @@
+<%@ page import="org.cotabo.RoleEnum" %>
 <div id="taskUpdateDialog" title="update task">
 	<jq:jquery>
 	    /**
@@ -72,7 +73,7 @@
                         <label for="assignee" alt="The assignee for this task" class="optional">assignee</label>
                     </td>
                     <td>
-                        <g:set var="assignees" value="${(taskInstance.column.board.users +  taskInstance.column.board.admins).unique()}"/>
+                        <g:set var="assignees" value="${(taskInstance.column.board.getUsers(RoleEnum.USER) +  taskInstance.column.board.getUsers(RoleEnum.ADMIN)).unique()}"/>
                         <g:select name="assignee" 
                             from="${assignees}"                             
                             value="${taskInstance.assignee.id}"

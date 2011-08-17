@@ -125,7 +125,7 @@ class BoardTagLib {
 				<ul>
 					<li title="number of users">
 						<span class="ui-icon  ui-icon-person"></span>
-						${attrs.board.admins.size() + attrs.board.users?.size()}						
+						${attrs.board.users.size()}						
 					</li>
 					<li title="reporting">
 						<a href="${createLink(conroller:"board", action:"comulativeflowchart", id:"${attrs.board.id}")}">
@@ -170,5 +170,17 @@ class BoardTagLib {
 		</li>
 		"""
 		
+	}
+	/**
+	 * Prints a role of org.cotabo.RoleEnum in a user-friendly format
+	 * 	attrs:
+	 * 	  - role: the RoleEnum value to print
+	 */
+	def printRole = { attrs ->
+		if (!attrs.role)
+			return		
+		def friendly = attrs.role.toString().toLowerCase()
+		friendly = friendly.replaceAll('_', ' ')
+		out << friendly
 	}
 }

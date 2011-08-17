@@ -56,8 +56,7 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		def column3 = new Column(name:'done')
 		def board = new Board(name:'myboard')
 		def user = User.findByUsername('testuser')
-		board.columns = [column1, column2, column3]
-		board.users = [user]
+		board.columns = [column1, column2, column3]		
 		column1.board = board
 		column2.board = board
 		column3.board = board
@@ -68,6 +67,8 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		mockDomain(Block)
 		mockDomain(TaskMovementEvent)
 		mockDomain(ColumnStatusEntry)
+		mockDomain(UserBoard)
+		UserBoard.create(user, board, RoleEnum.ADMIN)
 		
 		
 		//We need to disable the overwriting of the dateCreated field
@@ -153,15 +154,15 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		assertEquals 62, TaskMovementEvent.list().size()
 		
 		//Extecting 100 ColumnStatusEntries 
-		//80 = 40 moves
-		//+ 20 = 20 creates
+		//120 = 40 moves
+		//+ 60 = 20 creates
 		//+ 2 (for 2 single task creations - creation created only 1 ColumnStatusEntry)
-		assertEquals 102, ColumnStatusEntry.list().size()			
+		assertEquals 186, ColumnStatusEntry.list().size()			
 		
 		use(TimeCategory) {			
 			//Expecting 1 moves at this timestamp (todo > wip)
 			assertEquals 1, TaskMovementEvent.findAllByDateCreated(startDate+2.days).size()
-			assertEquals 2, ColumnStatusEntry.findAllByDateCreated(startDate+2.days).size()
+			assertEquals 3, ColumnStatusEntry.findAllByDateCreated(startDate+2.days).size()
 		}
 		assertNotNull Board.findByName('myboard')
 		assertNotNull Column.findByName('todo')

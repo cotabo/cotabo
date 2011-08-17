@@ -12,17 +12,11 @@ class User {
 	
 	String firstname
 	String lastname
-	String email
-	
-	List adminBoards
-	List userBoards
+	String email	
 
 	byte[] avatar
 	String avatarType
-	
-	static hasMany = [adminBoards: Board, userBoards: Board]
-
-		
+			
 
 	static constraints = {
 		firstname blank: false
@@ -32,8 +26,6 @@ class User {
 		password blank: false, minSize: 5				
 		avatar nullable: true
 		avatarType nullable: true
-		adminBoards nullable: true
-		userBoards nullable: true
 	}
 
 	static mapping = {
@@ -43,6 +35,23 @@ class User {
 
 	Set<Role> getAuthorities() {
 		UserRole.findAllByUser(this).collect { it.role } as Set
+	}
+	
+	/**
+	 * Returns all related boards of this user.
+	 * See role param below on returning behaviour
+	 * @param role -<i>optional</i> RoleEnum value. If given returning only the related board 
+	 * with this role. Otherwhise returning all related boards.
+	 * 
+	 * @return The related boards based on the given role (or all if no role given)
+	 */
+	Set<Board> getBoards(RoleEnum role = null) {
+		if(role) {
+			return UserBoard.findAllByUserAndRole(this,role).collect { it.board } as Set
+		}
+		else {
+			return UserBoard.findAllByUser(this).collect { it.board } as Set
+		}
 	}
 	
 	@Override

@@ -18,11 +18,8 @@ class BoardTests extends TaskBoardUnitTest {
 		//Preparation - Column definition without save
 		def column = Column.findByName('todo')							
 		
-		def board = new Board(name:'MyNewBoard')
-			.addToUsers(user)
-			.addToColumns(column)
-			.addToAdmins(user)						
-		
+		def board = new Board(name:'MyNewBoard')			
+			.addToColumns(column)							
 		
 		def result = board.validate()		
 		assertTrue result
@@ -30,10 +27,8 @@ class BoardTests extends TaskBoardUnitTest {
 		assertNotNull board.save()
 		def returnedBoard = Board.findByName('MyNewBoard') 
 		assertNotNull returnedBoard
-		assertNotNull returnedBoard.columns
-		assertNotNull returnedBoard.users
-		assertEquals 'todo', returnedBoard.columns.first().name
-		assertEquals 'testuser', returnedBoard.users.first().username						
+		assertNotNull returnedBoard.columns		
+		assertEquals 'todo', returnedBoard.columns.first().name							
     }
 	
 	void testFailWihoutColumns() {
@@ -41,30 +36,13 @@ class BoardTests extends TaskBoardUnitTest {
 		def user = User.findByUsername('testuser')							
 		assertNotNull user
 							
-		def board = new Board(name:'MyNewBoard')
-			.addToUsers(user)
-			.addToAdmins(user)						
+		def board = new Board(name:'MyNewBoard')			
 			
 		assertFalse board.validate()		
 		assertEquals 1, board.errors.allErrors.size()		
 		assertNull board.save()
 	}
 	
-	void testFailWithoutUsers() {		
-		//Preparation - get the user
-		def user = User.findByUsername('testuser')							
-		assertNotNull user
-		//Preparation - Column definition without save
-		def column = Column.findByName('todo')
-							
-		def board = new Board(name:'MyNewBoard')
-			.addToColumns(column)
-			.addToAdmins(user)						
-			
-		assertFalse board.validate()
-		assertEquals 1, board.errors.allErrors.size()
-		assertNull board.save()
-	}
 	
 	void testFailWihoutName() {
 		//Preparation - get the user
@@ -73,10 +51,8 @@ class BoardTests extends TaskBoardUnitTest {
 		//Preparation - Column definition without save
 		def column = Column.findByName('todo')
 							
-		def board = new Board()
-			.addToUsers(user)
-			.addToColumns(column)
-			.addToAdmins(user)						
+		def board = new Board()			
+			.addToColumns(column)						
 			
 		assertFalse board.validate()
 		assertEquals 1, board.errors.allErrors.size()		
@@ -105,10 +81,8 @@ class BoardTests extends TaskBoardUnitTest {
 			This test is longer than 255 Characters.
 		'''
 		
-		def board = new Board(name:'MyNewBoard', description: description)
-			.addToUsers(user)
-			.addToColumns(column)
-			.addToAdmins(user)						
+		def board = new Board(name:'MyNewBoard', description: description)			
+			.addToColumns(column)						
 			
 		assertFalse board.validate()
 		assertEquals 1, board.errors.allErrors.size()
@@ -134,9 +108,7 @@ class BoardTests extends TaskBoardUnitTest {
 			new Column(name:'mycolumn11'),
 		]
 		
-		def board = new Board(name:'MyNewBoard')
-			.addToUsers(user)		
-			.addToAdmins(user)						
+		def board = new Board(name:'MyNewBoard')								
 			
 		columnList.each {
 			board.addToColumns(it)
@@ -145,41 +117,5 @@ class BoardTests extends TaskBoardUnitTest {
 		assertFalse board.validate()
 		assertEquals 1, board.errors.allErrors.size()
 		assertNull board.save()
-	}
-	
-	void testFailWithoutAdmin() {
-		//Preparation - get the user
-		def user = User.findByUsername('testuser')						
-		assertNotNull user
-		def column = Column.findByName('todo')	
-							
-		def board = new Board(name:'MyNewBoard')
-			.addToUsers(user)
-			.addToColumns(column)						
-			
-		assertFalse board.validate()
-		assertEquals 1, board.errors.allErrors.size()
-		assertNull board.save()
-	}
-	
-	void testFailTooMuchAdmins() {
-		//Preparation - get the user
-		def user = User.findByUsername('testuser')						
-		assertNotNull user
-		def column = Column.findByName('todo')
-		
-		//Calling addToAdmins 6 times. Limit is 5.
-		def board = new Board(name:'MyNewBoard')
-			.addToUsers(user)
-			.addToColumns(column)						
-			.addToAdmins(user)
-			.addToAdmins(user)
-			.addToAdmins(user)
-			.addToAdmins(user)
-			.addToAdmins(user)
-			.addToAdmins(user)
-		assertFalse board.validate()
-		assertEquals 1, board.errors.allErrors.size()
-		assertNull board.save()		
 	}	
 }

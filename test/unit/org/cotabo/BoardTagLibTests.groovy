@@ -34,12 +34,10 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 		//Preparation - Column definition without save
 		def column = new Column(name:'koffer', limit: 5)				
 		
-		def board = new Board(name:'MyBoard')
-			.addToUsers(user)
-			.addToColumns(column)			
-			.addToAdmins(user)						
-			
+		def board = new Board(name:'MyBoard')			
+			.addToColumns(column)						
 		board.save()
+		UserBoard.create(user, board, RoleEnum.ADMIN)
 		mockTagLib(BoardTagLib)
     }
 

@@ -54,9 +54,8 @@ class BootStrap {
 				.addToColumns(column3)
 			board.save()
 			
-			admin.addToAdminBoards(board).save()
-			user.addToUserBoards(board).save()
-			
+			UserBoard.create(admin, board, RoleEnum.ADMIN)
+			UserBoard.create(user, board, RoleEnum.USER)			
 			
 			def testTasks
 

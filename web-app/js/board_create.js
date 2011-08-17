@@ -126,13 +126,13 @@
 			var hidden = $(ui.item).find('div > input[type="hidden"]');
 			if (role != 'list_selectable') {				
 				//Giving the hidden form fiels the correct name
-				hidden.attr('name', role+'['+id+'].id');
-				hidden.attr('id', role+'['+id+'].id');				
+				hidden.attr('name', role);
+				//hidden.attr('id', role+'['+id+'].id');				
 			}
 			else {				
 				//The initial state for users that don't have a role assigned				
 				hidden.attr('name', 'user['+id+']');
-				hidden.attr('id', 'user['+id+']');
+				//hidden.attr('id', 'user['+id+']');
 			}
 			
 		}
