@@ -7,6 +7,7 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 	def dashboardService 
     protected void setUp() {
         super.setUp()
+		mockLogging(DashboardService)
 		dashboardService = new DashboardService()
     }
 
@@ -173,8 +174,19 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 		def expected = sb.toString()
 		
 		//We need to pop the last element as this will be the current timestamp (not testable)
-		def result = dashboardService.getTaskCountInWorkflowData(Board.findByName('myboard'))
-		def resultList = result.readLines()		
+		def board = Board.findByName('myboard')
+		assertNotNull board
+		println board
+		
+		def result = dashboardService.getTaskCountInWorkflowData(board)
+		assertNotNull result
+		println result
+		
+		def resultList = result.readLines()
+		assertNotNull resultList
+		println resultList
+		assertTrue resultList?.size() > 0		
+		
 		resultList.pop()
 				
 		assertEquals expected.readLines(), resultList

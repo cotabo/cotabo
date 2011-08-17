@@ -8,7 +8,10 @@ class BoardTagLibTests extends TagLibUnitTestCase {
     protected void setUp() {
         super.setUp()	
 		//Mocking encodeAsHtml()		
-		String.metaClass.encodeAsHTML = {HTMLCodec.encode(delegate)}	
+		String.metaClass.encodeAsHTML = {HTMLCodec.encode(delegate)}
+		BoardTagLib.metaClass.createLink = {map ->
+			return "/${map.controller}/${map.action}/${map.id}"
+		}
 		
 		mockConfig '''
 			taskboard.colors = ['#faf77a', '#fa7a88', '#bcbcf5', '#f9d7a9']
@@ -25,6 +28,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 				email: 'e@mail.com'
 			)]
 		)
+		mockDomain(UserBoard)
 		//Preparation - get the user
 		def user = User.findByUsername('testuser')
 		assertNotNull user
@@ -43,12 +47,13 @@ class BoardTagLibTests extends TagLibUnitTestCase {
     }
 
     void testBoard() {
-		def expected = """
+    	def expected = """
 		<div id="board">
 			<h2>MyBoard</h2>
+			<p class="description"></p>
 		
 		</div>
-		""" 	
+		"""
 			
 		def tl = new BoardTagLib()
 		tl.board([board:Board.findByName('MyBoard')], {})
@@ -89,9 +94,10 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 	
 	void testTask() {
 		def expected= """
-			<li class="ui-widget" id="task_1">
+			<li class="ui-widget ui-corner-all" id="task_1">
 				<div class="task-header ui-state-default">
-					<div class="head_color" style="background:#faf77a;"></div>
+					<img class="avatar" src="/user/avatar/testuser" />
+					<div class="head_color" style="background-color:#faf77a;"></div>
 					<div id="color_helper" style="display:none;">#faf77a</div>
 					<div class="head_name">#1 - mytask</div>
 					<div class="block-box not-blocked"></div>
@@ -114,7 +120,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 							</tr>
 							<tr>
 								<td><b>Assignee:</b></td>
-								<td id="task_1_assignee">firstname lastname</td>
+								<td id="task_1_assignee">testuser</td>
 							</tr>
 						</tbody>
 					</table>

@@ -119,7 +119,8 @@ class UserBoardTests extends GrailsUnitTestCase {
 			name: 'testBoard2',
 			columns: [Column.findByName('todo')]
 		).save()
-		def user = User.findByUsername('testuser')		
+		def user = User.findByUsername('testuser')
+		def user2 = User.findByUsername('testuser2')
 		def board = Board.findByName('testBoard')
 		def board2 = Board.findByName('testBoard2')
 		
