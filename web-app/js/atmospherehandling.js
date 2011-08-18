@@ -60,6 +60,9 @@ var atmosphereCallback = function(response) {
 				});
 			}
 			switch(data.type) {
+				case "all":
+					reloadAllCallback(data);
+					break;
 				case "task_movement":
 					taskMovementCallback(data);
 					break;
@@ -252,4 +255,8 @@ var chatMessageCallback = function(data) {
 			pnotify_nonblock: false
 		});
 	}
+}
+
+var reloadAllCallback = function(data) {
+	location.reload(true);
 }

@@ -17,8 +17,8 @@ class BoardController {
     }
 
     def list = {
-		def user = User.findByUsername(springSecurityService.principal.username)						
-        [adminBoards: user.getBoards(RoleEnum.ADMIN), userBoards: user.getBoards(RoleEnum.USER)]
+    	def user = User.findByUsername(springSecurityService.principal.username)						
+    	[adminBoards: user.getBoards(RoleEnum.ADMIN), userBoards: user.getBoards(RoleEnum.USER)]
     }
 
     def create = {
