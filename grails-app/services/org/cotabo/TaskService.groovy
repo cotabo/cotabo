@@ -111,7 +111,6 @@ class TaskService {
 			events << new ColumnStatusEntry(
 				column: it,
 				tasks: it.tasks?.size() ?: 0,
-				entered:false,
 				dateCreated: dateCreated
 			)
 		}

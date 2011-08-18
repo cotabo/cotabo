@@ -1,6 +1,7 @@
 package org.cotabo
 
 import grails.test.*
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 
 class TaskIntegrationTests extends GrailsUnitTestCase {
     protected void setUp() {
@@ -20,17 +21,25 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 		
 		assertNotNull col
 		assertNotNull othercol
-		assertNotNull user				
+		assertNotNull user
 		
-		def newCol =othercol.addToTasks(
+		def newtask = [
 			name: 'mytask',
 			durationHours: 0.5,
 			creator: user,
 			column: col,
 			sortorder: 100,
 			priority: 'Critical',
-			color: '#faf77a'
-		)
+			color: grailsConfig.config.taskboard.colors[0]
+		] as Task
+		
+		if(!newtask.validate()){
+			newtask.errors.allErrors.each{println it}
+			assertTrue newtask.validate()
+		}
+		
+		def newCol =othercol.addToTasks(newtask)
+		
 		assertTrue newCol.validate()
 		assertNotNull newCol.save(flush:true)
 		
