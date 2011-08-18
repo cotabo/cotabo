@@ -131,9 +131,9 @@ class DashboardService {
 		}
 		//Find all ColumnStatusEntries that reflects the entrance of a task to the workflow		
 		def workflowEntryStati = ColumnStatusEntry.findAllEnteredByColumn(firstWorkflowColumn)
-		//Find all ColumnstatusEntries for the last column (reflects the end of the workflow)		
+		//Find all ColumnStatusEntries for the last column (reflects the end of the workflow)		
 		def workflowLeaveStati = ColumnStatusEntry.findAllEnteredByColumn(lastWorkflowColumn)		
-		//Add both lists togather (each entry of this will later reclect a single data point)
+		//Add both lists together (each entry of this will later reclect a single data point)
 		def composedList = workflowEntryStati + workflowLeaveStati
 		//Sort it by date
 		composedList = composedList.sort{a,b-> a.dateCreated <=> b.dateCreated}

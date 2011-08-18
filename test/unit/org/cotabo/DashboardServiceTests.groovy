@@ -154,8 +154,7 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 		//prepare findAllEnteredByColumn as boolean dynamic finders
 		//doesn't seem to work on mocked Domain objects
 		ColumnStatusEntry.metaClass.static.findAllEnteredByColumn = { Column column ->
-			def all = delegate.findAllByColumn(column)			
-			return all.findAll{it.entered}				
+			return delegate.findAllByColumn(column)
 		}
 		//Building the expected
 		StringBuilder sb = new StringBuilder()
@@ -177,6 +176,9 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 		def board = Board.findByName('myboard')
 		assertNotNull board
 		println board
+		
+		assertTrue board.columns?.size() > 0
+		board.columns.each{println it}
 		
 		def result = dashboardService.getTaskCountInWorkflowData(board)
 		assertNotNull result
