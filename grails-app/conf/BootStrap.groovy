@@ -37,6 +37,7 @@ class BootStrap {
 			}			
 		}
 		
+		/* Create test data for test purposes (test-app) and running in development mode */
 		def env = Environment.currentEnvironment.name			
 		if (env == 'test' || env == 'development') {
 			println 'Creating test data...'			
