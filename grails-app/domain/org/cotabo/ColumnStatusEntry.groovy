@@ -14,8 +14,6 @@ class ColumnStatusEntry {
 	
 	Column column	
 	int tasks = 0
-	//A flag whether this is an entry for the entrance or the leave of a task
-	boolean entered 
 	
 	//Grails tracked creation date
 	Date dateCreated

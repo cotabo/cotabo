@@ -10,22 +10,11 @@ class BlockTests extends TaskBoardUnitTest {
     protected void tearDown() {
         super.tearDown()
     }
-
-    void testCreateBlock() {
-		mockDomain(Block)
-		def task = Task.findByName('testtask2')
-		def block = new Block(task:task)
-		assertTrue block.validate()
-		assertNotNull block.save()		
-		assertNotNull Block.findByTask(task)
-		assertNotNull block.dateCreated
-		assertNull block.dateClosed			
-    }
 	
-	void testFailOnCreationWithoutTask() {
-		mockDomain(Block)
-		def block = new Block()
-		assertFalse block.validate()
-		assertNull block.save()					
-	}
+    void testSuccessOnCreationWithoutTask() {
+			mockDomain(Block)
+			def block = new Block()
+			assertTrue block.validate()
+			assertNotNull block.save()					
+		}
 }
