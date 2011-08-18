@@ -1,5 +1,6 @@
 package org.cotabo
 
+import java.util.HashMap.Entry
 import groovy.time.TimeCategory
 
 class DashboardService {
@@ -115,56 +116,34 @@ class DashboardService {
 	 * @return CSV time series data for for tasks in the workflow.
 	 */
 	def getTaskCountInWorkflowData(Board board) {
-		def firstWorkflowColumn = board.columns.find{it.workflowStartColumn}
-		def lastWorkflowColumn = board.columns.last()
-		
-		def allWorkflowCollumns = []
-		def workflowStartFlag = false		
-		board.columns.each {
-			//Set flag too true when we reached the workflowStart Column
-			if (it.workflowStartColumn)
-				workflowStartFlag = true
-			//we only use columns from workflowStart to the one before the last column
-			//as we don't count the last column to participate in the workflow.
-			if(workflowStartFlag && it != board.columns.last())
-				allWorkflowCollumns << it		
-		}
-		//Find all ColumnStatusEntries that reflects the entrance of a task to the workflow		
-		def workflowEntryStati = ColumnStatusEntry.findAllEnteredByColumn(firstWorkflowColumn)
-		//Find all ColumnStatusEntries for the last column (reflects the end of the workflow)		
-		def workflowLeaveStati = ColumnStatusEntry.findAllEnteredByColumn(lastWorkflowColumn)		
-		//Add both lists together (each entry of this will later reclect a single data point)
-		def composedList = workflowEntryStati + workflowLeaveStati
-		//Sort it by date
-		composedList = composedList.sort{a,b-> a.dateCreated <=> b.dateCreated}
-		
-		StringBuilder sb = new StringBuilder()
-		if (composedList) {		
-			//Appending 0 as the first value that the graph at the end looks nicer
-			sb.append("${composedList.first().dateCreated.time},0\n")
-			
-			def lastTaskSum
-			//For each status entry that we found			
-			composedList.each { columnStatusEntry ->				
-				def allColumnsEntries = []
-				//over all columns								
-				allWorkflowCollumns.each {
-					//Try to find a corresponding ColumnStatusEntry
-					def tmpEntry = getColumnStatusForDate(it, columnStatusEntry.dateCreated)
-					if (tmpEntry){
-						allColumnsEntries << tmpEntry								
-					}														
-				}									
-				//Sum the tasks of all found entries
-				def taskSum = allColumnsEntries.sum{it.tasks}
-				sb.append("${columnStatusEntry.dateCreated.time},${taskSum}\n")
-				//Saving this outside the closure scope so that we have the last value available after iteration
-				lastTaskSum = taskSum
+		//This method assumes that we capture a ColumnStatus entry for all columns
+		//every time a task is moved / created
+		boolean workflowStart = false
+		def firstColumnIndex = 0
+		def columnStatusMap = [:]		
+		board.columns.eachWithIndex { item, idx ->
+			if(!workflowStart && item.workflowStartColumn) {
+				workflowStart = true
+				firstColumnIndex = idx
 			}
+			//Collect all workflow columns in a map
+			if(workflowStart) {
+				//We don't cound the last column to belong to the workflow
+				if(item != board.columns.last()) {
+					columnStatusMap."$idx" = ColumnStatusEntry.findAllByColumn(board.columns[idx], [sort:'dateCreated', order:'asc'])
+				}
+			}			
+		}				
+		StringBuilder sb = new StringBuilder()
+		//Iterate over all ColumnStatusEntries of the first column
+		columnStatusMap."$firstColumnIndex".eachWithIndex { item, idx ->
+			//Sum the ColumnStatusEntries with the same index across all column			
+			def taskSum = columnStatusMap.collect {key, value -> value[idx].tasks}.sum()
+			//Get the time of the current ColumnStatusEntry in the first column
+			def time = item.dateCreated.time
 			
-			//Appending the last value with the current timestamp for better graph look.
-			sb.append("${(new Date()).time},${lastTaskSum}\n")
-		}		
+			sb << "$time,$taskSum\n"
+		}
 		return sb.toString()
 	}
 	
