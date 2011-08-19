@@ -10,7 +10,7 @@ class BoardController {
 	def dashboardService
 	def boardUpdateService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
 	
     def index = {
         redirect(action: "list", params: params)
@@ -154,6 +154,36 @@ class BoardController {
         def boardInstance = Board.get(params.id)
         if (boardInstance) {
             try {
+				// TODO FIXME remove this hack enabling later board deletion with Board#delete
+				boardInstance.columns.each{ column ->
+					column.tasks.each{ task ->
+						TaskMovementEvent.findAllByTask(task).each { tmEvent ->
+							tmEvent.delete(flush:true)
+						}
+					}
+				}
+				
+				// TODO FIXME remove this hack enabling later board deletion with Board#delete
+				boardInstance.columns.each{ column ->
+					TaskMovementEvent.findAllByTooColumn(column).each { tmEvent ->
+						tmEvent.delete(flush:true)
+					}
+					
+					TaskMovementEvent.findAllByFromColumn(column).each { tmEvent ->
+						tmEvent.delete(flush:true)
+					}
+				}
+				
+				// TODO FIXME remove this hack enabling later board deletion with Board#delete
+				boardInstance.columns.each{ column ->
+					ColumnStatusEntry.findAllByColumn(column).each { csEntry ->
+						csEntry.delete(flush:true)
+					}
+				}
+				
+				// TODO FIXME remove this hack enabling later board deletion with Board#delete
+				UserBoard.findAllByBoard(boardInstance).each { userboard -> userboard.delete(flush:true) }
+				
                 boardInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'board.label', default: 'Board'), params.id])}"
                 redirect(action: "list")
