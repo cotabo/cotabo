@@ -100,6 +100,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 					<div class="head_color" style="background-color:#faf77a;"></div>
 					<div id="color_helper" style="display:none;">#faf77a</div>
 					<div class="head_name">#1 - mytask</div>
+					<a href="/task/archive/1" class="archive"></a>
 					<div class="block-box not-blocked"></div>
 					<span class="ui-icon ui-icon-carat-1-n"/>
 				</div>
