@@ -155,3 +155,18 @@ div.task-content * td {
 	background-size: 100% 100%;
 }
 
+.archive {
+	background: url('../images/archive.jpeg') no-repeat;
+	opacity:.7;
+	float:right;
+	width:16px;
+	height:16px;
+	display:block;
+	overflow:hidden;
+	margin: 3px;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	-webkit-background-size: 100% 100%; 
+	background-size: 100% 100%;
+}
+
