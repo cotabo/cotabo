@@ -141,6 +141,11 @@ class BoardTagLib {
 							<span class="ui-icon ui-state-default ui-icon-wrench"></span>
 						</a>
 					</li>
+					<li title="delete this board">
+						<a href="${createLink(conroller:"board", action:"delete", id:"${attrs.board.id}")}">
+							<span class="ui-icon ui-state-default ui-icon-close"></span>
+						</a>
+					</li>
 			"""
 		}
 		out << """
