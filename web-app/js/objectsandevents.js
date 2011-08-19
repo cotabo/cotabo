@@ -96,7 +96,6 @@ jQuery(function(){
 	    });               
 	    $('#chat_dialog').find('input').val('');
 	    $('#chat_dialog').dialog('close');
-	    $("input").blur();
 	    return false;
 	}
 	//Binding the submit event of the chat form

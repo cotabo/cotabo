@@ -33,7 +33,9 @@ class Task implements Comparable {
 	String description
 	double durationHours
 	String priority
-	String color		
+	String color
+	
+	boolean archived
 	
     static constraints = {
 		name blank:false, maxSize:100
