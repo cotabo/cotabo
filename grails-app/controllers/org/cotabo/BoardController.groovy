@@ -165,6 +165,17 @@ class BoardController {
 				
 				// TODO FIXME remove this hack enabling later board deletion with Board#delete
 				boardInstance.columns.each{ column ->
+					TaskMovementEvent.findAllByTooColumn(column).each { tmEvent ->
+						tmEvent.delete(flush:true)
+					}
+					
+					TaskMovementEvent.findAllByFromColumn(column).each { tmEvent ->
+						tmEvent.delete(flush:true)
+					}
+				}
+				
+				// TODO FIXME remove this hack enabling later board deletion with Board#delete
+				boardInstance.columns.each{ column ->
 					ColumnStatusEntry.findAllByColumn(column).each { csEntry ->
 						csEntry.delete(flush:true)
 					}
