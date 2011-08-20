@@ -2,7 +2,7 @@ package org.cotabo
 
 import grails.test.*
 
-class BlockTests extends GroovyTestCase {
+class BlockIntegrationTests extends GroovyTestCase {
     protected void setUp() {
         super.setUp()
     }

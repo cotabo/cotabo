@@ -190,4 +190,21 @@ class TaskController {
 			render (status: 404, contentType:'application/json', text: resp as JSON)
 		}
 	}
+	
+	def archive = {
+		def taskInstance = Task.get(params.id)
+		log.debug("Archiving task ${taskInstance}...")
+		if( taskInstance) {
+			taskInstance.archived = true;
+			taskInstance.save(flush:true);
+			
+			boardUpdateService.broadcastMessage(
+				session.getAttribute("boardBroadacster")?.broadcaster,
+				taskInstance.toMessage(),
+				MessageType.ALL,
+				''
+			)
+		}
+		redirect(controller :'board', action: 'show', id:taskInstance.column.board.id)
+	}
 }

@@ -1,6 +1,7 @@
 package org.cotabo
 
 class MessageType {
+	public static final String ALL = 'all'
 	public static final String CHAT_MESSAGE = 'chat_message'
 	public static final String TASK_MOVEMENT = 'task_movement'
 	public static final String TASK_REORDERING = 'task_reordering'

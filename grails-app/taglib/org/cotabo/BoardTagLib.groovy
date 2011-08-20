@@ -62,7 +62,7 @@ class BoardTagLib {
 	 * 	
 	 */
 	def task = {attrs, body ->
-		if (!attrs.task) {
+		if (!attrs.task || attrs.task.archived) {
 			out << ''			
 		}
 		else {
@@ -73,6 +73,7 @@ class BoardTagLib {
 					<div class="head_color" style="background-color:${attrs.task?.color?.encodeAsHTML()};"></div>
 					<div id="color_helper" style="display:none;">${attrs.task?.color?.encodeAsHTML()}</div>
 					<div class="head_name">#${attrs.task?.id ?: ''} - ${attrs.task?.name?.encodeAsHTML()}</div>
+					<a href="${createLink(controller:'task', action:'archive', id:attrs.task?.id)}" class="archive"></a>
 					<div class="block-box ${attrs.task?.blocked ? 'blocked' : 'not-blocked'}"></div>
 					<span class="ui-icon ui-icon-carat-1-${attrs.hide ? 's' : 'n'}"/>
 				</div>
@@ -106,7 +107,7 @@ class BoardTagLib {
 	/**
 	 * Print a board summary for listing
 	 * attrs:
-	 * 		board: board Obect (required)
+	 * 		board: board Object (required)
 	 * 		admin: (boolean) whether this summary should contain admin options or not
 	 */
 	def boardSummary = { attrs, body ->
@@ -138,6 +139,11 @@ class BoardTagLib {
 					<li title="edit this board">
 						<a href="${createLink(conroller:"board", action:"edit", id:"${attrs.board.id}")}">
 							<span class="ui-icon ui-state-default ui-icon-wrench"></span>
+						</a>
+					</li>
+					<li title="delete this board">
+						<a href="${createLink(conroller:"board", action:"delete", id:"${attrs.board.id}")}">
+							<span class="ui-icon ui-state-default ui-icon-close"></span>
 						</a>
 					</li>
 			"""
