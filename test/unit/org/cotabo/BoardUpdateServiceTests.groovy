@@ -2,19 +2,23 @@ package org.cotabo
 
 import grails.test.*
 
-import org.atmosphere.cpr.Broadcaster;
+import java.util.concurrent.TimeUnit
+import org.atmosphere.cpr.AtmosphereServlet
+import org.atmosphere.cpr.BroadcastFilter
+import org.atmosphere.cpr.Broadcaster
+import org.atmosphere.cpr.BroadcasterConfig;
 import org.atmosphere.cpr.BroadcasterFactory
 import org.atmosphere.cpr.DefaultBroadcaster
 import org.atmosphere.cpr.AtmosphereResource
 import org.atmosphere.cpr.AtmosphereResourceEvent
+import org.atmosphere.util.SimpleBroadcaster;
 import org.codehaus.groovy.grails.plugins.testing.GrailsMockHttpSession
 
 
 class BoardUpdateServiceTests extends GrailsUnitTestCase {
 	
 	private atmosphereResourceControl
-	private atmosphereResourceEventControl 
-	
+	private atmosphereResourceEventControl 	
 	
     protected void setUp() {
         super.setUp()
@@ -23,7 +27,7 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 		atmosphereResourceControl = mockFor(AtmosphereResource, true)
 		atmosphereResourceEventControl = mockFor(AtmosphereResourceEvent, true)
 		def broadcasterFactoryControl = mockFor(BroadcasterFactory, true)
-		def broadcasterControl  = mockFor(Broadcaster, true)
+		def broadcasterControl = mockFor(Broadcaster, true)		
 				
 		
 		//Mocking atmosphereResource
@@ -67,8 +71,8 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 		def message
 		atmosphereResourceEventControl.demand.setMessage(1..1) { m -> message = m }
 		atmosphereResourceEventControl.demand.getMessage(2..2) { return message }
+		atmosphereResourceEventControl.demand.isCancelled(1..1) { return false }
 		
-				
 		//Mocking Broadcaster
 		def resources = []
 		broadcasterControl.demand.addAtmosphereResource(1..1) { bc ->
@@ -78,6 +82,16 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 		broadcasterControl.demand.getResources(1..1) {
 			return resources
 		}
+		
+		broadcasterControl.demand.getBroadcasterConfig(2..2) {
+			//Return an empty dummy BroadcasterConfig object
+			return new BroadcasterConfig([''] as String[] , new AtmosphereServlet.AtmosphereConfig())
+		}
+		broadcasterControl.demand.boardSpecificBroadcaster(1..1) {
+			//do nothing - just check for 1 call
+		}
+			
+		broadcasterControl.demand.scheduleFixedBroadcast(1..1) { String msg, int seconds, TimeUnit time -> 	}
 				
 		//Mocking BroadcasterFactory & sub-object that we use
 		BroadcasterFactory.metaClass.static.getDefault = {
@@ -86,7 +100,7 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 					def tmpBroadcasters = delegate.broadcasters
 					def bc = delegate.broadcasters[channel]					
 					if (!bc) {
-						bc = broadcasterControl.createMock()
+						bc = broadcasterControl.createMock()						
 						delegate.broadcasters[channel] = bc
 					}									
 					return bc						
@@ -127,7 +141,7 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 		atmosphereResourceEvent.message = '{"test":"test"}'
 		atmosphereResourceEvent.resource = atmosphereResource
 		//The expectec message to be written to the responseWriter
-		def expectedMessage = "<script>parent.callback('{\"test\":\"test\"}');</script>"
+		def expectedMessage = "{\"test\":\"test\"}"
 		//Call the service closure
 		boardUpdateService.onStateChange(atmosphereResourceEvent)
 		assertEquals expectedMessage, atmosphereResourceEvent.resource.response.writer.toString() 
