@@ -31,9 +31,12 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 	
 	void testMoveTask() {
 		def result
-		def order = [1,3,2]
+		def order = Column.findByName('In Progress').tasks.collect {it.id}
+		//Adding the id 3 at the beginning
+		order.add(0, 3)
 		def expectedTaskMovementEventSize = TaskMovementEvent.list().size() + 1
-		def expectedColumnStatusEntrySize = ColumnStatusEntry.list().size() + 2
+		def expectedColumnStatusEntrySize = ColumnStatusEntry.list().size() + 3
+		def initialTaskCount = Column.findByName('In Progress').tasks.size()
 		//We need to be authenticated for that
 		SpringSecurityUtils.doWithAuth('user') {
 			result = taskService.moveTask(
@@ -45,7 +48,7 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		}
 		
 		assertEquals '', result
-		assertEquals 3, Column.findByName('In Progress').tasks.size()
+		assertEquals initialTaskCount + 1, Column.findByName('In Progress').tasks.size()
 		assertEquals order, Column.findByName('In Progress').tasks.collect{it.id}
 		
 		//Testing the generated events
@@ -68,7 +71,7 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		}
 		assertEquals '', result
 		assertEquals expectedTaskMovementEventSize + 1, TaskMovementEvent.list().size()
-		assertEquals expectedColumnStatusEntrySize + 2, ColumnStatusEntry.list().size()				
+		assertEquals expectedColumnStatusEntrySize + 3, ColumnStatusEntry.list().size()				
 		
 	}
 	
@@ -82,14 +85,14 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 			creator: user,
 			sortorder: 100,
 			priority: 'Critical',
-			color: '#faf77a',
+			color: '#fafaa8',
 			column: col
 		)
 
 		//We need to be authenticated for that
 		SpringSecurityUtils.doWithAuth('user') {
 			task = taskService.saveTask(task)
-		}
+		}		
 		assertEquals 0, task.errors.errorCount 
 		
 		//Check if our tasks appears in the last ColumnStatusEntry - was 5 - should be 6
