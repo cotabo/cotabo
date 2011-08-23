@@ -64,8 +64,7 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		mockDomain(Column, [column1, column2, column3])
 		mockDomain(Board, [board])
 		mockDomain(Task)
-		mockDomain(Block)
-		mockDomain(TaskMovementEvent)
+		mockDomain(Block)		
 		mockDomain(ColumnStatusEntry)
 		mockDomain(UserBoard)
 		UserBoard.create(user, board, RoleEnum.ADMIN)
@@ -79,8 +78,7 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 			if (!delegate.@dateCreated) {
 				delegate.@dateCreated = d
 			}
-		}		
-		TaskMovementEvent.metaClass.setDateCreated = newSetDateCreated
+		}				
 		ColumnStatusEntry.metaClass.setDateCreated = newSetDateCreated
 		
 
@@ -148,11 +146,7 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
     }
 	
 	
-	void testOwnMockup() {
-		//Expecting 62 overall movements as we're moving 2 times + 1 event for creation for 20 tasks 
-		// + 2 single task creations
-		assertEquals 62, TaskMovementEvent.list().size()
-		
+	void testOwnMockup() {		
 		//Extecting 100 ColumnStatusEntries 
 		//120 = 40 moves
 		//+ 60 = 20 creates
@@ -160,8 +154,7 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		assertEquals 186, ColumnStatusEntry.list().size()			
 		
 		use(TimeCategory) {			
-			//Expecting 1 moves at this timestamp (todo > wip)
-			assertEquals 1, TaskMovementEvent.findAllByDateCreated(startDate+2.days).size()
+			//Expecting 3 columnStatusEntries as we expect 1 move on the startDate.2
 			assertEquals 3, ColumnStatusEntry.findAllByDateCreated(startDate+2.days).size()
 		}
 		assertNotNull Board.findByName('myboard')

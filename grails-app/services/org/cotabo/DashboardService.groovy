@@ -33,7 +33,7 @@ class DashboardService {
 			entries = ColumnStatusEntry.findAllByColumnAndDateCreatedBetween(column, from, too, ordering)	
 		}
 		if(entries) {
-			//Starting from 0		
+			//Starting from 0
 			sb << "${entries.first().dateCreated.time},0\n"
 			entries.each{
 				//As the JavaScript timestamp is in milliseconds we need to multiply by 1000
@@ -130,6 +130,7 @@ class DashboardService {
 			if(workflowStart) {
 				//We don't cound the last column to belong to the workflow
 				if(item != board.columns.last()) {
+					//Put all ColumnStatusEntries into a map value which key is the column ID					
 					columnStatusMap."$idx" = ColumnStatusEntry.findAllByColumn(board.columns[idx], [sort:'dateCreated', order:'asc'])
 				}
 			}			
@@ -137,7 +138,7 @@ class DashboardService {
 		StringBuilder sb = new StringBuilder()
 		//Iterate over all ColumnStatusEntries of the first column
 		columnStatusMap."$firstColumnIndex".eachWithIndex { item, idx ->
-			//Sum the ColumnStatusEntries with the same index across all column			
+			//Sum the ColumnStatusEntries with the same index across all column	
 			def taskSum = columnStatusMap.collect {key, value -> value[idx].tasks}.sum()
 			//Get the time of the current ColumnStatusEntry in the first column
 			def time = item.dateCreated.time

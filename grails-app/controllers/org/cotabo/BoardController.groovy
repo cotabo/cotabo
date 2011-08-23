@@ -9,6 +9,7 @@ class BoardController {
 	def springSecurityService
 	def dashboardService
 	def boardUpdateService
+	def sessionFactory
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
 	
@@ -170,30 +171,12 @@ class BoardController {
             try {
 				// TODO FIXME remove this hack enabling later board deletion with Board#delete
 				boardInstance.columns.each{ column ->
-					column.tasks.each{ task ->
-						TaskMovementEvent.findAllByTask(task).each { tmEvent ->
-							tmEvent.delete(flush:true)
-						}
-					}
-				}
-				
-				// TODO FIXME remove this hack enabling later board deletion with Board#delete
-				boardInstance.columns.each{ column ->
-					TaskMovementEvent.findAllByTooColumn(column).each { tmEvent ->
-						tmEvent.delete(flush:true)
-					}
-					
-					TaskMovementEvent.findAllByFromColumn(column).each { tmEvent ->
-						tmEvent.delete(flush:true)
-					}
-				}
-				
-				// TODO FIXME remove this hack enabling later board deletion with Board#delete
-				boardInstance.columns.each{ column ->
 					ColumnStatusEntry.findAllByColumn(column).each { csEntry ->
-						csEntry.delete(flush:true)
+						csEntry.delete(flush:false)
 					}
 				}
+				//Flushing after all entries has been deleted (could potentially be a lot)
+				sessionFactory?.getCurrentSession()?.flush()
 				
 				// TODO FIXME remove this hack enabling later board deletion with Board#delete
 				UserBoard.findAllByBoard(boardInstance).each { userboard -> userboard.delete(flush:true) }

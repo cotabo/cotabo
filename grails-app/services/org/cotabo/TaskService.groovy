@@ -24,6 +24,8 @@ class TaskService {
 	Task saveTask(Task taskInstance, Date dateCreated = null) {	
 		if(taskInstance.validate()) {
 			taskInstance.column.addToTasks(taskInstance).save()
+			//For test purposes
+			taskInstance.dateCreated = dateCreated
 			//saving both as addTo somehow here doesn't seem to main both ends of the relation
 			taskInstance.save()	
 			createMovementEvent(taskInstance, null, taskInstance.column, dateCreated)
@@ -69,10 +71,12 @@ class TaskService {
 		if (fromColumnInstance && toColumnInstance && taskInstance) {
 			fromColumnInstance.removeFromTasks(taskInstance)
 			toColumnInstance.addToTasks(taskInstance)
-			fromColumnInstance.save()
-			toColumnInstance.save()	
+			fromColumnInstance.save(flush:false)
+			toColumnInstance.save(flush:false)	
 			//Making the user who pulled the task - the assignee
 			taskInstance.assignee = User.findByUsername(springSecurityService.principal.username)
+			taskInstance.column = toColumnInstance
+			taskInstance.save(flush:false)
 			sessionFactory?.getCurrentSession()?.flush()
 			createMovementEvent(taskInstance, fromColumnInstance, toColumnInstance, dateCreated)
 			return ''
@@ -97,14 +101,6 @@ class TaskService {
 		//Get the current logged-in user
 		def principal = springSecurityService.principal
 		def user = User.findByUsername(principal.username)
-		
-		//We create 1 task Movement event ...
-		events << new TaskMovementEvent(
-			task: task, 
-			fromColumn: fromColumn,
-			tooColumn: tooColumn,
-			user: user,
-			dateCreated: dateCreated)		
 		
 		//Getting a snapshot of task count on each column
 		tooColumn.board.columns.each {

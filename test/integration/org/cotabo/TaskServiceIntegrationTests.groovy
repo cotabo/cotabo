@@ -33,8 +33,7 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		def result
 		def order = Column.findByName('In Progress').tasks.collect {it.id}
 		//Adding the id 3 at the beginning
-		order.add(0, 3)
-		def expectedTaskMovementEventSize = TaskMovementEvent.list().size() + 1
+		order.add(0, 3)		
 		def expectedColumnStatusEntrySize = ColumnStatusEntry.list().size() + 3
 		def initialTaskCount = Column.findByName('In Progress').tasks.size()
 		//We need to be authenticated for that
@@ -51,9 +50,7 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		assertEquals initialTaskCount + 1, Column.findByName('In Progress').tasks.size()
 		assertEquals order, Column.findByName('In Progress').tasks.collect{it.id}
 		
-		//Testing the generated events
-		assertEquals expectedTaskMovementEventSize, TaskMovementEvent.list().size()
-		assertEquals User.findByUsername('user'), TaskMovementEvent.list()[0].user
+		//Testing the generated events				
 		assertEquals expectedColumnStatusEntrySize, ColumnStatusEntry.list().size()		
 
 		//Test whether the assignment works
@@ -69,8 +66,7 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 				newTaskOrderIdList: [6,3,4,7]
 			)
 		}
-		assertEquals '', result
-		assertEquals expectedTaskMovementEventSize + 1, TaskMovementEvent.list().size()
+		assertEquals '', result		
 		assertEquals expectedColumnStatusEntrySize + 3, ColumnStatusEntry.list().size()				
 		
 	}
@@ -96,7 +92,6 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		assertEquals 0, task.errors.errorCount 
 		
 		//Check if our tasks appears in the last ColumnStatusEntry - was 5 - should be 6
-		assertEquals 6, ColumnStatusEntry.findAllByColumn(Column.findByName('ToDo')).last().tasks		
-		assertEquals 1, TaskMovementEvent.findAllByTask(task).size()	
+		assertEquals 6, ColumnStatusEntry.findAllByColumn(Column.findByName('ToDo')).last().tasks				
 	}
 }

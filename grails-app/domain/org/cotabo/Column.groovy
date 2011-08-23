@@ -37,6 +37,5 @@ class Column {
 		limit column: 'column_limit'
 		tasks sort:'sortorder'
 
-	}
-
+	}	
 }

@@ -142,54 +142,73 @@ class DashboardServiceTests extends TaskBoardUnitTest {
 	void testGetAverageCycleTime() {
 		def board = Board.findByName('myboard')
 		//Our workflowStartColumn is 'wip' and every tasks needs 4 hours to be handled
-		long expected = 4				
+		long expected = 4
 		assertEquals expected, dashboardService.getAverageCycleTime(board)
 		
 	}
 	
 	void testGetLeadTimeData() {
+		//In TEST environment we set everything to the same timestamp
+		//and always expect 4 hours lead-time.
+		//see Task.beforeUpdate & Task.beforeInsert
 		def expected = '''1301757193013,4
-1301843593013,4
-1301929993013,4
-1302016393013,4
-1302102793013,4
-1302189193013,4
-1302275593013,4
-1302361993013,4
-1302448393013,4
-1302534793013,4
-1302621193013,4
-1302707593013,4
-1302793993013,4
-1302880393013,4
-1302966793013,4
-1303053193013,4
-1303139593013,4
-1303225993013,4
-1303312393013,4
-1303398793013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
 '''
 		def board = Board.findByName('myboard')
 		assertEquals expected, dashboardService.getLeadTimeData(board)
 	}
 	
 	void testGetLeadTimeDataWithDateRestrictions() {
-		def expected = '''1302016393013,4
-1302102793013,4
-1302189193013,4
-1302275593013,4
-1302361993013,4
-1302448393013,4
-1302534793013,4
-1302621193013,4
+		//In TEST environment we set everything to the same timestamp
+		//and always expect 4 hours lead-time.
+		//see Task.beforeUpdate & Task.beforeInsert
+		def expected = '''1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
+1301757193013,4
 '''
 		def from
 		def too
 		use(TimeCategory) {
-			//Including the 3rd day where we had 4 tasks in (as we start with 1 task on the day 0)
-			from = startDate + 3.days - 20.seconds			
-			//Including the 10th day where we had 11 tasks in
-			too = startDate + 10.days + 4.hours + 20.seconds
+			//from the beginning
+			from = startDate 		
+			//Until +4 hours & 20 seconds - this should include everything 
+			//as everything happend within this time-frame in TEST env.
+			too = startDate + 4.hours + 20.seconds
 		}
 		
 		def board = Board.findByName('myboard')
