@@ -8,8 +8,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 class BoardController {
 	def springSecurityService
 	def dashboardService
-	def boardUpdateService
-	def sessionFactory
+	def boardUpdateService	
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
 	
@@ -169,17 +168,8 @@ class BoardController {
         def boardInstance = Board.get(params.id)
         if (boardInstance) {
             try {
-				// TODO FIXME remove this hack enabling later board deletion with Board#delete
-				boardInstance.columns.each{ column ->
-					ColumnStatusEntry.findAllByColumn(column).each { csEntry ->
-						csEntry.delete(flush:false)
-					}
-				}
-				//Flushing after all entries has been deleted (could potentially be a lot)
-				sessionFactory?.getCurrentSession()?.flush()
-				
-				// TODO FIXME remove this hack enabling later board deletion with Board#delete
-				UserBoard.findAllByBoard(boardInstance).each { userboard -> userboard.delete(flush:true) }
+				//Deleting all user relations manually
+				UserBoard.removeAll(boardInstance)
 				
                 boardInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'board.label', default: 'Board'), params.id])}"
