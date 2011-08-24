@@ -1,5 +1,7 @@
 package org.cotabo
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 class UserController {
 	
 	def springSecurityService
@@ -27,7 +29,7 @@ class UserController {
 		def user = User.findByUsername(springSecurityService.principal.username)
 		if(!user){
 			redirect(action:'addavatar')
-		}
+		}		
 	    // Get the avatar file from the multi-part request
 		def f = request.getFile('avatar')
 
@@ -52,4 +54,56 @@ class UserController {
 	  redirect(action:'addavatar')
 	}
 
+	def save = {
+		def userInstance = User.get(params.id)		
+		if (userInstance) {			
+			if(params.password != params.confimPassword) {
+				flash.message = "You seem to have a typo in you password."
+				render(view:'edit', model:[userInstance:userInstance])
+				return
+			}		
+			bindData(
+				userInstance, params, 
+				[exclude:['enabled', 'accountExpired', 'accountLocked', 'passwordExpired', 'password']]
+			)
+
+		  	// Get the avatar file from the multi-part request
+			def f = request.getFile('avatar')
+			if(f) {
+				// List of OK mime-types
+				def okcontents = ['image/png', 'image/jpeg', 'image/gif']
+				if (! okcontents.contains(f.getContentType())) {
+					flash.message = "avatar must be one of: ${okcontents}"
+					render(view:'edit', model:[userInstance:userInstance])
+					return;
+				}
+				// Save the image and mime type
+				userInstance.avatar = f.getBytes()
+				userInstance.avatarType = f.getContentType()
+			}
+			
+			if(userInstance.validate() && userInstance.save()) {
+				flash.message = "Profile of ${userInstance.username} updated successfully."
+				redirect(controller:'board', action:'list')				
+			}
+			else {
+				render(view:'edit', model:[userInstance:userInstance])				
+			}
+		}
+		else {
+			render(status: 404, text: "No user found for id ${params.id}")
+			return
+		}		
+	}
+	
+	def edit = {
+		def userInstance = User.findByUsername(springSecurityService.principal.username)
+		if (userInstance) {
+			render(view:'edit', model:[userInstance:userInstance])
+		}
+		else {
+			render(status: 404, text: "No user found for id ${params.id}")
+			return
+		}
+	}
 }

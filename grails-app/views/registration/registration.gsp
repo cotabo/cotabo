@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
-        <link rel="stylesheet" href="${resource(dir:'css',file:'registration.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'user.css')}" />
         <title>Cotabo - registration</title>
     </head>
     <body>

@@ -47,8 +47,8 @@
                     </sec:ifNotLoggedIn>
                     <sec:ifLoggedIn>
                     <li>       
-                                                          
-                        <g:link controller="user" action="edit" >
+                                      
+                        <g:link controller="user" action="edit">
                             <span class="ui-icon ui-state-default ui-icon-person"></span>
                             my profile
                         </g:link>
