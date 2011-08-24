@@ -10,7 +10,7 @@ class Column {
 	//Relationships
 	static belongsTo = [ board : Board ]
 	SortedSet tasks
-	static hasMany = [ tasks : Task ]
+	static hasMany = [ tasks : Task, columnStatusEntries : ColumnStatusEntry ]
 	
 	String name
 	String description

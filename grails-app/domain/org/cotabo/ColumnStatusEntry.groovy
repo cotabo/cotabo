@@ -11,17 +11,13 @@ package org.cotabo
  * 
  */
 class ColumnStatusEntry {	
-	
+	static belongsTo = Column
 	Column column	
 	int tasks = 0
 	
 	//Grails tracked creation date
 	Date dateCreated
 
-    static constraints = {
-		column nullable:false		
-    }
-	
 	def beforeUpdate() {
 		//Throw an exception when someone tries to update this
 		throw new EventUpdateException(this.task)
