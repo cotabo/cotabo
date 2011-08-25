@@ -26,7 +26,7 @@ class BoardTagLib {
 	 */
 	def column = { attrs, body ->		
 		//We're removing 0.1 % from each width to avoid a scrollbar when it reached 100%
-		def width = (100 / attrs.column.board.columns.size()) -0.1 ;
+		def width = (100 / attrs.column.board.columns.size()) -0.2 ;
 		out << """
 		<div class="column" style="width:${width}%;">
 			<span class="title">
@@ -143,7 +143,7 @@ class BoardTagLib {
 					</li>
 					<li title="delete this board">
 						<a href="${createLink(conroller:"board", action:"delete", id:"${attrs.board.id}")}">
-							<span class="ui-icon ui-state-default ui-icon-close"></span>
+							<span class="ui-icon ui-state-default ui-icon-trash"></span>
 						</a>
 					</li>
 			"""

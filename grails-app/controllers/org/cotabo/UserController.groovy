@@ -8,17 +8,22 @@ class UserController {
 	def springSecurityService
 	
 	def avatar = {
-		def avatarUser = User.findByUsername(params.username)
-		log.info("avatar_image for user: ${avatarUser}")
-		if (!avatarUser || !avatarUser.avatar || !avatarUser.avatarType) {
-			response.sendError(404)
-			return;
+		if(params.username) {
+			def avatarUser = User.findByUsername(params.username)
+			log.info("avatar_image for user: ${avatarUser}")
+			if (!avatarUser || !avatarUser.avatar || !avatarUser.avatarType) {
+				response.sendError(404)
+				return;
+			}
+			response.setContentType(avatarUser.avatarType)
+			response.setContentLength(avatarUser.avatar.size())
+			OutputStream out = response.getOutputStream();
+			out.write(avatarUser.avatar);
+			out.close();
 		}
-		response.setContentType(avatarUser.avatarType)
-		response.setContentLength(avatarUser.avatar.size())
-		OutputStream out = response.getOutputStream();
-		out.write(avatarUser.avatar);
-		out.close();
+		else {
+			render ''
+		}
 	}
 
 	def save = {
