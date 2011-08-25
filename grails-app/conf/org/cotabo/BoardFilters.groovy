@@ -8,6 +8,10 @@ class BoardFilters {
             before = {
                 def board =  Board.get(params.id)							
 				def user = User.findByUsername(springSecurityService.principal.username)
+				if (!board) {
+					render(status:404, text:'requested board not found')
+					return false
+				}				
 				if (!board.users.find{it == user}) {
 					render(status:403, view:'notallowed', model:[boardInstance:board])
 					return false					
