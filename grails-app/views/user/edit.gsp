@@ -9,7 +9,11 @@
     <body>
         <div>
             <span>
-                <img class="avatar-big" src="${createLink(controller:'user', action:'avatar', id:userInstance.username)}" width="50" height="50"/>
+                <div class="avatar-big">
+                    <g:if test="${userInstance.avatar}" >
+                    <img src="${createLink(controller:'user', action:'avatar', id:userInstance.username)}" width="50" height="50"/>
+                    </g:if>
+                </div>
                 <h1>${userInstance.username}'s profile</h1>
             </span>
             <g:if test="${flash.message}">

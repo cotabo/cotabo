@@ -1,7 +1,8 @@
 package org.cotabo
 
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import grails.plugins.springsecurity.Secured
 
+@Secured(['ROLE_USER'])
 class UserController {
 	
 	def springSecurityService
@@ -20,40 +21,6 @@ class UserController {
 		out.close();
 	}
 
-	def addavatar = {
-		render (view:'select_avatar', model:[:])
-		return
-	}
-
-	def upload_avatar = {
-		def user = User.findByUsername(springSecurityService.principal.username)
-		if(!user){
-			redirect(action:'addavatar')
-		}		
-	    // Get the avatar file from the multi-part request
-		def f = request.getFile('avatar')
-
-		// List of OK mime-types
-		def okcontents = ['image/png', 'image/jpeg', 'image/gif']
-		if (! okcontents.contains(f.getContentType())) {
-			flash.message = "Avatar must be one of: ${okcontents}"
-			render(view:'select_avatar', model:[user:user])
-			return;
-		}
-
-		// Save the image and mime type
-		user.avatar = f.getBytes()
-		user.avatarType = f.getContentType()
-		log.info("File uploaded: " + user.avatarType)
-		// Validation works, will check if the image is too big
-		if (!user.save()) {
-			render(view:'select_avatar', model:[user:user])
-			return;
-		}
-		flash.message = "Avatar (${user.avatarType}, ${user.avatar.size()} bytes) uploaded."
-	  redirect(action:'addavatar')
-	}
-
 	def save = {
 		def userInstance = User.get(params.id)		
 		if (userInstance) {			
@@ -64,12 +31,12 @@ class UserController {
 			}		
 			bindData(
 				userInstance, params, 
-				[exclude:['enabled', 'accountExpired', 'accountLocked', 'passwordExpired', 'password']]
+				[exclude:['enabled', 'accountExpired', 'accountLocked', 'passwordExpired', 'password', 'avatar']]
 			)
 
 		  	// Get the avatar file from the multi-part request
 			def f = request.getFile('avatar')
-			if(f) {
+			if(f.size > 0) {				
 				// List of OK mime-types
 				def okcontents = ['image/png', 'image/jpeg', 'image/gif']
 				if (! okcontents.contains(f.getContentType())) {
