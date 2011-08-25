@@ -130,12 +130,16 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			"""
 		
 		def user = User.findByUsername('testuser')
+		def board = new Board(id:1, name:'testboard')		
+		def firstColumn = new Column(id: 1,name:'koffer',limit: 5, board:board)
+		def lastColumn = new Column(id: 2,name:'koffer2',limit: 5, board:board)
+		board.columns = [firstColumn, lastColumn]
 		def theTask = new Task(
 			id:1,
 			name: 'mytask', 
 			description: 'test description',
 			durationHours: 0.5, 						
-			column: new Column(id: 1, name:'koffer', limit: 5), 
+			column:lastColumn, 
 			creator: user,
 			assignee: user,
 			color: '#faf77a',
