@@ -1,10 +1,10 @@
 <content tag="toolbar">
     <div id="new_task_helper"></div>	
 	<span id="toolbar">	   
-		<button id="b_new_task">new task</button>
-		<button id="b_chat">chat message</button>
-		<button id="b_collapse">collapse all tasks</button>
-		<button id="b_expand">expand all tasks</button>		
+		<button id="b_new_task"><u>n</u>ew task</button>
+		<button id="b_chat">chat <u>m</u>essage</button>
+		<button id="b_collapse"><u>c</u>ollapse all tasks</button>
+		<button id="b_expand"><u>e</u>xpand all tasks</button>		
 	</span>	
 	<div id="chat_dialog" title="Chat message">
 	   <form id="chat_form">

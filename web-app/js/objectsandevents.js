@@ -15,7 +15,7 @@ jQuery(function(){
 						 if (code == 110) /* 'n' */{
 							 $('#createTaskForm').dialog('open');
 						 }
-						 if (code == 115) /* 's' */ {
+						 if (code == 109) /* 'm' */ {
 							 $('#chat_dialog').dialog('open');
 						 }
 						 if (code == 101) /* 'e' */ {
