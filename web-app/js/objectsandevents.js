@@ -7,10 +7,10 @@ jQuery(function(){
 	 * Section for the keyboard navigation.
 	 ********************************************************/
 	 $(document).ready(function(){
-       $("body").keypress(function(e)
-       {
-       	 	var shortcutsDisabled = (e.srcElement instanceof HTMLInputElement);
-       	 	var code = (e.keyCode ? e.keyCode : e.which);
+       $(document).keypress(function(e) {
+    	   var dialogs = $('.ui-dialog:visible').toArray();
+       	   var shortcutsDisabled = dialogs.length > 0 ? true : false;       	       	   
+       	   var code = (e.keyCode ? e.keyCode : e.which);
            if(!shortcutsDisabled) {
 						 if (code == 110) /* 'n' */{
 							 $('#createTaskForm').dialog('open');
