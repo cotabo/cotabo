@@ -142,7 +142,7 @@ class BoardTagLib {
 						</a>
 					</li>
 					<li title="delete this board">
-						<a href="${createLink(conroller:"board", action:"delete", id:"${attrs.board.id}")}">
+						<a class="delete" href="${createLink(conroller:"board", action:"delete", id:"${attrs.board.id}")}">
 							<span class="ui-icon ui-state-default ui-icon-trash"></span>
 						</a>
 					</li>

@@ -7,7 +7,7 @@
     </head>
     <body>                	    
 	    <g:if test="${flash.message}">
-	       <div class="message">${flash.message}</div>
+	       <g:render template="/info" model="[message:flash.message]"/>	       
 	    </g:if>
         
         <ul class="board_list">   
@@ -24,7 +24,27 @@
             <tb:boardSummary board="${boardInstance}" admin="${false}"></tb:boardSummary>
             </g:each>      
         </ul>
+        <div style="display:none;" id="delete_dialog" title="Delete this board?">
+            <p>Do you really want to delete this board?</p>
+        </div>
         <jq:jquery>
+            $('a.delete').click(function(event) {                
+                var a = this;
+                $('#delete_dialog').dialog({                
+	                modal:true,
+	                buttons: {
+	                    "Delete" : function() {
+	                        window.location = a.href;
+	                        $(this).dialog("close");
+	                    },
+	                    "Cancel" : function() {
+	                        $(this).dialog("close");
+	                    }
+	                }
+	            });
+	            event.preventDefault();
+	            return false;                
+            });      
             $('span.ui-icon').mouseover(function() {
                 $(this).addClass('ui-state-hover');
             }).mouseout(function() {

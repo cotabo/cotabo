@@ -172,7 +172,7 @@ class BoardController {
 				UserBoard.removeAll(boardInstance)
 				
                 boardInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'board.label', default: 'Board'), params.id])}"
+                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'board.label', default: 'Board'), boardInstance.name])}"
                 redirect(action: "list")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
