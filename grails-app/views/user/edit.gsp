@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />     
         <link rel="stylesheet" href="${resource(dir:'css',file:'user.css')}" />          
-        <title>Cotabo - edit ${userInstance.username}'s profile'</title>
+        <title>Cotabo - edit ${userInstance.username}'s profile</title>
     </head>
     <body>
         <div>
