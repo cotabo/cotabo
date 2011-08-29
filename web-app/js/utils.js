@@ -58,12 +58,12 @@ var taskTpl = function () {
 	return [ 
 		"li", {class:'ui-widget ui-corner-all', id:'task_'+this.id}, [
 			"div", {class:'task-header ui-state-default'}, [
-			    "img", {class:'avatar', src:avatarUrl+'/'+this.assignee}, ,
+			    "img", {class:'ui-icon ui-icon-person avatar', src:avatarUrl+'/'+this.assignee}, ,
 				"div", {class:'head_color', style:'background-color:'+this.color}, ,
 				"div", {id:'color_helper', style:'display:none'}, this.color,
 				"div", {class:'head_name'}, '#' + this.id + ' - ' +this.name,
-				"div", {class:'block-box ' + blockedClass}, ,
-				"span", {class:'ui-icon ui-icon ui-icon-carat-1-n'}, 
+				"span", {class:'block-box ui-icon ui-icon-unlocked not-blocked' + blockedClass}, ,
+				"span", {class:'expander ui-icon ui-icon ui-icon-carat-1-n'}, 
 			],
 			"div", {class:'task-content ui-widget-content', style:'display:block;'}, [
 				"table", {}, [
