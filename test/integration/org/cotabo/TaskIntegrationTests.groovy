@@ -48,6 +48,12 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 		assertEquals 'In Progress', tmpTask.column.name
 	}
 	
+	void testInitialBlocked() {
+		def task = Task.findByName('Bootstrap Webserver')
+		
+		assertTrue task.blocked
+	}
+	
 	void testSetBlocked() {
 		//Getting a test task created in super class
 		def task = Task.findByName('Task 3')

@@ -12,7 +12,7 @@ class TaskTests extends TaskBoardUnitTest {
     }
 
     void testCreation() {
-		//Preperation
+		//Preparation
 		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
@@ -260,7 +260,5 @@ class TaskTests extends TaskBoardUnitTest {
 		assertFalse task.validate()
 		assertNull task.save()
 		assertNull Task.findByName('mytask')
-	}	
-	
-	
+	}
 }

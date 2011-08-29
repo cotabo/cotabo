@@ -146,7 +146,7 @@ jQuery(function(){
 	}	  
 	
 	//Apply the click handle to all expand/collapse icons
-	$('.task-header .ui-icon').live('click', handleClickHeader);
+	$('.task-header .expander .ui-icon').live('click', handleClickHeader);
 	
 	/**
 	 * Handles a click on the block icon - updating the task on the server-side and
