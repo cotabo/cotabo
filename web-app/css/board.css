@@ -124,49 +124,40 @@ div.task-content * td {
 	padding: 10px 6px;
 }
 .block-box {
-	float:right;
-    top:+5px;
-    width:17px;
-    height:17px;
-    cursor:pointer; 
-    margin: 3px;    
+	display:block;
+	
+	cursor:pointer;
+	width:16px;
+    height:16px;
+    margin:2px;
+    /*top:+5px;
+    float:right;
+     
+    */
 }
 .blocked {			
-	background: url('../images/stop.png') no-repeat;
-	opacity: .7; 	
+		
 }
 .not-blocked {
-	background: url('../images/stop_greyed.png') no-repeat;
-	opacity: .3;    
+	    
 }
 
 .avatar {
-	background: url('../images/default_avatar.jpeg') no-repeat;
-	opacity: .7;
-	width: 16px; 
-	height: 16px;
-	margin: 2px;
 	display: block;
 	float: left;
-	overflow: hidden;
-	-moz-background-size: 100% 100%;
-	-o-background-size: 100% 100%;
-	-webkit-background-size: 100% 100%; 
-	background-size: 100% 100%;
+	margin: 2px;
+	width: 16px; 
+	height: 16px;
 }
 
 .archive {
-	background: url('../images/archive.jpeg') no-repeat;
-	opacity:.7;
 	float:right;
 	width:16px;
 	height:16px;
 	display:block;
-	overflow:hidden;
 	margin: 3px;
-	-moz-background-size: 100% 100%;
-	-o-background-size: 100% 100%;
-	-webkit-background-size: 100% 100%; 
-	background-size: 100% 100%;
 }
+
+.expander{
+	
 

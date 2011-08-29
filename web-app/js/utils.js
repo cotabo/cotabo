@@ -116,11 +116,13 @@ var taskTpl = function () {
  * @returns
  */
 var taskBlockCallback = function(data) {
-	var taskBlockDiv = $('li#task_'+data.task).find('div.block-box');	
+	var taskBlockDiv = $('li#task_'+data.task).find('span.block-box');	
 	if((data.blocked == true) && $(taskBlockDiv).hasClass('not-blocked')) {
 		$(taskBlockDiv).removeClass('not-blocked').addClass('blocked');
+		$(taskBlockDiv).removeClass('ui-icon-unlocked').addClass('ui-icon-locked');
 	}
 	else if ((data.blocked == false) && $(taskBlockDiv).hasClass('blocked')){
-		$(taskBlockDiv).removeClass('blocked').addClass('not-blocked');		
+		$(taskBlockDiv).removeClass('blocked').addClass('not-blocked');	
+		$(taskBlockDiv).removeClass('ui-icon-locked').addClass('ui-icon-unlocked');
 	}
 }
