@@ -96,13 +96,13 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 		def expected= """
 			<li class="ui-widget ui-corner-all" id="task_1">
 				<div class="task-header ui-state-default">
-					<img class="avatar" src="/user/avatar/testuser" />
+					<img class="ui-icon ui-icon-person avatar" src="/user/avatar/testuser" />
 					<div class="head_color" style="background-color:#faf77a;"></div>
 					<div id="color_helper" style="display:none;">#faf77a</div>
 					<div class="head_name">#1 - mytask</div>
-					<a href="/task/archive/1" class="archive"></a>
-					<div class="block-box not-blocked"></div>
-					<span class="ui-icon ui-icon-carat-1-n"/>
+					<a href="/task/archive/1" class="ui-icon ui-icon-disk archive"></a>
+					<span class="block-box ui-icon ui-icon-unlocked not-blocked" ></span>
+					<span class="expander ui-icon ui-icon-carat-1-n" ></span>
 				</div>
 				<div class="task-content ui-widget-content" style="display:block">
 					<table>
