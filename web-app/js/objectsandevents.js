@@ -52,13 +52,11 @@ jQuery(function(){
 		return true;
 	});
 	
-	var fn_collapse = function() {
-		//console.time('native');		
+	var fn_collapse = function() {		
 		var matched = $('#board > div.column > ul > li > div.task-header > span.ui-icon-carat-1-n')		 		 	
 		for (var i=0;i< matched.size();i++)	{
 			$(matched[i]).click();		
 		}
-		//console.timeEnd('native'); 
 		return true;
 	};
 	$('#b_collapse').button({
@@ -68,12 +66,10 @@ jQuery(function(){
 	}).click(fn_collapse);
 
 	var fn_expand = function() {	
-		console.time('native');	
 		var matched = $('#board > div.column > ul > li > div.task-header > span.ui-icon-carat-1-s')	
 		for (var i=0;i< matched.size();i++)	{
 			$(matched[i]).click();
 		}
-		console.timeEnd('native'); 
 		return true;
 	};
 	$('#b_expand').button({
