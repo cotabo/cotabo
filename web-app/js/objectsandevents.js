@@ -12,19 +12,26 @@ jQuery(function(){
        	   var shortcutsDisabled = dialogs.length > 0 ? true : false;       	       	   
        	   var code = (e.keyCode ? e.keyCode : e.which);
            if(!shortcutsDisabled) {
-						 if (code == 110) /* 'n' */{
-							 $('#createTaskForm').dialog('open');
-						 }
-						 if (code == 109) /* 'm' */ {
-							 $('#chat_dialog').dialog('open');
-						 }
-						 if (code == 101) /* 'e' */ {
-							 fn_expand.call();
-						 }
-						 if (code == 99) /* 'c' */ {
-							 fn_collapse.call();
-						 }
-						 e.preventDefault();
+		 if (code == 110) /* 'n' */{
+			$('#createTaskForm').dialog('open');
+		 	e.preventDefault();
+		 	return false;
+		 }
+		 if (code == 109) /* 'm' */ {
+			$('#chat_dialog').dialog('open');
+		 	e.preventDefault();
+		 	return false;
+		 }
+		 if (code == 101) /* 'e' */ {
+			fn_expand.call();
+		 	e.preventDefault();
+		 	return false;
+		 }
+		 if (code == 99) /* 'c' */ {
+			fn_collapse.call();
+		 	e.preventDefault();
+		 	return false;
+		 }
            }
        });
      });
