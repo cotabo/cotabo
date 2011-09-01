@@ -69,8 +69,17 @@ class BoardTagLib {
 			def lastColumn = attrs.task.column.board.columns.last()
 			out << """
 			<li class="ui-widget ui-corner-all" id="task_${attrs.task.id}">
-				<div class="task-header ui-state-default">
-					<img class="ui-icon ui-icon-person avatar" src="${createLink(controller:'user', action:'avatar', id:attrs.task?.assignee?.username)}" />
+				<div class="task-header ui-state-default">"""
+           if(attrs.task?.assignee?.avatar){
+               out << """
+					<img class="ui-icon ui-icon-person avatar" src="${createLink(controller:'user', action:'avatar', id:attrs.task?.assignee?.username)}" />"""
+           }
+           else{
+               out << """
+					<span class="ui-icon ui-icon-person avatar"></span>"""
+           }
+           
+           out << """
 					<div class="head_color" style="background-color:${attrs.task?.color?.encodeAsHTML()};"></div>
 					<div id="color_helper" style="display:none;">${attrs.task?.color?.encodeAsHTML()}</div>
 					<div class="head_name">#${attrs.task?.id ?: ''} - ${attrs.task?.name?.encodeAsHTML()}</div>"""

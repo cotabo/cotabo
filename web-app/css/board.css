@@ -141,7 +141,7 @@ div.task-content * td {
 	    
 }
 
-.avatar {
+.task-header span.avatar {
 	display: block;
 	float: left;
 	margin: 2px;

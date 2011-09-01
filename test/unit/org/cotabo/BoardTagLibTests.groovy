@@ -92,11 +92,11 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 		assertEquals expected, tl.out.toString()			
 	}
 	
-	void testTask() {
+	void testTask1() {
 		def expected= """
 			<li class="ui-widget ui-corner-all" id="task_1">
 				<div class="task-header ui-state-default">
-					<img class="ui-icon ui-icon-person avatar" src="/user/avatar/testuser" />
+					<span class="ui-icon ui-icon-person avatar"></span>
 					<div class="head_color" style="background-color:#faf77a;"></div>
 					<div id="color_helper" style="display:none;">#faf77a</div>
 					<div class="head_name">#1 - mytask</div>
@@ -145,6 +145,68 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			color: '#faf77a',
 			priority: 'Critical'
 		)
+		
+		def tl = new BoardTagLib()
+		tl.task([task:theTask], {''})
+		assertEquals expected, tl.out.toString()
+		
+	}
+	
+	void testTask2() {
+		def expected= """
+			<li class="ui-widget ui-corner-all" id="task_1">
+				<div class="task-header ui-state-default">
+					<img class="ui-icon ui-icon-person avatar" src="/user/avatar/testuser" />
+					<div class="head_color" style="background-color:#faf77a;"></div>
+					<div id="color_helper" style="display:none;">#faf77a</div>
+					<div class="head_name">#1 - mytask</div>
+					<a href="/task/archive/1" class="ui-icon ui-icon-disk archive"></a>
+					<span class="block-box ui-icon ui-icon-unlocked not-blocked" ></span>
+					<span class="expander ui-icon ui-icon-carat-1-n" ></span>
+				</div>
+				<div class="task-content ui-widget-content" style="display:block">
+					<table>
+						<colgroup>
+							<col width="25%"/>
+							<col width="75%"/>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td><b>Description:</b></td>
+								<td id="task_1_description">test description</td>
+							</tr>
+							<tr>
+								<td><b>Priority:</b></td>
+								<td id="task_1_priority">Critical</td>
+							</tr>
+							<tr>
+								<td><b>Assignee:</b></td>
+								<td id="task_1_assignee">testuser</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</li>
+			"""
+		
+		def user = User.findByUsername('testuser')
+		def board = new Board(id:1, name:'testboard')
+		def firstColumn = new Column(id: 1,name:'koffer',limit: 5, board:board)
+		def lastColumn = new Column(id: 2,name:'koffer2',limit: 5, board:board)
+		board.columns = [firstColumn, lastColumn]
+		def theTask = new Task(
+			id:1,
+			name: 'mytask',
+			description: 'test description',
+			durationHours: 0.5,
+			column:lastColumn,
+			creator: user,
+			assignee: user,
+			color: '#faf77a',
+			priority: 'Critical'
+		)
+		
+		user.avatar = [0, 1, 2, 3];
 		
 		def tl = new BoardTagLib()
 		tl.task([task:theTask], {''})
