@@ -19,4 +19,6 @@ class Block {
     static constraints = {		
 		dateClosed nullable:true
     }
+	
+	static exportables = ['dateCreated', 'dateClosed']
 }
