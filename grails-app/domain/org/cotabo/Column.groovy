@@ -26,6 +26,8 @@ class Column {
 		board nullable:false
     }
 	
+	static exportables = ['name', 'description', 'limit', 'workflowStartColumn', 'tasks']
+	
 	@Override
 	public String toString() {
 		return name

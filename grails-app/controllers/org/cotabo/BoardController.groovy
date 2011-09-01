@@ -9,6 +9,7 @@ class BoardController {
 	def springSecurityService
 	def dashboardService
 	def boardUpdateService	
+	def exportService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
 	
@@ -20,6 +21,18 @@ class BoardController {
     	def user = User.findByUsername(springSecurityService.principal.username)						
     	[adminBoards: user.getBoards(RoleEnum.ADMIN), userBoards: user.getBoards(RoleEnum.USER)]
     }
+
+		def export = {
+			response.contentType = grailsConfig.config.grails.mime.types['xml']
+			response.setHeader("Content-disposition", "attachment; filename=boards.xml")
+
+			def stream = response.outputStream
+			def objs = Board.list()
+			def parameters = ["depth" : 10]
+			
+			
+			exportService.export('xml', stream, objs, [:], parameters)	
+		}
 
     def create = {
         def boardInstance = new Board()
