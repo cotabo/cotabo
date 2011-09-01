@@ -14,6 +14,8 @@ class Board {
 	List columns	
 	static hasMany = [ columns : Column ]	
 	
+	static exportables = ['name', 'description', 'columns']
+	
 	String name
 	String description
 		
