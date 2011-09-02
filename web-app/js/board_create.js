@@ -41,8 +41,9 @@
 		                "col", {width:"25%"}, ,
 		                "col", {width:"35%"}, ,
 		                "col", {width:"20%"}, ,
-		                "col", {width:"10%"}, ,
-		                "col", {width:"10%"}
+		                "col", {width:"8%"}, ,
+		                "col", {width:"8%"}, ,
+		                "col", {width:"4%"}
 		            ],
 		        	"tbody", {}, [
 						"tr", {}, [
@@ -58,6 +59,9 @@
 					  		"td", {}, [
 								"input", {type: "radio", name:"workflowStart", id:"workflowStart", value:this.columnIndex} 
 				    		],
+				    		"td", {}, [
+										"input", {type: "radio", name:"workflowEnd", id:"workflowEnd", value:this.columnIndex} 
+						    		],
 				    		"td", {},[
 				    			"a", {href:'#', class:'delete'}, 'delete this column definition'
 				    		]

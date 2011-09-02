@@ -116,12 +116,13 @@ grails.plugins.springsecurity.securityConfigType = SecurityConfigType.Annotation
 //JQuery plugin
 grails.views.javascript.library="jquery"
 
-//Application specific configuratuib
-//TODO: pull this out to a seperate file
+//Application specific configuration
+//TODO: pull this out to a separate file - {@link https://github.com/cotabo/cotabo/issues/50}
 taskboard.colors = ['#fafaa8', '#faaca8', '#85fd81', '#81b6fd']
 taskboard.default.colors = '#f9f21a'
 taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
 taskboard.default.priority = 'Normal'
+taskboard.default.autoarchive = 30 // auto-archiving from 'Done' after 30 days 
 
 
 //JCaptcha stuff
