@@ -82,7 +82,7 @@ var taskTpl = function () {
 							"td", {}, [
 								"b", {}, 'Details:'									
 							],
-							"td", {}, this.details.replace(/\n/g, '<br/>')							
+							"td", {}, this.details != null ? this.details.replace(/\n/g, '<br/>') : ''							
 						],
 						"tr", {}, [
 							"td", {}, [
