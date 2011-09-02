@@ -103,6 +103,10 @@ class BoardTagLib {
 								<td id="task_${attrs.task.id}_description">${attrs.task?.description?.encodeAsHTML() ?: ''}</td>
 							</tr>
 							<tr>
+								<td><b>Details:</b></td>
+								<td id="task_${attrs.task.id}_details">${attrs.task?.details?.encodeAsHTML().replaceAll("\n", "<br/>") ?: ''}</td>
+							</tr>
+							<tr>
 								<td><b>Priority:</b></td>
 								<td id="task_${attrs.task.id}_priority">${attrs.task?.priority?.encodeAsHTML()}</td>
 							</tr>
