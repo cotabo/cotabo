@@ -41,7 +41,7 @@ class Task implements Comparable {
 	boolean archived
 	
 	//Out startDate for testing purposes - see beforeUpdate and beforeInsert
-	private Date startDate = Date.parse("dd/MM/yyyy HH:mm:ss SSS", "02/04/2011 13:13:13 013")
+	private Date startDate = Date.parse("dd/MM/yyyy HH:mm:ss SSS s", "02/04/2011 13:13:13 013 GMT+2:00")
 	
     static constraints = {
 		name blank:false, maxSize:100
