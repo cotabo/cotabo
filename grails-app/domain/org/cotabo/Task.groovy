@@ -56,6 +56,8 @@ class Task implements Comparable {
 		workflowEndDate nullable:true
     }
 	
+	static exportables = ['name', 'description', 'priority', 'color', 'creator', 'assignee', 'archived', 'sortOrder', 'blocks', 'dateCreated', 'lastUpdated', 'workflowStartDate', 'workflowEndDate']
+	
 	@Override
 	public String toString() {
 		return name

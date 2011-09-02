@@ -125,7 +125,7 @@ class BootStrap {
 			//Now we create some tasks and move them across the board in order 
 			//to get some proper event data that we can test with
 			def eventTestTasks = []
-			for (i in 1..80) {
+			for (i in 1..10) {
 				eventTestTasks << new Task(
 					name:"Task $i", 
 					description:'Description $i',
@@ -142,7 +142,7 @@ class BootStrap {
 				eventTestTasks.each { taskService.saveTask(it) }
 			}
 			def eventTasks = Task.findAllByNameLike('Task %')
-			assert eventTasks.size() == 80
+			assert eventTasks.size() == 10
 			def secondColumnTaskIdList = Column.findByName('In Progress').tasks.collect{it.id}
 			//First we move all out 80 tasks to the second column
 			for (task in eventTasks) {
