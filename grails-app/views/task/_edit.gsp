@@ -73,7 +73,7 @@
                         <label for="details" alt="Details of the Task" class="optional">details</label>
                     </td>
                     <td>
-                        <g:textArea name="details" cols="30" rows="3" maxlength="254"/>
+                        <g:textArea name="details" cols="30" rows="3" maxlength="254">${taskInstance.details}</g:textArea>
                     </td>
                 </tr>
                 <tr>
