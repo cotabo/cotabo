@@ -46,6 +46,7 @@ class Task implements Comparable {
     static constraints = {
 		name blank:false, maxSize:100
 		description nullable:true, blank:true, maxSize:254
+		details nullable:true, blank:true
 		durationHours nullable:false, min:0D, max:500D						
 		column nullable:false
 		creator nullable:false
@@ -55,6 +56,7 @@ class Task implements Comparable {
 		color nullable:false, validator: {val, obj -> val in grailsConfig.config.taskboard.colors }
 		workflowStartDate nullable: true
 		workflowEndDate nullable:true
+		
     }
 	
 	static exportables = ['name', 'description', 'priority', 'color', 'creator', 'assignee', 'archived', 'sortOrder', 'blocks', 'dateCreated', 'lastUpdated', 'workflowStartDate', 'workflowEndDate']
