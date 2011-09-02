@@ -89,6 +89,7 @@ class BoardController {
 		bindData(boardInstance, params)
 		
 		boardInstance.columns[params.workflowStart as int].workflowStartColumn = true
+		boardInstance.columns[params.workflowEnd as int].workflowEndColumn = true
 
 		if (boardInstance.validate() && boardInstance.save(flush:true)){
 			//After the board is saved

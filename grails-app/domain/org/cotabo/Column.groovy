@@ -17,6 +17,7 @@ class Column {
 	int limit = 0
 	
 	boolean workflowStartColumn = false
+	boolean workflowEndColumn = false
 
     static constraints = {
 		name blank:false, maxSize: 25
