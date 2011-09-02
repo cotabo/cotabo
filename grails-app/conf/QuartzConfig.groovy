@@ -1,4 +1,3 @@
-
 quartz {
     autoStartup = true
     jdbcStore = false
@@ -8,7 +7,7 @@ quartz {
 environments {
     test {
         quartz {
-            autoStartup = false
+            autoStartup = true
         }
     }
 }

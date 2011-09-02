@@ -71,6 +71,14 @@
     					<g:textArea name="description" cols="30" rows="3" maxlength="254"/>
     				</td>
     			</tr>
+    			<tr>
+    				<td>
+    					<label for="details" alt="Details of the Task" class="optional">details</label>
+    				</td>
+    				<td>
+    					<g:textArea name="details" cols="30" rows="3" maxlength="254"/>
+    				</td>
+    			</tr>
  			    <tr>
     				<td>
     					<label for="assignee" alt="The assignee for this task" class="optional">assignee</label>
