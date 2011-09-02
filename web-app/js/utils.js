@@ -80,6 +80,12 @@ var taskTpl = function () {
 						],
 						"tr", {}, [
 							"td", {}, [
+								"b", {}, 'Details:'									
+							],
+							"td", {}, this.details.replace(/\n/, '<br/>')							
+						],
+						"tr", {}, [
+							"td", {}, [
 								"b", {}, 'Priority:'									
 							],
 							"td", {}, this.priority								

@@ -87,6 +87,7 @@ class Task implements Comparable {
 			'workflowEndDate':workflowEndDate?.encodeAsHTML(),			
 			'name':name.encodeAsHTML(),
 			'description':description?.encodeAsHTML(),
+			'details':details?.encodeAsHTML(),
 			'durationHours':durationHours?.encodeAsHTML(),
 			'priority':priority.encodeAsHTML(),
 			'color':color.encodeAsHTML(),
