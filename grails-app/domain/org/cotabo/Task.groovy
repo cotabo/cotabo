@@ -33,6 +33,7 @@ class Task implements Comparable {
 	
 	String name
 	String description
+	String details
 	double durationHours
 	String priority
 	String color
