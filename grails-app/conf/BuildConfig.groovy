@@ -14,6 +14,12 @@ grails.project.dependency.resolution = {
         grailsHome()
         grailsCentral()
 
+		//Define our Jenking instance as custom repository
+		//For the forked & improved export plugin
+		def customPluginRepository = new org.apache.ivy.plugins.resolver.URLResolver()		
+		customPluginRepository.addArtifactPattern("https://cotabo.ci.cloudbees.com/job/export-plugin-build/lastSuccessfulBuild/artifact/grails-[module]-[revision].zip")				
+		customPluginRepository.name = "export-plugin-repository"		
+		resolver customPluginRepository
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
         //mavenLocal()
@@ -26,6 +32,7 @@ grails.project.dependency.resolution = {
     plugins{
     	build ':atmosphere:latest.integration'
 		build ':quartz:latest.integration'
+		build ':export:1.1'
 	}
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
