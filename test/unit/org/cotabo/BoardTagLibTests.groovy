@@ -116,6 +116,10 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 								<td id="task_1_description">test description</td>
 							</tr>
 							<tr>
+								<td><b>Details:</b></td>
+								<td id="task_1_details"></td>
+							</tr>
+							<tr>
 								<td><b>Priority:</b></td>
 								<td id="task_1_priority">Critical</td>
 							</tr>
@@ -176,6 +180,10 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 								<td id="task_1_description">test description</td>
 							</tr>
 							<tr>
+								<td><b>Details:</b></td>
+								<td id="task_1_details">a<br/>b</td>
+							</tr>
+							<tr>
 								<td><b>Priority:</b></td>
 								<td id="task_1_priority">Critical</td>
 							</tr>
@@ -202,6 +210,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			column:lastColumn,
 			creator: user,
 			assignee: user,
+			details:'a\nb',
 			color: '#faf77a',
 			priority: 'Critical'
 		)
