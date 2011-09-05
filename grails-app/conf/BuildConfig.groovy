@@ -32,7 +32,7 @@ grails.project.dependency.resolution = {
     plugins{
     	build ':atmosphere:latest.integration'
 		build ':quartz:latest.integration'
-		build ':export:1.1'
+		build ':export:1.1.1'
 	}
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
