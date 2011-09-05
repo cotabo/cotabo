@@ -9,7 +9,8 @@
         <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.flydom-3.1.1.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.flydom.extension.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.atmosphere.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.pnotify.min.js')}"></script>        
+	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.pnotify.min.js')}"></script>
+	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.quicksearch.js')}"></script>        
 	    <script type="text/javascript" src="${resource(dir:'js', file:'utils.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js', file:'objectsandevents.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js', file:'atmospherehandling.js')}"></script>
@@ -26,7 +27,10 @@
              var avatarUrl = '${createLink(controller:'user', action:'avatar')}';
         </script>
     </head>
-    <body>    	
+    <body>
+    	<form class="task_search">
+		    <input type="text" id="search">
+		</form>	    	
     	<tb:board board="${boardInstance}">
     		<g:render template="menu"/>
     		<g:each in="${boardInstance.columns}" var="column">

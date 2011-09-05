@@ -3,13 +3,25 @@
  * build up onload.
  */
 jQuery(function(){
+	
+	
+	 /********************************************************
+	 * Section for the client-side search.
+	 * *******************************************************/
+	
+	$(document).ready(function(){
+		$('input#search').quicksearch('li');
+	});
+	
 	 /********************************************************
 	 * Section for the keyboard navigation.
+	 * The check whether the event comes from the HTMLInputElement is absolutely necessary.
 	 ********************************************************/
 	 $(document).ready(function(){
        $(document).keypress(function(e) {
+    	   var srcElement = e.srcElement ? e.srcElement : e.target; // Firefox fix, worked in Chrome and Safari
     	   var dialogs = $('.ui-dialog:visible').toArray();
-       	   var shortcutsDisabled = dialogs.length > 0 ? true : false;       	       	   
+       	   var shortcutsDisabled = (dialogs.length > 0 ? true : false) || (srcElement instanceof HTMLInputElement);;       	       	   
        	   var code = (e.keyCode ? e.keyCode : e.which);
            if(!shortcutsDisabled) {
 		 if (code == 110) /* 'n' */{
