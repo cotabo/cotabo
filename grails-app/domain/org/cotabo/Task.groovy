@@ -59,7 +59,7 @@ class Task implements Comparable {
 		
     }
 	
-	static exportables = ['name', 'description', 'priority', 'color', 'creator', 'assignee', 'archived', 'sortorder', 'blocks', 'dateCreated', 'lastUpdated', 'workflowStartDate', 'workflowEndDate']
+	static exportables = ['name', 'description', 'details', 'priority', 'color', 'creator', 'assignee', 'archived', 'sortorder', 'blocks', 'workflowStartDate', 'workflowEndDate']
 	
 	@Override
 	public String toString() {
