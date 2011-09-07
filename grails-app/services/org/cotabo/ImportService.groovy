@@ -74,9 +74,13 @@ class ImportService {
 			}
 			if(board.validate()) {
 				board.save(flush:true)
+				UserBoard.create(
+					User.findByUsername(springSecurityService.principal.username),
+					board,
+					RoleEnum.ADMIN)
 			}
 			else {
-				throw new TaskBoardException(board.errors.allErrors.joing('\n'))
+				throw new TaskBoardException(board.errors.allErrors.join('\n'))
 			}			
 		}		
     }
