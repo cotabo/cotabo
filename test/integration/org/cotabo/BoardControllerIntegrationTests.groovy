@@ -22,9 +22,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
         <tasks>
           <task id='3'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Install &amp; configure Apache</description>
             <details />
             <name>Setup Webserver</name>
@@ -35,9 +35,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='4'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Install base software and configure domain.</description>
             <details />
             <name>Setup WebLogic</name>
@@ -48,9 +48,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='5'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#faaca8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Install the application software as describes by the Vendor</description>
             <details />
             <name>Install application</name>
@@ -61,9 +61,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='6'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#81b6fd</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Setup all monitors (Filesystem, proceses, logs etc)</description>
             <details />
             <name>Configure Monitoring</name>
@@ -74,9 +74,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='7'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#faaca8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Apply configuration management</description>
             <details />
             <name>Apply Configuration Management</name>
@@ -86,6 +86,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <workflowStartDate>2011-04-02 13:13:13.013</workflowStartDate>
           </task>
         </tasks>
+        <workflowEndColumn>false</workflowEndColumn>
         <workflowStartColumn>true</workflowStartColumn>
       </column>
       <column id='2'>
@@ -95,9 +96,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
         <tasks>
           <task id='1'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#85fd81</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Bootstrap machine and apply WebServer profile.</description>
             <details />
             <name>Bootstrap Webserver</name>
@@ -108,9 +109,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='2'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Bootstrap machine and apply Java Appserver profile</description>
             <details />
             <name>Bootstrap App server</name>
@@ -120,6 +121,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <workflowStartDate>1969-12-31 16:00:00.0</workflowStartDate>
           </task>
         </tasks>
+        <workflowEndColumn>false</workflowEndColumn>
         <workflowStartColumn>false</workflowStartColumn>
       </column>
       <column id='3'>
@@ -129,9 +131,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
         <tasks>
           <task id='8'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Request machines at the DataCenter</description>
             <details />
             <name>Request machines</name>
@@ -142,9 +144,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='9'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Description $i</description>
             <details />
             <name>Task 1</name>
@@ -155,9 +157,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='10'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Description $i</description>
             <details />
             <name>Task 2</name>
@@ -168,9 +170,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='11'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Description $i</description>
             <details />
             <name>Task 3</name>
@@ -181,9 +183,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='12'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Description $i</description>
             <details />
             <name>Task 4</name>
@@ -194,9 +196,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='13'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Description $i</description>
             <details />
             <name>Task 5</name>
@@ -207,9 +209,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='14'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Description $i</description>
             <details />
             <name>Task 6</name>
@@ -220,9 +222,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='15'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Description $i</description>
             <details />
             <name>Task 7</name>
@@ -233,9 +235,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='16'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Description $i</description>
             <details />
             <name>Task 8</name>
@@ -246,9 +248,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='17'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Description $i</description>
             <details />
             <name>Task 9</name>
@@ -259,9 +261,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           </task>
           <task id='18'>
             <archived>false</archived>
-            <assignee>User User</assignee>
+            <assignee>user</assignee>
             <color>#fafaa8</color>
-            <creator>User User</creator>
+            <creator>user</creator>
             <description>Description $i</description>
             <details />
             <name>Task 10</name>
@@ -271,6 +273,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <workflowStartDate>2011-04-02 13:13:13.013</workflowStartDate>
           </task>
         </tasks>
+        <workflowEndColumn>false</workflowEndColumn>
         <workflowStartColumn>false</workflowStartColumn>
       </column>
     </columns>
