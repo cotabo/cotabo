@@ -56,6 +56,6 @@ class User {
 	
 	@Override
 	public String toString() {
-		return "$firstname $lastname"
+		return "$username"
 	}
 }
