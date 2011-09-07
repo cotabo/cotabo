@@ -6,6 +6,7 @@ class TaskColorTests extends GrailsUnitTestCase {
     protected void setUp() {
         super.setUp()
 		mockDomain(TaskColor)
+		mockDomain(Task)
     }
 
     protected void tearDown() {

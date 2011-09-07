@@ -18,7 +18,8 @@ class Task implements Comparable {
 	//Relationships
 	static belongsTo = [ column : Column ]	
 	//Blocked states
-	static hasMany = [ blocks : Block ]
+	static hasMany = [ blocks : Block, colors: TaskColor]
+	
 	List blocks = []
 	
 	User creator
@@ -36,7 +37,6 @@ class Task implements Comparable {
 	String details
 	double durationHours
 	String priority
-	String color
 	
 	boolean archived
 	
@@ -53,13 +53,13 @@ class Task implements Comparable {
 		assignee nullable:true
 		sortorder nullable:false, min:0
 		priority nullable:false, validator: {val, obj -> val in grailsConfig.config.taskboard.priorities }
-		color nullable:false, validator: {val, obj -> val in grailsConfig.config.taskboard.colors }
 		workflowStartDate nullable: true
 		workflowEndDate nullable:true
+		dateCreated nullable:true
 		
     }
 	
-	static exportables = ['name', 'description', 'details', 'priority', 'color', 'creator', 'assignee', 'archived', 'sortorder', 'blocks', 'workflowStartDate', 'workflowEndDate']
+	static exportables = ['name', 'description', 'details', 'priority', 'colors', 'creator', 'assignee', 'archived', 'sortorder', 'blocks', 'workflowStartDate', 'workflowEndDate']
 	
 	@Override
 	public String toString() {

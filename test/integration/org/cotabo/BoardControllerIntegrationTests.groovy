@@ -23,7 +23,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='3'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='1'>
+                <color>#85fd81</color>
+                <name>Color1</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Install &amp; configure Apache</description>
             <details />
@@ -36,7 +41,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='4'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='1'>
+                <color>#85fd81</color>
+                <name>Color1</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Install base software and configure domain.</description>
             <details />
@@ -49,7 +59,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='5'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#faaca8</color>
+            <colors>
+              <taskColor id='1'>
+                <color>#85fd81</color>
+                <name>Color1</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Install the application software as describes by the Vendor</description>
             <details />
@@ -62,7 +77,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='6'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#81b6fd</color>
+            <colors>
+              <taskColor id='1'>
+                <color>#85fd81</color>
+                <name>Color1</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Setup all monitors (Filesystem, proceses, logs etc)</description>
             <details />
@@ -75,7 +95,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='7'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#faaca8</color>
+            <colors>
+              <taskColor id='1'>
+                <color>#85fd81</color>
+                <name>Color1</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Apply configuration management</description>
             <details />
@@ -97,7 +122,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='1'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#85fd81</color>
+            <colors>
+              <taskColor id='1'>
+                <color>#85fd81</color>
+                <name>Color1</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Bootstrap machine and apply WebServer profile.</description>
             <details />
@@ -110,7 +140,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='2'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='1'>
+                <color>#85fd81</color>
+                <name>Color1</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Bootstrap machine and apply Java Appserver profile</description>
             <details />
@@ -132,7 +167,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='8'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='1'>
+                <color>#85fd81</color>
+                <name>Color1</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Request machines at the DataCenter</description>
             <details />
@@ -145,7 +185,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='9'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>Color2</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -158,7 +203,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='10'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>Color2</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -171,7 +221,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='11'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>Color2</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -184,7 +239,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='12'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>Color2</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -197,7 +257,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='13'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>Color2</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -210,7 +275,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='14'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>Color2</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -223,7 +293,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='15'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>Color2</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -236,7 +311,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='16'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>Color2</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -249,7 +329,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='17'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>Color2</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -262,7 +347,12 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
           <task id='18'>
             <archived>false</archived>
             <assignee>user</assignee>
-            <color>#fafaa8</color>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>Color2</name>
+              </taskColor>
+            </colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />

@@ -62,6 +62,7 @@ class BoardTagLib {
 	 * 	
 	 */
 	def task = {attrs, body ->
+		log.debug("Processing task ${attrs.task}")
 		if (!attrs.task || attrs.task.archived) {
 			out << ''			
 		}
@@ -79,9 +80,12 @@ class BoardTagLib {
 					<span class="ui-icon ui-icon-person avatar"></span>"""
            }
            
+		   attrs.task?.colors?.each{color ->
+			   out << """
+					<div class="head_color" style="background-color:${color?.color?.encodeAsHTML()};"></div>"""
+		   }
+		   
            out << """
-					<div class="head_color" style="background-color:${attrs.task?.color?.encodeAsHTML()};"></div>
-					<div id="color_helper" style="display:none;">${attrs.task?.color?.encodeAsHTML()}</div>
 					<div class="head_name">#${attrs.task?.id ?: ''} - ${attrs.task?.name?.encodeAsHTML()}</div>"""
 				if(attrs.task.column.id == lastColumn.id) {
 					out << """

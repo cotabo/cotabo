@@ -24,7 +24,7 @@ class TaskTests extends TaskBoardUnitTest {
 			column: col, 
 			creator: user,
 			sortorder: 1,
-			color: '#faf77a',
+			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
 		)
 		assertTrue task.validate()		
@@ -47,7 +47,7 @@ class TaskTests extends TaskBoardUnitTest {
 			column: col,
 			creator: user,
 			assignee:user,
-			color: '#faf77a',
+			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
 		)
 		assertTrue task.validate()
@@ -68,7 +68,7 @@ class TaskTests extends TaskBoardUnitTest {
 			durationHours: 1,			
 			column: col,
 			creator: user,
-			color: '#faf77a',
+			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
 		)
 		assertTrue task.validate()
@@ -87,7 +87,7 @@ class TaskTests extends TaskBoardUnitTest {
 			durationHours: 0.5,						
 			column: col,
 			creator: user,
-			color: '#faf77a',
+			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
 		)
 		
@@ -111,7 +111,7 @@ class TaskTests extends TaskBoardUnitTest {
 			durationHours: 0.5,						
 			column: col,
 			creator: user,
-			color: '#faf77a',
+			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
 		)
 		
@@ -132,7 +132,7 @@ class TaskTests extends TaskBoardUnitTest {
 			durationHours: 800.25,			
 			column: col,
 			creator: user,
-			color: '#faf77a',
+			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
 		)
 		
@@ -151,7 +151,7 @@ class TaskTests extends TaskBoardUnitTest {
 			name: 'mytask',
 			durationHours: 200.25,						
 			creator: user,
-			color: '#faf77a',
+			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
 		)
 		
@@ -169,7 +169,7 @@ class TaskTests extends TaskBoardUnitTest {
 			name: 'mytask',
 			durationHours: 200.25,						
 			column: col,
-			color: '#faf77a',
+			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
 		)
 		
@@ -178,7 +178,7 @@ class TaskTests extends TaskBoardUnitTest {
 		assertNull task.save()
 	}
 	
-	void testFailWithoutColor() {
+	void testWithoutColor() {
 		//Preperation
 		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')
@@ -193,9 +193,9 @@ class TaskTests extends TaskBoardUnitTest {
 			sortorder: 1,			
 			priority: 'Critical'
 		)
-		assertFalse task.validate()
-		assertNull task.save()
-		assertNull Task.findByName('mytask')
+		assertTrue task.validate()
+		assertNotNull task.save()
+		assertNotNull Task.findByName('mytask')
 	}
 	
 	
@@ -213,7 +213,7 @@ class TaskTests extends TaskBoardUnitTest {
 			column: col,
 			creator: user,
 			sortorder: 1,
-			color: '#faf77a'			
+			color: new TaskColor(color:'faf77a', name:'not needed')			
 		)
 		assertFalse task.validate()
 		assertNull task.save()
@@ -233,12 +233,11 @@ class TaskTests extends TaskBoardUnitTest {
 			column: col,
 			creator: user,
 			sortorder: 1,
-			color: '#ffffff',
 			priority: 'Critical'
 		)
-		assertFalse task.validate()
-		assertNull task.save()
-		assertNull Task.findByName('mytask')
+		assertTrue task.validate()
+		assertNotNull task.save()
+		assertNotNull Task.findByName('mytask')
 	}
 	
 	void testFailNotConfiguredPriority() {
@@ -254,7 +253,7 @@ class TaskTests extends TaskBoardUnitTest {
 			column: col,
 			creator: user,
 			sortorder: 1,
-			color: '#faf77a',
+			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'HyperCritical'
 		)
 		assertFalse task.validate()

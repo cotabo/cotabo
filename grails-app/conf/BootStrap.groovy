@@ -59,29 +59,39 @@ class BootStrap {
 			UserBoard.create(user, board, RoleEnum.USER)			
 			
 			def testTasks
+			
+			def color1 = new TaskColor(color:'#85fd81', name:'Color1')
+			def color2 = new TaskColor(color:'#fafaa8', name:'Color2')
+			def color3 = new TaskColor(color:'#faaca8', name:'Color3')
+			def color4 = new TaskColor(color:'#81b6fd', name:'Color4')
+			def color5 = new TaskColor(color:'#fafaa8', name:'Color5')
 
 			use(TimeCategory) {	
 				def currentDate = new Date(0l)
 				testTasks = [
 					wip: 	[
-						[column:column2, name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, sortorder:1, priority:'Critical', color:'#85fd81', workflowStartDate: currentDate - 10.hours],
-						[column:column2, name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, creator:user, assignee:user, sortorder:2, priority:'Normal', color:'#fafaa8', workflowStartDate: currentDate - 9.hours]						
+						[column:column2, name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, sortorder:1, priority:'Critical', workflowStartDate: currentDate - 10.hours],
+						[column:column2, name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, creator:user, assignee:user, sortorder:2, priority:'Normal', workflowStartDate: currentDate - 9.hours]						
 					],
 					todo: 	[
-						[column:column1, name:'Setup Webserver', description:'Install & configure Apache',durationHours:1.5, creator:user, assignee:user, sortorder:1, priority:'Major', color:'#fafaa8', workflowStartDate: currentDate - 9.hours],					 
-						[column:column1, name:'Setup WebLogic', description:'Install base software and configure domain.',durationHours:6.0, creator:user, assignee:user, sortorder:2, priority:'Low', color:'#fafaa8', workflowStartDate: currentDate - 7.hours],
-						[column:column1, name:'Install application', description:'Install the application software as describes by the Vendor',durationHours:8.0, creator:user, assignee:user, sortorder:3, priority:'Critical', color:'#faaca8', workflowStartDate: currentDate - 4.hours],
-						[column:column1, name:'Configure Monitoring', description:'Setup all monitors (Filesystem, proceses, logs etc)',durationHours:16.0, creator:user, assignee:user, sortorder:4, priority:'Normal', color:'#81b6fd', workflowStartDate: currentDate - 2.hours],
-						[column:column1, name:'Apply Configuration Management', description:'Apply configuration management',durationHours:8.0, creator:user, assignee:user, sortorder:5, priority:'Normal', color:'#faaca8', workflowStartDate: currentDate - 12.hours]
+						[column:column1, name:'Setup Webserver', description:'Install & configure Apache',durationHours:1.5, creator:user, assignee:user, sortorder:1, priority:'Major', workflowStartDate: currentDate - 9.hours],					 
+						[column:column1, name:'Setup WebLogic', description:'Install base software and configure domain.',durationHours:6.0, creator:user, assignee:user, sortorder:2, priority:'Low', workflowStartDate: currentDate - 7.hours],
+						[column:column1, name:'Install application', description:'Install the application software as describes by the Vendor',durationHours:8.0, creator:user, assignee:user, sortorder:3, priority:'Critical', workflowStartDate: currentDate - 4.hours],
+						[column:column1, name:'Configure Monitoring', description:'Setup all monitors (Filesystem, proceses, logs etc)',durationHours:16.0, creator:user, assignee:user, sortorder:4, priority:'Normal', workflowStartDate: currentDate - 2.hours],
+						[column:column1, name:'Apply Configuration Management', description:'Apply configuration management',durationHours:8.0, creator:user, assignee:user, sortorder:5, priority:'Normal', workflowStartDate: currentDate - 12.hours]
 					],
 					done: 	[
-						[column:column3, name:'Request machines', description:'Request machines at the DataCenter',durationHours:48.0, creator:user, assignee:user, sortorder:1, priority:'Normal', color:'#fafaa8', workflowStartDate: currentDate - 10.hours, workflowEndDate: currentDate - 1.hour]
+						[column:column3, name:'Request machines', description:'Request machines at the DataCenter',durationHours:48.0, creator:user, assignee:user, sortorder:1, priority:'Normal', workflowStartDate: currentDate - 10.hours, workflowEndDate: currentDate - 1.hour]
 					]
 				]
 			}
 			SpringSecurityUtils.doWithAuth('user') {
-				testTasks.each {k, v -> v.each {taskService.saveTask(new Task(it))}}
+				testTasks.each {k, v -> v.each {
+					def task = new Task(it)
+					task.addToColors(color1).save()
+					taskService.saveTask(task)}}
 			}
+			
 			def tmpIdList = []
 			SpringSecurityUtils.doWithAuth('user') {	
 				testTasks.wip.each {
@@ -127,7 +137,7 @@ class BootStrap {
 			//to get some proper event data that we can test with
 			def eventTestTasks = []
 			for (i in 1..10) {
-				eventTestTasks << new Task(
+				def task = new Task(
 					name:"Task $i", 
 					description:'Description $i',
 					durationHours:3.5, 
@@ -135,12 +145,17 @@ class BootStrap {
 					assignee:user, 
 					sortorder:15+i, 
 					priority:'Normal', 
-					color:'#fafaa8',
 					column: Column.findByName('ToDo')
 				)
+				task.addToColors(color2).save()
+				
+				eventTestTasks << task
+				
 			}
+			
 			SpringSecurityUtils.doWithAuth('user') {
-				eventTestTasks.each { taskService.saveTask(it) }
+				eventTestTasks.each {
+					taskService.saveTask(it) }
 			}
 			def eventTasks = Task.findAllByNameLike('Task %')
 			assert eventTasks.size() == 10
