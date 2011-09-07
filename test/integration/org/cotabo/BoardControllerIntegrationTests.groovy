@@ -283,7 +283,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
 </boards>'''
 		
 		def exportablesBackup = Task.exportables
-		Task.exportables = ['name', 'description', 'details', 'priority', 'color', 'creator', 'assignee', 'archived', 'sortorder', 'workflowStartDate', 'workflowEndDate']
+		Task.exportables = exportablesBackup - ['blocks']
 		
 		def boardcontroller = new BoardController();
 		def result = boardcontroller.export();
