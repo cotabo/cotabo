@@ -61,7 +61,7 @@ class BootStrap {
 			def testTasks
 
 			use(TimeCategory) {	
-				def currentDate = new Date(0l)
+				def currentDate = Date.parse("dd/MM/yyyy HH:mm:ss SSS z", "02/04/2011 13:13:13 013 GMT+2:00")
 				testTasks = [
 					wip: 	[
 						[column:column2, name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, sortorder:1, priority:'Critical', color:'#85fd81', workflowStartDate: currentDate - 10.hours],

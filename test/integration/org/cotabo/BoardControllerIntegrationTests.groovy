@@ -105,7 +105,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <priority>Critical</priority>
             <sortorder>0</sortorder>
             <workflowEndDate />
-            <workflowStartDate>1969-12-31 15:00:00.0</workflowStartDate>
+            <workflowStartDate>2011-04-02 03:13:13.013</workflowStartDate>
           </task>
           <task id='2'>
             <archived>false</archived>
@@ -118,7 +118,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <priority>Normal</priority>
             <sortorder>1</sortorder>
             <workflowEndDate />
-            <workflowStartDate>1969-12-31 16:00:00.0</workflowStartDate>
+            <workflowStartDate>2011-04-02 04:13:13.013</workflowStartDate>
           </task>
         </tasks>
         <workflowEndColumn>false</workflowEndColumn>
@@ -140,7 +140,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <priority>Normal</priority>
             <sortorder>3</sortorder>
             <workflowEndDate>2011-04-02 17:13:13.013</workflowEndDate>
-            <workflowStartDate>1969-12-31 15:00:00.0</workflowStartDate>
+            <workflowStartDate>2011-04-02 03:13:13.013</workflowStartDate>
           </task>
           <task id='9'>
             <archived>false</archived>
