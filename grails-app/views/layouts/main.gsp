@@ -61,18 +61,14 @@
                     </li>
                     </sec:ifLoggedIn>
                 </ul>  
-                <!--                    
-                <div class="menu" class="ui-widged">
-                    <sec:ifNotLoggedIn>
-                    <span class="ui-state-default ui-corner-all">
-                        <g:link controller="login" >Login</g:link>
-                    </span>
-                    </sec:ifNotLoggedIn>
-                    <span class="ui-state-default">
-                        <g:link controller="board">Cotabos</g:link>
-                    </span>
+                
+                <div class="head-callback">
+                    <!-- every sub page can specivy a content tag with the name 'header' to hook into the header bar-->
+                    <!-- see http://grails.org/doc/latest/guide/6.%20The%20Web%20Layer.html#6.2.5%20Sitemesh%20Content%20Blocks -->
+                    <g:pageProperty name="page.header"/>
                 </div>
-                -->     
+                
+
                 <div class="logo">  
                     <a href="${request.contextPath}">               
                     <img src="${resource(dir:'images',file:'logo.png')}"/>

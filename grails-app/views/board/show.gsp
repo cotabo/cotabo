@@ -28,9 +28,14 @@
         </script>
     </head>
     <body>
+    
+        <content tag="header">
     	<form class="task_search">
 		    <input type="text" id="search">
-		</form>	    	
+		    <span style="margin:4px;"class="ui-icon ui-state-default ui-icon-search"></span>
+		</form>	   
+		</content> 	
+		
     	<tb:board board="${boardInstance}">
     		<g:render template="menu"/>
     		<g:each in="${boardInstance.columns}" var="column">
