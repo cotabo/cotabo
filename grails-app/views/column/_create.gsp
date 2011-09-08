@@ -1,11 +1,12 @@
 <div id="columns_content" >	
    	<table>
    	    <colgroup>
-   	        <col width="25%"/>
-   	        <col width="35%"/>
-   	        <col width="20%"/>
-   	        <col width="10%"/>
-   	        <col width="10%"/>
+	        <col width="25%"/>
+	        <col width="40%"/>
+	        <col width="15%"/>
+	        <col width="8%"/>
+	        <col width="8%"/>
+	        <col width="4%"/>
    	    </colgroup>
    		<tbody>   		
    			<tr>		     					
@@ -24,8 +25,8 @@
 		<table>
 	        <colgroup>
 	            <col width="25%"/>
-	            <col width="35%"/>
-	            <col width="20%"/>
+	            <col width="40%"/>
+	            <col width="15%"/>
 	            <col width="8%"/>
 	            <col width="8%"/>
 	            <col width="4%"/>
@@ -33,10 +34,10 @@
 		    <tbody>
 				<tr class="column">
 					<td>
-						<g:textField name="columns[$i].name" maxlength="75" value="${boardInstance?.columns[i]?.name}" />
+						<g:textField name="columns[$i].name" maxlength="75" size="40" value="${boardInstance?.columns[i]?.name}" />
 					</td>
 					<td>
-						<g:textField name="columns[$i].description" size="50" value="${boardInstance?.columns[i]?.description}" />
+						<g:textField name="columns[$i].description" size="60" value="${boardInstance?.columns[i]?.description}" />
 					</td>
 					<td>
 						<g:textField name="columns[$i].limit" size="2" maxlength="2" value="${boardInstance?.columns[i]?.limit}" />
