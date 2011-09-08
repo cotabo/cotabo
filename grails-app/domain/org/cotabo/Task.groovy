@@ -74,6 +74,7 @@ class Task implements Comparable {
 		//column is a reserver word in MySQL
 		column column:'cotabo_column'
 		sort sortorder:'asc'		
+		tasks cascade:'save-update'
 	}
 	
 	def toMessage() {		

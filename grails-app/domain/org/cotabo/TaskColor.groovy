@@ -2,7 +2,7 @@ package org.cotabo
 
 class TaskColor {
 	
-	static belongsTo = Task
+	static belongsTo = [Task, Board]
 	static hasMany = [tasks : Task]
 	
     static constraints = {

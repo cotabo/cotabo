@@ -12,7 +12,7 @@ import java.util.List;
 class Board {
 	//Relationships
 	List columns	
-	static hasMany = [ columns : Column ]	
+	static hasMany = [ columns : Column, colors: TaskColor ]	
 	
 	static exportables = ['name', 'description', 'columns']
 	
