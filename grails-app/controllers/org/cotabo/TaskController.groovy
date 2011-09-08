@@ -27,8 +27,10 @@ class TaskController {
     def save = {
 		def taskInstance = new Task()
 				
-		//Bind data but excluse column, creator & sortorder
+		//Bind data but exclude column, creator & sortorder
 		bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
+		
+		taskInstance.addToColors(TaskColor.findByColor(params.color))
 		
 		taskInstance.column = Board.get(params.board).columns.first()
 		//Render error when the user is not logged in
@@ -113,7 +115,10 @@ class TaskController {
 			//else it is a normal update on the task and we bind everything necessary
 			else {
 				//Bind data but exclude column, creator & sortorder
-				bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])				
+				bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
+				def colorstring = params.color.startsWith("#")? params.color.toString().substring(1) : params.color
+				def color = TaskColor.findByColor(colorstring) ?: new TaskColor(color:colorstring, name:'current')
+				taskInstance.addToColors(color)
 				def assignee = User.get(params.assignee.trim().toLong())
 				//No check on assignee as this may be null - leave this to the constraints
 				taskInstance.assignee =assignee
@@ -136,10 +141,12 @@ class TaskController {
 				}
 				else {
 					def notification = "${user} updated task #${params.id} (${taskInstance.name})."
+					def rendered = new BoardTagLib().task([task:taskInstance])
+					def message = [id: taskInstance.id, rendered: rendered]
 					boardUpdateService.broadcastMessage(
 						broadcaster,
-						taskInstance.toMessage(), 
-						MessageType.TASK_UPDATE,
+						message, 
+						MessageType.TASK,
 						notification
 					)
 				}

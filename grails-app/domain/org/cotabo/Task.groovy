@@ -91,7 +91,7 @@ class Task implements Comparable {
 			'details':details?.encodeAsHTML(),
 			'durationHours':durationHours?.encodeAsHTML(),
 			'priority':priority.encodeAsHTML(),
-			'colors': [colors.collect{color -> return ['color' : color.color.encodeAsHTML(), 'name' : color.name.encodeAsHTML()]}.join(',')],
+			'colors': colors.collect{color -> return ['color' : color.color.encodeAsHTML(), 'name' : color.name.encodeAsHTML()]},
 			'blocked':blocked
 		]
 	}
