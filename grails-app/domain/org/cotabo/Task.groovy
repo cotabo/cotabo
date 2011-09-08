@@ -77,7 +77,7 @@ class Task implements Comparable {
 		tasks cascade:'save-update'
 	}
 	
-	def toMessage() {		
+	def toMessage() {
 		return [
 			'id':this.id,
 			'creator':"${creator?.encodeAsHTML()}",
@@ -91,7 +91,7 @@ class Task implements Comparable {
 			'details':details?.encodeAsHTML(),
 			'durationHours':durationHours?.encodeAsHTML(),
 			'priority':priority.encodeAsHTML(),
-			'color':color.encodeAsHTML(),
+			'colors': [colors.collect{color -> return ['color' : color.color.encodeAsHTML(), 'name' : color.name.encodeAsHTML()]}.join(',')],
 			'blocked':blocked
 		]
 	}

@@ -62,7 +62,6 @@ class BoardTagLib {
 	 * 	
 	 */
 	def task = {attrs, body ->
-		log.debug("Processing task ${attrs.task}")
 		if (!attrs.task || attrs.task.archived) {
 			out << ''			
 		}

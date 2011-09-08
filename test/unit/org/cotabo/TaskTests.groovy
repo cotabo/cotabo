@@ -1,10 +1,12 @@
 package org.cotabo
 
 import grails.test.*
+import org.codehaus.groovy.grails.plugins.codecs.HTMLCodec
 
 class TaskTests extends TaskBoardUnitTest {		
     protected void setUp() {
-        super.setUp()		
+        super.setUp()
+		loadCodec(HTMLCodec)
     }
 
     protected void tearDown() {
@@ -24,9 +26,9 @@ class TaskTests extends TaskBoardUnitTest {
 			column: col, 
 			creator: user,
 			sortorder: 1,
-			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
-		)
+		).addToColors(new TaskColor(color:'faf77a', name:'not needed'))
+		
 		assertTrue task.validate()		
 		assertNotNull task.save()
 		assertNotNull task.dateCreated
@@ -35,7 +37,7 @@ class TaskTests extends TaskBoardUnitTest {
     }
 	
 	void testCreationWithAssignee() {
-		//Preperation
+		//Preparation
 		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
@@ -47,9 +49,9 @@ class TaskTests extends TaskBoardUnitTest {
 			column: col,
 			creator: user,
 			assignee:user,
-			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
-		)
+		).addToColors(new TaskColor(color:'faf77a', name:'not needed'))
+		
 		assertTrue task.validate()
 		assertNotNull task.save()
 		assertNotNull Task.findByName('mytask')
@@ -57,7 +59,7 @@ class TaskTests extends TaskBoardUnitTest {
 	}
 	
 	void testCreationDurationHoursInt() {
-		//Preperation
+		//Preparation
 		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
@@ -68,16 +70,16 @@ class TaskTests extends TaskBoardUnitTest {
 			durationHours: 1,			
 			column: col,
 			creator: user,
-			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
-		)
+		).addToColors(new TaskColor(color:'faf77a', name:'not needed'))
+		
 		assertTrue task.validate()
 		assertNotNull task.save()
 		assertNotNull Task.findByName('mytask')
 	}
 	
 	void testFailBlankName() {
-		//Preperation
+		//Preparation
 		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
@@ -87,9 +89,8 @@ class TaskTests extends TaskBoardUnitTest {
 			durationHours: 0.5,						
 			column: col,
 			creator: user,
-			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
-		)
+		).addToColors(new TaskColor(color:'faf77a', name:'not needed'))
 		
 		assertFalse task.validate()
 		assertEquals 1, task.errors.allErrors.size()
@@ -98,7 +99,7 @@ class TaskTests extends TaskBoardUnitTest {
 	}
 	
 	void testFailTooLongName() {
-		//Preperation
+		//Preparation
 		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
@@ -111,9 +112,8 @@ class TaskTests extends TaskBoardUnitTest {
 			durationHours: 0.5,						
 			column: col,
 			creator: user,
-			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
-		)
+		).addToColors(new TaskColor(color:'faf77a', name:'not needed'))
 		
 		assertFalse task.validate()
 		assertEquals 1, task.errors.allErrors.size()
@@ -121,7 +121,7 @@ class TaskTests extends TaskBoardUnitTest {
 	}
 	
 	void testFailDurationHoursTooLong() {
-		//Preperation
+		//Preparation
 		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')				
 		assertNotNull col
@@ -132,9 +132,8 @@ class TaskTests extends TaskBoardUnitTest {
 			durationHours: 800.25,			
 			column: col,
 			creator: user,
-			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
-		)
+		).addToColors(new TaskColor(color:'faf77a', name:'not needed'))
 		
 		assertFalse task.validate()
 		assertEquals 1, task.errors.allErrors.size()
@@ -143,7 +142,7 @@ class TaskTests extends TaskBoardUnitTest {
 	
 	
 	void testFailWithoutColumn() {
-		//Preperation		
+		//Preparation		
 		def user = User.findByUsername('testuser')					
 		assertNotNull user				
 		
@@ -151,9 +150,8 @@ class TaskTests extends TaskBoardUnitTest {
 			name: 'mytask',
 			durationHours: 200.25,						
 			creator: user,
-			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
-		)
+		).addToColors(new TaskColor(color:'faf77a', name:'not needed'))
 		
 		assertFalse task.validate()
 		assertEquals 1, task.errors.allErrors.size()
@@ -161,7 +159,7 @@ class TaskTests extends TaskBoardUnitTest {
 	}
 	
 	void testFailWithoutcreator() {
-		//Preperation
+		//Preparation
 		def col = Column.findByName('todo')						
 		assertNotNull col						
 		
@@ -169,9 +167,8 @@ class TaskTests extends TaskBoardUnitTest {
 			name: 'mytask',
 			durationHours: 200.25,						
 			column: col,
-			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'Critical'
-		)
+		).addToColors(new TaskColor(color:'faf77a', name:'not needed'))
 		
 		assertFalse task.validate()
 		assertEquals 1, task.errors.allErrors.size()
@@ -179,7 +176,7 @@ class TaskTests extends TaskBoardUnitTest {
 	}
 	
 	void testWithoutColor() {
-		//Preperation
+		//Preparation
 		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')
 		assertNotNull col
@@ -201,7 +198,7 @@ class TaskTests extends TaskBoardUnitTest {
 	
 	
 	void testFailWithoutPriority() {
-		//Preperation
+		//Preparation
 		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')
 		assertNotNull col
@@ -213,15 +210,15 @@ class TaskTests extends TaskBoardUnitTest {
 			column: col,
 			creator: user,
 			sortorder: 1,
-			color: new TaskColor(color:'faf77a', name:'not needed')			
-		)
+		).addToColors(new TaskColor(color:'faf77a', name:'not needed'))
+		
 		assertFalse task.validate()
 		assertNull task.save()
 		assertNull Task.findByName('mytask')
 	}
 	
-	void testFailNotConfiguredColor() {
-		//Preperation
+	void testSuccessNotConfiguredColor() {
+		//Preparation
 		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')
 		assertNotNull col
@@ -235,13 +232,14 @@ class TaskTests extends TaskBoardUnitTest {
 			sortorder: 1,
 			priority: 'Critical'
 		)
+		
 		assertTrue task.validate()
 		assertNotNull task.save()
 		assertNotNull Task.findByName('mytask')
 	}
 	
 	void testFailNotConfiguredPriority() {
-		//Preperation
+		//Preparation
 		def col = Column.findByName('todo')
 		def user = User.findByUsername('testuser')
 		assertNotNull col
@@ -253,11 +251,37 @@ class TaskTests extends TaskBoardUnitTest {
 			column: col,
 			creator: user,
 			sortorder: 1,
-			color: new TaskColor(color:'faf77a', name:'not needed'),
 			priority: 'HyperCritical'
-		)
+		).addToColors(new TaskColor(color:'faf77a', name:'not needed'))
+		
 		assertFalse task.validate()
 		assertNull task.save()
 		assertNull Task.findByName('mytask')
+	}
+	
+	void testToMessage() {
+		def expected = "[id:null, creator:testuser, assignee:testuser, sortorder:0, dateCreated:Thu Jan 01 01:00:00 CET 1970, workflowStartDate:null, workflowEndDate:null, name:mytask, description:null, details:null, durationHours:0.5, priority:Critical, colors:[[color:faf77a, name:not needed]], blocked:false]"
+		
+		//Preparation
+		def col = Column.findByName('todo')
+		def user = User.findByUsername('testuser')
+		assertNotNull col
+		assertNotNull user
+		
+		def task = new Task(
+			name: 'mytask',
+			durationHours: 0.5,			
+			column: col,
+			creator: user,
+			assignee:user,
+			priority: 'Critical',
+			dateCreated: new Date(0l)
+		).addToColors(new TaskColor(color:'faf77a', name:'not needed'))
+		
+		assertTrue task.validate()
+		//assertNotNull task.save()
+		
+		def message = task.toMessage()
+		assertEquals expected.toString(), message.toString()
 	}
 }
