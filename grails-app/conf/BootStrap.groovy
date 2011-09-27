@@ -60,10 +60,10 @@ class BootStrap {
 			
 			def testTasks
 			
-			def color1 = new TaskColor(color:'#85fd81', name:'Rethink')
-			def color2 = new TaskColor(color:'#fafaa8', name:'App')
-			def color3 = new TaskColor(color:'#faaca8', name:'General')
-			def color4 = new TaskColor(color:'#81b6fd', name:'Web')
+			def color1 = new TaskColor(color:'#85fd81', name:'Rethink').save(flush:true)
+			def color2 = new TaskColor(color:'#fafaa8', name:'App').save(flush:true)
+			def color3 = new TaskColor(color:'#faaca8', name:'General').save(flush:true)
+			def color4 = new TaskColor(color:'#81b6fd', name:'Web').save(flush:true)
 			
 			def colors = [color1, color2, color3, color4]
 			

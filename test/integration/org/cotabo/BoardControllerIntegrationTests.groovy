@@ -26,7 +26,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='1'>
                 <color>#85fd81</color>
-                <name>Color1</name>
+                <name>Rethink</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -44,7 +44,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='1'>
                 <color>#85fd81</color>
-                <name>Color1</name>
+                <name>Rethink</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -62,7 +62,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='1'>
                 <color>#85fd81</color>
-                <name>Color1</name>
+                <name>Rethink</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -80,7 +80,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='1'>
                 <color>#85fd81</color>
-                <name>Color1</name>
+                <name>Rethink</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -98,7 +98,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='1'>
                 <color>#85fd81</color>
-                <name>Color1</name>
+                <name>Rethink</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -125,7 +125,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='1'>
                 <color>#85fd81</color>
-                <name>Color1</name>
+                <name>Rethink</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -143,7 +143,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='1'>
                 <color>#85fd81</color>
-                <name>Color1</name>
+                <name>Rethink</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -170,7 +170,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='1'>
                 <color>#85fd81</color>
-                <name>Color1</name>
+                <name>Rethink</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -188,7 +188,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='2'>
                 <color>#fafaa8</color>
-                <name>Color2</name>
+                <name>App</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -206,7 +206,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='2'>
                 <color>#fafaa8</color>
-                <name>Color2</name>
+                <name>App</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -224,7 +224,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='2'>
                 <color>#fafaa8</color>
-                <name>Color2</name>
+                <name>App</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -242,7 +242,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='2'>
                 <color>#fafaa8</color>
-                <name>Color2</name>
+                <name>App</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -260,7 +260,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='2'>
                 <color>#fafaa8</color>
-                <name>Color2</name>
+                <name>App</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -278,7 +278,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='2'>
                 <color>#fafaa8</color>
-                <name>Color2</name>
+                <name>App</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -296,7 +296,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='2'>
                 <color>#fafaa8</color>
-                <name>Color2</name>
+                <name>App</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -314,7 +314,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='2'>
                 <color>#fafaa8</color>
-                <name>Color2</name>
+                <name>App</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -332,7 +332,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='2'>
                 <color>#fafaa8</color>
-                <name>Color2</name>
+                <name>App</name>
               </taskColor>
             </colors>
             <creator>user</creator>
@@ -350,7 +350,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <colors>
               <taskColor id='2'>
                 <color>#fafaa8</color>
-                <name>Color2</name>
+                <name>App</name>
               </taskColor>
             </colors>
             <creator>user</creator>
