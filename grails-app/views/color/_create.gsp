@@ -23,7 +23,7 @@
 	/**
 	 * Submit event overwrite for the task create form.
 	 */	
-	$('#taskColorCreateForm').submit(function() {		
+	/*$('#taskColorCreateForm').submit(function() {		
 		$.ajax({		
 			type: 'POST',
 			url: $(this).attr('action'),
@@ -32,7 +32,7 @@
 		 $('#tags').dialog('close');				 
 		 //Don't really submit
 		 return false;
-	});
+	});*/
 	
 </jq:jquery>
 <div id="tags" title="new tag">
