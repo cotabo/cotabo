@@ -60,11 +60,15 @@ class BootStrap {
 			
 			def testTasks
 			
-			def color1 = new TaskColor(color:'#85fd81', name:'Color1')
-			def color2 = new TaskColor(color:'#fafaa8', name:'Color2')
-			def color3 = new TaskColor(color:'#faaca8', name:'Color3')
-			def color4 = new TaskColor(color:'#81b6fd', name:'Color4')
-			def color5 = new TaskColor(color:'#fafaa8', name:'Color5')
+			def color1 = new TaskColor(color:'#85fd81', name:'Rethink')
+			def color2 = new TaskColor(color:'#fafaa8', name:'App')
+			def color3 = new TaskColor(color:'#faaca8', name:'General')
+			def color4 = new TaskColor(color:'#81b6fd', name:'Web')
+			
+			def colors = [color1, color2, color3, color4]
+			
+			colors.each{color -> board.addToColors(color)}
+			board.save(flush:true)
 
 			use(TimeCategory) {	
 				def currentDate = new Date(0l)

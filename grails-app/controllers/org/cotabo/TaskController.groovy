@@ -35,7 +35,7 @@ class TaskController {
 		taskInstance.column = Board.get(params.board).columns.first()
 		//Render error when the user is not logged in
 		if(!springSecurityService.isLoggedIn()) {
-			def resp = [title: 'No user session', message: 'You\'r not logged in.\nPlease refresh the site to re-login.' ]
+			def resp = [title: 'No user session', message: 'You\'re not logged in.\nPlease refresh the site to re-login.' ]
 			render (status: 403, contentType:'application/json', text: resp as JSON)
 			return
 		}
@@ -116,7 +116,7 @@ class TaskController {
 			else {
 				//Bind data but exclude column, creator & sortorder
 				bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
-				def colorstring = params.color.startsWith("#")? params.color.toString().substring(1) : params.color
+				def colorstring = !params.color.startsWith("#")? '#'+params.color.toString() : params.color
 				def color = TaskColor.findByColor(colorstring) ?: new TaskColor(color:colorstring, name:'current')
 				taskInstance.addToColors(color)
 				def assignee = User.get(params.assignee.trim().toLong())

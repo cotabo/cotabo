@@ -102,7 +102,7 @@
                         <label for="color" alt="The color with this this task gets displayed">color *</label>
                     </td>
                     <td>
-                        <g:select id="update_color" from="${grailsApplication.config.taskboard.colors}" value="${taskInstance.colors.toArray()[0].color}" name="color"></g:select>
+                        <g:select id="update_color" from="${taskInstance.column.board.colors}" value="${taskInstance.column.board.colors.toArray()[0].color}" name="color" optionValue="name"></g:select>
                     </td>
                 </tr>
             </tbody>

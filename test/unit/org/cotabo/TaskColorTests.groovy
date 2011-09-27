@@ -19,6 +19,12 @@ class TaskColorTests extends GrailsUnitTestCase {
 		assertNotNull color1.save()
     }
 	
+	void testValidColorWithHashValidName() {
+		def color1 = new TaskColor(name:"none", color:"#123456")
+		assertNotNull color1.validate()
+		assertNotNull color1.save()
+	}
+	
 	void testInvalidColorValidName() {
 		def color1 = new TaskColor(name:"none", color:"123zz6")
 		assertFalse color1.validate()

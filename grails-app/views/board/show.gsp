@@ -1,4 +1,5 @@
 <%@ page import="org.cotabo.Board" %>
+<%@ page import="org.cotabo.TaskColor" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -46,6 +47,7 @@
     			</g:each>
     		</tb:column>
     		</g:each>
+    		<g:render template="/color/list" model="${['colors':boardInstance.colors]}"></g:render>
     	</tb:board>      	    
     
 	    <div id="error_dialog"></div>

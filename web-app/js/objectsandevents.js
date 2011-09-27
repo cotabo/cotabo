@@ -44,6 +44,11 @@ jQuery(function(){
 		 	e.preventDefault();
 		 	return false;
 		 }
+		 if (code == 116) /* 't' */ {
+			 $('#tags').dialog('open');
+			 	e.preventDefault();
+			 	return false;
+			 }
            }
        });
      });
@@ -61,6 +66,13 @@ jQuery(function(){
 		}		
 	}).click(function() {
 		$('#createTaskForm').dialog('open');
+		return true;
+	});
+	
+	$('#b_new_tag').button({
+				
+	}).click(function() {
+		$('#tags').dialog('open');
 		return true;
 	});
 	
