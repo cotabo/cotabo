@@ -106,7 +106,7 @@
     					<label for="color" alt="The color with this this task gets displayed">color *</label>
     				</td>
     				<td>
-    					<g:select from="${colors}" value="${grailsApplication.config.taskboard.default.color}" name="color"></g:select>
+    					<g:select from="${boardInstance.colors}" name="color"></g:select>
     				</td>
     			</tr>
     		</tbody>

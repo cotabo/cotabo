@@ -156,8 +156,7 @@ class BoardController {
         }
         else {
 			[
-				boardInstance: boardInstance,
-				colors:grailsConfig.config.taskboard.colors,
+				boardInstance: boardInstance,				
 				priorities:grailsConfig.config.taskboard.priorities
 			]			
         }

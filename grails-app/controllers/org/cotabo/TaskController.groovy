@@ -30,7 +30,10 @@ class TaskController {
 		//Bind data but exclude column, creator & sortorder
 		bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
 		
-		taskInstance.addToColors(TaskColor.findByColor(params.color))
+		def color = TaskColor.findByColor(params.color)
+		if (color) {
+			taskInstance.addToColors(color)
+		}
 		
 		taskInstance.column = Board.get(params.board).columns.first()
 		//Render error when the user is not logged in
