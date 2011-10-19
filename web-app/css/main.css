@@ -25,6 +25,17 @@ body {
 	color: #336699;
 	font-weight:bold;	
 }
+
+.head-callback {
+	float:right;
+	width:200px;
+	padding-top:2px;
+	overflow:hidden;	
+}
+.head-callback * {
+	float:right;
+}
+
 .head  #user {
 	float:left;
 	color:#ffffff;

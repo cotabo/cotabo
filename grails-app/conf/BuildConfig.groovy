@@ -30,8 +30,6 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
     plugins{
-    	build ':atmosphere:latest.integration'
-		build ':quartz:latest.integration'
 		build ':export:1.1.1'
 	}
     dependencies {

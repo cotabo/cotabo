@@ -12,5 +12,5 @@ ul.column_list li {cursor: move;}
 .user_list {list-style-type:none; min-width:150px; min-height:200px;}
 #users_selectable ul li {margin-bottom:5px;cursor:move;}
 .div_user{padding:5px;}
-
+#columns_content table * td {text-align: center;}
 

@@ -48,20 +48,23 @@ var appendUpdateDialogToDOM = function(data, textStatus, jqXHR) {
  */
 var taskTpl = function () {
 	var theId = this.id
-	var blockedClass 
+	var blockedClass
+	var blockedTitle
 	if (this.blocked) {
-		blockedClass='ui-icon-locked blocked'
+		blockedClass='ui-icon-locked blocked';
+		blockedTitle='blocked';
 	}
 	else {
-		blockedClass='ui-icon-unlocked not-blocked'
+		blockedClass='ui-icon-unlocked not-blocked';
+		blockedTitle='unblocked';
 	}
 	return [ 
 		"li", {class:'ui-widget ui-corner-all', id:'task_'+this.id}, [
 			"div", {class:'task-header ui-state-default'}, [
-			    "img", {class:'ui-icon ui-icon-person avatar', src:avatarUrl+'/'+this.assignee}, ,
+			    "img", {class:'ui-icon ui-icon-person avatar', src:avatarUrl+'/'+this.assignee, title:this.assignee}, ,
 				"div", {class:'head_color', style:'background-color:'+this.color}, ,
 				"div", {class:'head_name'}, '#' + this.id + ' - ' +this.name,
-				"span", {class:'block-box ui-icon '+ blockedClass}, ,
+				"span", {class:'block-box ui-icon '+ blockedClass, title:blockedTitle}, ,
 				"span", {class:'expander ui-icon ui-icon ui-icon-carat-1-n'}, 
 			],
 			"div", {class:'task-content ui-widget-content', style:'display:block;'}, [

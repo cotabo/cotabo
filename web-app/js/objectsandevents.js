@@ -10,7 +10,7 @@ jQuery(function(){
 	 * *******************************************************/
 	
 	$(document).ready(function(){
-		$('input#search').quicksearch('li');
+		$('input#search').quicksearch('li.ui-widget');
 	});
 	
 	 /********************************************************

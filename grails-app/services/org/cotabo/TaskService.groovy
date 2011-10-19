@@ -28,7 +28,7 @@ class TaskService {
 			taskInstance.dateCreated = dateCreated
 			//saving both as addTo somehow here doesn't seem to main both ends of the relation
 			taskInstance.save()	
-			createMovementEvent(taskInstance, null, taskInstance.column, dateCreated)
+			createMovementEvent(taskInstance, dateCreated)
 		}
 		return taskInstance
 	}
@@ -78,7 +78,7 @@ class TaskService {
 			taskInstance.column = toColumnInstance
 			taskInstance.save(flush:false)
 			sessionFactory?.getCurrentSession()?.flush()
-			createMovementEvent(taskInstance, fromColumnInstance, toColumnInstance, dateCreated)
+			createMovementEvent(taskInstance, dateCreated)
 			return ''
 		}
 		else {
@@ -92,18 +92,16 @@ class TaskService {
 	 * 	<b>Note:</b> this should be called after the movement is done.
 	 * 
 	 * @param task The task that was transfered.
-	 * @param fromColumn The column object from which the task was transfered.
-	 * @param tooColumn The column object to which the task was transfered.
 	 * @param dateCreated Optional - this is only for testing purposes - normally hibernate/grails will set this.
 	 */
-	private void createMovementEvent(Task task, Column fromColumn, Column tooColumn, Date dateCreated = null) {		
+	private void createMovementEvent(Task task, Date dateCreated = null) {		
 		def events = []
 		//Get the current logged-in user
 		def principal = springSecurityService.principal
 		def user = User.findByUsername(principal.username)
 		
 		//Getting a snapshot of task count on each column
-		tooColumn.board.columns.each {
+		task.column.board.columns.each {
 			events << new ColumnStatusEntry(
 				column: it,
 				tasks: it.tasks?.size() ?: 0,

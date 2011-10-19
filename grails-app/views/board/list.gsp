@@ -9,6 +9,8 @@
 	    <g:if test="${flash.message}">
 	       <g:render template="/info" model="[message:flash.message]"/>	       
 	    </g:if>
+	    
+        <g:render template="import_export_menu"/>
         
         <ul class="board_list">   
             <li><h2>your boards</h2></li>

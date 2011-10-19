@@ -2,6 +2,7 @@ package org.cotabo
 
 import grails.plugins.springsecurity.Secured
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
+import org.xml.sax.SAXParseException
 
 
 @Secured(['ROLE_USER'])
@@ -10,8 +11,9 @@ class BoardController {
 	def dashboardService
 	def boardUpdateService	
 	def exportService
+	def importService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "GET", importBoards: ["GET", "POST"]]
 	
     def index = {
         redirect(action: "list", params: params)
@@ -22,17 +24,41 @@ class BoardController {
     	[adminBoards: user.getBoards(RoleEnum.ADMIN), userBoards: user.getBoards(RoleEnum.USER)]
     }
 
-		def export = {
-			response.contentType = grailsConfig.config.grails.mime.types['xml']
-			response.setHeader("Content-disposition", "attachment; filename=boards.xml")
+	@Secured(['ROLE_ADMIN'])
+	def export = {
+		response.contentType = grailsConfig.config.grails.mime.types['xml']
+		response.setHeader("Content-disposition", "attachment; filename=boards.xml")
 
-			def stream = response.outputStream
-			def objs = Board.list()
-			def parameters = ["depth" : 10]
-			
-			
-			exportService.export('xml', stream, objs, [:], parameters)	
+		def stream = response.outputStream
+		def objs = Board.list()
+		def parameters = ["depth" : 10]
+		
+		
+		exportService.export('xml', stream, objs, [:], parameters)	
+	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def importBoards = {		
+		if (request.get) {
+			render(view:'import')
 		}
+		else {			
+			def xml = params.xml
+			try {
+				importService.importBoards(xml)
+				redirect(action: "list")				
+			}
+			catch(TaskBoardException e) {
+				flash.message = e.message
+				render(view:'import', model:[xml:xml])
+			}			
+			catch(SAXParseException) {
+				flash.message = 'Invalid XML'
+				render(view:'import', model:[xml:xml])
+			}			
+		}
+	}
+
 
     def create = {
         def boardInstance = new Board()

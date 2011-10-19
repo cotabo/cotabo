@@ -72,11 +72,11 @@ class BoardTagLib {
 				<div class="task-header ui-state-default">"""
            if(attrs.task?.assignee?.avatar){
                out << """
-					<img class="ui-icon ui-icon-person avatar" src="${createLink(controller:'user', action:'avatar', id:attrs.task?.assignee?.username)}" />"""
+					<img class="ui-icon ui-icon-person avatar" src="${createLink(controller:'user', action:'avatar', id:attrs.task?.assignee?.username)}" title="${attrs.task?.assignee}"/>"""
            }
            else{
                out << """
-					<span class="ui-icon ui-icon-person avatar"></span>"""
+					<span class="ui-icon ui-icon-person avatar" title="${attrs.task?.assignee}"></span>"""
            }
            
 		   attrs.task?.colors?.each{color ->
@@ -88,10 +88,10 @@ class BoardTagLib {
 					<div class="head_name">#${attrs.task?.id ?: ''} - ${attrs.task?.name?.encodeAsHTML()}</div>"""
 				if(attrs.task.column.id == lastColumn.id) {
 					out << """
-					<a href="${createLink(controller:'task', action:'archive', id:attrs.task?.id)}" class="ui-icon ui-icon-disk archive"></a>"""
+					<a href="${createLink(controller:'task', action:'archive', id:attrs.task?.id)}" class="ui-icon ui-icon-disk archive" title="archive"></a>"""
 				}
 				out << """
-					<span class="block-box ui-icon ${attrs.task?.blocked ? 'ui-icon-locked blocked' : 'ui-icon-unlocked not-blocked'}" ></span>
+					<span class="block-box ui-icon ${attrs.task?.blocked ? 'ui-icon-locked blocked' : 'ui-icon-unlocked not-blocked'}" title="${attrs.task?.blocked ? 'blocked' : 'unblocked'}"></span>
 					<span class="expander ui-icon ui-icon-carat-1-${attrs.hide ? 's' : 'n'}" ></span>
 				</div>
 				<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'none' : 'block'}">
