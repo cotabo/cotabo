@@ -58,11 +58,12 @@ var taskTpl = function () {
 		blockedClass='ui-icon-unlocked not-blocked';
 		blockedTitle='unblocked';
 	}
+	
 	return [ 
 		"li", {class:'ui-widget ui-corner-all', id:'task_'+this.id}, [
 			"div", {class:'task-header ui-state-default'}, [
 			    "img", {class:'ui-icon ui-icon-person avatar', src:avatarUrl+'/'+this.assignee, title:this.assignee}, ,
-				"div", {class:'head_color', style:'background-color:'+this.color}, ,
+				"div", {class:'head_color', style:'background-color:'+this.colors[0].color}, ,
 				"div", {class:'head_name'}, '#' + this.id + ' - ' +this.name,
 				"span", {class:'block-box ui-icon '+ blockedClass, title:blockedTitle}, ,
 				"span", {class:'expander ui-icon ui-icon ui-icon-carat-1-n'}, 
