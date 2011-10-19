@@ -5,3 +5,4 @@ cotabo.iml
 .idea/*
 .DS_Store
 stacktrace.log
+target-eclipse
