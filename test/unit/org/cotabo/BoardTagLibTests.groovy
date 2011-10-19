@@ -99,7 +99,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			<li class="ui-widget ui-corner-all" id="task_1">
 				<div class="task-header ui-state-default">
 					<span class="ui-icon ui-icon-person avatar" title="testuser"></span>
-					<div class="head_color" style="background-color:#faf77a;"></div>
+					<div class="head_color None" style="background-color:#faf77a;"></div>
 					<div class="head_name">#1 - mytask</div>
 					<a href="/task/archive/1" class="ui-icon ui-icon-disk archive" title="archive"></a>
 					<span class="block-box ui-icon ui-icon-unlocked not-blocked" title="unblocked"></span>
@@ -161,7 +161,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			<li class="ui-widget ui-corner-all" id="task_1">
 				<div class="task-header ui-state-default">
 					<img class="ui-icon ui-icon-person avatar" src="/user/avatar/testuser" title="testuser"/>
-					<div class="head_color" style="background-color:#faf77a;"></div>
+					<div class="head_color Unknown" style="background-color:#faf77a;"></div>
 					<div class="head_name">#1 - mytask</div>
 					<a href="/task/archive/1" class="ui-icon ui-icon-disk archive" title="archive"></a>
 					<span class="block-box ui-icon ui-icon-unlocked not-blocked" title="unblocked"></span>

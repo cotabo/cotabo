@@ -1,15 +1,20 @@
 <g:each in="${colors}" var="color">
 	<%--<div style="width:${100/colors.size()}%"> --%>
-		<div class="column" style="background-color:${color}; min-height:0px;margin:3px;padding:3px;font-size:14px; ">
-			<%--<g:form action="delete" controller="taskColor"> 
-				<input type="hidden" name="id" value="${color.id }" />
-				<input type="submit" class="ui-icon ui-icon-close tag" />
-				${color.name }
-			</g:form>
-			 --%>
-			 
+		<div class="column column-tag" style="background-color:${color}; min-height:0px;margin:3px;padding:3px;font-size:14px; ">
 			<a href="${createLink(controller:'taskColor', action:'delete', id:color.id)}"><span class="ui-icon ui-icon-close tag"></span></a>
-			${color.name }
+			${color.name}
 		</div>
 	<%-- </div> --%>
 </g:each>
+<jq:jquery>
+	$('.column-tag').click(function(){
+		var color = jQuery.trim($(this).text());
+		var colors = $('div.head_color');
+		var tasks = $('li.ui-widget').filter(function(index){
+			return $('div.head_color', this).length > 0 && $('.'+color, this).length > 0 ;
+		})
+		jQuery.each(tasks, function(index, value){
+			value.style.display=value.style.display == 'none' ? '' : 'none';
+		});
+	})
+</jq:jquery>

@@ -81,7 +81,7 @@ class BoardTagLib {
            
 		   attrs.task?.colors?.each{color ->
 			   out << """
-					<div class="head_color" style="background-color:${color?.color?.encodeAsHTML()};"></div>"""
+					<div class="head_color ${color?.name?.encodeAsHTML()}" style="background-color:${color?.color?.encodeAsHTML()};"></div>"""
 		   }
 		   
            out << """
