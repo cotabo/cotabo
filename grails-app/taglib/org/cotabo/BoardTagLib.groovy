@@ -12,7 +12,7 @@ class BoardTagLib {
 		<div id="board">
 			<h2>${attrs.board?.name?.encodeAsHTML()}</h2>
 			<p class="description">${attrs.board?.description?.encodeAsHTML() ?: ''}</p>
-		"""						
+		"""
 		body() ? out << body() :
 		out << """
 		</div>
@@ -79,9 +79,12 @@ class BoardTagLib {
 					<span class="ui-icon ui-icon-person avatar" title="${attrs.task?.assignee}"></span>"""
            }
            
+		   attrs.task?.colors?.each{color ->
+			   out << """
+					<div class="head_color ${color?.name?.encodeAsHTML()}" style="background-color:${color?.color?.encodeAsHTML()};"></div>"""
+		   }
+		   
            out << """
-					<div class="head_color" style="background-color:${attrs.task?.color?.encodeAsHTML()};"></div>
-					<div id="color_helper" style="display:none;">${attrs.task?.color?.encodeAsHTML()}</div>
 					<div class="head_name">#${attrs.task?.id ?: ''} - ${attrs.task?.name?.encodeAsHTML()}</div>"""
 				if(attrs.task.column.id == lastColumn.id) {
 					out << """

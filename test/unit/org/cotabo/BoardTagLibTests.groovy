@@ -18,7 +18,9 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
 		'''
 		mockDomain(Board)
-		mockDomain(Column)				
+		mockDomain(Column)
+		mockDomain(Task)
+		mockDomain(TaskColor)	
 		mockDomain(User, [
 			new User(
 				username: 'testuser',
@@ -97,8 +99,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			<li class="ui-widget ui-corner-all" id="task_1">
 				<div class="task-header ui-state-default">
 					<span class="ui-icon ui-icon-person avatar" title="testuser"></span>
-					<div class="head_color" style="background-color:#faf77a;"></div>
-					<div id="color_helper" style="display:none;">#faf77a</div>
+					<div class="head_color None" style="background-color:#faf77a;"></div>
 					<div class="head_name">#1 - mytask</div>
 					<a href="/task/archive/1" class="ui-icon ui-icon-disk archive" title="archive"></a>
 					<span class="block-box ui-icon ui-icon-unlocked not-blocked" title="unblocked"></span>
@@ -146,9 +147,8 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			column:lastColumn, 
 			creator: user,
 			assignee: user,
-			color: '#faf77a',
 			priority: 'Critical'
-		)
+		).addToColors(new TaskColor(color:'#faf77a', name:'None')).save()
 		
 		def tl = new BoardTagLib()
 		tl.task([task:theTask], {''})
@@ -161,8 +161,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			<li class="ui-widget ui-corner-all" id="task_1">
 				<div class="task-header ui-state-default">
 					<img class="ui-icon ui-icon-person avatar" src="/user/avatar/testuser" title="testuser"/>
-					<div class="head_color" style="background-color:#faf77a;"></div>
-					<div id="color_helper" style="display:none;">#faf77a</div>
+					<div class="head_color Unknown" style="background-color:#faf77a;"></div>
 					<div class="head_name">#1 - mytask</div>
 					<a href="/task/archive/1" class="ui-icon ui-icon-disk archive" title="archive"></a>
 					<span class="block-box ui-icon ui-icon-unlocked not-blocked" title="unblocked"></span>
@@ -211,9 +210,8 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			creator: user,
 			assignee: user,
 			details:'a\nb',
-			color: '#faf77a',
 			priority: 'Critical'
-		)
+		).addToColors(new TaskColor(color:'#faf77a',name:'Unknown')).save()
 		
 		user.avatar = [0, 1, 2, 3];
 		

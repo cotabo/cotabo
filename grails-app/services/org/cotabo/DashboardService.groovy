@@ -94,7 +94,7 @@ class DashboardService {
 		else {
 			resultTasks = Task.findAllByColumnAndWorkflowEndDateIsNotNull(workflowEndColumn)
 		}
-		//This is assuming that workflowEndSate & workflowSartDate is always filles when
+		//This is assuming that workflowEndSate & workflowSartDate is always filled when
 		//a task is in the last column.
 		long sumTime = resultTasks.collect{it.workflowEndDate.time - it.workflowStartDate.time}.sum()
 		def result = sumTime / resultTasks.size()

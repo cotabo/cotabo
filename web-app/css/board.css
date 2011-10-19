@@ -157,6 +157,10 @@ div.task-content * td {
 	margin: 3px;
 }
 
+span.tag{
+	float:left;
+}
+
 .expander{
 	
 }

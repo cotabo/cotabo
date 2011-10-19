@@ -49,7 +49,10 @@ var atmosphereCallback = function(response) {
 		}
 		catch (e) {
 			//alert('Error: '+e+'\nJSON: '+response.responseBody)
-		}		
+		}
+		
+		console.log(data);
+		
 		if (data != null) {
 			if(data.notification != null) {
 				$.pnotify({
@@ -62,6 +65,9 @@ var atmosphereCallback = function(response) {
 			switch(data.type) {
 				case "all":
 					reloadAllCallback(data);
+					break;
+				case "task":
+					taskCallback(data);
 					break;
 				case "task_movement":
 					taskMovementCallback(data);
@@ -230,6 +236,12 @@ var taskUpdateCallback = function(data) {
 	}
 }
 
+
+var taskCallback = function(data) {
+	var id = data.id;
+	var taskDom = $('li#task_'+data.id);
+	taskDom.html(data.rendered);
+}
 
 //Custom stack for chat messages - needs to be out of the function scope:
 //see http://sourceforge.net/projects/pines/forums/forum/960539/topic/4495970

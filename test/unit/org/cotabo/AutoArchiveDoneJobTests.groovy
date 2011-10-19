@@ -25,7 +25,7 @@ class AutoArchiveDoneJobTests extends TaskBoardUnitTest {
 			column: col,
 			creator: user,
 			sortorder: 1,
-			color: '#faf77a',
+			color: new TaskColor(color:'#faf77a', name:'none'),
 			priority: 'Critical',
 			lastUpdated: new Date().minus(31)
 		)
