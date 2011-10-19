@@ -8,4 +8,6 @@ class MessageType {
 	public static final String TASK_CREATION = 'task_creation'
 	public static final String TASK_BLOCK = 'task_block'
 	public static final String TASK_UPDATE = 'task_update'
+	
+	public static final String TASK = 'task' 
 }

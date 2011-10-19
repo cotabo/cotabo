@@ -4,7 +4,8 @@
 		<button id="b_new_task"><u>n</u>ew task</button>
 		<button id="b_chat">chat <u>m</u>essage</button>
 		<button id="b_collapse"><u>c</u>ollapse all tasks</button>
-		<button id="b_expand"><u>e</u>xpand all tasks</button>		
+		<button id="b_expand"><u>e</u>xpand all tasks</button>	
+		<button id="b_new_tag">new <u>t</u>ag</button>	
 	</span>	
 	<div id="chat_dialog" title="Chat message">
 	   <form id="chat_form">
@@ -20,3 +21,4 @@
 	</div>
 </content>
 <g:render template="/task/create"/>
+<g:render template="/color/create"/>

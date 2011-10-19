@@ -10,7 +10,6 @@ class UserController {
 	def avatar = {
 		if(params.username) {
 			def avatarUser = User.findByUsername(params.username)
-			log.info("avatar_image for user: ${avatarUser}")
 			if (!avatarUser || !avatarUser.avatar || !avatarUser.avatarType) {
 				response.sendError(404)
 				return;
