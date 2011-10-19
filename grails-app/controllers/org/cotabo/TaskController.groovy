@@ -144,7 +144,7 @@ class TaskController {
 				}
 				else {
 					def notification = "${user} updated task #${params.id} (${taskInstance.name})."
-					def rendered = new BoardTagLib().task([task:taskInstance])
+					def rendered = tb.task([task:taskInstance])
 					def message = [id: taskInstance.id, rendered: rendered]
 					boardUpdateService.broadcastMessage(
 						broadcaster,

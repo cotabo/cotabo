@@ -240,7 +240,7 @@ var taskUpdateCallback = function(data) {
 var taskCallback = function(data) {
 	var id = data.id;
 	var taskDom = $('li#task_'+data.id);
-	taskDom.html(data.rendered);
+	taskDom.replaceWith(data.rendered);
 }
 
 //Custom stack for chat messages - needs to be out of the function scope:
