@@ -24,7 +24,7 @@ class User {
 		email blank: false, email: true
 		username blank: false, unique: true
 		password blank: false, minSize: 5				
-		avatar nullable: true
+		avatar nullable: true, maxSize: 102400
 		avatarType nullable: true
 	}
 
@@ -56,6 +56,6 @@ class User {
 	
 	@Override
 	public String toString() {
-		return "$username"
+		return "${username}"
 	}
 }
