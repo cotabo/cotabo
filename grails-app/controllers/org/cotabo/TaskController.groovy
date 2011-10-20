@@ -30,10 +30,8 @@ class TaskController {
 		//Bind data but exclude column, creator & sortorder
 		bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
 		
-		def color = TaskColor.findByColor(params.color)
-		if (color) {
-			taskInstance.addToColors(color)
-		}
+		//Binding for colors
+		bindColor(taskInstance, params.color)
 		
 		taskInstance.column = Board.get(params.board).columns.first()
 		//Render error when the user is not logged in
@@ -119,9 +117,8 @@ class TaskController {
 			else {
 				//Bind data but exclude column, creator & sortorder
 				bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
-				def colorstring = !params.color.startsWith("#")? '#'+params.color.toString() : params.color
-				def color = TaskColor.findByColor(colorstring) ?: new TaskColor(color:colorstring, name:'current')
-				taskInstance.addToColors(color)
+				//Binding for colors
+				bindColor(taskInstance, params.color)				
 				def assignee = User.get(params.assignee.trim().toLong())
 				//No check on assignee as this may be null - leave this to the constraints
 				taskInstance.assignee =assignee
@@ -217,5 +214,23 @@ class TaskController {
 			)
 		}
 		redirect(controller :'board', action: 'show', id:taskInstance.column.board.id)
+	}
+	
+	/**
+	 * Helper method that takes care of color binding to a task instance from a requested list of color codes.
+	 * 
+	 * @param taskInstance The task object
+	 * @param colors either a string array representation([#ffffff, #ffff00]) of hex codes or a single one.
+	 */
+	private void bindColor(Task taskInstance, def colors) {		
+		//make it a list if it's a string (in case that only one is selected)
+		colors = colors instanceof String ? [colors] : colors
+		//Clearing the colors
+		taskInstance.colors?.clear()										
+		//Than adding everything as requested
+		colors?.each { reqColor ->
+			taskInstance.addToColors(TaskColor.findByColor(reqColor))
+		}
+	
 	}
 }

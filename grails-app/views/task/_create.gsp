@@ -4,7 +4,7 @@
      */
     $('#createTaskForm').dialog({
         autoOpen: false,
-        height: 450,
+        height: 480,
         width: 400,
         modal: true,
         buttons: {
@@ -106,7 +106,7 @@
     					<label for="color" alt="The color with this this task gets displayed">color *</label>
     				</td>
     				<td>
-    					<g:select from="${boardInstance.colors}" name="color"></g:select>
+    					<g:select from="${boardInstance.colors}" optionKey="color" optionValue="name" name="color" multiple="true" size="4"></g:select>
     				</td>
     			</tr>
     		</tbody>

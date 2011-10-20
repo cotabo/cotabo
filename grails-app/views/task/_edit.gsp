@@ -6,7 +6,7 @@
 	     */
 	    $('#taskUpdateDialog').dialog({
 	        autoOpen: true,
-	        height: 450,
+	        height: 480,
 	        width: 400,
 	        modal: true,
 	        buttons: {
@@ -102,7 +102,7 @@
                         <label for="color" alt="The color with this this task gets displayed">color *</label>
                     </td>
                     <td>
-                        <g:select id="update_color" from="${taskInstance.column.board.colors}" value="${taskInstance.column.board.colors.toArray()[0].color}" name="color" optionValue="name"></g:select>
+                        <g:select id="update_color" from="${taskInstance.column.board.colors}" optionKey="color" optionValue="name" name="color" multiple="true" size="4"></g:select>
                     </td>
                 </tr>
             </tbody>
