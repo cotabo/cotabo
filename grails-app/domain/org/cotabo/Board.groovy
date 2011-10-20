@@ -18,7 +18,7 @@ class Board {
 	
 	String name
 	String description
-		
+	List colors = []
 	
 	//Automatically maintained
 	Date dateCreated

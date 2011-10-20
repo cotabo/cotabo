@@ -21,6 +21,7 @@ class Task implements Comparable {
 	static hasMany = [ blocks : Block, colors: TaskColor]
 	
 	List blocks = []
+	List colors = []
 	
 	User creator
 	User assignee
