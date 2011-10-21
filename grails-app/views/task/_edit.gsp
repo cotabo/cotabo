@@ -102,7 +102,7 @@
                         <label for="color" alt="The color with this this task gets displayed">color *</label>
                     </td>
                     <td>
-                        <g:select id="update_color" from="${taskInstance.column.board.colors}" value="${taskInstance.colors}" optionKey="color" optionValue="name" name="color" multiple="true" size="4"></g:select>
+                        <g:select id="update_color" from="${taskInstance.column.board.colors.sort{a,b -> a.name <=> b.name}}" value="${taskInstance.colors}" optionKey="color" optionValue="name" name="color" multiple="true" size="4"></g:select>
                     </td>
                 </tr>
             </tbody>
