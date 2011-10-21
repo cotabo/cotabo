@@ -106,7 +106,7 @@
     					<label for="color" alt="The color with this this task gets displayed">color *</label>
     				</td>
     				<td>
-    					<g:select from="${boardInstance.colors}" optionKey="color" optionValue="name" name="color" multiple="true" size="4"></g:select>
+    					<g:select from="${boardInstance.colors.sort{a,b -> a.name <=> b.name}}" optionKey="color" optionValue="name" name="color" multiple="true" size="4"></g:select>
     				</td>
     			</tr>
     		</tbody>
