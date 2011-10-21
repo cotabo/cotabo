@@ -52,7 +52,7 @@
     			</g:each>
     		</tb:column>
     		</g:each>
-    		<g:render template="/color/list" model="${['colors':boardInstance.colors]}"></g:render>
+    		<g:render template="/color/list" model="${['colors':boardInstance.colors.sort{a,b -> a.name <=> b.name}]}"></g:render>
     	</tb:board>      	    
     
 	    <div id="error_dialog"></div>
