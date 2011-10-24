@@ -225,6 +225,21 @@ class BoardController {
         }
     }
 	
+	def archive = {
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		def archivedTasks = Task.findAllArchived([
+				sort:'workflowEndDate',
+				max: params.max,
+				offset: params.offset, 
+				order: 'desc'])
+		def archivedTasksCount = Task.findAllArchived().size()
+		[
+			taskList: archivedTasks, 
+			taskTotal: archivedTasksCount,
+			boardInstance: Board.get(params.id)
+		]
+	}
+	
 	def chat = {
 		def message = params.message.encodeAsHTML()
 		if (message) {
