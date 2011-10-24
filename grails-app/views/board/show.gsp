@@ -42,13 +42,7 @@
     		<g:each in="${boardInstance.columns}" var="column">
     		<tb:column column="${column}">
     			<g:each in="${column.tasks}" var="task">
-    			<g:if test="${(column == boardInstance.columns.first()) || (column == boardInstance.columns.last()) }">
-    				<g:set var="hide" value="${true}" />  				
-    			</g:if>
-    			<g:else>
-    				<g:set var="hide" value="${false}" />
-    			</g:else>
-    			<tb:task task="${task}" hide="${hide}"/>
+    			<tb:task task="${task}" hide="${true}"/>
     			</g:each>
     		</tb:column>
     		</g:each>
