@@ -51,7 +51,7 @@ var atmosphereCallback = function(response) {
 			//alert('Error: '+e+'\nJSON: '+response.responseBody)
 		}
 		
-		console.log(data);
+		//console.log(data);
 		
 		if (data != null) {
 			if(data.notification != null) {
@@ -186,34 +186,6 @@ var taskMovementCallback = function(data) {
 
 
 /**
- * Callback for task creation events.
- * 
- * Expecting all domain properties of a Task object in represented as JSON.
- * Doing the task creation animation + inserting the actual dom element.
- * 
- * @param data JSON representation of task tata
- * @returns
- */
-var taskCreationCallback = function(data) {
-	//helper div for the animation see board/_menu.gsp	
-	var helper = $("#new_task_helper");
-	var targetId = $("div.column:first > ul > li:last").attr('id');
-	//In case that the column is empty	
-	if (targetId == null) {		
-		targetId = $("div.column:first > ul").attr('id');
-	}	
-	//alert(targetdId);
-	var effectOptions = { to: "#"+targetId, className: "ui-effects-transfer" };	
-	
-	$(helper).css('display','block');	
-	$(helper).effect('transfer', effectOptions, 1000,function() {
-		var createdDom = $("div.column:first").children("ul").tplAppend(data, taskTpl);
-		setElementCountOnColumn();	
-	});
-	$(helper).css('display','none');
-}
-
-/**
  * Callback function for task_update events.
  * 
  * Updates the task on the board by removing & recreating the DOM element
@@ -239,8 +211,19 @@ var taskUpdateCallback = function(data) {
 
 var taskCallback = function(data) {
 	var id = data.id;
-	var taskDom = $('li#task_'+data.id);
-	taskDom.replaceWith(data.rendered);
+	var taskDom = $('li#task_'+data.id);		
+	//If the element exists
+	if (taskDom.id != null && taskDom.id != 'undefined') {
+		//Replace the existing tasks
+		taskDom.replaceWith(data.rendered);
+	}
+	//element doesn't exist in task creation
+	else {
+		//Append the new element
+		var newDom = $('.column:first > ul').append(data.rendered);
+		//And run an effect
+		$('#b_new_task').effect("transfer", {to:'li#task_'+data.id, className: "ui-effects-transfer"}, 1000);			
+	}	
 }
 
 //Custom stack for chat messages - needs to be out of the function scope:

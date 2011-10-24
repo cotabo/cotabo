@@ -65,11 +65,14 @@ class TaskController {
 			def user = User.findByUsername(principal.username)
 			def notification = "${user} created task #${taskInstance.id} (${taskInstance.name})."
 			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+			//Get the rendered HTML
+			def rendered = tb.task([task:taskInstance, hide:false])
+			def message = [id: taskInstance.id, rendered: rendered]
 			//Distribute this creation as atmosphere message
 			boardUpdateService.broadcastMessage(
 				broadcaster, 
-				taskInstance.toMessage(), 
-				MessageType.TASK_CREATION, 
+				message, 
+				MessageType.TASK, 
 				notification
 			)
 			
@@ -141,6 +144,7 @@ class TaskController {
 				}
 				else {
 					def notification = "${user} updated task #${params.id} (${taskInstance.name})."
+					//Get the rendered HTML
 					def rendered = tb.task([task:taskInstance])
 					def message = [id: taskInstance.id, rendered: rendered]
 					boardUpdateService.broadcastMessage(
