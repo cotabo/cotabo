@@ -243,14 +243,6 @@ jQuery(function(){
 			success: function(data) {
 				//Update the task counts on each column
 				setElementCountOnColumn();
-				//If an element is moved to the last column
-				if (toColumnId == $(".column:last > ul").attr('id').split('_')[1]) {
-					//and it is ellapsed			
-					if ($(ui.item).children('div:first').children('span').hasClass('ui-icon-carat-1-n')) {
-						//Collapse it
-						$(ui.item).children('div:first').children('span').click()
-					}
-				}
 			}
 		});				
 	}
