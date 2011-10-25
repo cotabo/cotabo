@@ -213,7 +213,7 @@ var taskCallback = function(data) {
 	var id = data.id;
 	var taskDom = $('li#task_'+data.id);		
 	//If the element exists
-	if (taskDom.id != null && taskDom.id != 'undefined') {
+	if ($(taskDom).size() > 0) {
 		//Replace the existing tasks
 		taskDom.replaceWith(data.rendered);
 	}
