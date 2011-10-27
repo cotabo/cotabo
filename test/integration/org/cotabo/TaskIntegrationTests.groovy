@@ -15,37 +15,32 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 	
 	void testCreationAddToColumn() {
 		//Preperation
-		def col = Column.findByName('ToDo')
-		def othercol = Column.findByName('In Progress')
+		def col = Column.findByName('Done!')		
 		def user = User.findByUsername('admin')				
 		
-		assertNotNull col
-		assertNotNull othercol
+		assertNotNull col		
 		assertNotNull user
 		
 		def newtask = [
 			name: 'mytask',
 			durationHours: 0.5,
-			creator: user,
-			column: col,
+			creator: user,	
+			column: col,	
 			sortorder: 100,
 			priority: 'Critical',
 			color: grailsConfig.config.taskboard.colors[0]
 		] as Task
 		
-		if(!newtask.validate()){
-			newtask.errors.allErrors.each{println it}
-			assertTrue newtask.validate()
-		}
+		newtask.save(flush:true)
 		
-		def newCol =othercol.addToTasks(newtask)
+		col.addToTasks(newtask)
 		
-		assertTrue newCol.validate()
-		assertNotNull newCol.save(flush:true)
+		assertTrue col.validate()
+		assertNotNull col.save(flush:true)
 		
 		def tmpTask = Task.findByName('mytask')
 		assertNotNull tmpTask
-		assertEquals 'In Progress', tmpTask.column.name
+		assertEquals 'Done!', tmpTask.column.name
 	}
 	
 	void testInitialBlocked() {

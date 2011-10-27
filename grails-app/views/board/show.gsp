@@ -20,7 +20,7 @@
              * Global variable definition
              */
              var atmosphereSubscriptionUrl = '${resource(dir: '/atmosphere/boardupdate?boardId=') + boardInstance.id}';
-             var moveTasksUrl = '${createLink(controller:"column", action:"updatetasks")}';
+             var moveTasksUrl = '${createLink(controller:"task", action:"move")}';
              var updateSortorderUrl = '${createLink(controller:"column", action:"updatesortorder")}';
              var updateTaskUrl = '${createLink(controller:'task', action:'update')}';
              var editTaskUrl = '${createLink(controller:'task', action:'edit')}';

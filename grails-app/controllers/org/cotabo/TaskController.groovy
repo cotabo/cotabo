@@ -23,7 +23,20 @@ class TaskController {
         taskInstance.properties = params
         return [taskInstance: taskInstance]
     }
-
+	
+	def move = {
+		//Do the Task moving work
+		def resultMessage =  taskService.moveTask(
+				Column.get(params.fromColumn),
+				Column.get(params.toColumn),
+				Task.get(params.taskid)
+		)
+		def retCode = resultMessage? 1 : 0
+		//Return code & message will be handled by the client.
+		def result = [returncode: retCode, message:resultMessage]
+		render result as JSON
+	}
+	
     def save = {
 		def taskInstance = new Task()
 				

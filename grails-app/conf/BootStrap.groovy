@@ -95,44 +95,21 @@ class BootStrap {
 					task.addToColors(color1).save()
 					taskService.saveTask(task)}}
 			}
-			
-			def tmpIdList = []
+						
 			SpringSecurityUtils.doWithAuth('user') {	
 				testTasks.wip.each {
 					def persistedTask = Task.findByName(it.name)
-					tmpIdList << persistedTask.id
-					def movementMessage = [
-						task: persistedTask.id,
-						fromColumn: persistedTask.column.id,
-						toColumn: Column.findByName('In Progress').id,
-						newTaskOrderIdList: tmpIdList
-					]
-					taskService.moveTask movementMessage
-										
+					taskService.moveTask persistedTask.column, Column.findByName('In Progress'), persistedTask									
 					persistedTask.blocked = true
 					persistedTask.save()
 				}
 				testTasks.done.each {
-					def persistedTask = Task.findByName(it.name)
-					tmpIdList << persistedTask.id
-					def movementMessage = [
-						task: persistedTask.id,
-						fromColumn: persistedTask.column.id,
-						toColumn: Column.findByName('In Progress').id,
-						newTaskOrderIdList: tmpIdList
-					]
-					taskService.moveTask movementMessage
+					def persistedTask = Task.findByName(it.name)					
+					taskService.moveTask persistedTask.column, Column.findByName('In Progress'), persistedTask
 				}
 				testTasks.done.each {
-					def persistedTask = Task.findByName(it.name)
-					tmpIdList << persistedTask.id
-					def movementMessage = [
-						task: persistedTask.id,
-						fromColumn: persistedTask.column.id,
-						toColumn: Column.findByName('Done!').id,
-						newTaskOrderIdList: tmpIdList
-					]
-					taskService.moveTask movementMessage
+					def persistedTask = Task.findByName(it.name)					
+					taskService.moveTask persistedTask.column, Column.findByName('Done!'), persistedTask
 				}				
 			}	
 			
@@ -162,33 +139,18 @@ class BootStrap {
 					taskService.saveTask(it) }
 			}
 			def eventTasks = Task.findAllByNameLike('Task %')
-			assert eventTasks.size() == 10
-			def secondColumnTaskIdList = Column.findByName('In Progress').tasks.collect{it.id}
+			assert eventTasks.size() == 10			
 			//First we move all out 80 tasks to the second column
 			for (task in eventTasks) {
 				SpringSecurityUtils.doWithAuth('user') {
-					secondColumnTaskIdList << task.id
-					def movementMessage = [
-						task: task.id,
-						fromColumn: task.column.id,
-						toColumn: Column.findByName('In Progress').id,
-						newTaskOrderIdList: secondColumnTaskIdList
-					]
-					taskService.moveTask movementMessage
+					taskService.moveTask task.column, Column.findByName('In Progress'), task
 				}				
 			}
 			eventTasks = Task.findAllByNameLike('Task %')
 			//than all to the last column
 			for (task in eventTasks) {
-				SpringSecurityUtils.doWithAuth('user') {
-					secondColumnTaskIdList << task.id
-					def movementMessage = [
-						task: task.id,
-						fromColumn: task.column.id,
-						toColumn: Column.findByName('Done!').id,
-						newTaskOrderIdList: secondColumnTaskIdList
-					]
-					taskService.moveTask movementMessage
+				SpringSecurityUtils.doWithAuth('user') {					
+					taskService.moveTask task.column, Column.findByName('Done!'), task
 				}
 			}					
 		}

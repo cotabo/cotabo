@@ -224,11 +224,10 @@ jQuery(function(){
 	 * Updating the server side and taking case of updating the column counts. 
 	 *
 	 */	        	             
-	var updateConnectedColumn = function(event, ui) {
+	var moveTask = function(event, ui) {
 		var toColumnId = $(this).attr('id').split('_')[1];
-		var taskId = $(ui.item).attr('id').split('_')[1]; 
-		
-			var fromColumnId = $(ui.sender).attr('id').split('_')[1];				
+		var taskId = $(ui.item).attr('id').split('_')[1]; 		
+		var fromColumnId = $(ui.sender).attr('id').split('_')[1];				
 									
 		//Post onto controller "column" and action "updatetasks"
 		$.ajax({
@@ -238,7 +237,6 @@ jQuery(function(){
 				'fromColumn': fromColumnId, 
 				'toColumn': toColumnId,
 				'taskid': taskId,
-				'order': $(this).sortable("toArray")
 			},
 			success: function(data) {
 				//Update the task counts on each column
@@ -247,22 +245,6 @@ jQuery(function(){
 		});				
 	}
 
-	
-	/**
-	 * Can be used for the stop event. Updating only the column sort order
-	 */ 
-	var updateColumn = function(event, ui) {
-			var toColumnId = $(this).attr('id').split('_')[1];
-		var taskId = $(ui.item).attr('id').split('_')[1]; 
-		$.ajax({
-			type: 'POST',
-			url: updateSortorderUrl+'/'+toColumnId,
-			data: {
-			    taskid: taskId,
-				order: $(this).sortable("toArray")
-			}
-		});
-	}
 		
 	//Sortable definition for the connected columns	
 	$(".column > ul").each(function(index) {			
@@ -276,8 +258,8 @@ jQuery(function(){
 			distance:30,
 			opacity:0.7,
 			placeholder:'ui-effects-transfer',
-			receive: updateConnectedColumn,
-			stop: updateColumn
+			receive: moveTask,
+			stop: setElementCountOnColumn
 			
 		});
 	});	

@@ -15,10 +15,13 @@ class ColumnControllerTests extends GrailsUnitTestCase {
     void testValidResponse() {
 		def expectedResult = '{"returncode":0,"message":""}'
 		def controller = new ColumnController()
-		controller.params.fromColumn = 1
-		controller.params.toColumn = 2
+		def todo = Column.get(2)
+		def done = Column.get(3)
+		def moveTask = todo.tasks.first()
+		controller.params.fromColumn = todo.id
+		controller.params.toColumn = done.id
 		//The 'Setup WebLogic' task
-		controller.params.taskid = 4
+		controller.params.taskid = moveTask.id
 		
 		def result
 		//We need to be authenticated for that
@@ -26,17 +29,15 @@ class ColumnControllerTests extends GrailsUnitTestCase {
 			result = controller.updatetasks()
 		}			
 		assertNotNull controller.response.contentAsString
-		assertEquals expectedResult, controller.response.contentAsString 
-		def expectedTask = Task.findByName('Setup WebLogic')		
-		def expectedColumn = Column.findByName('In Progress')
-		assertEquals expectedColumn, expectedTask.column 
+		assertEquals expectedResult, controller.response.contentAsString 				
+		assertEquals Column.get(3), moveTask.column 
     }
 	
 	void testInvalidRespondeForMissingTask() {
 		def expectedResult = '{"returncode":1,"message":"Either the column or the Task that you have specified does not exist."}'
 		def controller = new ColumnController()
 		controller.params.id = 2
-		controller.params.taskid = 100
+		controller.params.toColumn = 3
 		def result = controller.updatetasks()
 		assertNotNull controller.response.contentAsString
 		assertEquals expectedResult, controller.response.contentAsString

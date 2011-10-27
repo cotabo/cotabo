@@ -14,41 +14,21 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
     protected void tearDown() {
         super.tearDown()
     }
-
-	//TODO: move the below test to unit tests as it doesn't really fit for integration tests
-	/*
-	void testUpdateSortOrder() {		
-		def tasks = [1,3,2,4,5]		
-		//We need to be authenticated for that
-		SpringSecurityUtils.doWithAuth('user') {
-			taskService.updateSortOrder(tasks)
-		}
-		def taskList = tasks.collect{Task.get(it)}
-		
-		assertEquals taskList.collect{it.id}, Column.get(1).tasks.collect{it.id}	
-	}
-	*/
 	
 	void testMoveTask() {
-		def result
-		def order = Column.findByName('In Progress').tasks.collect {it.id}
-		//Adding the id 3 at the beginning
-		order.add(0, 3)		
+		def result				
 		def expectedColumnStatusEntrySize = ColumnStatusEntry.list().size() + 3
-		def initialTaskCount = Column.findByName('In Progress').tasks.size()
-		//We need to be authenticated for that
+		def taskToMove =  Column.get(1).tasks.first()
+		def initialTaskCount = Column.get(2).tasks.size()
+		println taskToMove
+		println Column.get(2).tasks
+		//We need to be authenticated for that				
 		SpringSecurityUtils.doWithAuth('user') {
-			result = taskService.moveTask(
-				task:3,
-				fromColumn: 1,
-				toColumn: 2,
-				newTaskOrderIdList: order
-			)
-		}
-		
+			result = taskService.moveTask(taskToMove.column, Column.get(2), taskToMove)			
+		}		
+		println Column.get(2).tasks
 		assertEquals '', result
-		assertEquals initialTaskCount + 1, Column.findByName('In Progress').tasks.size()
-		assertEquals order, Column.findByName('In Progress').tasks.collect{it.id}
+		assertEquals initialTaskCount + 1, Column.get(2).tasks.size()		
 		
 		//Testing the generated events				
 		assertEquals expectedColumnStatusEntrySize, ColumnStatusEntry.list().size()		
@@ -59,12 +39,7 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		//We need to be authenticated for that
 		SpringSecurityUtils.doWithAuth('user') {
 			//Move another task an see whether the tasks on the event objects stay the same
-			result =  taskService.moveTask(
-				task:4,
-				fromColumn: 1,
-				toColumn: 2,
-				newTaskOrderIdList: [6,3,4,7]
-			)
+			result =  taskService.moveTask(Column.get(1), Column.get(2), Task.get(4))
 		}
 		assertEquals '', result		
 		assertEquals expectedColumnStatusEntrySize + 3, ColumnStatusEntry.list().size()				
