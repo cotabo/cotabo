@@ -48,7 +48,8 @@ class ImportService {
 					workflowStartColumn: xmlColumn.workflowStartColumn.text(),
 					workflowEndColumn: xmlColumn.workflowEndColumn.text()
 				)
-				board.addToColumns(column)				
+				board.addToColumns(column)	
+				board.save(flush:true)			
 				xmlColumn.tasks.task.each { xmlTask ->
 					def task = new Task(
 						name: xmlTask.name.text(),
@@ -58,19 +59,20 @@ class ImportService {
 						color: xmlTask.color.text(),
 						creator: User.findByUsername(xmlTask.creator.text()) ?: User.findByUsername(springSecurityService.principal.username),
 						assignee: User.findByUsername(xmlTask.creator.text()),
-						archived: xmlTask.archived.text(),
-						sortorder: xmlTask.sortorder.text().toInteger(),
+						archived: xmlTask.archived.text(),						
 						workflowStartDate: xmlTask.workflowStartDate.text() ? Date.parse("yyyy-MM-dd HH:mm:ss.SSS", xmlTask.workflowStartDate.text()) : null,
 						workflowEndDate: xmlTask.workflowEndDate.text()? Date.parse("yyyy-MM-dd HH:mm:ss.SSS", xmlTask.workflowEndDate.text()) : null
 					)
-					column.addToTasks(task)
+					column.addToTasks(task)					
 					xmlTask.blocks.block.each { xmlBlock ->
 						task.addToBlocks(
 							dateCreated: xmlBlock.dateCreated.text() ? Date.parse("yyyy-MM-dd HH:mm:ss.SSS", xmlBlock.dateCreated.text()) : null,
 							dateClosed: xmlBlock.dateClosed.text() ? Date.parse("yyyy-MM-dd HH:mm:ss.SSS", xmlBlock.dateClosed.text()) : null
 						)
 					}					
-				}				
+				}
+				//Saving afer all tasks for a column have been loaded
+				column.save(flush:true)					
 			}
 			if(board.validate()) {
 				board.save(flush:true)

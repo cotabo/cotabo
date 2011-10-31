@@ -24,8 +24,7 @@ class Task implements Comparable {
 	
 	User creator
 	User assignee
-	
-	int sortorder 
+		
 	Date dateCreated
 	Date lastUpdated
 	
@@ -50,8 +49,7 @@ class Task implements Comparable {
 		durationHours nullable:false, min:0D, max:500D						
 		column nullable:false
 		creator nullable:false
-		assignee nullable:true
-		sortorder nullable:false, min:0
+		assignee nullable:true		
 		priority nullable:false, validator: {val, obj -> val in grailsConfig.config.taskboard.priorities }
 		workflowStartDate nullable: true
 		workflowEndDate nullable:true
@@ -59,30 +57,29 @@ class Task implements Comparable {
 		
     }
 	
-	static exportables = ['name', 'description', 'details', 'priority', 'colors', 'creator', 'assignee', 'archived', 'sortorder', 'blocks', 'workflowStartDate', 'workflowEndDate']
+	static exportables = ['name', 'description', 'details', 'priority', 'colors', 'creator', 'assignee', 'archived', 'blocks', 'workflowStartDate', 'workflowEndDate']
 	
 	@Override
 	public String toString() {
 		return name
 	}
-	
+
 	int compareTo(obj) {
-		sortorder <=> obj?.sortorder
+		//NOTE: don't try using a date here - would cause really strange problems
+		this.id <=> obj?.id
 	}
-	
+
 	static mapping = {
 		//column is a reserver word in MySQL
 		column column:'cotabo_column'
-		sort sortorder:'asc'		
-		tasks cascade:'save-update'
+		sort id:'asc'				
 	}
 	
 	def toMessage() {
 		return [
 			'id':this.id,
 			'creator':"${creator?.encodeAsHTML()}",
-			'assignee':assignee?.username ? assignee?.username?.encodeAsHTML() : '',
-			'sortorder':sortorder.encodeAsHTML(),
+			'assignee':assignee?.username ? assignee?.username?.encodeAsHTML() : '',			
 			'dateCreated':dateCreated.encodeAsHTML(),						
 			'workflowStartDate':workflowStartDate?.encodeAsHTML(),
 			'workflowEndDate':workflowEndDate?.encodeAsHTML(),			

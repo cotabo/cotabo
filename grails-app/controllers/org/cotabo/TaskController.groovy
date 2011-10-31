@@ -40,8 +40,8 @@ class TaskController {
     def save = {
 		def taskInstance = new Task()
 				
-		//Bind data but exclude column, creator & sortorder
-		bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
+		//Bind data but exclude column, creator
+		bindData(taskInstance, params, ['column','creator', 'assignee'])
 		
 		//Binding for colors
 		bindColor(taskInstance, params.color)
@@ -59,17 +59,7 @@ class TaskController {
 		
 		def assignee = User.get(params.assignee.trim())
 		//No check on assignee as this may be null - leave this to the constraints
-		taskInstance.assignee =assignee		
-		
-		//Get the highest sortorder of the current column + 1
-		def sortOrder = Task.createCriteria().get {
-			eq("column", taskInstance.column)
-			projections {
-				max("sortorder")
-			}
-		} 		
-		//Set it to 1 on the first task
-		taskInstance.sortorder = sortOrder ? sortOrder+1 : 1
+		taskInstance.assignee =assignee				
 
 		taskInstance = taskService.saveTask(taskInstance)
 
@@ -131,8 +121,8 @@ class TaskController {
 			}
 			//else it is a normal update on the task and we bind everything necessary
 			else {
-				//Bind data but exclude column, creator & sortorder
-				bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
+				//Bind data but exclude column, creator
+				bindData(taskInstance, params, ['column','creator', 'assignee'])
 				//Binding for colors
 				bindColor(taskInstance, params.color)				
 				def assignee = User.get(params.assignee.trim().toLong())

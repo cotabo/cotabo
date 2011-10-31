@@ -53,8 +53,7 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		def task = new Task(
 			name: 'mytask',
 			durationHours: 0.5,
-			creator: user,
-			sortorder: 100,
+			creator: user,			
 			priority: 'Critical',
 			color: '#fafaa8',
 			column: col

@@ -106,7 +106,7 @@ class BoardController {
 						//Remove it from the current boardInstance
 						boardInstance.columns.remove(toDeleteColumn)
 						//and delete the column itself
-						toDeleteColumn.delete()					
+						toDeleteColumn.delete()		
 					}	
 				}		
 			}								

@@ -25,8 +25,7 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 			name: 'mytask',
 			durationHours: 0.5,
 			creator: user,	
-			column: col,	
-			sortorder: 100,
+			column: col,				
 			priority: 'Critical',
 			color: grailsConfig.config.taskboard.colors[0]
 		] as Task

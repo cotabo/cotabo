@@ -74,18 +74,18 @@ class BootStrap {
 				def currentDate = Date.parse("dd/MM/yyyy HH:mm:ss SSS z", "02/04/2011 13:13:13 013 GMT+2:00")
 				testTasks = [
 					wip: 	[
-						[column:column2, name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, sortorder:1, priority:'Critical', workflowStartDate: currentDate - 10.hours],
-						[column:column2, name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, creator:user, assignee:user, sortorder:2, priority:'Normal', workflowStartDate: currentDate - 9.hours]						
+						[column:column2, name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, priority:'Critical', workflowStartDate: currentDate - 10.hours],
+						[column:column2, name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, creator:user, assignee:user, priority:'Normal', workflowStartDate: currentDate - 9.hours]						
 					],
 					todo: 	[
-						[column:column1, name:'Setup Webserver', description:'Install & configure Apache',durationHours:1.5, creator:user, assignee:user, sortorder:1, priority:'Major', workflowStartDate: currentDate - 9.hours],					 
-						[column:column1, name:'Setup WebLogic', description:'Install base software and configure domain.',durationHours:6.0, creator:user, assignee:user, sortorder:2, priority:'Low', workflowStartDate: currentDate - 7.hours],
-						[column:column1, name:'Install application', description:'Install the application software as describes by the Vendor',durationHours:8.0, creator:user, assignee:user, sortorder:3, priority:'Critical', workflowStartDate: currentDate - 4.hours],
-						[column:column1, name:'Configure Monitoring', description:'Setup all monitors (Filesystem, proceses, logs etc)',durationHours:16.0, creator:user, assignee:user, sortorder:4, priority:'Normal', workflowStartDate: currentDate - 2.hours],
-						[column:column1, name:'Apply Configuration Management', description:'Apply configuration management',durationHours:8.0, creator:user, assignee:user, sortorder:5, priority:'Normal', workflowStartDate: currentDate - 12.hours]
+						[column:column1, name:'Setup Webserver', description:'Install & configure Apache',durationHours:1.5, creator:user, assignee:user, priority:'Major', workflowStartDate: currentDate - 9.hours],					 
+						[column:column1, name:'Setup WebLogic', description:'Install base software and configure domain.',durationHours:6.0, creator:user, assignee:user, priority:'Low', workflowStartDate: currentDate - 7.hours],
+						[column:column1, name:'Install application', description:'Install the application software as describes by the Vendor',durationHours:8.0, creator:user, assignee:user, priority:'Critical', workflowStartDate: currentDate - 4.hours],
+						[column:column1, name:'Configure Monitoring', description:'Setup all monitors (Filesystem, proceses, logs etc)',durationHours:16.0, creator:user, assignee:user, priority:'Normal', workflowStartDate: currentDate - 2.hours],
+						[column:column1, name:'Apply Configuration Management', description:'Apply configuration management',durationHours:8.0, creator:user, assignee:user, priority:'Normal', workflowStartDate: currentDate - 12.hours]
 					],
 					done: 	[
-						[column:column3, name:'Request machines', description:'Request machines at the DataCenter',durationHours:48.0, creator:user, assignee:user, sortorder:1, priority:'Normal', workflowStartDate: currentDate - 10.hours, workflowEndDate: currentDate - 1.hour]
+						[column:column3, name:'Request machines', description:'Request machines at the DataCenter',durationHours:48.0, creator:user, assignee:user, priority:'Normal', workflowStartDate: currentDate - 10.hours, workflowEndDate: currentDate - 1.hour]
 					]
 				]
 			}
@@ -123,8 +123,7 @@ class BootStrap {
 					description:'Description $i',
 					durationHours:3.5, 
 					creator:user, 
-					assignee:user, 
-					sortorder:15+i, 
+					assignee:user, 					
 					priority:'Normal', 
 					column: Column.findByName('ToDo')
 				)

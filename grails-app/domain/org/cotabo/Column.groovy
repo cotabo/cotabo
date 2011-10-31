@@ -38,7 +38,7 @@ class Column {
 		table 'cotabo_column'
 		//also 'limit'
 		limit column: 'column_limit'
-		tasks sort:'sortorder'
+		tasks sort:'id'
 
 	}	
 }
