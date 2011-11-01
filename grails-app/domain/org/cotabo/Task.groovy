@@ -10,7 +10,7 @@ import groovy.time.TimeCategory
  * @author Robert Krombholz
  *
  */
-class Task implements Comparable {
+class Task implements Rerenderable, Comparable {
 
 	//This is determined at runtime by the related blocks
 	static transients = ["blocked", "startDate"]

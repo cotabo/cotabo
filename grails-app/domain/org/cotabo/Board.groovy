@@ -9,7 +9,7 @@ import java.util.List;
  * @author Robert Krobmholz
  *
  */
-class Board {
+class Board implements Rerenderable {
 	//Relationships
 	List columns	
 	static hasMany = [ columns : Column, colors: TaskColor ]	

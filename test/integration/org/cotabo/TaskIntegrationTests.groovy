@@ -4,6 +4,8 @@ import grails.test.*
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 
 class TaskIntegrationTests extends GrailsUnitTestCase {
+	def rerenderService
+	
     protected void setUp() {
         super.setUp()
     }
@@ -67,6 +69,15 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 		task.blocked = true
 		task.save()
 		assertEquals 1, task.blocks.size()
+		
+	}
+	
+	void testRerender() {
+		def tb = new BoardTagLib()
+		def task = Task.findByName('Setup WebLogic')
+		def expected = tb.task([task:task, hide:false])
+		
+		assertEquals expected, rerenderService.render(task)
 		
 	}
 }

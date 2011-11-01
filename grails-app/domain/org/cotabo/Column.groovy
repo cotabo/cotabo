@@ -6,7 +6,7 @@ package org.cotabo
  * @author Robert Krombholz
  *
  */
-class Column {
+class Column implements Rerenderable {
 	//Relationships
 	static belongsTo = [ board : Board ]
 	SortedSet tasks
