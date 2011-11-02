@@ -25,19 +25,26 @@ class TaskController {
     }
 	
 	def move = {
+		def fromColumn = Column.get(params.fromColumn)
+		def toColumn = Column.get(params.toColumn)  
+		def task = Task.get(params.taskid)
 		//Do the Task moving work
-		def resultMessage =  taskService.moveTask(
-				Column.get(params.fromColumn),
-				Column.get(params.toColumn),
-				Task.get(params.taskid)
-		)
+		def resultMessage =  taskService.moveTask(fromColumn, toColumn, task)
 		def retCode = resultMessage? 1 : 0
+		//Distribute this movement by rerendering the 2 columns
+		def user = User.findByUsername(springSecurityService.principal.username)
+		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
+		def notification = "${user} moved '${task.name}' (#${task.id}) to '${toColumn}'"
+		
+		boardUpdateService.broadcastRerenderingMessage(broadcaster, fromColumn, notification)
+		boardUpdateService.broadcastRerenderingMessage(broadcaster, toColumn)
+		
 		//Return code & message will be handled by the client.
 		def result = [returncode: retCode, message:resultMessage]
 		render result as JSON
 	}
 	
-    def save = {
+    def save = {		
 		def taskInstance = new Task()
 				
 		//Bind data but exclude column, creator
@@ -47,12 +54,7 @@ class TaskController {
 		bindColor(taskInstance, params.color)
 		
 		taskInstance.column = Board.get(params.board).columns.first()
-		//Render error when the user is not logged in
-		if(!springSecurityService.isLoggedIn()) {
-			def resp = [title: 'No user session', message: 'You\'re not logged in.\nPlease refresh the site to re-login.' ]
-			render (status: 403, contentType:'application/json', text: resp as JSON)
-			return
-		}
+
 		//Assign the creator
 		def creator = User.findByUsername(springSecurityService.principal.username)
 		taskInstance.creator = creator
@@ -62,25 +64,14 @@ class TaskController {
 		taskInstance.assignee =assignee				
 
 		taskInstance = taskService.saveTask(taskInstance)
-
+		
+		def user = User.findByUsername(springSecurityService.principal.username)
         if (!taskInstance.hasErrors()) {
-			def principal = springSecurityService.principal
-			def user = User.findByUsername(principal.username)
-			def notification = "${user} created task #${taskInstance.id} (${taskInstance.name})."
+			def notification = "${user} created '${taskInstance.name}' (#${taskInstance.id})."
 			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
-			//Get the rendered HTML
-			def rendered = tb.task([task:taskInstance, hide:false])
-			def message = [id: taskInstance.id, rendered: rendered]
-			//Distribute this creation as atmosphere message
-			boardUpdateService.broadcastMessage(
-				broadcaster, 
-				message, 
-				MessageType.TASK, 
-				notification
-			)
-			
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance, notification)
 			//Render nothing as this will be done by atmosphere
-			render ''     
+			render ''
         }
         else {						
 			withFormat {
@@ -125,38 +116,23 @@ class TaskController {
 				bindData(taskInstance, params, ['column','creator', 'assignee'])
 				//Binding for colors
 				bindColor(taskInstance, params.color)				
-				def assignee = User.get(params.assignee.trim().toLong())
+				def assignee = User.get(params.assignee?.trim()?.toLong())
 				//No check on assignee as this may be null - leave this to the constraints
 				taskInstance.assignee =assignee
 			}
 			
             if (!taskInstance.hasErrors() && taskInstance.save(flush: true)) {
-				def principal = springSecurityService.principal
-				def user = User.findByUsername(principal.username)				
+				def user = User.findByUsername(springSecurityService.principal.username)
 				def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+				def notification
 				//distinguishing messages between block updates and normal updates
 				if(settedBlock) {
-					def notification = "${user} marked task #${params.id} (${taskInstance.name}) as ${wasBlocked ? 'unblocked' : 'blocked'}."
-					def block_message = [task:taskInstance.id, blocked:!wasBlocked]
-					boardUpdateService.broadcastMessage(
-						broadcaster,
-						block_message,
-						MessageType.TASK_BLOCK,
-						notification
-					)
+					notification = "${user} marked task #${params.id} (${taskInstance.name}) as ${wasBlocked ? 'unblocked' : 'blocked'}."
 				}
 				else {
-					def notification = "${user} updated task #${params.id} (${taskInstance.name})."
-					//Get the rendered HTML
-					def rendered = tb.task([task:taskInstance])
-					def message = [id: taskInstance.id, rendered: rendered]
-					boardUpdateService.broadcastMessage(
-						broadcaster,
-						message, 
-						MessageType.TASK,
-						notification
-					)
+					notification = "${user} updated task #${params.id} (${taskInstance.name})."
 				}
+				boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance, notification)
                 render ''
             }
             else {
@@ -212,13 +188,8 @@ class TaskController {
 		if( taskInstance) {
 			taskInstance.archived = true;
 			taskInstance.save(flush:true);
-			
-			boardUpdateService.broadcastMessage(
-				session.getAttribute("boardBroadacster")?.broadcaster,
-				taskInstance.toMessage(),
-				MessageType.ALL,
-				''
-			)
+			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance)
 		}
 		redirect(controller :'board', action: 'show', id:taskInstance.column.board.id)
 	}

@@ -27,6 +27,8 @@ class BoardUpdateService {
 	//This actually makes this service an AtmosphereHandler
 	static atmosphere = [mapping: '/atmosphere/boardupdate']
 	
+	def rerenderService
+	
 	//Holds the channel strings for all broadcasters that
 	//already have a scheduled broadcast
 	def scheduledChannels = []
@@ -120,24 +122,25 @@ class BoardUpdateService {
 	 * Asynchronously broadcasting a the given message as as JSON string to the given broadcaster.
 	 * 
 	 * @param broadcaster The Atmosphere Broadcaster object that the message should be distributed too.
-	 * @param message The message contianing information about the movement.
+	 * @param message a map that can hold a HTML representation of a Rerenderable (rerenderable) and a Notification String (notification)
 	 */
     private void broadcastMessageAsJSON(def message, Broadcaster broadcaster) {			
 		broadcaster.broadcast(message as JSON)
     }
 	
 	/**
-	 * Distributes the given message to the users registered broadcaster.
+	 * Distributes a message containing the Rerenderable object and a notification to the given Atmosphere Broadcaster.
 	 *
 	 * @param broadcaster The atmosphere broadcaster
-	 * @param message whatever message should be sent over atmosphere
-     * @param the type-string that will be used in client code
-     * @param notification A notification that can be used on the client to display a message
+	 * @param obj a Rerenderable object
+     * @param notification optionsl: A notification that can be used on the client to display a message
 	 */
-	public void broadcastMessage(Broadcaster broadcaster, def message, String type, def notification = null) {	   
+	public void broadcastRerenderingMessage(Broadcaster broadcaster, Rerenderable obj, def notification = null) {	   
 	   //We just do nothing if there is no broadcaster int he session.
 	   if (broadcaster) {
-		   message.type = type
+		   def message = [:]
+		   //The re-rendered object
+		   message.rerenderable = rerenderService.render(obj)
 		   message.notification = notification
 		   broadcastMessageAsJSON(message, broadcaster)
 	   }

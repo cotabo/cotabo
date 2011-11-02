@@ -228,12 +228,15 @@ class BoardController {
 	def chat = {
 		def message = params.message.encodeAsHTML()
 		if (message) {
-			def user = User.findByUsername(springSecurityService.principal.username)			
+			def user = User.findByUsername(springSecurityService.principal.username)
+			//TODO: implement the chat so that it works with the new rerendering style
+			/*			
 			boardUpdateService.broadcastMessage (
 				session.getAttribute("boardBroadacster")?.broadcaster,
 				[chat_user:user.toString(), chat_message: message],
 				MessageType.CHAT_MESSAGE
 			)
+			*/
 		}
 		render ''				
 	}

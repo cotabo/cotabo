@@ -26,14 +26,19 @@ class RerenderService implements InitializingBean {
 	 * @return a rendered GSP template string
 	 */
     String render(Rerenderable obj) {
-		def templateContext = GrailsNameUtils.getShortName(obj.class).toLowerCase()
-		//preparing the model (e.g. [taskInstance: obj]
-		def modelKey = "${templateContext}Instance"
-		def model = [:]
-		model[modelKey] = obj
-		return g.render(
-			template:"/${templateContext}/show".toString(), 
-			model: model
-		)
+		if (obj) {
+			def templateContext = GrailsNameUtils.getShortName(obj.class).toLowerCase()
+			//preparing the model (e.g. [taskInstance: obj]
+			def modelKey = "${templateContext}Instance"
+			def model = [:]
+			model[modelKey] = obj			
+			return g.render(
+				template:"/${templateContext}/show".toString(), 
+				model: model
+			)
+		}
+		else {
+			return ''
+		}
     }
 }
