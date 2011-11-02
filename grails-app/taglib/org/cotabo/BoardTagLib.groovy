@@ -92,9 +92,9 @@ class BoardTagLib {
 				}
 				out << """
 					<span class="block-box ui-icon ${attrs.task?.blocked ? 'ui-icon-locked blocked' : 'ui-icon-unlocked not-blocked'}" title="${attrs.task?.blocked ? 'blocked' : 'unblocked'}"></span>
-					<span class="expander ui-icon ui-icon-carat-1-${attrs.hide ? 's' : 'n'}" ></span>
+					<span class="expander ui-icon ui-icon-carat-1-${attrs.hide ? 'n' : 's'}" ></span>
 				</div>
-				<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'none' : 'block'}">
+				<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'block' : 'none'}">
 					<table>
 						<colgroup>
 							<col width="25%"/>
