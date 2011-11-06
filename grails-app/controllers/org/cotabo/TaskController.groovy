@@ -34,10 +34,10 @@ class TaskController {
 		//Distribute this movement by rerendering the 2 columns
 		def user = User.findByUsername(springSecurityService.principal.username)
 		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
-		def notification = "${user} moved '${task.name}' (#${task.id}) to '${toColumn}'"
-		
-		boardUpdateService.broadcastRerenderingMessage(broadcaster, fromColumn, notification)
+		def notification = "${user} moved '${task.name}' (#${task.id}) to '${toColumn}'"		
+		boardUpdateService.broadcastRerenderingMessage(broadcaster, fromColumn)
 		boardUpdateService.broadcastRerenderingMessage(broadcaster, toColumn)
+		
 		
 		//Return code & message will be handled by the client.
 		def result = [returncode: retCode, message:resultMessage]
@@ -69,7 +69,7 @@ class TaskController {
         if (!taskInstance.hasErrors()) {
 			def notification = "${user} created '${taskInstance.name}' (#${taskInstance.id})."
 			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
-			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance, notification)
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance)
 			//Render nothing as this will be done by atmosphere
 			render ''
         }
@@ -132,7 +132,7 @@ class TaskController {
 				else {
 					notification = "${user} updated task #${params.id} (${taskInstance.name})."
 				}
-				boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance, notification)
+				boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance)
                 render ''
             }
             else {
@@ -189,8 +189,8 @@ class TaskController {
 			taskInstance.archived = true;
 			taskInstance.save(flush:true);
 			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
-			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance)
-		}
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance.column)
+		}		
 		redirect(controller :'board', action: 'show', id:taskInstance.column.board.id)
 	}
 	

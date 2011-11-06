@@ -11,7 +11,7 @@
 	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.flydom.extension.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.atmosphere.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.pnotify.min.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.quicksearch.js')}"></script>        
+	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.quicksearch.js')}"></script>	         	      
 	    <script type="text/javascript" src="${resource(dir:'js', file:'utils.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js', file:'objectsandevents.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js', file:'atmospherehandling.js')}"></script>
@@ -36,17 +36,9 @@
 		</form>	   
 		</content> 	
 		
-    	<tb:board board="${boardInstance}">
-    		<g:render template="menu"/>
-    		<g:each in="${boardInstance.columns}" var="column">
-    		<tb:column column="${column}">
-    			<g:each in="${column.tasks}" var="task">
-    			<tb:task task="${task}" hide="${true}"/>
-    			</g:each>
-    		</tb:column>
-    		</g:each>
-    		<g:render template="/color/list" model="${['colors':boardInstance.colors.sort{a,b -> a.name <=> b.name}]}"></g:render>
-    	</tb:board>      	    
+		<g:render template="menu"/>
+		<g:render template="show" model="['boardInstance':boardInstance]"/>
+    	<g:render template="/color/list" model="${['colors':boardInstance.colors.sort{a,b -> a.name <=> b.name}]}"></g:render>      	    
     
 	    <div id="error_dialog"></div>
 	    <jq:jquery>

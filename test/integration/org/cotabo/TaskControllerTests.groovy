@@ -5,7 +5,7 @@ import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class TaskControllerTests extends GrailsUnitTestCase {
     protected void setUp() {
-        super.setUp()		
+        super.setUp()				
     }
 
     protected void tearDown() {
@@ -38,7 +38,10 @@ class TaskControllerTests extends GrailsUnitTestCase {
 		def controller = new TaskController()
 		controller.params.id = 2
 		controller.params.toColumn = 3
-		def result = controller.move()
+		def result
+		SpringSecurityUtils.doWithAuth('user') {
+			 result = controller.move()
+		}
 		assertNotNull controller.response.contentAsString
 		assertEquals expectedResult, controller.response.contentAsString
 	}
@@ -48,7 +51,10 @@ class TaskControllerTests extends GrailsUnitTestCase {
 		def controller = new TaskController()
 		controller.params.id = 100
 		controller.params.taskid = 2
-		def result = controller.move()
+		def result 
+		SpringSecurityUtils.doWithAuth('user') {
+			result = controller.move()
+		}
 		assertNotNull controller.response.contentAsString
 		assertEquals expectedResult, controller.response.contentAsString
 		

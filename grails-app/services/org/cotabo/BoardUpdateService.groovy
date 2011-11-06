@@ -1,14 +1,13 @@
 package org.cotabo
 
-import java.util.concurrent.TimeUnit;
-
-import org.atmosphere.client.JavascriptClientFilter;
-import org.atmosphere.cpr.Broadcaster;
+import java.util.concurrent.TimeUnit
+import org.atmosphere.client.JavascriptClientFilter
+import org.atmosphere.cpr.Broadcaster
 import org.atmosphere.cpr.BroadcasterFactory
 import org.atmosphere.cpr.DefaultBroadcaster
-import org.atmosphere.util.XSSHtmlFilter;
-
+import org.atmosphere.util.XSSHtmlFilter
 import grails.converters.JSON
+import grails.util.GrailsNameUtils
 
 
 /**
@@ -84,8 +83,8 @@ class BoardUpdateService {
 		 //First subscriber to this broadcaster
 		 if (!scheduledChannels.find{it == channel}) {
 			 boardSpecificBroadcaster.broadcasterConfig.addFilter(new JavascriptClientFilter())
-			 boardSpecificBroadcaster.broadcasterConfig.addFilter(new XSSHtmlFilter())
-			 boardSpecificBroadcaster.scheduleFixedBroadcast '{"type":"keepalive"}', 30, TimeUnit.SECONDS
+			 //boardSpecificBroadcaster.broadcasterConfig.addFilter(new XSSHtmlFilter())
+			 boardSpecificBroadcaster.scheduleFixedBroadcast 'keepalive', 60, TimeUnit.SECONDS
 			 scheduledChannels << channel			 
 		 }		 
 
@@ -98,51 +97,35 @@ class BoardUpdateService {
 	 * We don't do much with it - we just pass is to the client in as we receive it.
 	 * The message content can be trusted as we're not having an user input here.
 	 */
-	def onStateChange = { event ->				
+	def onStateChange = { event ->		
 		if (!event.message) return
-		//Removing this event from the broadcatster?
-		//Display a message?
 		if (event.isCancelled()) return
 		if (event.isResuming() || event.isResumedOnTimeout()) {
 			event.resource.response.writer.with {
-				write '{"type":"resuming"}'
+				write 'resuming'
 				flush()
 			}
-		} else {			
-			event.resource.response.setContentType('text/javascript;charset=UTF-8')
+		} else {				
+			event.resource.response.setContentType('text/html;charset=UTF-8')
 			event.resource.response.setCharacterEncoding('UTF-8')
 			event.resource.response.writer.with {				
 				write event.message.toString()
 				flush()
 			}
 		}
-	}
-	
-	/**
-	 * Asynchronously broadcasting a the given message as as JSON string to the given broadcaster.
-	 * 
-	 * @param broadcaster The Atmosphere Broadcaster object that the message should be distributed too.
-	 * @param message a map that can hold a HTML representation of a Rerenderable (rerenderable) and a Notification String (notification)
-	 */
-    private void broadcastMessageAsJSON(def message, Broadcaster broadcaster) {			
-		broadcaster.broadcast(message as JSON)
-    }
+	}	
 	
 	/**
 	 * Distributes a message containing the Rerenderable object and a notification to the given Atmosphere Broadcaster.
 	 *
 	 * @param broadcaster The atmosphere broadcaster
-	 * @param obj a Rerenderable object
-     * @param notification optionsl: A notification that can be used on the client to display a message
+	 * @param obj a list of Rerenderable objects     * 
 	 */
-	public void broadcastRerenderingMessage(Broadcaster broadcaster, Rerenderable obj, def notification = null) {	   
-	   //We just do nothing if there is no broadcaster int he session.
+	public void broadcastRerenderingMessage(Broadcaster broadcaster, Rerenderable obj) {	   
 	   if (broadcaster) {
-		   def message = [:]
-		   //The re-rendered object
-		   message.rerenderable = rerenderService.render(obj)
-		   message.notification = notification
-		   broadcastMessageAsJSON(message, broadcaster)
+		   //Broadcast the rerendered HTML of the Rerenderbale object
+		   def rerendered =  rerenderService.render(obj)	   		   		   
+		   broadcaster.broadcast(rerendered)
 	   }
 	}
 }

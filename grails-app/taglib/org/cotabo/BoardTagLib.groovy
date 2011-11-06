@@ -28,7 +28,7 @@ class BoardTagLib {
 		//We're removing 0.1 % from each width to avoid a scrollbar when it reached 100%
 		def width = (100 / attrs.column.board.columns.size()) -0.2 ;
 		out << """
-		<div class="column" style="width:${width}%;">
+		<div id="column_${attrs.column.id}" class="column" style="width:${width}%;">
 			<span class="title">
 				<p>${attrs.column?.name?.encodeAsHTML()}</p>
 				<span>
@@ -45,7 +45,7 @@ class BoardTagLib {
 			</span>'''
 		
 		out << """
-			<ul id="column_${attrs.column.id}">
+			<ul>
 		"""							
 		out << body()			
 		out << '''

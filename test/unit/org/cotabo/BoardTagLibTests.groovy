@@ -64,7 +64,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 	
 	void testColumn() {
 		def expected = """
-		<div class="column" style="width:33.1333333333%;">
+		<div id="column_1" class="column" style="width:33.1333333333%;">
 			<span class="title">
 				<p>koffer</p>
 				<span>
@@ -73,7 +73,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 					<p class="limit">5</p>
 				</span>
 			</span>
-			<ul id="column_1">
+			<ul>
 		
 			</ul>
 		</div>
@@ -103,9 +103,9 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 					<div class="head_name">#1 - mytask</div>
 					<a href="/task/archive/1" class="ui-icon ui-icon-disk archive" title="archive"></a>
 					<span class="block-box ui-icon ui-icon-unlocked not-blocked" title="unblocked"></span>
-					<span class="expander ui-icon ui-icon-carat-1-n" ></span>
+					<span class="expander ui-icon ui-icon-carat-1-s" ></span>
 				</div>
-				<div class="task-content ui-widget-content" style="display:block">
+				<div class="task-content ui-widget-content" style="display:none">
 					<table>
 						<colgroup>
 							<col width="25%"/>
@@ -165,9 +165,9 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 					<div class="head_name">#1 - mytask</div>
 					<a href="/task/archive/1" class="ui-icon ui-icon-disk archive" title="archive"></a>
 					<span class="block-box ui-icon ui-icon-unlocked not-blocked" title="unblocked"></span>
-					<span class="expander ui-icon ui-icon-carat-1-n" ></span>
+					<span class="expander ui-icon ui-icon-carat-1-s" ></span>
 				</div>
-				<div class="task-content ui-widget-content" style="display:block">
+				<div class="task-content ui-widget-content" style="display:none">
 					<table>
 						<colgroup>
 							<col width="25%"/>

@@ -218,52 +218,14 @@ jQuery(function(){
 	 * Section for the Board itself (connected sortable columns etc.)
 	 * refer: board/show view
 	 * refer: taglib/BoardTagLib
+	 * refer js/utils.js
 	 ********************************************************/	
-	/**
-	 * Callback for a connected sortable receiving a new Task object.
-	 * Updating the server side and taking case of updating the column counts. 
-	 *
-	 */	        	             
-	var moveTask = function(event, ui) {
-		var toColumnId = $(this).attr('id').split('_')[1];
-		var taskId = $(ui.item).attr('id').split('_')[1]; 		
-		var fromColumnId = $(ui.sender).attr('id').split('_')[1];				
-									
-		//Post onto controller "column" and action "updatetasks"
-		$.ajax({
-			type: 'POST',
-			url: moveTasksUrl,
-			data: {
-				'fromColumn': fromColumnId, 
-				'toColumn': toColumnId,
-				'taskid': taskId,
-			},
-			success: function(data) {
-				//Update the task counts on each column
-				setElementCountOnColumn();
-			}
-		});				
-	}
-
-		
 	//Sortable definition for the connected columns	
 	$(".column > ul").each(function(index) {			
-		$(this).sortable({			
-			//Connect the current sortable only with the next column
-			//connectWith:'.column ul:gt('+index+'):first',
-			connectWith:'.column ul',
-			appendTo: 'body',
-			containment:"#board",
-			cursor:"move",
-			distance:30,
-			opacity:0.7,
-			placeholder:'ui-effects-transfer',
-			receive: moveTask,
-			stop: setElementCountOnColumn
-			
-		});
+		applySortable(this);
 	});	
-	
+		
+
 	//Update once on document load time - from utils.js
 	setElementCountOnColumn();	 
 			
