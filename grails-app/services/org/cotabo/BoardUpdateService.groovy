@@ -82,8 +82,6 @@ class BoardUpdateService {
 		 
 		 //First subscriber to this broadcaster
 		 if (!scheduledChannels.find{it == channel}) {
-			 boardSpecificBroadcaster.broadcasterConfig.addFilter(new JavascriptClientFilter())
-			 //boardSpecificBroadcaster.broadcasterConfig.addFilter(new XSSHtmlFilter())
 			 boardSpecificBroadcaster.scheduleFixedBroadcast 'keepalive', 60, TimeUnit.SECONDS
 			 scheduledChannels << channel			 
 		 }		 
@@ -97,7 +95,8 @@ class BoardUpdateService {
 	 * We don't do much with it - we just pass is to the client in as we receive it.
 	 * The message content can be trusted as we're not having an user input here.
 	 */
-	def onStateChange = { event ->		
+	def onStateChange = { event ->	
+		log.debug event.message	
 		if (!event.message) return
 		if (event.isCancelled()) return
 		if (event.isResuming() || event.isResumedOnTimeout()) {

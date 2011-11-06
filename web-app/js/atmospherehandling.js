@@ -18,7 +18,7 @@ var subscribeChannel = function(channelString, callback) {
     	callback,
     	//Use WebSockets as the first choice but use streaming if
     	//either the server or the client doesn't support WebSockets.
-    	$.atmosphere.request={transport:'websocket', dataType:'json'}
+    	$.atmosphere.request={transport:'websocket'}
 	);    
 }
 //onload
@@ -63,7 +63,7 @@ var rerenderCallback = function(data) {
 			//We it was a column - reapply the sotable
 			if (id.indexOf('column_') == 0) {
 				//Need to use the UL below the container for this
-				applySortable($('#'+id).find('ul'));
+				applySortable($('#'+id + ' > ul');
 			}		
 			rerenderdDom.effect('highlight', 500);
 		}
