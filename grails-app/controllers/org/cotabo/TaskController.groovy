@@ -28,20 +28,22 @@ class TaskController {
 		def fromColumn = Column.get(params.fromColumn)
 		def toColumn = Column.get(params.toColumn)  
 		def task = Task.get(params.taskid)
-		//Do the Task moving work
-		def resultMessage =  taskService.moveTask(fromColumn, toColumn, task)
-		def retCode = resultMessage? 1 : 0
-		//Distribute this movement by rerendering the 2 columns
-		def user = User.findByUsername(springSecurityService.principal.username)
-		def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
-		def notification = "${user} moved '${task.name}' (#${task.id}) to '${toColumn}'"		
-		boardUpdateService.broadcastRerenderingMessage(broadcaster, fromColumn)
-		boardUpdateService.broadcastRerenderingMessage(broadcaster, toColumn)
-		
-		
-		//Return code & message will be handled by the client.
-		def result = [returncode: retCode, message:resultMessage]
-		render result as JSON
+		if (task && fromColumn && toColumn) {
+			//Do the Task moving work
+			taskService.moveTask(fromColumn, toColumn, task)			
+			//Distribute this movement by rerendering the 2 columns
+			def user = User.findByUsername(springSecurityService.principal.username)
+			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
+			def notification = "${user} moved '${task.name}' (#${task.id}) to '${toColumn}'"		
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, fromColumn)
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, toColumn)
+			render ''
+		}
+		else {
+			sendError("Object does not exist",
+				"One of the following objects does not exist: column: ${params.fromColumn}, column: ${params.toColumn}, task: ${params.taskid}",
+				404)
+		}
 	}
 	
     def save = {		
@@ -73,17 +75,8 @@ class TaskController {
 			//Render nothing as this will be done by atmosphere
 			render ''
         }
-        else {						
-			withFormat {
-				form {							
-					//We render all errors on the client side
-					def resp = [
-						title: 'Task could not be saved', 
-						message: taskInstance.errors.allErrors.join('\n') 
-					]
-					render(status: 500, contentType:'application/json', text: resp as JSON)
-				}
-			}	            
+        else {
+			sendError('Task could not be saved',  taskInstance.errors.allErrors.join('\n'), 500)			           
         }
     }
 
@@ -136,40 +129,14 @@ class TaskController {
                 render ''
             }
             else {
-				def message = [
-					title: "Error updating task ${params.id}",
-					message: taskInstance.errors.allErrors.join('\n') 
-				]
-				render(status: 500, contentType:'application/json', text: message as JSON)				
+				sendError("Error updating task ${params.id}", taskInstance.errors.allErrors.join('\n'), 500 )		
             }
         }
         else {
-			def message = [
-				title: 'Task not found',
-				message: "Task with id ${params.id} does not exist."
-			]
-			render(status: 404, contentType:'application/json', text: message as JSON)            
+			sendError('Task not found', "Task with id ${params.id} does not exist.", 404)       
         }
     }
 
-    def delete = {
-        def taskInstance = Task.get(params.id)
-        if (taskInstance) {
-            try {
-                taskInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
-                redirect(action: "list")
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
-                redirect(action: "show", id: params.id)
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
-            redirect(action: "list")
-        }
-    }	
 	
 	def edit = {
 		def taskInstance = Task.get(params.id)
@@ -177,8 +144,7 @@ class TaskController {
 			render(template: 'edit', model:[taskInstance:taskInstance])
 		}
 		else {
-			def resp = [title: 'Task not found', message: "Task with id ${params.id} does not exist." ]
-			render (status: 404, contentType:'application/json', text: resp as JSON)
+			sendError('Task not found', "Task with id ${params.id} does not exist.", 404)			
 		}
 	}
 	
@@ -209,6 +175,20 @@ class TaskController {
 		colors?.each { reqColor ->
 			taskInstance.addToColors(TaskColor.findByColor(reqColor))
 		}
+	}
 	
+	/**
+	 * Renders am error message in the defines format that the client understands.
+	 * 
+	 * @param title the title of the error message
+	 * @param message the detailes message
+	 * @param status the HTTP status code (default = 500)
+	 */
+	private void sendError(String title, String message, int status = 500) {
+		def msg = [
+			title: title,
+			message: message
+		]
+		render(status: status, contentType:'application/json', text: msg as JSON)
 	}
 }

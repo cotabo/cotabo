@@ -43,7 +43,7 @@ class TaskService {
 	 * @param dateCreated Optional - this is only for testing purposes - normally hibernate/grails will set this.
 	 * @return a message which is empty then the update was successfull.
 	 */
-	String moveTask(Column fromColumn, Column toColumn, Task task, Date dateCreated = null) {								
+	void moveTask(Column fromColumn, Column toColumn, Task task, Date dateCreated = null) {								
 		if (fromColumn && toColumn && task) {				
 			fromColumn.removeFromTasks(task)				
 			toColumn.addToTasks(task)			
@@ -53,12 +53,8 @@ class TaskService {
 			task.assignee = User.findByUsername(springSecurityService.principal.username)
 			task.column = toColumn
 			task.save()
-			createMovementEvent(task, dateCreated)
-			return ''
-		}
-		else {
-			return 'Either the column or the Task that you have specified does not exist.'
-		}					
+			createMovementEvent(task, dateCreated)			
+		}			
 	}
 			
 	/**

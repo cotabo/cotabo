@@ -15,8 +15,7 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
         super.tearDown()
     }
 	
-	void testMoveTask() {
-		def result				
+	void testMoveTask() {			
 		def expectedColumnStatusEntrySize = ColumnStatusEntry.list().size() + 3
 		def taskToMove =  Column.get(1).tasks.first()
 		def initialTaskCount = Column.get(2).tasks.size()
@@ -24,10 +23,9 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		println Column.get(2).tasks
 		//We need to be authenticated for that				
 		SpringSecurityUtils.doWithAuth('user') {
-			result = taskService.moveTask(taskToMove.column, Column.get(2), taskToMove)			
+			taskService.moveTask(taskToMove.column, Column.get(2), taskToMove)			
 		}		
-		println Column.get(2).tasks
-		assertEquals '', result
+		println Column.get(2).tasks		
 		assertEquals initialTaskCount + 1, Column.get(2).tasks.size()		
 		
 		//Testing the generated events				
@@ -39,9 +37,8 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		//We need to be authenticated for that
 		SpringSecurityUtils.doWithAuth('user') {
 			//Move another task an see whether the tasks on the event objects stay the same
-			result =  taskService.moveTask(Column.get(1), Column.get(2), Task.get(4))
-		}
-		assertEquals '', result		
+			taskService.moveTask(Column.get(1), Column.get(2), Task.get(4))
+		}		
 		assertEquals expectedColumnStatusEntrySize + 3, ColumnStatusEntry.list().size()				
 		
 	}

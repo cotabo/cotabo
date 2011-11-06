@@ -13,7 +13,7 @@ class TaskControllerTests extends GrailsUnitTestCase {
     }
 
     void testValidResponse() {
-		def expectedResult = '{"returncode":0,"message":""}'
+		def expectedResult = ''
 		def controller = new TaskController()
 		def todo = Column.get(2)
 		def done = Column.get(3)
@@ -34,9 +34,9 @@ class TaskControllerTests extends GrailsUnitTestCase {
     }
 	
 	void testInvalidRespondeForMissingTask() {
-		def expectedResult = '{"returncode":1,"message":"Either the column or the Task that you have specified does not exist."}'
+		def expectedResult = '{"title":"Object does not exist","message":"One of the following objects does not exist: column: 2, column: 3, task: null"}'
 		def controller = new TaskController()
-		controller.params.id = 2
+		controller.params.fromColumn = 2
 		controller.params.toColumn = 3
 		def result
 		SpringSecurityUtils.doWithAuth('user') {
@@ -47,9 +47,9 @@ class TaskControllerTests extends GrailsUnitTestCase {
 	}
 	
 	void testInvalidRespondeForMissingColumn() {
-		def expectedResult = '{"returncode":1,"message":"Either the column or the Task that you have specified does not exist."}'
+		def expectedResult = '{"title":"Object does not exist","message":"One of the following objects does not exist: column: 2, column: null, task: 2"}'
 		def controller = new TaskController()
-		controller.params.id = 100
+		controller.params.fromColumn = 2
 		controller.params.taskid = 2
 		def result 
 		SpringSecurityUtils.doWithAuth('user') {
