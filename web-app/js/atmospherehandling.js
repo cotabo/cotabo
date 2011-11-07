@@ -63,10 +63,17 @@ var rerenderCallback = function(data) {
 			//We it was a column - reapply the sotable
 			if (id.indexOf('column_') == 0) {
 				//Need to use the UL below the container for this
-				applySortable($('#'+id + ' > ul');
-			}		
-			rerenderdDom.effect('highlight', 500);
+				applySortable($('#'+id + ' > ul'));
+			}					
 		}
+		//Happens on task creations
+		else {
+			//If the ID starts with task_
+			if (id.indexOf('task_') == 0) {
+				$('.column:first > ul').append(rerenderdDom);						
+			}
+		}
+		rerenderdDom.effect('highlight', 500);
 	}
 }
 
