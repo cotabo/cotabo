@@ -68,25 +68,7 @@ class Task implements Rerenderable {
 		//column is a reserver word in MySQL
 		column column:'cotabo_column'
 		sort id:'asc'				
-	}
-	
-	def toMessage() {
-		return [
-			'id':this.id,
-			'creator':"${creator?.encodeAsHTML()}",
-			'assignee':assignee?.username ? assignee?.username?.encodeAsHTML() : '',			
-			'dateCreated':dateCreated.encodeAsHTML(),						
-			'workflowStartDate':workflowStartDate?.encodeAsHTML(),
-			'workflowEndDate':workflowEndDate?.encodeAsHTML(),			
-			'name':name.encodeAsHTML(),
-			'description':description?.encodeAsHTML(),
-			'details':details?.encodeAsHTML(),
-			'durationHours':durationHours?.encodeAsHTML(),
-			'priority':priority.encodeAsHTML(),
-			'colors': colors.collect{color -> return ['color' : color.color.encodeAsHTML(), 'name' : color.name.encodeAsHTML()]},
-			'blocked':blocked
-		]
-	}
+	}	
 	
    /**
 	* Marking this task as blocked or resolves the blocked state.
