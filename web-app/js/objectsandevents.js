@@ -223,10 +223,5 @@ jQuery(function(){
 	//Sortable definition for the connected columns	
 	$(".column > ul").each(function(index) {			
 		applySortable(this);
-	});	
-		
-
-	//Update once on document load time - from utils.js
-	setElementCountOnColumn();	 
-			
+	});				
 });

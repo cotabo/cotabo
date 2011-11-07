@@ -68,7 +68,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			<span class="title">
 				<p>koffer</p>
 				<span>
-					<p class="value">&nbsp;</p>
+					<p class="value">0</p>
 					<p>/</p>
 					<p class="limit">5</p>
 				</span>

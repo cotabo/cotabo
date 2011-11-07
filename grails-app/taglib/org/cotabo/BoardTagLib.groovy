@@ -32,7 +32,7 @@ class BoardTagLib {
 			<span class="title">
 				<p>${attrs.column?.name?.encodeAsHTML()}</p>
 				<span>
-					<p class="value">&nbsp;</p>"""
+					<p class="value">${attrs.column.tasks?.size()?: 0}</p>"""
 		
 		if (attrs.column?.limit > 0) {
 			out << """
