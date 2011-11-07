@@ -5,53 +5,54 @@
 jQuery(function(){
 	
 	
-	 /********************************************************
+    /********************************************************
 	 * Section for the client-side search.
-	 * *******************************************************/
+	 *********************************************************/	
+	$('input#search').quicksearch('li.ui-widget');	
 	
-	$(document).ready(function(){
-		$('input#search').quicksearch('li.ui-widget');
-	});
-	
-	 /********************************************************
+	/********************************************************
 	 * Section for the keyboard navigation.
 	 * The check whether the event comes from the HTMLInputElement is absolutely necessary.
-	 ********************************************************/
-	 $(document).ready(function(){
-       $(document).keypress(function(e) {
-    	   var srcElement = e.srcElement ? e.srcElement : e.target; // Firefox fix, worked in Chrome and Safari
-    	   var dialogs = $('.ui-dialog:visible').toArray();
-       	   var shortcutsDisabled = (dialogs.length > 0 ? true : false) || (srcElement instanceof HTMLInputElement);;       	       	   
-       	   var code = (e.keyCode ? e.keyCode : e.which);
-           if(!shortcutsDisabled) {
-		 if (code == 110) /* 'n' */{
-			$('#createTaskForm').dialog('open');
-		 	e.preventDefault();
-		 	return false;
-		 }
-		 if (code == 109) /* 'm' */ {
-			$('#chat_dialog').dialog('open');
-		 	e.preventDefault();
-		 	return false;
-		 }
-		 if (code == 101) /* 'e' */ {
-			fn_expand.call();
-		 	e.preventDefault();
-		 	return false;
-		 }
-		 if (code == 99) /* 'c' */ {
-			fn_collapse.call();
-		 	e.preventDefault();
-		 	return false;
-		 }
-		 if (code == 116) /* 't' */ {
-			 $('#tags').dialog('open');
-			 	e.preventDefault();
-			 	return false;
-			 }
-           }
-       });
-     });
+	 ********************************************************/	 
+	$(document).keypress(function(e) {
+		var srcElement = e.srcElement ? e.srcElement : e.target; // Firefox fix, worked in Chrome and Safari
+		var dialogs = $('.ui-dialog:visible').toArray();
+		var shortcutsDisabled = (dialogs.length > 0 ? true : false) || (srcElement instanceof HTMLInputElement);;
+		//For code documentation see http://api.jquery.com/event.which/
+		var code = (e.which ? e.which : e.keyCode);
+		//alert(e.which)
+		if(!shortcutsDisabled) {		   
+			switch(code) {				
+		   		case 110: // 'n'
+		   			$('#createTaskForm').dialog('open');
+		   			e.preventDefault();
+		   		 	return false;
+		   			break;		   			
+		   		case 109: // 'm'
+		   			$('#chat_dialog').dialog('open');
+		   			e.preventDefault();
+		   		 	return false;
+		   			break;
+		   		case 101: // 'e'
+		   			fn_expand.call();
+		   			e.preventDefault();
+		   		 	return false;
+		   			break;
+		   		case 99 : // 'c'
+		   			fn_collapse.call();
+		   			e.preventDefault();
+		   		 	return false;
+		   			break;
+		   		case 116: // 't'
+		   			$('#tags').dialog('open');
+		   			e.preventDefault();
+		   		 	return false;
+		   			break;
+		   		default:
+		   			return true;		   		
+		   }
+		}
+	});     
 		
 	/********************************************************
 	 * Section for the Board menu and everything that belongs to it.
