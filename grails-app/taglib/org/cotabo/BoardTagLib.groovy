@@ -91,7 +91,7 @@ class BoardTagLib {
 					<a href="${createLink(controller:'task', action:'archive', id:attrs.task?.id)}" class="ui-icon ui-icon-disk archive" title="archive"></a>"""
 				}
 				out << """
-					<span class="block-box ui-icon ${attrs.task?.blocked ? 'ui-icon-locked blocked' : 'ui-icon-unlocked not-blocked'}" title="${attrs.task?.blocked ? 'blocked' : 'unblocked'}"></span>
+					<span class="block-box ui-icon ${attrs.task?.blocked ? 'ui-icon-locked blocked' : 'ui-state-disabled ui-icon-unlocked not-blocked'}" title="${attrs.task?.blocked ? 'blocked' : 'unblocked'}"></span>
 					<span class="expander ui-icon ui-icon-carat-1-${attrs.hide ? 'n' : 's'}" ></span>
 				</div>
 				<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'block' : 'none'}">
