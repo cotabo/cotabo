@@ -30,7 +30,7 @@ class TaskController {
 		def task = Task.get(params.taskid)
 		if (task && fromColumn && toColumn) {
 			//Do the Task moving work
-			taskService.moveTask(fromColumn, toColumn, task)			
+			taskService.moveTask(fromColumn, toColumn, task, params.toIndex as int)			
 			//Distribute this movement by rerendering the 2 columns
 			def user = User.findByUsername(springSecurityService.principal.username)
 			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		

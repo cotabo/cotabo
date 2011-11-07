@@ -18,7 +18,7 @@ var applySortable = function(column) {
 		distance:30,
 		opacity:0.7,
 		placeholder:'ui-effects-transfer',
-		receive: moveTask			
+		receive: moveTask		
 	});
 }
 
@@ -29,10 +29,11 @@ var applySortable = function(column) {
  *
  */	        	             
 var moveTask = function(event, ui) {
-	var toColumnId = $(this).parents('[id^="column_"]').attr('id').split('_')[1];
+	var toColumnId = $(this).parents('[id^="column_"]').attr('id').split('_')[1];		
+	var toIndex = ui.item.index();	
 	var fromColumnId = $(ui.sender).parents('[id^="column_"]').attr('id').split('_')[1];
 	var taskId = $(ui.item).attr('id').split('_')[1];
-								
+	
 	//Post onto controller "column" and action "updatetasks"
 	$.ajax({
 		type: 'POST',
@@ -40,11 +41,8 @@ var moveTask = function(event, ui) {
 		data: {
 			'fromColumn': fromColumnId, 
 			'toColumn': toColumnId,
-			'taskid': taskId,
-		},
-		success: function(data) {
-			//Update the task counts on each column
-			setElementCountOnColumn();
+			'toIndex': toIndex,
+			'taskid': taskId		
 		}
 	});				
 }
