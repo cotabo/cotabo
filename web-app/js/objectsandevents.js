@@ -18,9 +18,7 @@ jQuery(function(){
 		var srcElement = e.srcElement ? e.srcElement : e.target; // Firefox fix, worked in Chrome and Safari
 		var dialogs = $('.ui-dialog:visible').toArray();
 		var shortcutsDisabled = (dialogs.length > 0 ? true : false) || (srcElement instanceof HTMLInputElement);;
-		//For code documentation see http://api.jquery.com/event.which/
 		var code = (e.which ? e.which : e.keyCode);
-		//alert(e.which)
 		if(!shortcutsDisabled) {		   
 			switch(code) {				
 		   		case 110: // 'n'
