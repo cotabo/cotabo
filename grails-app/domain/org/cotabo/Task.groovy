@@ -66,8 +66,7 @@ class Task implements Rerenderable {
 
 	static mapping = {
 		//column is a reserver word in MySQL
-		column column:'cotabo_column'
-		sort id:'asc'				
+		column column:'cotabo_column'				
 	}	
 	
    /**
