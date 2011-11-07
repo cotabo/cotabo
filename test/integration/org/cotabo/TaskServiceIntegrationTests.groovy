@@ -43,6 +43,21 @@ class TaskServiceIntegrationTests extends GrailsUnitTestCase {
 		
 	}
 	
+	void testMoveTaskWithPosition() {
+		def taskToMove =  Column.get(1).tasks.first()
+		def fromColumn = Column.get(1)
+		def toColumn = Column.get(2)
+		def position = 1
+		def expected = Column.get(2).tasks.collect{it}
+		expected.add(1, taskToMove)
+		
+		SpringSecurityUtils.doWithAuth('user') {
+			taskService.moveTask(fromColumn, toColumn, taskToMove, position)
+		}
+		
+		assertEquals expected, Column.get(2).tasks		
+	}
+	
 	void testSaveTask() {
 		def col = Column.findByName('ToDo')
 		def user = User.findByUsername('admin')

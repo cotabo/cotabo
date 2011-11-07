@@ -9,7 +9,7 @@ package org.cotabo
 class Column implements Rerenderable {
 	//Relationships
 	static belongsTo = [ board : Board ]
-	SortedSet tasks
+	List tasks
 	static hasMany = [ tasks : Task, columnStatusEntries : ColumnStatusEntry ]
 	
 	String name
@@ -37,8 +37,6 @@ class Column implements Rerenderable {
 		//column is a reserverd word in MySQL
 		table 'cotabo_column'
 		//also 'limit'
-		limit column: 'column_limit'
-		tasks sort:'id'
-
+		limit column: 'column_limit'		
 	}	
 }

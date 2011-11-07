@@ -10,7 +10,7 @@ import groovy.time.TimeCategory
  * @author Robert Krombholz
  *
  */
-class Task implements Rerenderable, Comparable {
+class Task implements Rerenderable {
 
 	//This is determined at runtime by the related blocks
 	static transients = ["blocked", "startDate"]
@@ -62,11 +62,6 @@ class Task implements Rerenderable, Comparable {
 	@Override
 	public String toString() {
 		return name
-	}
-
-	int compareTo(obj) {
-		//NOTE: don't try using a date here - would cause really strange problems
-		this.id <=> obj?.id
 	}
 
 	static mapping = {

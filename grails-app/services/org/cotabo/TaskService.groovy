@@ -25,10 +25,11 @@ class TaskService {
 		if(task.validate()) {
 			//For test purposes
 			task.dateCreated = dateCreated
-			task.save()			
 			def col = Column.get(task.column.id)
 			col.addToTasks(task)
-			col.save()									
+			col.save()
+			//Also need to save the task here.
+			task.save()
 			createMovementEvent(task, dateCreated)
 		}
 		return task
@@ -40,13 +41,19 @@ class TaskService {
 	 * @param fromColumn the column from where a task is moved
 	 * @param tooColumn the column where the task is moved too
 	 * @param task the task that should be moved
+	 * @param position Optional - specify the 0 based index for the target column
 	 * @param dateCreated Optional - this is only for testing purposes - normally hibernate/grails will set this.
 	 * @return a message which is empty then the update was successfull.
 	 */
-	void moveTask(Column fromColumn, Column toColumn, Task task, Date dateCreated = null) {								
+	void moveTask(Column fromColumn, Column toColumn, Task task, int position = -1, Date dateCreated = null) {								
 		if (fromColumn && toColumn && task) {				
-			fromColumn.removeFromTasks(task)				
-			toColumn.addToTasks(task)			
+			fromColumn.removeFromTasks(task)
+			if(position > -1 && toColumn.tasks) {
+				toColumn.tasks.add(position, task)	
+			}
+			else {			
+				toColumn.addToTasks(task)
+			}			
 			fromColumn.save()
 			toColumn.save()					
 			//Making the user who pulled the task - the assignee

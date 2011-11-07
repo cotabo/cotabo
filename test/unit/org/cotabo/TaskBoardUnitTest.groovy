@@ -114,9 +114,7 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		taskService.saveTask(
 			new Task(name: "wiptask", durationHours: 0.5, column: wipCol,
 				creator: user, color: new TaskColor(color:'#faf77a', name:'none'), priority: 'Critical'),
-			startDate)
-		todoCol.addToTasks(Task.findByName('todotask'))
-		wipCol.addToTasks(Task.findByName('wiptask'))
+			startDate)			
     }
 
     protected void tearDown() {
@@ -128,7 +126,7 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 		//Extecting 100 ColumnStatusEntries 
 		//120 = 40 moves
 		//+ 60 = 20 creates
-		//+ 2 (for 2 single task creations - creation created only 1 ColumnStatusEntry)
+		//+ 6 (for 2 single task creations - creation created only 1 ColumnStatusEntry)
 		assertEquals 186, ColumnStatusEntry.list().size()			
 		
 		use(TimeCategory) {			

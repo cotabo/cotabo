@@ -30,9 +30,7 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 			column: col,				
 			priority: 'Critical',
 			color: grailsConfig.config.taskboard.colors[0]
-		] as Task
-		
-		newtask.save(flush:true)
+		] as Task		
 		
 		col.addToTasks(newtask)
 		
