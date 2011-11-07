@@ -96,7 +96,7 @@ class BoardUpdateService {
 	 * The message content can be trusted as we're not having an user input here.
 	 */
 	def onStateChange = { event ->	
-		log.debug event.message	
+		//log.debug event.message	
 		if (!event.message) return
 		if (event.isCancelled()) return
 		if (event.isResuming() || event.isResumedOnTimeout()) {
