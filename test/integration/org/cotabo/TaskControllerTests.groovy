@@ -22,6 +22,7 @@ class TaskControllerTests extends GrailsUnitTestCase {
 		controller.params.toColumn = done.id
 		//The 'Setup WebLogic' task
 		controller.params.taskid = moveTask.id
+		controller.params.toIndex = '0'
 		
 		def result
 		//We need to be authenticated for that
