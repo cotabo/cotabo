@@ -95,10 +95,10 @@ class TaskBoardUnitTest extends GrailsUnitTestCase {
 			//We just put everything in the lists - we don't care about gaps here when tasks are moved			
 			use(TimeCategory) {			
 				//Move too wip				
-				taskService.moveTask Column.findByName('todo'), Column.findByName('wip'), task, startDate+idx.days
+				taskService.moveTask Column.findByName('todo'), Column.findByName('wip'), task, -1, startDate+idx.days
 				task = Task.get(task.id)				
 				//We emulate keeping each tasks for 4 hour in the WIP column				
-				taskService.moveTask Column.findByName('wip'), Column.findByName('done'), task, startDate+(idx.days+4.hours)				
+				taskService.moveTask Column.findByName('wip'), Column.findByName('done'), task, -1, startDate+(idx.days+4.hours)				
 			}								
 		}
 		
