@@ -46,6 +46,21 @@ class TaskController {
 		}
 	}
 	
+	def reorder = {		
+		def task = Task.get(params.id)
+		def position = params.position as int
+		if (task && position > -1) {
+			taskService.reorderTask(task, position)
+			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, task.column)
+			render ''
+		}
+		else {
+			sendError("Task does not exist", "The task #${params.id} does not exist", 404)
+		}	
+		
+	}
+	
     def save = {		
 		def taskInstance = new Task()
 				
@@ -150,7 +165,7 @@ class TaskController {
 	
 	def archive = {
 		def taskInstance = Task.get(params.id)
-		log.debug("Archiving task ${taskInstance}...")
+		//log.debug("Archiving task ${taskInstance}...")
 		if( taskInstance) {
 			taskInstance.archived = true;
 			taskInstance.save(flush:true);

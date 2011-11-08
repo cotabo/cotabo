@@ -63,6 +63,22 @@ class TaskService {
 			createMovementEvent(task, dateCreated)			
 		}			
 	}
+	
+	/**
+	 * Sets the specified tasks onto the specified position.
+	 * 
+	 * @param task The task that should be reordered
+	 * @param position the 0 based index position to set the task too
+	 */
+	void reorderTask(Task task, int position) {
+		def col = task.column
+		col.removeFromTasks(task)
+		col.tasks.add(position, task)	
+		//Need to explicitly re set the column on the task as
+		//the .add method only maintains one side of the relation
+		task.column = col
+		task.save()
+	}
 			
 	/**
 	 *  Private method that creates & persists all events when a task is moved.

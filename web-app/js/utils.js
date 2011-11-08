@@ -3,6 +3,8 @@
  */
 
 
+//Globally holds the column where a sort action started - see start event of the sortable below
+var startColumnId
 /**
  * Makes a single column a sortable that is connected with all other columns
  * @param column - a DOM object representing the column UL element
@@ -18,7 +20,11 @@ var applySortable = function(column) {
 		distance:30,
 		opacity:0.7,
 		placeholder:'ui-effects-transfer',
-		receive: moveTask		
+		receive: moveTask,
+		update: reorderTask,
+		start: function(event, ui) {
+			startColumnId = ui.item.parents('[id^="column_"]').attr('id');
+		}
 	});
 }
 
@@ -29,15 +35,15 @@ var applySortable = function(column) {
  *
  */	        	             
 var moveTask = function(event, ui) {
+	var fromColumnId = $(ui.sender).parents('[id^="column_"]').attr('id').split('_')[1];
 	var toColumnId = $(this).parents('[id^="column_"]').attr('id').split('_')[1];		
 	var toIndex = ui.item.index();	
-	var fromColumnId = $(ui.sender).parents('[id^="column_"]').attr('id').split('_')[1];
 	var taskId = $(ui.item).attr('id').split('_')[1];
 	
 	//Post onto controller "column" and action "updatetasks"
 	$.ajax({
 		type: 'POST',
-		url: moveTasksUrl,
+		url: moveTaskUrl,
 		data: {
 			'fromColumn': fromColumnId, 
 			'toColumn': toColumnId,
@@ -46,6 +52,27 @@ var moveTask = function(event, ui) {
 		}
 	});				
 }
+
+/**
+ * Submits a task reordering (within the same column) to the server
+ * 
+ */
+var reorderTask = function(event, ui) {	
+	//We only want to run this if it was a reordering in the same column.
+	//Otherwise the moveTask function will take care.	
+	var thisColumnId = ui.item.parents('[id^="column_"]').attr('id');
+	if (thisColumnId == startColumnId) {			
+		var position = ui.item.index();
+		$.ajax({
+			type: 'POST',
+			url: reorderTaskUrl+'/'+ui.item.attr('id').split('_')[1],
+			data: {
+				'position': position
+			}
+		});
+	}	
+}
+
 
 /**
  * Callback function for the returned html that represents the edit dialog.

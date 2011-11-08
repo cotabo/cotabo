@@ -118,12 +118,12 @@ class BoardUpdateService {
 	 * Distributes a message containing the Rerenderable object and a notification to the given Atmosphere Broadcaster.
 	 *
 	 * @param broadcaster The atmosphere broadcaster
-	 * @param obj a list of Rerenderable objects     * 
+	 * @param obj a list of Rerenderable objects
 	 */
 	public void broadcastRerenderingMessage(Broadcaster broadcaster, Rerenderable obj) {	   
 	   if (broadcaster) {
 		   //Broadcast the rerendered HTML of the Rerenderbale object
-		   def rerendered =  rerenderService.render(obj)	   		   		   
+		   def rerendered =  rerenderService.render(obj)	   		   
 		   broadcaster.broadcast(rerendered)
 	   }
 	}
