@@ -123,8 +123,9 @@ class BoardUpdateService {
 	public void broadcastRerenderingMessage(Broadcaster broadcaster, Rerenderable obj) {	   
 	   if (broadcaster) {
 		   //Broadcast the rerendered HTML of the Rerenderbale object
-		   def rerendered =  rerenderService.render(obj)	   		   
-		   broadcaster.broadcast(rerendered)
+		   def rerendered =  rerenderService.render(obj)
+		   def small = rerendered.replaceAll('\n', '').replaceAll('\t', '')  		 		   
+		   broadcaster.broadcast(small)
 	   }
 	}
 }
