@@ -18,7 +18,7 @@ var subscribeChannel = function(channelString, callback) {
     	callback,
     	//Use WebSockets as the first choice but use streaming if
     	//either the server or the client doesn't support WebSockets.
-    	$.atmosphere.request={transport:'websocket'}
+    	$.atmosphere.request={transport:'websocket', dataType: 'html'}
 	);    
 }
 //onload
