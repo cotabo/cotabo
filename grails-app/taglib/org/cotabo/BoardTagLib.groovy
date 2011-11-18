@@ -24,15 +24,15 @@ class BoardTagLib {
 	 * attrs: 
 	 * 	column 	[required]
 	 */
-	def column = { attrs, body ->		
+	def column = { attrs, body ->			
 		//We're removing 0.1 % from each width to avoid a scrollbar when it reached 100%
 		def width = (100 / attrs.column.board.columns.size()) -0.2 ;
 		out << """
-		<div class="column" style="width:${width}%;">
+		<div id="column_${attrs.column.id}" class="column" style="width:${width}%;">
 			<span class="title">
 				<p>${attrs.column?.name?.encodeAsHTML()}</p>
 				<span>
-					<p class="value">&nbsp;</p>"""
+					<p class="value">${attrs.column.tasks?.size()?: 0}</p>"""
 		
 		if (attrs.column?.limit > 0) {
 			out << """
@@ -45,13 +45,13 @@ class BoardTagLib {
 			</span>'''
 		
 		out << """
-			<ul id="column_${attrs.column.id}">
-		"""								
-		out << body()		
+			<ul>
+		"""							
+		out << body()			
 		out << '''
 			</ul>
 		</div>
-		'''					
+		'''				
 	}
 	
 	
@@ -91,10 +91,10 @@ class BoardTagLib {
 					<a href="${createLink(controller:'task', action:'archive', id:attrs.task?.id)}" class="ui-icon ui-icon-disk archive" title="archive"></a>"""
 				}
 				out << """
-					<span class="block-box ui-icon ${attrs.task?.blocked ? 'ui-icon-locked blocked' : 'ui-icon-unlocked not-blocked'}" title="${attrs.task?.blocked ? 'blocked' : 'unblocked'}"></span>
-					<span class="expander ui-icon ui-icon-carat-1-${attrs.hide ? 's' : 'n'}" ></span>
+					<span class="block-box ui-icon ${attrs.task?.blocked ? 'ui-icon-locked blocked' : 'ui-state-disabled ui-icon-unlocked not-blocked'}" title="${attrs.task?.blocked ? 'blocked' : 'unblocked'}"></span>
+					<span class="expander ui-icon ui-icon-carat-1-${attrs.hide ? 'n' : 's'}" ></span>
 				</div>
-				<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'none' : 'block'}">
+				<div class="task-content ui-widget-content" style="display:${attrs.hide ? 'block' : 'none'}">
 					<table>
 						<colgroup>
 							<col width="25%"/>

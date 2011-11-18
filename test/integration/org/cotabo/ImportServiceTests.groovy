@@ -40,8 +40,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Install &amp; configure Apache</description>
             <details />
             <name>Setup Webserver</name>
-            <priority>Major</priority>
-            <sortorder>1</sortorder>
+            <priority>Major</priority>            
             <workflowEndDate />
             <workflowStartDate>2011-09-06 20:31:09.145</workflowStartDate>
           </task>
@@ -54,8 +53,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Install base software and configure domain.</description>
             <details />
             <name>Setup WebLogic</name>
-            <priority>Low</priority>
-            <sortorder>2</sortorder>
+            <priority>Low</priority>            
             <workflowEndDate />
             <workflowStartDate>2011-09-06 20:31:09.174</workflowStartDate>
           </task>
@@ -68,8 +66,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Install the application software as describes by the Vendor</description>
             <details />
             <name>Install application</name>
-            <priority>Critical</priority>
-            <sortorder>3</sortorder>
+            <priority>Critical</priority>            
             <workflowEndDate />
             <workflowStartDate>2011-09-06 20:31:09.204</workflowStartDate>
           </task>
@@ -82,8 +79,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Setup all monitors (Filesystem, proceses, logs etc)</description>
             <details />
             <name>Configure Monitoring</name>
-            <priority>Normal</priority>
-            <sortorder>4</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate />
             <workflowStartDate>2011-09-06 20:31:09.225</workflowStartDate>
           </task>
@@ -96,8 +92,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Apply configuration management</description>
             <details />
             <name>Apply Configuration Management</name>
-            <priority>Normal</priority>
-            <sortorder>5</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate />
             <workflowStartDate>2011-09-06 20:31:09.255</workflowStartDate>
           </task>
@@ -124,8 +119,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Bootstrap machine and apply WebServer profile.</description>
             <details />
             <name>Bootstrap Webserver</name>
-            <priority>Critical</priority>
-            <sortorder>0</sortorder>
+            <priority>Critical</priority>            
             <workflowEndDate />
             <workflowStartDate>1969-12-31 15:00:00.0</workflowStartDate>
           </task>
@@ -143,8 +137,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Bootstrap machine and apply Java Appserver profile</description>
             <details />
             <name>Bootstrap App server</name>
-            <priority>Normal</priority>
-            <sortorder>1</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate />
             <workflowStartDate>1969-12-31 16:00:00.0</workflowStartDate>
           </task>
@@ -166,8 +159,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Request machines at the DataCenter</description>
             <details />
             <name>Request machines</name>
-            <priority>Normal</priority>
-            <sortorder>3</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate>2011-09-06 20:31:09.515</workflowEndDate>
             <workflowStartDate>1969-12-31 15:00:00.0</workflowStartDate>
           </task>
@@ -180,8 +172,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Description $i</description>
             <details />
             <name>Task 1</name>
-            <priority>Normal</priority>
-            <sortorder>12</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate>2011-09-06 20:31:10.343</workflowEndDate>
             <workflowStartDate>2011-09-06 20:31:09.899</workflowStartDate>
           </task>
@@ -194,8 +185,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Description $i</description>
             <details />
             <name>Task 2</name>
-            <priority>Normal</priority>
-            <sortorder>13</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate>2011-09-06 20:31:10.385</workflowEndDate>
             <workflowStartDate>2011-09-06 20:31:09.941</workflowStartDate>
           </task>
@@ -208,8 +198,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Description $i</description>
             <details />
             <name>Task 3</name>
-            <priority>Normal</priority>
-            <sortorder>14</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate>2011-09-06 20:31:10.425</workflowEndDate>
             <workflowStartDate>2011-09-06 20:31:09.981</workflowStartDate>
           </task>
@@ -222,8 +211,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Description $i</description>
             <details />
             <name>Task 4</name>
-            <priority>Normal</priority>
-            <sortorder>15</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate>2011-09-06 20:31:10.545</workflowEndDate>
             <workflowStartDate>2011-09-06 20:31:10.031</workflowStartDate>
           </task>
@@ -236,8 +224,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Description $i</description>
             <details />
             <name>Task 5</name>
-            <priority>Normal</priority>
-            <sortorder>16</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate>2011-09-06 20:31:10.575</workflowEndDate>
             <workflowStartDate>2011-09-06 20:31:10.071</workflowStartDate>
           </task>
@@ -250,8 +237,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Description $i</description>
             <details />
             <name>Task 6</name>
-            <priority>Normal</priority>
-            <sortorder>17</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate>2011-09-06 20:31:10.615</workflowEndDate>
             <workflowStartDate>2011-09-06 20:31:10.111</workflowStartDate>
           </task>
@@ -264,8 +250,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Description $i</description>
             <details />
             <name>Task 7</name>
-            <priority>Normal</priority>
-            <sortorder>18</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate>2011-09-06 20:31:10.655</workflowEndDate>
             <workflowStartDate>2011-09-06 20:31:10.166</workflowStartDate>
           </task>
@@ -278,8 +263,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Description $i</description>
             <details />
             <name>Task 8</name>
-            <priority>Normal</priority>
-            <sortorder>19</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate>2011-09-06 20:31:10.685</workflowEndDate>
             <workflowStartDate>2011-09-06 20:31:10.207</workflowStartDate>
           </task>
@@ -292,8 +276,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Description $i</description>
             <details />
             <name>Task 9</name>
-            <priority>Normal</priority>
-            <sortorder>20</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate>2011-09-06 20:31:10.725</workflowEndDate>
             <workflowStartDate>2011-09-06 20:31:10.245</workflowStartDate>
           </task>
@@ -306,8 +289,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <description>Description $i</description>
             <details />
             <name>Task 10</name>
-            <priority>Normal</priority>
-            <sortorder>21</sortorder>
+            <priority>Normal</priority>            
             <workflowEndDate>2011-09-06 20:31:10.765</workflowEndDate>
             <workflowStartDate>2011-09-06 20:31:10.293</workflowStartDate>
           </task>
@@ -338,13 +320,10 @@ class ImportServiceTests extends GrailsUnitTestCase {
 		assertEquals 2, board.columns[1].tasks.size()
 		assertEquals 11, board.columns[2].tasks.size()
 		
-		def lastTask = board.columns.last().tasks.last()
+		def lastTask = Task.findByName('Task 10')
 		assertFalse lastTask.archived
 		assertEquals User.findByUsername('user'), lastTask.creator
-		assertEquals User.findByUsername('user'), lastTask.assignee
-		assertEquals Date.parse("yyyy-MM-dd HH:mm:ss.SSS", '2011-09-06 20:31:10.293'), lastTask.workflowStartDate
-		assertEquals Date.parse("yyyy-MM-dd HH:mm:ss.SSS", '2011-09-06 20:31:10.765'), lastTask.workflowEndDate
-		assertEquals 'Task 10', lastTask.name
+		assertEquals User.findByUsername('user'), lastTask.assignee		
 		
 		def blockTask = board.columns[1].tasks.find { it.name == 'Bootstrap App server'}
 		assertEquals 1, blockTask.blocks.size()

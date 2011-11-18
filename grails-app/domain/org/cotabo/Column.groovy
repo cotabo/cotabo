@@ -6,11 +6,13 @@ package org.cotabo
  * @author Robert Krombholz
  *
  */
-class Column {
+class Column implements Rerenderable {
 	//Relationships
 	static belongsTo = [ board : Board ]
-	SortedSet tasks
+	List tasks
 	static hasMany = [ tasks : Task, columnStatusEntries : ColumnStatusEntry ]
+	
+	static transients = ["rerenderAction"]
 	
 	String name
 	String description
@@ -37,8 +39,13 @@ class Column {
 		//column is a reserverd word in MySQL
 		table 'cotabo_column'
 		//also 'limit'
-		limit column: 'column_limit'
-		tasks sort:'sortorder'
-
+		limit column: 'column_limit'		
 	}	
+	
+   /**
+    * Implementation of Rerenderable. see @link org.cotabo.Rerenderable
+    */
+   public String getRerenderAction() {
+	   return 'showDom'
+   }
 }

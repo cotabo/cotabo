@@ -5,53 +5,52 @@
 jQuery(function(){
 	
 	
-	 /********************************************************
+    /********************************************************
 	 * Section for the client-side search.
-	 * *******************************************************/
+	 *********************************************************/	
+	$('input#search').quicksearch('li.ui-widget');	
 	
-	$(document).ready(function(){
-		$('input#search').quicksearch('li.ui-widget');
-	});
-	
-	 /********************************************************
+	/********************************************************
 	 * Section for the keyboard navigation.
 	 * The check whether the event comes from the HTMLInputElement is absolutely necessary.
-	 ********************************************************/
-	 $(document).ready(function(){
-       $(document).keypress(function(e) {
-    	   var srcElement = e.srcElement ? e.srcElement : e.target; // Firefox fix, worked in Chrome and Safari
-    	   var dialogs = $('.ui-dialog:visible').toArray();
-       	   var shortcutsDisabled = (dialogs.length > 0 ? true : false) || (srcElement instanceof HTMLInputElement);;       	       	   
-       	   var code = (e.keyCode ? e.keyCode : e.which);
-           if(!shortcutsDisabled) {
-		 if (code == 110) /* 'n' */{
-			$('#createTaskForm').dialog('open');
-		 	e.preventDefault();
-		 	return false;
-		 }
-		 if (code == 109) /* 'm' */ {
-			$('#chat_dialog').dialog('open');
-		 	e.preventDefault();
-		 	return false;
-		 }
-		 if (code == 101) /* 'e' */ {
-			fn_expand.call();
-		 	e.preventDefault();
-		 	return false;
-		 }
-		 if (code == 99) /* 'c' */ {
-			fn_collapse.call();
-		 	e.preventDefault();
-		 	return false;
-		 }
-		 if (code == 116) /* 't' */ {
-			 $('#tags').dialog('open');
-			 	e.preventDefault();
-			 	return false;
-			 }
-           }
-       });
-     });
+	 ********************************************************/	 
+	$(document).keypress(function(e) {
+		var srcElement = e.srcElement ? e.srcElement : e.target; // Firefox fix, worked in Chrome and Safari
+		var dialogs = $('.ui-dialog:visible').toArray();
+		var shortcutsDisabled = (dialogs.length > 0 ? true : false) || (srcElement instanceof HTMLInputElement);;
+		var code = (e.which ? e.which : e.keyCode);
+		if(!shortcutsDisabled) {		   
+			switch(code) {				
+		   		case 110: // 'n'
+		   			$('#createTaskForm').dialog('open');
+		   			e.preventDefault();
+		   		 	return false;
+		   			break;		   			
+		   		case 109: // 'm'
+		   			$('#chat_dialog').dialog('open');
+		   			e.preventDefault();
+		   		 	return false;
+		   			break;
+		   		case 101: // 'e'
+		   			fn_expand.call();
+		   			e.preventDefault();
+		   		 	return false;
+		   			break;
+		   		case 99 : // 'c'
+		   			fn_collapse.call();
+		   			e.preventDefault();
+		   		 	return false;
+		   			break;
+		   		case 116: // 't'
+		   			$('#tags').dialog('open');
+		   			e.preventDefault();
+		   		 	return false;
+		   			break;
+		   		default:
+		   			return true;		   		
+		   }
+		}
+	});     
 		
 	/********************************************************
 	 * Section for the Board menu and everything that belongs to it.
@@ -218,71 +217,10 @@ jQuery(function(){
 	 * Section for the Board itself (connected sortable columns etc.)
 	 * refer: board/show view
 	 * refer: taglib/BoardTagLib
+	 * refer js/utils.js
 	 ********************************************************/	
-	/**
-	 * Callback for a connected sortable receiving a new Task object.
-	 * Updating the server side and taking case of updating the column counts. 
-	 *
-	 */	        	             
-	var updateConnectedColumn = function(event, ui) {
-		var toColumnId = $(this).attr('id').split('_')[1];
-		var taskId = $(ui.item).attr('id').split('_')[1]; 
-		
-			var fromColumnId = $(ui.sender).attr('id').split('_')[1];				
-									
-		//Post onto controller "column" and action "updatetasks"
-		$.ajax({
-			type: 'POST',
-			url: moveTasksUrl,
-			data: {
-				'fromColumn': fromColumnId, 
-				'toColumn': toColumnId,
-				'taskid': taskId,
-				'order': $(this).sortable("toArray")
-			},
-			success: function(data) {
-				//Update the task counts on each column
-				setElementCountOnColumn();
-			}
-		});				
-	}
-
-	
-	/**
-	 * Can be used for the stop event. Updating only the column sort order
-	 */ 
-	var updateColumn = function(event, ui) {
-			var toColumnId = $(this).attr('id').split('_')[1];
-		var taskId = $(ui.item).attr('id').split('_')[1]; 
-		$.ajax({
-			type: 'POST',
-			url: updateSortorderUrl+'/'+toColumnId,
-			data: {
-			    taskid: taskId,
-				order: $(this).sortable("toArray")
-			}
-		});
-	}
-		
 	//Sortable definition for the connected columns	
 	$(".column > ul").each(function(index) {			
-		$(this).sortable({			
-			//Connect the current sortable only with the next column
-			//connectWith:'.column ul:gt('+index+'):first',
-			connectWith:'.column ul',
-			appendTo: 'body',
-			containment:"#board",
-			cursor:"move",
-			distance:30,
-			opacity:0.7,
-			placeholder:'ui-effects-transfer',
-			receive: updateConnectedColumn,
-			stop: updateColumn
-			
-		});
-	});	
-	
-	//Update once on document load time - from utils.js
-	setElementCountOnColumn();	 
-			
+		applySortable(this);
+	});				
 });

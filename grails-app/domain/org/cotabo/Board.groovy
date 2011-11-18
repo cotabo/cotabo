@@ -9,12 +9,14 @@ import java.util.List;
  * @author Robert Krobmholz
  *
  */
-class Board {
+class Board implements Rerenderable {
 	//Relationships
 	List columns	
 	static hasMany = [ columns : Column, colors: TaskColor ]	
 	
 	static exportables = ['name', 'description', 'columns']
+	
+	static transients = ["rerenderAction"]
 	
 	String name
 	String description
@@ -49,4 +51,11 @@ class Board {
 	public String toString() {
 		return name
 	}
+	
+   /**
+    * Implementation of Rerenderable. see @link org.cotabo.Rerenderable
+    */
+   public String getRerenderAction() {
+	   return 'showDom'
+   }
 }

@@ -4,6 +4,8 @@ import grails.test.*
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 
 class TaskIntegrationTests extends GrailsUnitTestCase {
+	def rerenderService
+	
     protected void setUp() {
         super.setUp()
     }
@@ -15,37 +17,29 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 	
 	void testCreationAddToColumn() {
 		//Preperation
-		def col = Column.findByName('ToDo')
-		def othercol = Column.findByName('In Progress')
+		def col = Column.findByName('Done!')		
 		def user = User.findByUsername('admin')				
 		
-		assertNotNull col
-		assertNotNull othercol
+		assertNotNull col		
 		assertNotNull user
 		
 		def newtask = [
 			name: 'mytask',
 			durationHours: 0.5,
-			creator: user,
-			column: col,
-			sortorder: 100,
+			creator: user,	
+			column: col,				
 			priority: 'Critical',
 			color: grailsConfig.config.taskboard.colors[0]
-		] as Task
+		] as Task		
 		
-		if(!newtask.validate()){
-			newtask.errors.allErrors.each{println it}
-			assertTrue newtask.validate()
-		}
+		col.addToTasks(newtask)
 		
-		def newCol =othercol.addToTasks(newtask)
-		
-		assertTrue newCol.validate()
-		assertNotNull newCol.save(flush:true)
+		assertTrue col.validate()
+		assertNotNull col.save(flush:true)
 		
 		def tmpTask = Task.findByName('mytask')
 		assertNotNull tmpTask
-		assertEquals 'In Progress', tmpTask.column.name
+		assertEquals 'Done!', tmpTask.column.name
 	}
 	
 	void testInitialBlocked() {
@@ -73,6 +67,14 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 		task.blocked = true
 		task.save()
 		assertEquals 1, task.blocks.size()
+		
+	}
+	
+	void testRerender() {		
+		def task = Task.findByName('Setup WebLogic')
+		def expected = '/task/showDom/' + task.id
+		
+		assertEquals expected, rerenderService.render(task)
 		
 	}
 }

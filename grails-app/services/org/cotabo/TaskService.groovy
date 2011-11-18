@@ -18,73 +18,66 @@ class TaskService {
 	 * This method persists task object and generates the necessary events
 	 * from the request parameters.
 	 * 
-	 * @param taskInstance with all necessary properties set.
+	 * @param task that passes .validate()
 	 * @return a task object. Either persistest or with errors populated (use hasErrors()).
 	 */
-	Task saveTask(Task taskInstance, Date dateCreated = null) {	
-		if(taskInstance.validate()) {
-			taskInstance.column.addToTasks(taskInstance).save()
+	Task saveTask(Task task, Date dateCreated = null) {	
+		if(task.validate()) {
 			//For test purposes
-			taskInstance.dateCreated = dateCreated
-			//saving both as addTo somehow here doesn't seem to main both ends of the relation
-			taskInstance.save()	
-			createMovementEvent(taskInstance, dateCreated)
+			task.dateCreated = dateCreated
+			def col = Column.get(task.column.id)
+			col.addToTasks(task)
+			col.save()
+			//Also need to save the task here.
+			task.save()
+			createMovementEvent(task, dateCreated)
 		}
-		return taskInstance
+		return task
 	}
 
 	/**
-	 * Updates the sort order of all tasks at the db level as per their
-	 * correspinding list order.
-	 * 
-	 * @param sortedNewTaskIdsTargetColumn an ordered list of Task IDs
-	 * @return a message which is empty then the update was successfull.
-	 */
-    String updateSortOrder(List sortedNewTaskIdsTargetColumn) {
-		try {			
-			updateTaskOrder(sortedNewTaskIdsTargetColumn)
-			sessionFactory?.getCurrentSession()?.flush()
-			return ''
-		}
-		catch (Exception e) {
-			return 'Error occured while persisting the data. Please contact the system administrator'
-		}
-
-    }
-
-	/**
 	 * Updates the sort order of the target column & moves the given task
-	 *  
-	 * @param sortedNewTaskIdsTargetColumn a list of IDs with the new sort order of the target column 
-	 * @param fromColumnId the column id from where a task is moved
-	 * @param tooColumnId the column id where the task is moved too
-	 * @param taskId the task that should be moved
+	 *  	 
+	 * @param fromColumn the column from where a task is moved
+	 * @param tooColumn the column where the task is moved too
+	 * @param task the task that should be moved
+	 * @param position Optional - specify the 0 based index for the target column
 	 * @param dateCreated Optional - this is only for testing purposes - normally hibernate/grails will set this.
 	 * @return a message which is empty then the update was successfull.
 	 */
-	String moveTask(def message, Date dateCreated = null) {						
-		
-		updateTaskOrder(message.newTaskOrderIdList)		
-		def fromColumnInstance = Column.get(message.fromColumn)
-		def toColumnInstance = Column.get(message.toColumn)
-		def taskInstance = Task.get(message.task)		
-		if (fromColumnInstance && toColumnInstance && taskInstance) {
-			fromColumnInstance.removeFromTasks(taskInstance)
-			toColumnInstance.addToTasks(taskInstance)
-			fromColumnInstance.save(flush:false)
-			toColumnInstance.save(flush:false)	
+	void moveTask(Column fromColumn, Column toColumn, Task task, int position = -1, Date dateCreated = null) {								
+		if (fromColumn && toColumn && task) {				
+			fromColumn.removeFromTasks(task)
+			if(position > -1 && toColumn.tasks) {
+				toColumn.tasks.add(position, task)	
+			}
+			else {			
+				toColumn.addToTasks(task)
+			}			
+			fromColumn.save()
+			toColumn.save()					
 			//Making the user who pulled the task - the assignee
-			taskInstance.assignee = User.findByUsername(springSecurityService.principal.username)
-			taskInstance.column = toColumnInstance
-			taskInstance.save(flush:false)
-			sessionFactory?.getCurrentSession()?.flush()
-			createMovementEvent(taskInstance, dateCreated)
-			return ''
-		}
-		else {
-			return 'Either the column or the Task that you have specified does not exist.'
-		}
-						
+			task.assignee = User.findByUsername(springSecurityService.principal.username)
+			task.column = toColumn
+			task.save()
+			createMovementEvent(task, dateCreated)			
+		}			
+	}
+	
+	/**
+	 * Sets the specified tasks onto the specified position.
+	 * 
+	 * @param task The task that should be reordered
+	 * @param position the 0 based index position to set the task too
+	 */
+	void reorderTask(Task task, int position) {
+		def col = task.column
+		col.removeFromTasks(task)
+		col.tasks.add(position, task)	
+		//Need to explicitly re set the column on the task as
+		//the .add method only maintains one side of the relation
+		task.column = col
+		task.save()
 	}
 			
 	/**
@@ -111,26 +104,5 @@ class TaskService {
 		//Save everything		
 		events.each {it.save(flush:false)}
 		sessionFactory?.getCurrentSession()?.flush()
-	}
-	
-	/**
-	 * Updates the sortorder ofall tasks of the given tasksIdList as they are 
-	 * ordered in the List.
-	 * 
-	 * @param orderedIdList
-	 */
-	private void updateTaskOrder(List orderedIdList) {
-		
-		if(orderedIdList) {
-			//Itterate over all tasks in the column where the task was added
-			orderedIdList.eachWithIndex { obj, idx ->
-				def tmpTask = Task.get(obj)
-				//Set the current iteration index as the sort order to maintain
-				//as the user sees it.
-				tmpTask.sortorder = idx				
-				tmpTask.save(flush:false)
-			}
-			sessionFactory?.getCurrentSession()?.flush()
-		}
-	}
+	}	
 }

@@ -10,10 +10,10 @@ import groovy.time.TimeCategory
  * @author Robert Krombholz
  *
  */
-class Task implements Comparable {
+class Task implements Rerenderable {
 
 	//This is determined at runtime by the related blocks
-	static transients = ["blocked", "startDate"]
+	static transients = ["blocked", "startDate", "rerenderAction"]
 	
 	//Relationships
 	static belongsTo = [ column : Column ]	
@@ -24,8 +24,7 @@ class Task implements Comparable {
 	
 	User creator
 	User assignee
-	
-	int sortorder 
+		
 	Date dateCreated
 	Date lastUpdated
 	
@@ -50,8 +49,7 @@ class Task implements Comparable {
 		durationHours nullable:false, min:0D, max:500D						
 		column nullable:false
 		creator nullable:false
-		assignee nullable:true
-		sortorder nullable:false, min:0
+		assignee nullable:true		
 		priority nullable:false, validator: {val, obj -> val in grailsConfig.config.taskboard.priorities }
 		workflowStartDate nullable: true
 		workflowEndDate nullable:true
@@ -59,42 +57,17 @@ class Task implements Comparable {
 		
     }
 	
-	static exportables = ['name', 'description', 'details', 'priority', 'colors', 'creator', 'assignee', 'archived', 'sortorder', 'blocks', 'workflowStartDate', 'workflowEndDate']
+	static exportables = ['name', 'description', 'details', 'priority', 'colors', 'creator', 'assignee', 'archived', 'blocks', 'workflowStartDate', 'workflowEndDate']
 	
 	@Override
 	public String toString() {
 		return name
 	}
-	
-	int compareTo(obj) {
-		sortorder <=> obj?.sortorder
-	}
-	
+
 	static mapping = {
 		//column is a reserver word in MySQL
-		column column:'cotabo_column'
-		sort sortorder:'asc'		
-		tasks cascade:'save-update'
-	}
-	
-	def toMessage() {
-		return [
-			'id':this.id,
-			'creator':"${creator?.encodeAsHTML()}",
-			'assignee':assignee?.username ? assignee?.username?.encodeAsHTML() : '',
-			'sortorder':sortorder.encodeAsHTML(),
-			'dateCreated':dateCreated.encodeAsHTML(),						
-			'workflowStartDate':workflowStartDate?.encodeAsHTML(),
-			'workflowEndDate':workflowEndDate?.encodeAsHTML(),			
-			'name':name.encodeAsHTML(),
-			'description':description?.encodeAsHTML(),
-			'details':details?.encodeAsHTML(),
-			'durationHours':durationHours?.encodeAsHTML(),
-			'priority':priority.encodeAsHTML(),
-			'colors': colors.collect{color -> return ['color' : color.color.encodeAsHTML(), 'name' : color.name.encodeAsHTML()]},
-			'blocked':blocked
-		]
-	}
+		column column:'cotabo_column'				
+	}	
 	
    /**
 	* Marking this task as blocked or resolves the blocked state.
@@ -175,5 +148,12 @@ class Task implements Comparable {
 	   if(this.column.workflowStartColumn) {		   
 		   this.workflowStartDate = date
 	   }	   
+   }
+   
+   /**
+    * Implementation of Rerenderable. see @link org.cotabo.Rerenderable
+    */
+   public String getRerenderAction() {
+	   return 'showDom'
    }
 }

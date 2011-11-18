@@ -23,73 +23,75 @@ class TaskController {
         taskInstance.properties = params
         return [taskInstance: taskInstance]
     }
+	
+	def move = {
+		def fromColumn = Column.get(params.fromColumn)
+		def toColumn = Column.get(params.toColumn)  
+		def task = Task.get(params.taskid)
+		if (task && fromColumn && toColumn) {
+			//Do the Task moving work
+			taskService.moveTask(fromColumn, toColumn, task, params.toIndex as int)			
+			//Distribute this movement by rerendering the 2 columns
+			def user = User.findByUsername(springSecurityService.principal.username)
+			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
+			def notification = "${user} moved '${task.name}' (#${task.id}) to '${toColumn}'"	
 
-    def save = {
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, [fromColumn, toColumn])				
+			render ''
+		}
+		else {
+			sendError("Object does not exist",
+				"One of the following objects does not exist: column: ${params.fromColumn}, column: ${params.toColumn}, task: ${params.taskid}",
+				404)
+		}
+	}
+	
+	def reorder = {		
+		def task = Task.get(params.id)
+		def position = params.position as int
+		if (task && position > -1) {
+			taskService.reorderTask(task, position)
+			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, task.column)
+			render ''
+		}
+		else {
+			sendError("Task does not exist", "The task #${params.id} does not exist", 404)
+		}	
+		
+	}
+	
+    def save = {		
 		def taskInstance = new Task()
 				
-		//Bind data but exclude column, creator & sortorder
-		bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
+		//Bind data but exclude column, creator
+		bindData(taskInstance, params, ['column','creator', 'assignee'])
 		
 		//Binding for colors
 		bindColor(taskInstance, params.color)
 		
 		taskInstance.column = Board.get(params.board).columns.first()
-		//Render error when the user is not logged in
-		if(!springSecurityService.isLoggedIn()) {
-			def resp = [title: 'No user session', message: 'You\'re not logged in.\nPlease refresh the site to re-login.' ]
-			render (status: 403, contentType:'application/json', text: resp as JSON)
-			return
-		}
+
 		//Assign the creator
 		def creator = User.findByUsername(springSecurityService.principal.username)
 		taskInstance.creator = creator
 		
 		def assignee = User.get(params.assignee.trim())
 		//No check on assignee as this may be null - leave this to the constraints
-		taskInstance.assignee =assignee		
-		
-		//Get the highest sortorder of the current column + 1
-		def sortOrder = Task.createCriteria().get {
-			eq("column", taskInstance.column)
-			projections {
-				max("sortorder")
-			}
-		} 		
-		//Set it to 1 on the first task
-		taskInstance.sortorder = sortOrder ? sortOrder+1 : 1
+		taskInstance.assignee =assignee				
 
 		taskInstance = taskService.saveTask(taskInstance)
-
+		
+		def user = User.findByUsername(springSecurityService.principal.username)
         if (!taskInstance.hasErrors()) {
-			def principal = springSecurityService.principal
-			def user = User.findByUsername(principal.username)
-			def notification = "${user} created task #${taskInstance.id} (${taskInstance.name})."
+			def notification = "${user} created '${taskInstance.name}' (#${taskInstance.id})."
 			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
-			//Get the rendered HTML
-			def rendered = tb.task([task:taskInstance, hide:false])
-			def message = [id: taskInstance.id, rendered: rendered]
-			//Distribute this creation as atmosphere message
-			boardUpdateService.broadcastMessage(
-				broadcaster, 
-				message, 
-				MessageType.TASK, 
-				notification
-			)
-			
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance)
 			//Render nothing as this will be done by atmosphere
-			render ''     
+			render ''
         }
-        else {						
-			withFormat {
-				form {							
-					//We render all errors on the client side
-					def resp = [
-						title: 'Task could not be saved', 
-						message: taskInstance.errors.allErrors.join('\n') 
-					]
-					render(status: 500, contentType:'application/json', text: resp as JSON)
-				}
-			}	            
+        else {
+			sendError('Task could not be saved',  taskInstance.errors.allErrors.join('\n'), 500)			           
         }
     }
 
@@ -118,106 +120,65 @@ class TaskController {
 			}
 			//else it is a normal update on the task and we bind everything necessary
 			else {
-				//Bind data but exclude column, creator & sortorder
-				bindData(taskInstance, params, ['column','creator','sortorder', 'assignee'])
+				//Bind data but exclude column, creator
+				bindData(taskInstance, params, ['column','creator', 'assignee'])
 				//Binding for colors
 				bindColor(taskInstance, params.color)				
-				def assignee = User.get(params.assignee.trim().toLong())
+				def assignee = User.get(params.assignee?.trim()?.toLong())
 				//No check on assignee as this may be null - leave this to the constraints
 				taskInstance.assignee =assignee
 			}
 			
             if (!taskInstance.hasErrors() && taskInstance.save(flush: true)) {
-				def principal = springSecurityService.principal
-				def user = User.findByUsername(principal.username)				
+				def user = User.findByUsername(springSecurityService.principal.username)
 				def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+				def notification
 				//distinguishing messages between block updates and normal updates
 				if(settedBlock) {
-					def notification = "${user} marked task #${params.id} (${taskInstance.name}) as ${wasBlocked ? 'unblocked' : 'blocked'}."
-					def block_message = [task:taskInstance.id, blocked:!wasBlocked]
-					boardUpdateService.broadcastMessage(
-						broadcaster,
-						block_message,
-						MessageType.TASK_BLOCK,
-						notification
-					)
+					notification = "${user} marked task #${params.id} (${taskInstance.name}) as ${wasBlocked ? 'unblocked' : 'blocked'}."
 				}
 				else {
-					def notification = "${user} updated task #${params.id} (${taskInstance.name})."
-					//Get the rendered HTML
-					def rendered = tb.task([task:taskInstance])
-					def message = [id: taskInstance.id, rendered: rendered]
-					boardUpdateService.broadcastMessage(
-						broadcaster,
-						message, 
-						MessageType.TASK,
-						notification
-					)
+					notification = "${user} updated task #${params.id} (${taskInstance.name})."
 				}
+				boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance)
                 render ''
             }
             else {
-				def message = [
-					title: "Error updating task ${params.id}",
-					message: taskInstance.errors.allErrors.join('\n') 
-				]
-				render(status: 500, contentType:'application/json', text: message as JSON)				
+				sendError("Error updating task ${params.id}", taskInstance.errors.allErrors.join('\n'), 500 )		
             }
         }
         else {
-			def message = [
-				title: 'Task not found',
-				message: "Task with id ${params.id} does not exist."
-			]
-			render(status: 404, contentType:'application/json', text: message as JSON)            
+			sendError('Task not found', "Task with id ${params.id} does not exist.", 404)       
         }
     }
-
-    def delete = {
-        def taskInstance = Task.get(params.id)
-        if (taskInstance) {
-            try {
-                taskInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
-                redirect(action: "list")
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
-                redirect(action: "show", id: params.id)
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'task.label', default: 'Task'), params.id])}"
-            redirect(action: "list")
-        }
-    }	
-	
+		
 	def edit = {
 		def taskInstance = Task.get(params.id)
 		if (taskInstance) {
 			render(template: 'edit', model:[taskInstance:taskInstance])
 		}
 		else {
-			def resp = [title: 'Task not found', message: "Task with id ${params.id} does not exist." ]
-			render (status: 404, contentType:'application/json', text: resp as JSON)
+			sendError('Task not found', "Task with id ${params.id} does not exist.", 404)			
 		}
 	}
 	
 	def archive = {
 		def taskInstance = Task.get(params.id)
-		log.debug("Archiving task ${taskInstance}...")
+		//log.debug("Archiving task ${taskInstance}...")
 		if( taskInstance) {
 			taskInstance.archived = true;
 			taskInstance.save(flush:true);
-			
-			boardUpdateService.broadcastMessage(
-				session.getAttribute("boardBroadacster")?.broadcaster,
-				taskInstance.toMessage(),
-				MessageType.ALL,
-				''
-			)
-		}
+			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance.column)
+		}		
 		redirect(controller :'board', action: 'show', id:taskInstance.column.board.id)
+	}
+	
+	def showDom = {
+		def taskInstance = Task.get(params.id)
+		if (taskInstance) {
+			render(template: 'show', model:[taskInstance:taskInstance])
+		}
 	}
 	
 	/**
@@ -235,6 +196,20 @@ class TaskController {
 		colors?.each { reqColor ->
 			taskInstance.addToColors(TaskColor.findByColor(reqColor))
 		}
+	}
 	
+	/**
+	 * Renders am error message in the defines format that the client understands.
+	 * 
+	 * @param title the title of the error message
+	 * @param message the detailes message
+	 * @param status the HTTP status code (default = 500)
+	 */
+	private void sendError(String title, String message, int status = 500) {
+		def msg = [
+			title: title,
+			message: message
+		]
+		render(status: status, contentType:'application/json', text: msg as JSON)
 	}
 }

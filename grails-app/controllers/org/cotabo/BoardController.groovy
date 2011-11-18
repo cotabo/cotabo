@@ -106,7 +106,7 @@ class BoardController {
 						//Remove it from the current boardInstance
 						boardInstance.columns.remove(toDeleteColumn)
 						//and delete the column itself
-						toDeleteColumn.delete()					
+						toDeleteColumn.delete()		
 					}	
 				}		
 			}								
@@ -243,14 +243,24 @@ class BoardController {
 	def chat = {
 		def message = params.message.encodeAsHTML()
 		if (message) {
-			def user = User.findByUsername(springSecurityService.principal.username)			
+			def user = User.findByUsername(springSecurityService.principal.username)
+			//TODO: implement the chat so that it works with the new rerendering style
+			/*			
 			boardUpdateService.broadcastMessage (
 				session.getAttribute("boardBroadacster")?.broadcaster,
 				[chat_user:user.toString(), chat_message: message],
 				MessageType.CHAT_MESSAGE
 			)
+			*/
 		}
 		render ''				
+	}
+	
+	def showDom = {
+		def boardInstance = Board.get(params.id)
+		if (boardInstance) {
+			render(template: 'show', model:[boardInstance:boardInstance])
+		}
 	}
 
 	/**

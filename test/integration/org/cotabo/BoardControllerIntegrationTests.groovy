@@ -34,7 +34,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Setup Webserver</name>
             <priority>Major</priority>
-            <sortorder>1</sortorder>
           </task>
           <task id='4'>
             <archived>false</archived>
@@ -50,7 +49,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Setup WebLogic</name>
             <priority>Low</priority>
-            <sortorder>2</sortorder>
           </task>
           <task id='5'>
             <archived>false</archived>
@@ -66,7 +64,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Install application</name>
             <priority>Critical</priority>
-            <sortorder>3</sortorder>
           </task>
           <task id='6'>
             <archived>false</archived>
@@ -82,7 +79,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Configure Monitoring</name>
             <priority>Normal</priority>
-            <sortorder>4</sortorder>
           </task>
           <task id='7'>
             <archived>false</archived>
@@ -98,7 +94,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Apply Configuration Management</name>
             <priority>Normal</priority>
-            <sortorder>5</sortorder>
           </task>
         </tasks>
         <workflowEndColumn>false</workflowEndColumn>
@@ -123,7 +118,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Bootstrap Webserver</name>
             <priority>Critical</priority>
-            <sortorder>0</sortorder>
           </task>
           <task id='2'>
             <archived>false</archived>
@@ -139,7 +133,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Bootstrap App server</name>
             <priority>Normal</priority>
-            <sortorder>1</sortorder>
           </task>
         </tasks>
         <workflowEndColumn>false</workflowEndColumn>
@@ -164,7 +157,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Request machines</name>
             <priority>Normal</priority>
-            <sortorder>3</sortorder>
           </task>
           <task id='9'>
             <archived>false</archived>
@@ -180,7 +172,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Task 1</name>
             <priority>Normal</priority>
-            <sortorder>12</sortorder>
           </task>
           <task id='10'>
             <archived>false</archived>
@@ -196,7 +187,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Task 2</name>
             <priority>Normal</priority>
-            <sortorder>13</sortorder>
           </task>
           <task id='11'>
             <archived>false</archived>
@@ -212,7 +202,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Task 3</name>
             <priority>Normal</priority>
-            <sortorder>14</sortorder>
           </task>
           <task id='12'>
             <archived>false</archived>
@@ -228,7 +217,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Task 4</name>
             <priority>Normal</priority>
-            <sortorder>15</sortorder>
           </task>
           <task id='13'>
             <archived>false</archived>
@@ -244,7 +232,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Task 5</name>
             <priority>Normal</priority>
-            <sortorder>16</sortorder>
           </task>
           <task id='14'>
             <archived>false</archived>
@@ -260,7 +247,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Task 6</name>
             <priority>Normal</priority>
-            <sortorder>17</sortorder>
           </task>
           <task id='15'>
             <archived>false</archived>
@@ -276,7 +262,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Task 7</name>
             <priority>Normal</priority>
-            <sortorder>18</sortorder>
           </task>
           <task id='16'>
             <archived>false</archived>
@@ -292,7 +277,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Task 8</name>
             <priority>Normal</priority>
-            <sortorder>19</sortorder>
           </task>
           <task id='17'>
             <archived>false</archived>
@@ -308,7 +292,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Task 9</name>
             <priority>Normal</priority>
-            <sortorder>20</sortorder>
           </task>
           <task id='18'>
             <archived>false</archived>
@@ -324,7 +307,6 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <details />
             <name>Task 10</name>
             <priority>Normal</priority>
-            <sortorder>21</sortorder>
           </task>
         </tasks>
         <workflowEndColumn>false</workflowEndColumn>
