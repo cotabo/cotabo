@@ -112,8 +112,7 @@ class BoardUpdateService {
 			event.resource.response.writer.with {				
 				write event.message.toString()								
 				flush()			
-			}
-			event.resource.response.flushBuffer()
+			}			
 		}
 	}	
 	

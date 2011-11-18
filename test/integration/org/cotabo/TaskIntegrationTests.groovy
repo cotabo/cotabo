@@ -70,10 +70,9 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 		
 	}
 	
-	void testRerender() {
-		def tb = new BoardTagLib()
+	void testRerender() {		
 		def task = Task.findByName('Setup WebLogic')
-		def expected = tb.task([task:task, hide:false])
+		def expected = '/task/showDom/' + task.id
 		
 		assertEquals expected, rerenderService.render(task)
 		
