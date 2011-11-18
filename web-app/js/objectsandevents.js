@@ -189,6 +189,16 @@ jQuery(function(){
 	    }); 
 	});
 	
+	/**
+	 * Handles click events on the archive button
+	 */
+	$('a.archive').live('click', function(eventObject) {
+		//Fire a get request to the archive action
+		$.get($(this).attr('href'));
+		eventObject.preventDefault();
+		return false;
+	});
+	
     /**
      * For Task updates - opens on double click of task content.
      */         
