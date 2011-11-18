@@ -27,15 +27,8 @@ class RerenderService implements InitializingBean {
 	 */
     String render(Rerenderable obj) {
 		if (obj) {
-			def templateContext = GrailsNameUtils.getShortName(obj.class).toLowerCase()
-			//preparing the model (e.g. [taskInstance: obj]
-			def modelKey = "${templateContext}Instance"
-			def model = [:]
-			model[modelKey] = obj			
-			return g.render(
-				template:"/${templateContext}/show".toString(), 
-				model: model
-			)
+			def controllerContext = GrailsNameUtils.getShortName(obj.class).toLowerCase()
+			return g.createLink(controller: controllerContext, action:obj.rerenderAction, id:obj.id)			
 		}
 		else {
 			return ''

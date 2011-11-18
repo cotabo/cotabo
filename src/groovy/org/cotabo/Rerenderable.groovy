@@ -2,11 +2,11 @@ package org.cotabo
 
 /**
  * Marker interface - classes who implements this need to make sure
- * that a _show gsp template exists for their context that renders just the object itself.
+ * that an action with the name that getRerenderAction returns - exists on their corresponding controller
  * 
  * @author Robert Krombholz
  *
  */
 interface Rerenderable {
-
+	public String getRerenderAction();
 }

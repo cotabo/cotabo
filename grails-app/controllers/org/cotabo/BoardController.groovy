@@ -240,6 +240,13 @@ class BoardController {
 		}
 		render ''				
 	}
+	
+	def showDom = {
+		def boardInstance = Board.get(params.id)
+		if (boardInstance) {
+			render(template: 'show', model:[boardInstance:boardInstance])
+		}
+	}
 
 	/**
 	 * Helper method that takes an array based request parameter

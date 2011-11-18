@@ -13,7 +13,7 @@ import groovy.time.TimeCategory
 class Task implements Rerenderable {
 
 	//This is determined at runtime by the related blocks
-	static transients = ["blocked", "startDate"]
+	static transients = ["blocked", "startDate", "rerenderAction"]
 	
 	//Relationships
 	static belongsTo = [ column : Column ]	
@@ -148,5 +148,12 @@ class Task implements Rerenderable {
 	   if(this.column.workflowStartColumn) {		   
 		   this.workflowStartDate = date
 	   }	   
+   }
+   
+   /**
+    * Implementation of Rerenderable. see @link org.cotabo.Rerenderable
+    */
+   public String getRerenderAction() {
+	   return 'showDom'
    }
 }

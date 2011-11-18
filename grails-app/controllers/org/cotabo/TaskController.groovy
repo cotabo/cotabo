@@ -34,9 +34,9 @@ class TaskController {
 			//Distribute this movement by rerendering the 2 columns
 			def user = User.findByUsername(springSecurityService.principal.username)
 			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
-			def notification = "${user} moved '${task.name}' (#${task.id}) to '${toColumn}'"		
-			boardUpdateService.broadcastRerenderingMessage(broadcaster, fromColumn)
-			boardUpdateService.broadcastRerenderingMessage(broadcaster, toColumn)
+			def notification = "${user} moved '${task.name}' (#${task.id}) to '${toColumn}'"	
+
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, [fromColumn, toColumn])				
 			render ''
 		}
 		else {
@@ -151,8 +151,7 @@ class TaskController {
 			sendError('Task not found', "Task with id ${params.id} does not exist.", 404)       
         }
     }
-
-	
+		
 	def edit = {
 		def taskInstance = Task.get(params.id)
 		if (taskInstance) {
@@ -173,6 +172,13 @@ class TaskController {
 			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance.column)
 		}		
 		redirect(controller :'board', action: 'show', id:taskInstance.column.board.id)
+	}
+	
+	def showDom = {
+		def taskInstance = Task.get(params.id)
+		if (taskInstance) {
+			render(template: 'show', model:[taskInstance:taskInstance])
+		}
 	}
 	
 	/**

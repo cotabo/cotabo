@@ -12,6 +12,8 @@ class Column implements Rerenderable {
 	List tasks
 	static hasMany = [ tasks : Task, columnStatusEntries : ColumnStatusEntry ]
 	
+	static transients = ["rerenderAction"]
+	
 	String name
 	String description
 	int limit = 0
@@ -39,4 +41,11 @@ class Column implements Rerenderable {
 		//also 'limit'
 		limit column: 'column_limit'		
 	}	
+	
+   /**
+    * Implementation of Rerenderable. see @link org.cotabo.Rerenderable
+    */
+   public String getRerenderAction() {
+	   return 'showDom'
+   }
 }

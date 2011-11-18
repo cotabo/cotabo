@@ -16,6 +16,8 @@ class Board implements Rerenderable {
 	
 	static exportables = ['name', 'description', 'columns']
 	
+	static transients = ["rerenderAction"]
+	
 	String name
 	String description
 	
@@ -49,4 +51,11 @@ class Board implements Rerenderable {
 	public String toString() {
 		return name
 	}
+	
+   /**
+    * Implementation of Rerenderable. see @link org.cotabo.Rerenderable
+    */
+   public String getRerenderAction() {
+	   return 'showDom'
+   }
 }

@@ -82,6 +82,7 @@ class BoardUpdateService {
 		 
 		 //First subscriber to this broadcaster
 		 if (!scheduledChannels.find{it == channel}) {
+			 //boardSpecificBroadcaster.broadcasterConfig.addFilter(new XSSHtmlFilter())
 			 boardSpecificBroadcaster.scheduleFixedBroadcast 'keepalive', 60, TimeUnit.SECONDS
 			 scheduledChannels << channel			 
 		 }		 
@@ -99,33 +100,47 @@ class BoardUpdateService {
 		//log.debug event.message	
 		if (!event.message) return
 		if (event.isCancelled()) return
-		if (event.isResuming() || event.isResumedOnTimeout()) {
+		if (event.isResuming() || event.isResumedOnTimeout()) {				
 			event.resource.response.writer.with {
 				write 'resuming'
 				flush()
 			}
-		} else {				
-			event.resource.response.setContentType('text/html;charset=UTF-8')
-			event.resource.response.setCharacterEncoding('UTF-8')
+		}
+		else {						
+			event.resource.response.setContentType('text/plain;charset=UTF-8')
+			event.resource.response.setCharacterEncoding('UTF-8')			
 			event.resource.response.writer.with {				
-				write event.message.toString()
-				flush()
+				write event.message.toString()								
+				flush()			
 			}
+			event.resource.response.flushBuffer()
 		}
 	}	
 	
 	/**
-	 * Distributes a message containing the Rerenderable object and a notification to the given Atmosphere Broadcaster.
+	 * Distributes a message containing the Rerenderable object to the given Atmosphere Broadcaster.
 	 *
 	 * @param broadcaster The atmosphere broadcaster
-	 * @param obj a list of Rerenderable objects
+	 * @param obj Rerenderable object
 	 */
 	public void broadcastRerenderingMessage(Broadcaster broadcaster, Rerenderable obj) {	   
-	   if (broadcaster) {
+	   if (broadcaster) {		   		  
 		   //Broadcast the rerendered HTML of the Rerenderbale object
-		   def rerendered =  rerenderService.render(obj)
-		   def small = rerendered.replaceAll('\n', '').replaceAll('\t', '')  		 		   
-		   broadcaster.broadcast(small)
+		   def rerendered =  rerenderService.render(obj)			    		  
+		   broadcaster.broadcast(rerendered)
 	   }
 	}
+	
+	/**
+	* Distributes a message containing the Rerenderables to the given Atmosphere Broadcaster.
+	*
+	* @param broadcaster The atmosphere broadcaster
+	* @param rerenderables a list of Rerenderable objects
+	*/
+   public void broadcastRerenderingMessage(Broadcaster broadcaster, List<Rerenderable> rerenderables) {
+	  if (broadcaster) {
+		  def messages = rerenderables.collect { rerenderService.render(it) }
+		  broadcaster.broadcast(messages.join('\n'))
+	  }
+   }
 }
