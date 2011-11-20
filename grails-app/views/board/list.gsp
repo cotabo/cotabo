@@ -5,25 +5,32 @@
         <meta name="layout" content="main" />                
         <title>Cotabo - <sec:loggedInUserInfo field="username"/>'s boards</title>
     </head>
-    <body>                	    
+    <body>       
+ 		<content tag="herounit.hook">
+	    	<div class="hero-unit">
+	 			<p>
+		            Here are the 'Cotabo's that you either own or where you participate in.
+		        <p>		        
+	        </div>
+	   	</content>    	     	        	  
 	    <g:if test="${flash.message}">
 	       <g:render template="/info" model="[message:flash.message]"/>	       
 	    </g:if>
 	    
         <g:render template="import_export_menu"/>
-        
-        <ul class="board_list">   
-            <li><h2>your boards</h2></li>
-            <g:each in="${adminBoards}" status="i" var="boardInstance">
-            <tb:boardSummary board="${boardInstance}" admin="${true}"></tb:boardSummary>
-            </g:each>      
-        </ul>
+         
+        <h2>your boards</h2>
+        <div class="row">
+	        <g:each in="${adminBoards}" status="i" var="boardInstance">
+	        <g:render template="/board/summary" model="['admin':true,'boardInstance':boardInstance]"/>            
+	        </g:each>  
+        </div>        
                 
                 
         <ul class="board_list">   
             <li><h2>participating boards</h2></li>
             <g:each in="${userBoards}" status="i" var="boardInstance">
-            <tb:boardSummary board="${boardInstance}" admin="${false}"></tb:boardSummary>
+            <g:render template="/board/summary" model="['admin':false,'boardInstance':boardInstance]"/>            
             </g:each>      
         </ul>
         <div style="display:none;" id="delete_dialog" title="Delete this board?">

@@ -6,7 +6,7 @@
     <g:set var="id" value="${boardInstance.id}"/>
 </g:if>
 <g:else>
-    <g:set var="title" value="Cotabo - create new taskboard"/>
+    <g:set var="title" value="Cotabo - create new board"/>
     <g:set var="h1" value="new taskboard"/>
     <g:set var="button" value="create board"/>
     <g:set var="id" value=""/>
@@ -16,12 +16,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />        
         <link rel="stylesheet" href="${resource(dir:'css',file:'board_create.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'jquery-ui-1.8.12.custom.css')}" />        
+        <script type="text/javascript" src="${resource(dir:'js/jquery-ui', file:'jquery-ui-1.8.6.custom.min.js')}"></script>
         <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.flydom-3.1.1.js')}"></script>        
         <script type="text/javascript" src="${resource(dir:'js', file:'board_create.js')}"></script>        
         <title>${title}</title>
     </head>
     <body>	
-    	<h1>${h1}</h1>		   
+    	<content tag="herounit.hook">
+    		<div class="hero-unit">
+    			<h3>${h1}</h3>
+    		</div>
+    	</content>	   
 	    <g:if test="${flash.message}">
 	    <div class="message">${flash.message}</div>
 	    </g:if>

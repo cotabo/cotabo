@@ -8,7 +8,7 @@ jQuery(function(){
     /********************************************************
 	 * Section for the client-side search.
 	 *********************************************************/	
-	$('input#search').quicksearch('li.ui-widget');	
+	$('input#search').quicksearch('li.task');	
 	
 	/********************************************************
 	 * Section for the keyboard navigation.
@@ -59,18 +59,12 @@ jQuery(function(){
 	/**
 	 * Button definitions
 	 */
-	$('#b_new_task').button({
-		icons: {
-			secondary: 'ui-icon-document'
-		}		
-	}).click(function() {
+	$('#b_new_task').click(function() {
 		$('#createTaskForm').dialog('open');
 		return true;
 	});
 	
-	$('#b_new_tag').button({
-				
-	}).click(function() {
+	$('#b_new_tag').click(function() {
 		$('#tags').dialog('open');
 		return true;
 	});
@@ -82,11 +76,7 @@ jQuery(function(){
 		}
 		return true;
 	};
-	$('#b_collapse').button({
-		icons: {
-			secondary: 'ui-icon-carat-1-n'
-		}
-	}).click(fn_collapse);
+	$('#b_collapse').click(fn_collapse);
 
 	var fn_expand = function() {	
 		var matched = $('#board > div.column > ul > li > div.task-header > span.ui-icon-carat-1-s')	
@@ -95,19 +85,11 @@ jQuery(function(){
 		}
 		return true;
 	};
-	$('#b_expand').button({
-		icons: {
-			secondary: 'ui-icon-carat-1-s'
-		}
-	}).click(fn_expand);
+	$('#b_expand').click(fn_expand);
 	
-	$('#b_chat').button({
-	   icons: {
-	       secondary:'ui-icon-comment'
-	   }
-	}).click(function() {
+	$('#b_chat').click(function() {
 	   $('#chat_dialog').dialog('open');
-	}).parent().buttonset();
+	});
 
 	
 	/**

@@ -1,118 +1,80 @@
 @CHARSET "ISO-8859-1";
-.page-wrap {	
-	width:95%;
-}
+
 #board {
-	width:100%;
-	margin:0 auto;			
-	overflow:auto;	
+	margin-top:10px;	
+	overflow:hidden;		
 }
-#board h2 {	
-	margin: 0;
+.column {	
+	overflow:hidden;
 	text-align:center;		
-	padding-top:5px;	
-    font-family: Lucid,Arial,sans-serif;
-    font-size: 28px;        
-    text-shadow: none;    
-    text-transform: none;
-    letter-spacing: 0em;
-    word-spacing: -0.3em;
-	color: #336699;
 }
-p.description {
-	text-align:center;
-	font-style: italic;
-	margin-bottom: 10px;	
-}
-.column {		
-	float:left;			
-	text-align:center;	
-	min-height:500px;
-	padding-top:5px;	
-    font-family: Lucid,Arial,sans-serif;
-    font-size: 18px;
-    font-style: bold;
-    font-weight: 400;
-    text-shadow: none;
-    text-decoration: none;
-    text-transform: none;
-    letter-spacing: 0em;
-    word-spacing: 0em;
-    line-height: 1.2;	
-	color: #222222;
-}
-.column .title{
+
+.column span.title {
 	width:100%;
+	text-align: center;
 }
-.column  .title p{
+.column span.title h4 {
+	display: inline;	
 	
 }
-.column  .title p{	
-	padding:0;
-	margin:0;
-	display:inline;
-	font-weight:bold;
+.column ul {		
+	list-style: none;	
+	min-height: 150px;
 }
-.column ul {	
-	min-height:450px;
-	margin:0px;
-	padding:3px;
-	width:100%;	
-	overflow: hidden;
+.column ul li {					
+	min-height: 31px;
+	margin-bottom: 10px;	
+	text-align:left;
 }
-.column ul li {
-	float:left;
-	width:95%;	
-	list-style:none;
-	text-align:center;	
-	margin:5px 5px;		
-	overflow:hidden;
-	min-height: 20px;
-	
+
+.task-header {				
+	cursor: move;				
+	background-color:#e6e6e6;
+	background-repeat:no-repeat;
+	padding:5px 14px 6px;
+	text-shadow:0 1px 1px rgba(255, 255, 255, 0.75);
+	color:#333;
+	border:1px solid #ccc;
+	border-bottom-color:#bbb;
+	-webkit-border-radius:2px;
+	-moz-border-radius:2px;
+	border-radius:2px;
 }
-.task-header {	
-	line-height:22px;
-	overflow:hidden;
-	text-align: center;	
-	cursor: move;
-	padding: 1px 0;	
+.task-header:hover{
+	color:#ffffff;
+	background-color:#0064cd;
+	background-repeat:repeat-x;
+	background-image:-khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
+	background-image:-moz-linear-gradient(top, #049cdb, #0064cd);
+	background-image:-ms-linear-gradient(top, #049cdb, #0064cd);
+	background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
+	background-image:-webkit-linear-gradient(top, #049cdb, #0064cd);
+	background-image:-o-linear-gradient(top, #049cdb, #0064cd);
+	background-image:linear-gradient(top, #049cdb, #0064cd);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#049cdb', endColorstr='#0064cd', GradientType=0);
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);
+	border-color:#0064cd #0064cd #003f81;
+	border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	-webkit-border-radius:2px;
+	-moz-border-radius:2px;
+	border-radius:2px;}
+
+
+.avatar {	
+	margin-top: 2px;
+	max-height: 16px;
+	max-width: 16px;
+	margin-right: 5px;
 }
-.task-header div.head_name {
-	float:left;
-	padding-left: 10px;
-}
-.task-header span.ui-icon {
-	float:right;
-	margin-top: 3px;	
-	cursor: pointer;
-	height: 20px;	
-	margin-right:3px;	
-}
-.task-header div.head_color {
-	float:left;
-	margin-top: 5px;
-	margin-left: 5px;
-	width:20px;
+
+.task-header div.head_color {		
+	width:16px;
 	height:12px;
-	border: 1px solid grey;
+	cursor: default;
 }
 
-div.task-content {		
-	padding: 5px;	
-	border-top:none;	
-}
-
-div.task-content * td {	
-	padding-left: 2px;
-	vertical-align:top;		
-}
-
-.not-first-column {
-	border-left: 1px dashed #05394e;
-}
-
-.red-font {
-	color:red;
+.greyed-out {
+	opacity: .2;
 }
 
 #createTaskForm {
@@ -124,41 +86,10 @@ div.task-content * td {
 }
 .block-box {
 	display:block;
-	
 	cursor:pointer;
-	width:16px;
-    height:16px;
-    margin:2px;
-    /*top:+5px;
-    float:right;
-     
-    */
 }
 .blocked {			
 		
-}
-.not-blocked {
-	cursor: pointer !important;
-}
-
-.task-header span.avatar, .task-header img.avatar {
-	display: block;
-	float: left;
-	margin: 2px;
-	width: 16px; 
-	height: 16px;
-}
-
-.archive {
-	float:right;
-	width:16px;
-	height:16px;
-	display:block;
-	margin: 3px;
-}
-
-span.tag{
-	float:left;
 }
 
 .expander{

@@ -15,7 +15,7 @@
             <tbody>
                 <tr>
                     <td><label for="xml">Cotabo XML</label></td>
-                    <td><g:textArea name="xml" cols="80" rows="15" value="${xml}" /></td>
+                    <td><g:textArea class="xxlarge" name="xml" rows="15" value="${xml}" /></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>

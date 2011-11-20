@@ -3,10 +3,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="main" />        
-        <link rel="stylesheet" href="${resource(dir:'css',file:'jquery.pnotify.default.css')}" />
-        <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />               
-        <title>Cotabo - ${boardInstance?.name}</title>
+        <meta name="layout" content="main" />
+        <title>Cotabo - ${boardInstance?.name}</title>                
+        <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />                       
+        <script type="text/javascript" src="${resource(dir:'js/jquery-ui', file:'jquery-ui-1.8.6.custom.min.js')}"></script>
         <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.flydom-3.1.1.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.flydom.extension.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.atmosphere.js')}"></script>	    
@@ -28,17 +28,28 @@
         </script>
     </head>
     <body>
-    
-        <content tag="header">
-    	<form class="task_search">
-		    <input type="text" id="search">
-		    <span style="margin:4px;"class="ui-icon ui-state-default ui-icon-search"></span>
-		</form>	   
+    	<!-- fives us the fill page width -->
+    	<content tag="container.hook">-fluid</content>
+        <content tag="topbar.hook">    	
+        	<form class="pull-left">	
+	    		<input type="text" id="search" placeholder="Search">
+	    	</form>
 		</content> 	
-		
-		<g:render template="menu"/>
-		<g:render template="show" model="['boardInstance':boardInstance]"/>
-    	<g:render template="/color/list" model="${['colors':boardInstance.colors.sort{a,b -> a.name <=> b.name}]}"></g:render>      	    
+		<content tag="toolbar">
+			<g:render template="menu"/>
+		</content>		
+		<content tag="herounit.hook">
+			<div class="hero-unit">
+			<h2>${boardInstance.name?.encodeAsHTML()}</h2>
+			<p class="description">${boardInstance.description?.encodeAsHTML() ?: ''}</p>
+			</div>
+		</content>
+		<div class="row">
+			<g:render template="show" model="['boardInstance':boardInstance]"/>
+		</div>
+		<div class="row">
+    		<g:render template="/color/list" model="${['colors':boardInstance.colors.sort{a,b -> a.name <=> b.name}]}"></g:render>
+   		</div>      	    
     
 	    <div id="error_dialog"></div>
 	    <jq:jquery>

@@ -1,10 +1,8 @@
 <g:each in="${colors}" var="color">
-	<%--<div style="width:${100/colors.size()}%"> --%>
-		<div class="column column-tag" style="background-color:${color}; min-height:0px;margin:3px;padding:3px;font-size:14px; ">
-			<a href="${createLink(controller:'taskColor', action:'delete', id:color.id)}"><span class="ui-icon ui-icon-close tag"></span></a>
-			${color.name}
-		</div>
-	<%-- </div> --%>
+	<div class="column-tag pull-left" style="background-color:${color}; min-height:0px;margin:3px;padding:3px;font-size:14px; ">
+		<a href="${createLink(controller:'taskColor', action:'delete', id:color.id)}"><span class="ui-icon ui-icon-close tag"></span></a>
+		${color.name}
+	</div>
 </g:each>
 <jq:jquery>
 	$('.column-tag').click(function(){
