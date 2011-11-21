@@ -35,7 +35,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Install &amp; configure Apache</description>
             <details />
@@ -48,7 +48,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Install base software and configure domain.</description>
             <details />
@@ -61,7 +61,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#faaca8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Install the application software as describes by the Vendor</description>
             <details />
@@ -74,7 +74,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#81b6fd</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Setup all monitors (Filesystem, proceses, logs etc)</description>
             <details />
@@ -87,7 +87,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#faaca8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Apply configuration management</description>
             <details />
@@ -114,7 +114,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
                 <dateCreated>2011-09-06 20:31:09.405</dateCreated>
               </block>
             </blocks>
-            <color>#85fd81</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Bootstrap machine and apply WebServer profile.</description>
             <details />
@@ -132,7 +132,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
                 <dateCreated>2011-09-06 20:31:09.455</dateCreated>
               </block>
             </blocks>
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Bootstrap machine and apply Java Appserver profile</description>
             <details />
@@ -154,7 +154,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor><taskColor id='2'><color>#FFFF00</color><name>Test Color2</name></taskColor></colors>
             <creator>user</creator>
             <description>Request machines at the DataCenter</description>
             <details />
@@ -167,7 +167,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -180,7 +180,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -193,7 +193,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -206,7 +206,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -219,7 +219,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -232,7 +232,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -245,7 +245,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -258,7 +258,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -271,7 +271,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FF9900</color><name>Test Color</name></taskColor></colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -284,7 +284,7 @@ class ImportServiceTests extends GrailsUnitTestCase {
             <archived>false</archived>
             <assignee>user</assignee>
             <blocks />
-            <color>#fafaa8</color>
+            <colors><taskColor id='2'><color>#FFFF00</color><name>Test Color2</name></taskColor></colors>
             <creator>user</creator>
             <description>Description $i</description>
             <details />
@@ -324,6 +324,18 @@ class ImportServiceTests extends GrailsUnitTestCase {
 		assertFalse lastTask.archived
 		assertEquals User.findByUsername('user'), lastTask.creator
 		assertEquals User.findByUsername('user'), lastTask.assignee		
+		
+		//Color checks
+		def expectedNames = ['Test Color','Test Color2']
+		assertEquals expectedNames, board.colors.collect{it.name}.sort()
+		def expectedColors = ['#FF9900','#FFFF00']
+		assertEquals expectedColors, board.colors.collect{it.color}.sort()
+		def expectedColor = [TaskColor.findByNameAndColor('Test Color', '#FF9900').color]
+		assertEquals expectedColor, board.columns[0].tasks.first().colors*.color
+		def expectedColor2 = [TaskColor.findByNameAndColor('Test Color2', '#FFFF00').color]
+		assertEquals expectedColor2, board.columns[2].tasks.last().colors*.color
+		def expectedColorList = [expectedColor, expectedColor2]
+		assertEquals expectedColorList.flatten(), board.columns[2].tasks.first().colors.sort{a,b -> a.color <=> b.color }.collect{it.color}
 		
 		def blockTask = board.columns[1].tasks.find { it.name == 'Bootstrap App server'}
 		assertEquals 1, blockTask.blocks.size()
