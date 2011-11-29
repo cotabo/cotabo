@@ -3,7 +3,8 @@
 		<h4><a href="${createLink(conroller:"board", action:"show", id:boardInstance.id)}">${boardInstance.name}</a></h4>
 		<g:if test="${admin}">
 			<span title="delete this board" class="pull-right">
-				<a class="delete" href="${createLink(conroller:"board", action:"delete", id:boardInstance.id)}">
+				<a class="delete" href="${createLink(conroller:"board", action:"delete", id:boardInstance.id)}" 
+					data-controls-modal="delete_dialog" data-backdrop="static" >
 					<img class="icon" src="${resource(dir:'images/icons',file:'trash_stroke_12x12.png')}"/>
 				</a>
 			</span>		

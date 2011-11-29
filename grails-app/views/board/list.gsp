@@ -33,32 +33,12 @@
             </g:each>      
         </div>
         
-        <div style="display:none;" id="delete_dialog" title="Delete this board?">
-            <p>Do you really want to delete this board?</p>
-        </div>
-        <jq:jquery>
-            $('a.delete').click(function(event) {                
-                var a = this;
-                $('#delete_dialog').dialog({                
-	                modal:true,
-	                buttons: {
-	                    "Delete" : function() {
-	                        window.location = a.href;
-	                        $(this).dialog("close");
-	                    },
-	                    "Cancel" : function() {
-	                        $(this).dialog("close");
-	                    }
-	                }
-	            });
-	            event.preventDefault();
-	            return false;                
-            });      
-            $('span.ui-icon').mouseover(function() {
-                $(this).addClass('ui-state-hover');
-            }).mouseout(function() {
-                $(this).removeClass('ui-state-hover');
-            });
-        </jq:jquery> 
+        <g:render template="/modal" model="[
+        	id:'delete_dialog', 
+        	header:'Delete Board', 
+        	body:'Do you really want to delete this board?',
+        	primary: 'Delete',
+        	secondary: 'Cancel'    		
+        	]"/>
     </body>    
 </html>

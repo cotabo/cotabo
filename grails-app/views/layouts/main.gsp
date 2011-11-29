@@ -6,7 +6,8 @@
         <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap.min.css')}">   
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />        
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-        <g:javascript library="jquery" plugin="jquery"/>                                         
+        <g:javascript library="jquery" plugin="jquery"/>  
+         <script type="text/javascript" src="${resource(dir:'js/bootstrap-plugins', file:'bootstrap-modal.js')}"></script>                          
         <g:layoutHead />        
     </head>
     <body style="padding-top: 40px;">        
