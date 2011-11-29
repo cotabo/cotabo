@@ -1,22 +1,14 @@
 @CHARSET "ISO-8859-1";
-#report_container {
-	width: 70%;
-	margin: 0 auto;
-}
-
-.ui-effects-transfer { border: 2px dotted grey;background-color:#336699;opacity: .4; max-height: 110px; }
-#new_task_helper {width:90px;height:25px;position:absolute;background-color:#336699;opacity: .4;display:none;}
-
-
-.ui-widget *{font-size:12px !important;}
-
-ul.board_list {
-	width:45%;	
-	overflow:hidden;
-	float:left; 
-	margin-right:50px;   
-}
 .icon {
 	cursor:pointer;		
 	margin: 4px 3px;		
+}
+.greyed-out {
+	opacity: .2;
+}
+
+/* for reporting pages */
+#report_container {
+	width: 70%;
+	margin: 0 auto;
 }
