@@ -25,14 +25,14 @@
 	        <g:render template="/board/summary" model="['admin':true,'boardInstance':boardInstance]"/>            
 	        </g:each>  
         </div>        
-                
-                
-        <ul class="board_list">   
-            <li><h2>participating boards</h2></li>
+                                
+        <h2>participating boards</h2>
+        <div class="row">
             <g:each in="${userBoards}" status="i" var="boardInstance">
             <g:render template="/board/summary" model="['admin':false,'boardInstance':boardInstance]"/>            
             </g:each>      
-        </ul>
+        </div>
+        
         <div style="display:none;" id="delete_dialog" title="Delete this board?">
             <p>Do you really want to delete this board?</p>
         </div>
