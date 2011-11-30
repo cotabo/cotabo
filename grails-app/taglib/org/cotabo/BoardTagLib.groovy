@@ -9,17 +9,18 @@ class BoardTagLib {
 	 * Renders a twitter bootstrap based DOM modals.
 	 * For more information see the <a href="http://twitter.github.com/bootstrap/javascript.html#modal">Twitter Bootstrap documentation</a>
 	 * 
+	 * The body of this tag will be displayed as part of the dialog body.
+	 * 
 	 * @attr id - the ID of the dialog - the same should be used e.g. for 'data-controls-modal' attributes on buttons / links
-	 * @attr body - a text to be displayed in the body
 	 * @attr header - [optional] a text to be displayed in the header
 	 * @attr primary - [optional] a text for the first button. 
 	 *	The link behing is will become the href target of the last clicked element with the data-controls-modal attribute defined.
 	 * @attr secondary - [optiponal] a text for a secondary button - a click will just close the dialog.
 	 * @arrr sourceSelector - [optional] a jQuery selector for the modal dialog to be triggered on (onClick). Default - all elements that have data-controls-modal defined.
 	 */
-	def modal = { attrs ->
-		if (!attrs.id || !attrs.body) {
-			throw new GroovyPagesException('attributes \'id\' and \'body\' are required for tag tb:modal')
+	def modal = { attrs, body ->
+		if (!attrs.id) {
+			throw new GroovyPagesException('attributes \'id\' is required for tag tb:modal')
 		}
 		out << """
 		<div id="${attrs.id}" class="modal hide fade">"""
@@ -32,8 +33,10 @@ class BoardTagLib {
 		}
 		out << """
 	    <div class="modal-body">
-	    	<p>${attrs.body}</p>
-	    </div>"""
+		"""	   
+		out << body()
+	    out << """
+		</div>"""
 		if (attrs.primary || attrs.secondary) {
 			out << """
 			<div class="modal-footer">
@@ -71,7 +74,6 @@ class BoardTagLib {
 			});
 				
 			\$('#${attrs.id}').bind('hide', function(e) {
-				//reset the href
 				\$('#${attrs.id} > .modal-footer > a:first').attr('href', '#');		
 			});
 		});

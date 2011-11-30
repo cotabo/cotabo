@@ -33,8 +33,9 @@
             </g:each>      
         </div>
         
-        <tb:modal id="delete_dialog" header="Delete Board"
-        	body="Do you really want to delete this board?"
-        	primary="Delete" secondary="Cancel"/>
+        <tb:modal id="delete_dialog" header="Delete Board"      	
+        	primary="Delete" secondary="Cancel">
+        	<p>Do you really want to delete this board?</p>
+        </tb:modal>
     </body>    
 </html>

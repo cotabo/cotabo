@@ -22,8 +22,8 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 		    	<h3>Delete Board</h3>
 			</div>
 	    <div class="modal-body">
-	    	<p>Do you really want to delete this board?</p>
-	    </div>
+		<p>Do you really want to delete this board?</p>
+		</div>
 			<div class="modal-footer">
 	    	<a href="#" class="btn primary">Delete</a>
 	  		<a href="#" class="btn secondary">Cancel</a>
@@ -41,7 +41,6 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			});
 				
 			\$('#delete_dialog').bind('hide', function(e) {
-				//reset the href
 				\$('#delete_dialog > .modal-footer > a:first').attr('href', '#');		
 			});
 		});
@@ -50,11 +49,10 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 		def tb = new BoardTagLib()
 		tb.modal([
 				id: "delete_dialog", 
-				header:"Delete Board", 
-				body: "Do you really want to delete this board?", 
+				header:"Delete Board", 				
 				primary: "Delete", 
 				secondary: "Cancel"
-			])
+			], {'<p>Do you really want to delete this board?</p>'})
 		
 		assertEquals expected, tb.out.toString()
 	}
