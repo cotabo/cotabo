@@ -19,7 +19,7 @@
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
-                    <td><input type="submit" value="Import"/></td>
+                    <td><input type="submit" value="Import" class="btn primary"/></td>
                 </tr>
             </tbody>
         </table>
