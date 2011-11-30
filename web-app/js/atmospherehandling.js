@@ -84,7 +84,7 @@ var rerenderCallback = function(broadcast) {
 			});
 		}
 	}
-}	
+}
 
 var reloadAllCallback = function(data) {
 	location.reload(true);
