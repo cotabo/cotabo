@@ -33,12 +33,8 @@
             </g:each>      
         </div>
         
-        <g:render template="/modal" model="[
-        	id:'delete_dialog', 
-        	header:'Delete Board', 
-        	body:'Do you really want to delete this board?',
-        	primary: 'Delete',
-        	secondary: 'Cancel'    		
-        	]"/>
+        <tb:modal id="delete_dialog" header="Delete Board"
+        	body="Do you really want to delete this board?"
+        	primary="Delete" secondary="Cancel"/>
     </body>    
 </html>
