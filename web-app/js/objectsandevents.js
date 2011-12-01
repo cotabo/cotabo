@@ -65,7 +65,7 @@ jQuery(function(){
 	});
 	
 	var fn_collapse = function() {		
-		var matched = $('#board > div.column > ul > li > div.task-header > span.ui-icon-carat-1-n')		 		 	
+		var matched = $('#board > div.column > ul > li > div.task-header > img.expander')		 		 	
 		for (var i=0;i< matched.size();i++)	{
 			$(matched[i]).click();		
 		}
@@ -74,7 +74,7 @@ jQuery(function(){
 	$('#b_collapse').click(fn_collapse);
 
 	var fn_expand = function() {	
-		var matched = $('#board > div.column > ul > li > div.task-header > span.ui-icon-carat-1-s')	
+		var matched = $('#board > div.column > ul > li > div.task-header > img.expander')	
 		for (var i=0;i< matched.size();i++)	{
 			$(matched[i]).click();
 		}
