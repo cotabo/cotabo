@@ -36,10 +36,9 @@ class BoardTagLibTests extends TagLibUnitTestCase {
             \$('#delete_dialog > .modal-footer > a.secondary').click(function() {
 		        \$('#delete_dialog').modal('hide');
 	        });
-			\$('#delete_dialog').bind('show', function(e) {
-				\$('#delete_dialog > .modal-footer > a.primary').attr('href', document.modalHelperHref)		
-			});
-				
+		\$('#delete_dialog').bind('show', function(e) {
+			\$('#delete_dialog > .modal-footer > a.primary').attr('href', document.modalHelperHref)		
+		});
 			\$('#delete_dialog').bind('hide', function(e) {
 				\$('#delete_dialog > .modal-footer > a:first').attr('href', '#');		
 			});

@@ -17,6 +17,7 @@ class BoardTagLib {
 	 *	The link behing is will become the href target of the last clicked element with the data-controls-modal attribute defined.
 	 * @attr secondary - [optiponal] a text for a secondary button - a click will just close the dialog.
 	 * @arrr sourceSelector - [optional] a jQuery selector for the modal dialog to be triggered on (onClick). Default - all elements that have data-controls-modal defined.
+	 * @attr onClick - [optional] a reference to a JavaScript function that should be triggered onClick on the first button.  
 	 */
 	def modal = { attrs, body ->
 		if (!attrs.id) {
@@ -69,10 +70,17 @@ class BoardTagLib {
 		}		
 		//Bind to set the href of the primary button on showing the dialog and reset on close
 		out << """
-			\$('#${attrs.id}').bind('show', function(e) {
-				\$('#${attrs.id} > .modal-footer > a.primary').attr('href', document.modalHelperHref)		
-			});
+		\$('#${attrs.id}').bind('show', function(e) {"""
+		if (attrs.onClick) {
+			out << """
+			\$('#${attrs.id} > .modal-footer > a.primary').click(${attrs.onClick});"""
+		}
+		out << """
+			\$('#${attrs.id} > .modal-footer > a.primary').attr('href', document.modalHelperHref)		
+		});"""			
+
 				
+		out << """
 			\$('#${attrs.id}').bind('hide', function(e) {
 				\$('#${attrs.id} > .modal-footer > a:first').attr('href', '#');		
 			});
