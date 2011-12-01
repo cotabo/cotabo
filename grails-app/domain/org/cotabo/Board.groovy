@@ -30,6 +30,10 @@ class Board implements Rerenderable {
 		columns nullable:false, maxSize:10			
     }
 	
+	static mapping = {
+		colors cascade:"delete"
+	}
+	
 	/**
 	* Returns all related user of this board.
 	* See role param below on returning behaviour

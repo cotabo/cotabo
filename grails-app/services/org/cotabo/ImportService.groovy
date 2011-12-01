@@ -39,16 +39,26 @@ class ImportService {
 				name: xmlBoard.name.text(),
 				description: xmlBoard.description.text()
 			)
-			board.save(flush:true)
-			
+						
 			//Add all colors uniquely to the Board
 			def uniqueColors = xmlBoard.columns.column*.tasks.task*.colors.taskColor*.collect{				
 				[name: it.name.text(), color:it.color.text()]
 			}.flatten().unique()
-			log.debug "Unique Colors: $uniqueColors"		
-			uniqueColors.each { board.addToColors(it) }
+			log.debug "Unique Colors: $uniqueColors"
+			def persistedColors = []				
+			uniqueColors.each {				
+				def color = new TaskColor(it) 
+				if (!color.validate()) {										
+					throw new TaskBoardException("${color.errors.allErrors.toString()}")
+				}
+				else {
+					color.save(flush:true)
+				}
+				board.addToColors(color) 
+				persistedColors << color
+			}						
 			board.save(flush:true)
-			
+						
 			xmlBoard.columns.column.each { xmlColumn ->
 				def column = new Column(
 					name: xmlColumn.name.text(),
@@ -57,8 +67,8 @@ class ImportService {
 					workflowStartColumn: xmlColumn.workflowStartColumn.text(),
 					workflowEndColumn: xmlColumn.workflowEndColumn.text()
 				)
-				board.addToColumns(column)	
-				board.save(flush:true)			
+				board.addToColumns(column)
+				board.save(flush:true)
 				xmlColumn.tasks.task.each { xmlTask ->
 					def task = new Task(
 						name: xmlTask.name.text(),
@@ -78,17 +88,15 @@ class ImportService {
 							dateCreated: xmlBlock.dateCreated.text() ? Date.parse("yyyy-MM-dd HH:mm:ss.SSS", xmlBlock.dateCreated.text()) : null,
 							dateClosed: xmlBlock.dateClosed.text() ? Date.parse("yyyy-MM-dd HH:mm:ss.SSS", xmlBlock.dateClosed.text()) : null
 						)
-					}
-					task.save(flush:true)
+					}					
 					//Map the TaskColors
-					xmlTask.colors.taskColor.each { taskColor ->						
-						def tmpColor = TaskColor.findByColorAndName(taskColor.color.text(),taskColor.name.text())						
+					xmlTask.colors.taskColor.each { taskColor ->															
+						def tmpColor = persistedColors.find{it.name == taskColor.name.text()}//TaskColor.findByColorAndName(taskColor.color.text(),taskColor.name.text())						
 						//Add it to the task
 						task.addToColors(tmpColor)						
 					}
-				}
-				//Saving afer all tasks for a column have been loaded
-				column.save(flush:true)					
+				}			
+								
 			}
 			if(board.validate()) {
 				board.save(flush:true)
