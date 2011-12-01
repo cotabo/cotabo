@@ -52,8 +52,8 @@ class BoardController {
 				flash.message = e.message
 				render(view:'import', model:[xml:xml])
 			}			
-			catch(SAXParseException) {
-				flash.message = 'Invalid XML'
+			catch(SAXParseException e) {
+				flash.message = "Invalid XML: ${e.message} "
 				render(view:'import', model:[xml:xml])
 			}			
 		}
