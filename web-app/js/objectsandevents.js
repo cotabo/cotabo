@@ -26,11 +26,6 @@ jQuery(function(){
 		   			e.preventDefault();
 		   		 	return false;
 		   			break;		   			
-		   		case 109: // 'm'
-		   			$('#chat_dialog').dialog('open');
-		   			e.preventDefault();
-		   		 	return false;
-		   			break;
 		   		case 101: // 'e'
 		   			fn_expand.call();
 		   			e.preventDefault();
@@ -86,45 +81,6 @@ jQuery(function(){
 		return true;
 	};
 	$('#b_expand').click(fn_expand);
-	
-	$('#b_chat').click(function() {
-	   $('#chat_dialog').dialog('open');
-	});
-
-	
-	/**
-	 * Posting the chat message to the server.
-	 */
-	var postChatMessage = function() {
-	    var message = $('#chat_form').serialize();
-	    $.ajax({
-	         type: 'POST',
-	         url: chatUrl,
-	         data: message
-	    });               
-	    $('#chat_dialog').find('input').val('');
-	    $('#chat_dialog').dialog('close');
-	    return false;
-	}
-	//Binding the submit event of the chat form
-	$('#chat_dialog').find('form').submit(postChatMessage);
-	//Defining the Chat dialog
-	$('#chat_dialog').dialog({
-	   autoOpen:false,
-	   height: 150,
-	   width: 500,
-	   modal: true,
-	   buttons: {
-	       "send": postChatMessage,
-	       "cancel": function() {
-	           $('#chat_dialog').find('input').val('');
-	           $('#chat_dialog').dialog('close');
-	       }
-	   },
-	   close: function(){
-	   	 $("input").blur();
-	   }
-	});	
 	
 	
 	/********************************************************
