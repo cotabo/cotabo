@@ -67,7 +67,7 @@ jQuery(function(){
 	var fn_collapse = function() {		
 		var matched = $('#board > div.column > ul > li > div.task-header > img.expander')		 		 	
 		for (var i=0;i< matched.size();i++)	{
-			$(matched[i]).click();		
+			collapse(matched[i]);
 		}
 		return true;
 	};
@@ -76,7 +76,7 @@ jQuery(function(){
 	var fn_expand = function() {	
 		var matched = $('#board > div.column > ul > li > div.task-header > img.expander')	
 		for (var i=0;i< matched.size();i++)	{
-			$(matched[i]).click();
+			expand(matched[i]);			
 		}
 		return true;
 	};
@@ -88,24 +88,26 @@ jQuery(function(){
 	 * refer: board/show view
 	 * refer: taglib/BoardTagLib
 	 ********************************************************/
+	var expand = function(expanderElement) {			
+		$(expanderElement).attr('src', $(expanderElement).attr('src').replace(/down/, "up"));
+		$(expanderElement).parent('div').next('div').css('display', 'block');
+	}
+	var collapse = function(expanderElement) {		
+		$(expanderElement).attr('src', $(expanderElement).attr('src').replace(/up/, "down"));
+		$(expanderElement).parent('div').next('div').css('display', 'none');
+	}
 	
 	/**
 	 * Handler for expanding / collapsing tasks on click of the exapnd icon.	 
-	 */
-	var handleClickHeader = function(event) {
-		//console.time('native'); 				
-		var north = $(this).hasClass('ui-icon-carat-1-n');
-		if (north) {
-			$(this).removeClass('ui-icon-carat-1-n')
-				.addClass('ui-icon-carat-1-s')
-				.parent('div').next('div').css('display', 'none')					
+	 */	
+	var handleClickHeader = function(event) {	
+		var src = $(this).attr('src');
+		if(src.search(/down/) > -1) {
+			expand(this);
 		}
 		else {
-			$(this).removeClass('ui-icon-carat-1-s')
-				.addClass('ui-icon-carat-1-n')
-				.parent('div').next('div').css('display', 'block');										
+			collapse(this)
 		}		
-		//console.timeEnd('native'); 
 		return false;
 	}	  
 	
