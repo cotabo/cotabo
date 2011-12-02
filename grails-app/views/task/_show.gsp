@@ -1,11 +1,11 @@
 <g:set var="lastColumn" value="${taskInstance.column.board.columns.last()}"/>
-				
+<g:if test="${!taskInstance.archived}">			
 <li id="task_${taskInstance.id}" class="task">	
 	<div class="task-header">	
 		<img class="pull-left avatar" src="${taskInstance?.assignee?.avatar ? createLink(controller:'user', action:'avatar', id:taskInstance?.assignee?.username) : resource(dir:'images/icons',file:'user_12x16.png')}" title="${taskInstance?.assignee}"></img>		
 		<b>#${taskInstance.id} - ${taskInstance?.name?.encodeAsHTML()}</b>
 		<g:if test="${taskInstance.column.id == lastColumn.id}">
-			<a href="${createLink(controller:'task', action:'archive', id:taskInstance?.id)}" class="icon pull-right" title="archive">
+			<a href="${createLink(controller:'task', action:'archive', id:taskInstance?.id)}" class="icon pull-right archive" title="archive">
 				<img src="${resource(dir:'images/icons',file:'document_stroke_12x12.png')}"></img>
 			</a>
 		</g:if>
@@ -39,4 +39,5 @@
 			</tbody>
 		</table>
 	</div>
-</li>			
+</li>	
+</g:if>		
