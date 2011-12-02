@@ -3,8 +3,7 @@
  * build up onload.
  */
 jQuery(function(){
-	
-	
+		
     /********************************************************
 	 * Section for the client-side search.
 	 *********************************************************/	
@@ -16,13 +15,13 @@ jQuery(function(){
 	 ********************************************************/	 
 	$(document).keypress(function(e) {
 		var srcElement = e.srcElement ? e.srcElement : e.target; // Firefox fix, worked in Chrome and Safari
-		var dialogs = $('.ui-dialog:visible').toArray();
+		var dialogs = $('.modal:visible').toArray();
 		var shortcutsDisabled = (dialogs.length > 0 ? true : false) || (srcElement instanceof HTMLInputElement);;
 		var code = (e.which ? e.which : e.keyCode);
 		if(!shortcutsDisabled) {		   
 			switch(code) {				
 		   		case 110: // 'n'
-		   			$('#createTaskForm').dialog('open');
+		   			$('button#b_new_task').click();
 		   			e.preventDefault();
 		   		 	return false;
 		   			break;		   			
@@ -51,19 +50,7 @@ jQuery(function(){
 	 * Section for the Board menu and everything that belongs to it.
 	 * refer: board/_menu template
 	 ********************************************************/	
-	/**
-	 * Button definitions
-	 */
-	$('#b_new_task').click(function() {
-		$('#createTaskForm').dialog('open');
-		return true;
-	});
-	
-	$('#b_new_tag').click(function() {
-		$('#tags').dialog('open');
-		return true;
-	});
-	
+
 	var fn_collapse = function() {		
 		var matched = $('#board > div.column > ul > li > div.task-header > img.expander')		 		 	
 		for (var i=0;i< matched.size();i++)	{
@@ -148,20 +135,17 @@ jQuery(function(){
 	         type: 'GET',
 	         url: editTaskUrl+'/'+id,
 	         dataType: 'html',
-	         success: appendUpdateDialogToDOM
+	         success: function(data, textStatus, jqXHR) {
+        		//This also evaluates the contained script elements
+        		$('body').append(data); 
+        		$('#task_update_dialog').modal({backdrop:true, keyboard:true, show:true});
+        		$('#task_update_dialog').bind('hidden', function() {
+        			$(this).remove();
+        		});
+	        }
 	     });			                     			     			     			     			 
 	});	
 	
-	/**
-	 * Mouse over/out for task header - adding/removing ui-state-hover
-	 */
-	var header = $('.task-header')
-	header.live('mouseover', function() {
-		$(this).addClass('ui-state-hover');
-	});
-	header.live('mouseout', function() {
-		$(this).removeClass('ui-state-hover');
-	});
 	
 	/********************************************************
 	 * Section for the Board itself (connected sortable columns etc.)
