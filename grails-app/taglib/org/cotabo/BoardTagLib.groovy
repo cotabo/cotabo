@@ -24,7 +24,7 @@ class BoardTagLib {
 			throw new GroovyPagesException('attributes \'id\' is required for tag tb:modal')
 		}
 		out << """
-		<div id="${attrs.id}" class="modal hide fade">"""
+		<div id="${attrs.id}" class="modal hide">"""
 		if(attrs.header) {
 			out << """
 			<div class="modal-header">
@@ -46,6 +46,7 @@ class BoardTagLib {
 		    </div>"""
 		}
 		out << """
+		</div>
 		<script type="text/javascript">
 		jQuery(function(){"""
 		if(attrs.sourceSelector) {			
