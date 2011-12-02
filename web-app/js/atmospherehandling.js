@@ -71,6 +71,7 @@ var rerenderCallback = function(broadcast) {
 					if (id.indexOf('column_') == 0) {
 						//Need to use the UL below the container for this
 						applySortable($('#'+id + ' > ul'));
+						$('input#search').quicksearch('li.task');
 					}
 				}
 				//Happens on task creations
@@ -84,8 +85,4 @@ var rerenderCallback = function(broadcast) {
 			});
 		}
 	}
-}
-
-var reloadAllCallback = function(data) {
-	location.reload(true);
 }
