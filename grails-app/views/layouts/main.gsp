@@ -33,14 +33,6 @@
 	      	</div>
 	    </div>
 	    
-	    <!-- 
-        <div class="logo">  
-            <a href="${request.contextPath}">               
-            <img src="${resource(dir:'images',file:'logo.png')}"/>
-            </a>
-        </div>
-        -->    
-	    
 	    <div class="container">
 	    	<!-- every sub page can specivy a content tag with the name 'header' to hook into the header bar-->
            	<!-- see http://grails.org/doc/latest/guide/6.%20The%20Web%20Layer.html#6.2.5%20Sitemesh%20Content%20Blocks -->
