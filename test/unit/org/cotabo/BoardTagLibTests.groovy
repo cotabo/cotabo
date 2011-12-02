@@ -28,6 +28,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 	    	<a href="#" class="btn primary">Delete</a>
 	  		<a href="#" class="btn secondary">Cancel</a>
 		    </div>
+		</div>
 		<script type="text/javascript">
 		jQuery(function(){
             \$('[data-controls-modal]').click(function() {
