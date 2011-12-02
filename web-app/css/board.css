@@ -6,7 +6,8 @@
 }
 .column {	
 	overflow:hidden;
-	text-align:center;		
+	text-align:center;	
+		
 }
 .column span.title {
 	width:100%;
@@ -22,7 +23,7 @@
 .column ul li {					
 	min-height: 31px;
 	margin-bottom: 10px;	
-	text-align:left;
+	text-align:left;	
 }
 .task-header {				
 	cursor: move;				
@@ -63,12 +64,31 @@
 	margin-right: 5px;
 }
 
-.task-header div.head_color {		
+div.head_color {		
 	width:16px;
 	height:12px;
 	cursor: default;
+	-webkit-border-radius:2px;
+	-moz-border-radius:2px;
+	border-radius:2px;
 }
 
+div.create_color {
+	padding: 2px 4px;
+	margin-right: 5px;
+	-webkit-border-radius:2px;
+	-moz-border-radius:2px;
+	border-radius:2px;	
+}
+
+.column-tag {
+	padding: 5px;
+	-webkit-border-radius:2px;
+	-moz-border-radius:2px;
+	border-radius:2px;
+	margin: 0px 3px;
+	font-weight: bold;
+}
 
 /* Functional Stuff */
 #createTaskForm {

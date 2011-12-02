@@ -1,5 +1,5 @@
 <g:each in="${colors}" var="color">
-	<div class="column-tag pull-left" style="background-color:${color}; min-height:0px;margin:3px;padding:3px;font-size:14px; ">
+	<div class="column-tag pull-left" style="background-color:${color};">
 		<a href="${createLink(controller:'taskColor', action:'delete', id:color.id)}"><span class="ui-icon ui-icon-close tag"></span></a>
 		${color.name}
 	</div>
@@ -9,7 +9,7 @@
 		this.style.border = this.style.border == ''? '1px solid red' : '';
 		var color = jQuery.trim($(this).text());
 		var colors = $('div.head_color');
-		var tasks = $('li.ui-widget').filter(function(index){
+		var tasks = $('li.task').filter(function(index){
 			return $('div.head_color', this).length > 0 && $('.'+color, this).length > 0 ;
 		})
 		jQuery.each(tasks, function(index, value){
