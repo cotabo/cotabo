@@ -72,37 +72,3 @@ var reorderTask = function(event, ui) {
 		});
 	}	
 }
-
-
-/**
- * Callback function for the returned html that represents the edit dialog.
- */
-var appendUpdateDialogToDOM = function(data, textStatus, jqXHR) {
-	//This also evaluates the contained script elements
-	$('body').append(data);
-}
-
-
-/************** Reporting Stuff **************/ 
-
-
-
-/**
- * Callback function for task_block events.
- * 
- * Marks the corresponding tasks in the gui as blocked / unblocked.
- * 
- * @param data JSON representing the task block data (only {task:<id>, block:<boolean>} 
- * @returns
- */
-var taskBlockCallback = function(data) {
-	var taskBlockDiv = $('li#task_'+data.task).find('span.block-box');	
-	if((data.blocked == true) && $(taskBlockDiv).hasClass('not-blocked')) {
-		$(taskBlockDiv).removeClass('not-blocked').addClass('blocked');
-		$(taskBlockDiv).removeClass('ui-icon-unlocked').addClass('ui-icon-locked');
-	}
-	else if ((data.blocked == false) && $(taskBlockDiv).hasClass('blocked')){
-		$(taskBlockDiv).removeClass('blocked').addClass('not-blocked');	
-		$(taskBlockDiv).removeClass('ui-icon-locked').addClass('ui-icon-unlocked');
-	}
-}
