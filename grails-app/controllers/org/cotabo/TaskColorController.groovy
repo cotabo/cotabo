@@ -7,15 +7,12 @@ class TaskColorController {
     def index = { }
 	
 	def save = {
-		def taskColor = new TaskColor()
-		
+		def taskColor = new TaskColor()		
 		bindData(taskColor, params)
-		
-		def board = Board.get(params.board)
-		
-		board.addToColors(taskColor)
-		
-		if (!taskColor.hasErrors()){
+		def board = Board.get(params.board)		
+		board.addToColors(taskColor)				
+		if (!taskColor.hasErrors()){		
+			taskColor.save(flush:true)
 			board.save(flush:true)
 			redirect(controller:'board', action:'show', id:board.id)
 		}
