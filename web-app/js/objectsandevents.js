@@ -13,39 +13,43 @@ jQuery(function(){
 	 * Section for the keyboard navigation.
 	 * The check whether the event comes from the HTMLInputElement is absolutely necessary.
 	 ********************************************************/	 
-	$(document).keypress(function(e) {
-		var srcElement = e.srcElement ? e.srcElement : e.target; // Firefox fix, worked in Chrome and Safari
-		var dialogs = $('.modal:visible').toArray();
-		var shortcutsDisabled = (dialogs.length > 0 ? true : false) || (srcElement instanceof HTMLInputElement);;
-		var code = (e.which ? e.which : e.keyCode);
-		if(!shortcutsDisabled) {		   
-			switch(code) {				
-		   		case 110: // 'n'
-		   			$('button#b_new_task').click();
-		   			e.preventDefault();
-		   		 	return false;
-		   			break;		   			
-		   		case 101: // 'e'
-		   			fn_expand.call();
-		   			e.preventDefault();
-		   		 	return false;
-		   			break;
-		   		case 99 : // 'c'
-		   			fn_collapse.call();
-		   			e.preventDefault();
-		   		 	return false;
-		   			break;
-		   		case 116: // 't'
-		   			$('#tags').dialog('open');
-		   			e.preventDefault();
-		   		 	return false;
-		   			break;
-		   		default:
-		   			return true;		   		
-		   }
+	var activateShortcuts = function(e) {		
+		switch(e.which) {
+	   		case 78: // 'n'
+	   			$('button#b_new_task').click();
+	   			e.preventDefault();
+	   		 	return false;
+	   			break;		   			
+	   		case 69: // 'e'
+	   			fn_expand.call();
+	   			e.preventDefault();
+	   		 	return false;
+	   			break;
+	   		case 67 : // 'c'
+	   			fn_collapse.call();
+	   			e.preventDefault();
+	   		 	return false;
+	   			break;
+	   		case 84: // 't'	   			
+	   			$('button#b_new_tag').click();
+	   			e.preventDefault();
+	   		 	return false;
+	   			break;
+	   		default:
+	   			return true;
 		}
-	});     
-		
+	}
+	//onLoad activate shortcuts
+	$(document).bind('keyup', activateShortcuts );
+	//deactivate on dialog openings	
+	$('.modal').bind('show', function() {
+		$(document).unbind('keyup');
+	});
+	//and activate on dialog closes again
+	$('.modal').bind('hidden', function() {
+		$(document).bind('keyup', activateShortcuts );
+	});
+
 	/********************************************************
 	 * Section for the Board menu and everything that belongs to it.
 	 * refer: board/_menu template
