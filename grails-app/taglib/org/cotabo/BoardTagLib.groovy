@@ -85,6 +85,9 @@ class BoardTagLib {
 			\$('#${attrs.id}').bind('hide', function(e) {
 				\$('#${attrs.id} > .modal-footer > a:first').attr('href', '#');		
 			});
+			//We need to create the modal and than hide it. Otherwhise the jQuery sortable doesn't work.
+			\$('#${attrs.id}').modal({backdrop:true, keyboard:true, show:true});
+			\$('#${attrs.id}').modal('hide');
 		});
 		</script>"""
 	}

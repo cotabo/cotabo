@@ -16,7 +16,7 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 	
 	void testModal() {
 		def expected = """
-		<div id="delete_dialog" class="modal hide fade">
+		<div id="delete_dialog" class="modal hide">
 			<div class="modal-header">
 			    <a href="#" class="close">&times;</a>
 		    	<h3>Delete Board</h3>
@@ -43,6 +43,9 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			\$('#delete_dialog').bind('hide', function(e) {
 				\$('#delete_dialog > .modal-footer > a:first').attr('href', '#');		
 			});
+			//We need to create the modal and than hide it. Otherwhise the jQuery sortable doesn't work.
+			\$('#delete_dialog').modal({backdrop:true, keyboard:true, show:true});
+			\$('#delete_dialog').modal('hide');
 		});
 		</script>"""
 		
