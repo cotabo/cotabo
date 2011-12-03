@@ -11,7 +11,7 @@
 		</g:if>
 		<img class="block-box pull-right icon ${taskInstance?.blocked ? '' : 'greyed-out'}" src="${resource(dir:'images/icons',file:'lock_stroke_9x12.png')}" title="block / unblock"></img>
 		<img class="expander pull-right icon" src="${resource(dir:'images/icons',file:'arrow_down_12x12.png')}" title="expand / collapse"></img>
-		<g:each in="${taskInstance.colors}" var="color">
+		<g:each in="${taskInstance.colors.sort{a, b -> a.name <=> b.name}}" var="color">
 			<div class="head_color pull-right icon ${color?.name?.encodeAsHTML()}" style="background-color:${color?.color?.encodeAsHTML()};" title="${color?.name?.encodeAsHTML()}"></div>
 		</g:each>
 	</div>
