@@ -81,7 +81,6 @@ var rerenderCallback = function(broadcast) {
 						$('.column:first > ul').append(rerenderedDom);						
 					}
 				}
-				rerenderedDom.effect('highlight', 500);
 			});
 		}
 	}
