@@ -43,7 +43,9 @@
 	    <div class="container<g:pageProperty name="page.container.hook"/>">	    		    			    	
 	    		    	   	
 	    	<g:layoutBody />
-	    				    	
+	    	<div class="footer">
+	    		<g:pageProperty name="page.footer.hook"/>
+	    	</div>		    	
 	    </div>
     </body>
 </html>

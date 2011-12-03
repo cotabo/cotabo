@@ -42,12 +42,12 @@
 			<p class="description">${boardInstance.description?.encodeAsHTML() ?: ''}</p>
 			</div>
 		</content>
-		<div class="row">
+		<div class="row tags">
 			<g:render template="show" model="['boardInstance':boardInstance]"/>
 		</div>
-		<div class="row">
+		<content tag="footer.hook">
     		<g:render template="/color/list" model="${['colors':boardInstance.colors.sort{a,b -> a.name <=> b.name}]}"></g:render>
-   		</div>      	    
+   		</content>
     
 	    <div id="error_dialog"></div>
 	    <jq:jquery>
