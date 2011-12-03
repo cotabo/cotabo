@@ -111,7 +111,7 @@ jQuery(function(){
 	 * 
 	 */		 			
 	$('.block-box').live('click', function() {
-		var wasBlocked = $(this).hasClass('blocked');                
+		var wasBlocked = !$(this).hasClass('greyed-out');                
 		var taskId = $(this).parents('li').attr('id');                
 		$.ajax({        
 		  type: 'POST',
