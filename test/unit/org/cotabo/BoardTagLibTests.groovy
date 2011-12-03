@@ -41,7 +41,8 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			\$('#delete_dialog > .modal-footer > a.primary').attr('href', document.modalHelperHref)		
 		});
 			\$('#delete_dialog').bind('hide', function(e) {
-				\$('#delete_dialog > .modal-footer > a:first').attr('href', '#');		
+				\$('#delete_dialog > .modal-footer > a:first').attr('href', '#');
+				\$('#delete_dialog > .modal-body > .alert-message.block-message.error').remove();
 			});
 			//We need to create the modal and than hide it. Otherwhise the jQuery sortable doesn't work.
 			\$('#delete_dialog').modal({backdrop:true, keyboard:true, show:true});

@@ -43,10 +43,10 @@
 			<label for="color">color *</label>
 			<div class="input">
 				<g:select from="${boardInstance.colors.sort{a,b -> a.name <=> b.name}}" 
-					class="medium" 
+					class="tag_select" 
 					optionKey="color"
 					optionValue="name" 
-					name="color" 
+					name="color"
 					multiple="true" 
 					size="4"/>							
 			</div>
@@ -59,22 +59,11 @@
 		<g:hiddenField name="board" value="${boardInstance.id}"/>
 	</fieldset>    	
  </g:form>
- <jq:jquery>
-$('#task_create_dialog').bind('shown', function() {	
-	$('input[name="name"]').focus();
-});
-$('#color > option').each(function() {
-	$(this).attr("style", "background-color:"+this.value);
-});   
-$('form#taskForm').submit(function(e) { 	
-	$.ajax({		
-		type: 'POST',
-		url: $(this).attr('action'),
-		data: $(this).serialize()			
-	});	
-	$('#task_create_dialog').modal('hide');				 
-	//Don't really submit
-	return false;	
- });
- </jq:jquery>
- 
+<jq:jquery>
+	$('#task_create_dialog').bind('shown', function() {	
+		$('input[name="name"]').focus();
+	});
+	$('#color > option').each(function() {
+		$(this).attr("style", "background-color:"+this.value);
+	}); 
+</jq:jquery>

@@ -3,7 +3,29 @@
  * build up onload.
  */
 jQuery(function(){
-		
+	
+	/********************************************************
+	 * Submit all forms by ajax submit and close the dialog if 
+	 * it's surrounded by one
+	 *********************************************************/	
+	$('form').live('submit', function(e) {
+		var that = this
+		$.ajax({		
+			type: 'POST',
+			url: $(this).attr('action'),
+			data: $(this).serialize(),
+			success: function() {
+				$(that).parents('.modal').modal('hide');
+			},
+			error: function(jqXHR, textStatus, errorThrown) {					
+				$(that).parents('.modal-body').prepend(jqXHR.responseText);
+			}
+		});					
+		//Don't really submit
+		return false;	
+	 });	
+	
+	
     /********************************************************
 	 * Section for the client-side search.
 	 *********************************************************/	

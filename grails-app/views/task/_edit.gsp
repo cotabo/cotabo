@@ -40,7 +40,7 @@
 		<div class="clearfix">
 			<label for="color">color *</label>
 			<div class="input">
-				<g:select id="update_color" 
+				<g:select					
 					from="${taskInstance.column.board.colors.sort{a,b -> a.name <=> b.name}}" 
 					value="${taskInstance.colors}" 
 					optionKey="color" 
@@ -58,23 +58,11 @@
 	</fieldset>       
 </g:form>
 <jq:jquery>
-$('#task_update_dialog').bind('shown', function() {	
-	$('input[name="name"]').focus();
-});
-
-$('#update_color > option').each(function() {
-	$(this).attr("style", "background-color:"+this.value);
-});
-
-$('#taskUpdateForm').submit(function() {      
-    $.ajax({        
-        type: 'POST',
-        url: $(this).attr('action'),
-        data: $(this).serialize()           
-     });    
-     $('#task_update_dialog').modal('hide'); 	     
-     //avoid the event bubbeling for this submit
-     return false;
-});
+	$('#task_update_dialog').bind('shown', function() {	
+		$('input[name="name"]').focus();
+	});
+	$('#color > option').each(function() {
+		$(this).attr("style", "background-color:"+this.value);
+	}); 
 </jq:jquery>
 </tb:modal>

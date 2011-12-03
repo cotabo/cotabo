@@ -40,8 +40,7 @@ class TaskController {
 			render ''
 		}
 		else {
-			sendError("Object does not exist",
-				"One of the following objects does not exist: column: ${params.fromColumn}, column: ${params.toColumn}, task: ${params.taskid}",
+			sendError("One of the following objects does not exist: column: ${params.fromColumn}, column: ${params.toColumn}, task: ${params.taskid}",
 				404)
 		}
 	}
@@ -91,7 +90,7 @@ class TaskController {
 			render ''
         }
         else {
-			sendError('Task could not be saved',  taskInstance.errors.allErrors.join('\n'), 500)			           
+			sendError(renderErrors(bean:taskInstance).toString(), 500)			           
         }
     }
 
@@ -144,11 +143,11 @@ class TaskController {
                 render ''
             }
             else {
-				sendError("Error updating task ${params.id}", taskInstance.errors.allErrors.join('\n'), 500 )		
+				sendError(renderErrors(bean:taskInstance).toString(), 500)	
             }
         }
         else {
-			sendError('Task not found', "Task with id ${params.id} does not exist.", 404)       
+			sendError("Task with id ${params.id} does not exist.", 404)       
         }
     }
 		
@@ -158,7 +157,7 @@ class TaskController {
 			render(template: 'edit', model:[taskInstance:taskInstance])
 		}
 		else {
-			sendError('Task not found', "Task with id ${params.id} does not exist.", 404)			
+			sendError("Task with id ${params.id} does not exist.", 404)			
 		}
 	}
 	
@@ -205,11 +204,7 @@ class TaskController {
 	 * @param message the detailes message
 	 * @param status the HTTP status code (default = 500)
 	 */
-	private void sendError(String title, String message, int status = 500) {
-		def msg = [
-			title: title,
-			message: message
-		]
-		render(status: status, contentType:'application/json', text: msg as JSON)
+	private void sendError(String message, int status = 500) {
+		render(status: status, template: '/error', model:[message: message])
 	}
 }
