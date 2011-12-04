@@ -33,12 +33,6 @@
 					<td id="task_${taskInstance.id}_priority">${taskInstance?.priority?.encodeAsHTML()}</td>
 				</tr>
 				<tr>
-					<td><b>Assignee:</b></td>
-					<td id="task_${taskInstance.id}_assignee">
-						${taskInstance?.assignee?.username?.encodeAsHTML() ?: '&nbsp;'}						
-					</td>
-				</tr>
-				<tr>
 					<td><b>Stats:</b></td>
 					<td>
 						<g:if test="${taskInstance.dateCreated}">
