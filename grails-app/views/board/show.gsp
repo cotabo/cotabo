@@ -25,6 +25,7 @@
              var editTaskUrl = '${createLink(controller:'task', action:'edit')}';
              var chatUrl = '${createLink(controller:"board", action:"chat")}';
              var avatarUrl = '${createLink(controller:'user', action:'avatar')}';
+             var archiveUrl = '${createLink(controller:'task', action:'archive')}';
         </script>
     </head>
     <body>

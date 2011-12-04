@@ -151,10 +151,9 @@ jQuery(function(){
 	/**
 	 * Handles click events on the archive button
 	 */
-	$('a.archive').live('click', function(eventObject) {
+	$('img.archive').live('click', function(eventObject) {
 		//Fire a get request to the archive action
-		$.get($(this).attr('href'));
-		eventObject.preventDefault();
+		$.get(archiveUrl + '/' + $(this).parents('.task').attr('id').split('_')[1]);		
 		return false;
 	});
 	

@@ -6,10 +6,8 @@
 			src="${taskInstance.assignee?.avatar ? createLink(controller:'user', action:'avatar', id:taskInstance?.assignee?.username) : resource(dir:'images/icons',file:'user_12x16.png')}" 
 			title="${taskInstance.assignee ? taskInstance?.assignee?.firstname + ' ' + taskInstance?.assignee?.lastname : 'no assignee' }"></img>		
 		<b>#${taskInstance.id} - ${taskInstance?.name?.encodeAsHTML()}</b>
-		<g:if test="${taskInstance.column.id == lastColumn.id}">
-			<a href="${createLink(controller:'task', action:'archive', id:taskInstance?.id)}" class="icon pull-right archive" title="archive">
-				<img src="${resource(dir:'images/icons',file:'document_stroke_12x12.png')}"></img>
-			</a>
+		<g:if test="${taskInstance.column.id == lastColumn.id}">			
+		<img src="${resource(dir:'images/icons',file:'document_stroke_12x12.png')}" class="icon pull-right archive"></img>			
 		</g:if>
 		<img class="block-box pull-right icon ${taskInstance?.blocked ? '' : 'greyed-out'}" src="${resource(dir:'images/icons',file:'lock_stroke_9x12.png')}" title="block / unblock"></img>
 		<img class="expander pull-right icon" src="${resource(dir:'images/icons',file:'arrow_down_12x12.png')}" title="expand / collapse"></img>
