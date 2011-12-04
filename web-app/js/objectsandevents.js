@@ -5,9 +5,10 @@
 jQuery(function(){
 	
 	/********************************************************
-	 * Popovser
+	 * tooltips
 	 *********************************************************/
 	$('.avatar').twipsy();
+	$('.head_color').twipsy();
 	
 	/********************************************************
 	 * Submit all forms by ajax submit and close the dialog if 
