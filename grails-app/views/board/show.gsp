@@ -12,6 +12,8 @@
 	    <script type="text/javascript" src="${resource(dir:'js', file:'utils.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js', file:'objectsandevents.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir:'js', file:'atmospherehandling.js')}"></script>
+	    <script type="text/javascript" src="${resource(dir:'js/bootstrap-plugins', file:'bootstrap-twipsy.js')}"></script>	    
+	    
         <script type="text/javascript">
             /**
              * Global variable definition
