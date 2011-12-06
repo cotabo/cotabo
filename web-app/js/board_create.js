@@ -3,94 +3,27 @@
  */
  $(document).ready(function(){
 	
-	//The save button of the form at all
-	$(".save").button({
-		icons: {
-			primary: "ui-icon-disk"
-		}
-	});
-	//The column telete button
-	$(".delete").button({
-		icons: {
-			primary: "ui-icon-trash"
-		},
-		text: false
-	}).live('click', function() {
-		var li = $(this).parents("li");
-		var index = li.index();
-		var ul = $(li).parents("ul");
-		ul.append('<input type="hidden" name="deleteColumn" value="'+index+'"/>');					
-		li.remove();
-		
-	});
+	$('.delete').live('click', function() {
+		var row = $(this).parents('.clearfix');		
+		var index = row.index();		
+		var form = row.parents('form');
+		form.append('<input type="hidden" name="deleteColumn" value="'+index+'"/>');					
+		row.remove();
+	});	
 	
-	$(".move").button({
-		icons: {
-			primary: "ui-icon-arrowthick-2-n-s"
-		},
-		text:false
-	});
-	
-	
-	//the FlyDom template for a row that represents a column 	
-	var rowTpl = function() {
-		return [ 
-		    "li", {}, [
-		        "table", {}, [
-		            "colgroup", {}, [
-		                "col", {width:"25%"}, ,
-		                "col", {width:"35%"}, ,
-		                "col", {width:"20%"}, ,
-		                "col", {width:"8%"}, ,
-		                "col", {width:"8%"}, ,
-		                "col", {width:"4%"}
-		            ],
-		        	"tbody", {}, [
-						"tr", {}, [
-							"td", {}, [
-								"input", {type: "text", name:"columns["+this.columnIndex+"].name"}
-				    		],
-					        "td", {}, [
-								"input", {type: "text", size: 50, name:"columns["+this.columnIndex+"].description"}
-				    		],
-					  		"td", {}, [
-								"input", {type: "text", size: 2, name:"columns["+this.columnIndex+"].limit", value:"0"}
-				    		],
-					  		"td", {}, [
-								"input", {type: "radio", name:"workflowStart", id:"workflowStart", value:this.columnIndex} 
-				    		],
-				    		"td", {}, [
-										"input", {type: "radio", name:"workflowEnd", id:"workflowEnd", value:this.columnIndex} 
-						    		],
-				    		"td", {},[
-				    			"a", {href:'#', class:'delete'}, 'delete this column definition'
-				    		]
-						]
-					]
-				]
-			]
-		]
-	};        	
-	$(".add").button({
-		icons: {
-			primary: "ui-icon-plusthick"
-		}
-	}).click(function(event) {
-		        		
+	$(".add_column").click(function(event) {		
 		var tplData = {
-			columnIndex: $("ul.column_list > li").length
+			columnIndex: $("#columns > .clearfix > .row").length
 		};
-		var tpl = $("ul.column_list").tplAppend(tplData, rowTpl);
-		$("ul.column_list > li > table > tbody > tr:last > td:last > a").button({
-			icons: {
-				primary: "ui-icon-trash"
-			},
-			text:false        		
-		});        		   	
+		$("#columns").tplAppend(tplData, rowTpl);
+	});
+	
+	$("#columns").sortable({
+		stop: updateColumnNameOrdering
 	});
 	
 	var updateColumnNameOrdering = function() {
-		var columns = $("ul.column_list > li").toArray();		
+		var columns = $("#columns > .clearfix > .row").toArray();		
 		for (var i = 0; i < columns.length; i++) {
 			var fields = $(columns[i]).find(":text").toArray();
 			for (var j = 0; j < fields.length; j++) {
@@ -104,16 +37,7 @@
 			radio.attr('value', i);			
 		}		
 	}
-	$("ul.column_list").sortable({
-		stop: updateColumnNameOrdering
-	});
-	
-	$("#tabs").tabs();
-	
-	$('.close_button').live('click', function(event) {
-		$(this).parents('li').remove()
-	});
-	
+			
 	/**
 	 * Section for usermanagement
 	 */
@@ -121,12 +45,12 @@
 		connectWith:".user_list",
 		over: function() {
 			if ($(this).hasClass('user_droppable')) {
-				$(this).addClass('ui-state-highlight');
+				$(this).addClass('highlight');
 			}
 		},
 		out: function() {
 			if ($(this).hasClass('user_droppable')) {
-				$(this).removeClass('ui-state-highlight');
+				$(this).removeClass('highlight');
 			}
 		},
 		stop: function(event, ui) {
@@ -145,5 +69,35 @@
 			}
 			
 		}
-	}).disableSelection();;	
+	}).disableSelection();	
+	
+	
+	//the FlyDom template for a row that represents a column 	
+	var rowTpl = function() {
+		return [ 
+		    "div", {class:'clearfix'}, [
+			    "div", {class:'row'}, [
+			        "span", {class:'span4'}, [
+			            "input", {type: "text", name:"columns["+this.columnIndex+"].name", class:'span4', maxlength:'75'}
+			         ],
+			         "span", {class:'span5'}, [
+			            "input", {type: "text", size: 50, name:"columns["+this.columnIndex+"].description", class:'span5'}
+			         ],
+			         "span", {class:'span2'}, [
+	                    "input", {type: "text", size: 2, name:"columns["+this.columnIndex+"].limit", value:"0", class:'span2'}
+			         ],
+			         "span", {class:'span2'}, [
+			            "input", {type: "radio", name:"workflowStart", id:"workflowStart", value:this.columnIndex}
+			         ],
+			         "span", {class:'span2'}, [
+	                    "input", {type: "radio", name:"workflowEnd", id:"workflowEnd", value:this.columnIndex}
+		             ],
+		             "span", {class:'span1'}, [
+		                "img", {class:'icon delete', title:'delete this column', src:'/cotabo/images/icons/trash_stroke_12x12.png'}
+		             ]	             
+		        ]
+		    ]
+	    ]
+	};        	
+	
  });
