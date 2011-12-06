@@ -59,7 +59,7 @@
 	                </tbody>
 	            </table>            
 	            <div class="buttons">
-	                    <span class="button"><g:submitButton name="save" value="update profile" /></span>
+	                    <g:submitButton name="save" value="update profile" class="btn primary" />
 	                </div>                
 	            </g:form>
         </div>

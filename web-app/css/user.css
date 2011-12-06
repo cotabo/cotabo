@@ -4,8 +4,7 @@ table.registration {
 	font-size: .8em;	
 }
 .avatar-big {
-	background: url('../images/default_avatar.jpeg') no-repeat;
-    opacity: .7;
+	background: url('../images/default_avatar.jpeg') no-repeat;    
     width: 50px; 
     height: 50px;    
     display: block;
