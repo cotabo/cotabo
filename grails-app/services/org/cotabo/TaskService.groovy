@@ -57,8 +57,12 @@ class TaskService {
 			fromColumn.save()
 			toColumn.save()					
 			//Making the user who pulled the task - the assignee
-			task.assignee = User.findByUsername(springSecurityService.principal.username)
+			task.assignee = User.findByUsername(springSecurityService.principal.username)			
 			task.column = toColumn
+			//Unblock tasks that reach the last column
+			if(toColumn == toColumn.board.columns.last() && task.blocked) {
+				task.blocked = false
+			}
 			task.save()
 			createMovementEvent(task, dateCreated)			
 		}			
