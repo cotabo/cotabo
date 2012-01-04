@@ -7,8 +7,8 @@ jQuery(function(){
 	/********************************************************
 	 * tooltips
 	 *********************************************************/
-	$('.avatar').twipsy();
-	$('.head_color').twipsy();
+	$('.avatar').twipsy({live:true});
+	$('.head_color').twipsy({live:true});
 	
 	/********************************************************
 	 * Submit all forms by ajax submit and close the dialog if 
