@@ -70,11 +70,11 @@ jQuery(function(){
 	//onLoad activate shortcuts
 	$(document).bind('keyup', activateShortcuts );
 	//deactivate on dialog openings	
-	$('.modal').bind('show', function() {
+	$('.modal').live('show', function() {
 		$(document).unbind('keyup');
 	});
 	//and activate on dialog closes again
-	$('.modal').bind('hidden', function() {
+	$('.modal').live('hidden', function() {
 		$(document).bind('keyup', activateShortcuts );
 	});
 
