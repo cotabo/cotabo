@@ -31,11 +31,18 @@ jQuery(function(){
 		return false;	
 	 });	
 	
+	/********************************************************
+	 * Section for the equal height of all task columns.
+	 *********************************************************/
+	$(document).ready(function() {
+		equalHeight($('div.column ul'));
+	});
+	
 	
     /********************************************************
 	 * Section for the client-side search.
 	 *********************************************************/	
-	$('input#search').quicksearch('li.task');	
+	$('input#search').quicksearch('li.task');
 	
 	/********************************************************
 	 * Section for the keyboard navigation.

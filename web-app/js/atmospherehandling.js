@@ -67,7 +67,7 @@ var rerenderCallback = function(broadcast) {
 				if (oldObjectDom.attr('id') != null && oldObjectDom.attr('id') != 'undefined') {				
 					//Replace the existing DOM
 					oldObjectDom.replaceWith(rerenderedDom);
-					//When it was a column - reapply the sotable
+					//When it was a column - reapply the sortable
 					if (id.indexOf('column_') == 0) {
 						//Need to use the UL below the container for this
 						applySortable($('#'+id + ' > ul'));
@@ -81,6 +81,9 @@ var rerenderCallback = function(broadcast) {
 						$('.column:first > ul').append(rerenderedDom);						
 					}
 				}
+				
+				// Recompute the height of the task columns
+				equalHeight($('div.column ul'));
 			});
 		}
 	}

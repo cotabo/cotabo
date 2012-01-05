@@ -40,7 +40,7 @@ var moveTask = function(event, ui) {
 	var toIndex = ui.item.index();	
 	var taskId = $(ui.item).attr('id').split('_')[1];
 	
-	//Post onto controller "column" and action "updatetasks"
+	//Post onto controller "task" and action "move"
 	$.ajax({
 		type: 'POST',
 		url: moveTaskUrl,
@@ -70,5 +70,20 @@ var reorderTask = function(event, ui) {
 				'position': position
 			}
 		});
-	}	
+	}
+}
+
+/**
+ * Equalize the height of all elements provided in parameter.
+ * @param group
+ */
+function equalHeight(group) {
+	var tallest = 0;
+	group.each(function() {
+		var thisHeight = $(this).height();
+		if(thisHeight > tallest) {
+			tallest = thisHeight;
+		}
+	});
+	group.height(tallest);
 }
