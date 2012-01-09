@@ -85,5 +85,5 @@ function equalHeight(group) {
 			tallest = thisHeight;
 		}
 	});
-	group.height(tallest);
+	group.css("min-height", tallest);
 }
