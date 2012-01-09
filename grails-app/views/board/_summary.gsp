@@ -15,7 +15,7 @@
 			</span>
 		</g:if>				
 		<span title="reporting" class="pull-right">
-			<a href="${createLink(conroller:"board", action:"comulativeflowchart", id:boardInstance.id)}">
+			<a href="${createLink(conroller:"board", action:"cumulativeflowchart", id:boardInstance.id)}">
 				<img class="icon" src="${resource(dir:'images/icons',file:'chart_12x12.png')}"/>						
 			</a>
 		</span>

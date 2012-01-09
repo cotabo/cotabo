@@ -266,7 +266,7 @@ class BoardController {
 		return idList.collect {User.get(it)}		
 	}
 	
-	def comulativeflowchart = {		
+	def cumulativeflowchart = {		
 		def boardInstance = Board.get(params.id)
 		if(!boardInstance) {
 			flash.message = "Board with it [${params.id}] not found"

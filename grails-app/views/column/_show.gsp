@@ -12,7 +12,7 @@
 	</span>
 	<ul>
 		<g:each in="${columnInstance.tasks}" var="taskInstance">
-		<g:render template="/task/show" model="['taskInstance':taskInstance]"/>
+			<g:render template="/task/show" model="['taskInstance':taskInstance]"/>
 		</g:each>
 	</ul>
 </div>
