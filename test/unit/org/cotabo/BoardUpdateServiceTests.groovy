@@ -130,7 +130,7 @@ class BoardUpdateServiceTests extends GrailsUnitTestCase {
 		//Check whether the resource is added to the broadcaster
 		assertEquals atmosphereResource.broadcaster.getResources(), [atmosphereResource]		
 		//Check whether the resource was put in the session
-		assertEquals atmosphereResource, atmosphereResource.request.session.getAttribute('boardBroadacster')				
+		assertEquals atmosphereResource, atmosphereResource.request.session.getAttribute('boardBroadcaster')				
     }
 	
 	void testOnStateChange() {

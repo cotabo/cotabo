@@ -33,7 +33,7 @@ class TaskController {
 			taskService.moveTask(fromColumn, toColumn, task, params.toIndex as int)			
 			//Distribute this movement by rerendering the 2 columns
 			def user = User.findByUsername(springSecurityService.principal.username)
-			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster		
+			def broadcaster = session.getAttribute("boardBroadcaster")?.broadcaster		
 			def notification = "${user} moved '${task.name}' (#${task.id}) to '${toColumn}'"	
 
 			boardUpdateService.broadcastRerenderingMessage(broadcaster, [fromColumn, toColumn])				
@@ -50,7 +50,7 @@ class TaskController {
 		def position = params.position as int
 		if (task && position > -1) {
 			taskService.reorderTask(task, position)
-			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+			def broadcaster = session.getAttribute("boardBroadcaster")?.broadcaster
 			boardUpdateService.broadcastRerenderingMessage(broadcaster, task.column)
 			render ''
 		}
@@ -84,7 +84,7 @@ class TaskController {
 		def user = User.findByUsername(springSecurityService.principal.username)
         if (!taskInstance.hasErrors()) {
 			def notification = "${user} created '${taskInstance.name}' (#${taskInstance.id})."
-			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+			def broadcaster = session.getAttribute("boardBroadcaster")?.broadcaster
 			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance)
 			//Render nothing as this will be done by atmosphere
 			render ''
@@ -130,7 +130,7 @@ class TaskController {
 			
             if (!taskInstance.hasErrors() && taskInstance.save(flush: true)) {
 				def user = User.findByUsername(springSecurityService.principal.username)
-				def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+				def broadcaster = session.getAttribute("boardBroadcaster")?.broadcaster
 				def notification
 				//distinguishing messages between block updates and normal updates
 				if(settedBlock) {
@@ -166,7 +166,7 @@ class TaskController {
 		if( taskInstance) {
 			taskInstance.archived = true;
 			taskInstance.save(flush:true);
-			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+			def broadcaster = session.getAttribute("boardBroadcaster")?.broadcaster
 			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance.column)
 			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance, 'showarchived')
 		}		
@@ -178,9 +178,9 @@ class TaskController {
 		if( taskInstance) {
 			taskInstance.archived = false;
 			taskInstance.save(flush:true);
-			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
-			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance, 'showarchived')
+			def broadcaster = session.getAttribute("boardBroadcaster")?.broadcaster
 			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance.column)
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance, 'showarchived')
 		}
 		redirect(controller :'board', action: 'archive', id:taskInstance.column.board.id)
 	}

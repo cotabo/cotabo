@@ -58,21 +58,21 @@ class BoardUpdateService {
 				 channel,
 				 true
 			 )
-		 def sessRes = event.request.session.getAttribute('boardBroadacster')		 
+		 def sessRes = event.request.session.getAttribute('boardBroadcaster')		 
 		 if(sessRes) {
 			 //We need to remove the AtmosphereResource from the session
 			 //from its broadcaster.
 			 sessRes.broadcaster.removeAtmosphereResource(sessRes)
 			 sessRes.broadcaster = null
 		 }
-		 //We set the newly retrieved broadcaste for this user
+		 //We set the newly retrieved broadcast for this user
 		 event.setBroadcaster(boardSpecificBroadcaster)		 
 		 //We subscribe the user to the broadcaster
 		 boardSpecificBroadcaster.addAtmosphereResource(event)
 		 
 		 //We put this AtmosphereResource into the users session
 		 //So that it can be found on the next request to the controller
-		 event.request.session.setAttribute('boardBroadacster', event)
+		 event.request.session.setAttribute('boardBroadcaster', event)
 		 
 		 //Setting content type
 		 event.response.setContentType('text/html;charset=UTF-8')
