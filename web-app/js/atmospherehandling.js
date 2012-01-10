@@ -70,7 +70,7 @@ var rerenderCallback = function(broadcast) {
 					//When it was a column - reapply the sortable
 					if (id.indexOf('column_') == 0) {
 						//Need to use the UL below the container for this
-						if(jQuery.isFunction('applySortable')) applySortable($('#'+id + ' > ul'));
+						applySortable($('#'+id + ' > ul'));
 						$('input#search').quicksearch('li.task');
 					}
 				}
