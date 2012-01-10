@@ -163,14 +163,33 @@ class TaskController {
 	
 	def archive = {
 		def taskInstance = Task.get(params.id)
-		//log.debug("Archiving task ${taskInstance}...")
 		if( taskInstance) {
 			taskInstance.archived = true;
 			taskInstance.save(flush:true);
 			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
 			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance.column)
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance, 'showarchived')
 		}		
 		redirect(controller :'board', action: 'show', id:taskInstance.column.board.id)
+	}
+	
+	def unarchive = {
+		def taskInstance = Task.get(params.id)
+		if( taskInstance) {
+			taskInstance.archived = false;
+			taskInstance.save(flush:true);
+			def broadcaster = session.getAttribute("boardBroadacster")?.broadcaster
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance, 'showarchived')
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance.column)
+		}
+		redirect(controller :'board', action: 'archive', id:taskInstance.column.board.id)
+	}
+	
+	def showarchived = {
+		def taskInstance = Task.get(params.id)
+		if (taskInstance) {
+			render(template: 'showarchived', model:[taskInstance:taskInstance])
+		}
 	}
 	
 	def showDom = {

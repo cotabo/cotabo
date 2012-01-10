@@ -114,3 +114,7 @@ div.create_color {
 	opacity: .4; 
 	max-height: 110px;
 }
+
+.invisible {
+	display: none;
+}

@@ -193,6 +193,6 @@ jQuery(function(){
 	 ********************************************************/	
 	//Sortable definition for the connected columns	
 	$(".column > ul").each(function(index) {			
-		applySortable(this);
+		if(jQuery.isFunction('applySortable')) applySortable(this);
 	});				
 });

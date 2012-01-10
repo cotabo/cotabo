@@ -226,19 +226,18 @@ class BoardController {
     }
 	
 	def archive = {
-		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		def archivedTasks = Task.findAllArchived([
-				sort:'workflowEndDate',
-				max: params.max,
-				offset: params.offset, 
-				order: 'desc'])
-		def archivedTasksCount = Task.findAllArchived().size()
-		[
-			taskList: archivedTasks, 
-			taskTotal: archivedTasksCount,
-			boardInstance: Board.get(params.id)
-		]
-	}	
+		def boardInstance = Board.read(params.id)
+		if (!boardInstance) {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'board.label', default: 'Board'), params.id])}"
+			redirect(action: "list")
+		}
+		else {
+			[
+				boardInstance: boardInstance,
+				priorities:grailsConfig.config.taskboard.priorities
+			]
+		}
+	}
 	
 	def showDom = {
 		def boardInstance = Board.get(params.id)

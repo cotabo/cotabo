@@ -19,6 +19,11 @@
 				<img class="icon" src="${resource(dir:'images/icons',file:'chart_12x12.png')}"/>						
 			</a>
 		</span>
+		<span title="archive" class="pull-right">
+			<a href="${createLink(conroller:"board", action:"archive", id:boardInstance.id)}">
+				<img class="icon" src="${resource(dir:'images/icons',file:'chat_alt_stroke_12x12.png')}"/>						
+			</a>
+		</span>
 		<span title="number of users" class="pull-right">			
 			<img class="icon pull-right" src="${resource(dir:'images/icons',file:'user_9x12.png')}"/>
 			<p class="pull-right">${boardInstance.users.size()}</p>							

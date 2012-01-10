@@ -122,10 +122,10 @@ class BoardUpdateService {
 	 * @param broadcaster The atmosphere broadcaster
 	 * @param obj Rerenderable object
 	 */
-	public void broadcastRerenderingMessage(Broadcaster broadcaster, Rerenderable obj) {	   
+	public void broadcastRerenderingMessage(Broadcaster broadcaster, Rerenderable obj, def rerenderAction=null) {	   
 	   if (broadcaster) {		   		  
 		   //Broadcast the rerendered HTML of the Rerenderbale object
-		   def rerendered =  rerenderService.render(obj)			    		  
+		   def rerendered =  rerenderService.render(obj, rerenderAction)			    		  
 		   broadcaster.broadcast(rerendered)
 	   }
 	}
