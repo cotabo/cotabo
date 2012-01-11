@@ -30,6 +30,21 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
     plugins{
+		//base stuff
+		runtime ":hibernate:$grailsVersion"
+		runtime ":jquery:1.7.1"
+		runtime ":resources:1.1.5"
+		
+		//Cotabo specific
+		runtime ":jcaptcha:1.2.1"
+		runtime ":atmosphere:0.4.1.2"
+		runtime ":pretty-time:0.3"
+		runtime ":quartz:0.4.2"
+		runtime ":spring-security-core:1.2.7"
+		
+		
+		//build
+		build ":tomcat:$grailsVersion"
 		build ':export:1.1.1'
 	}
     dependencies {
