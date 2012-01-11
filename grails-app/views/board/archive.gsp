@@ -43,7 +43,7 @@
 			</div>
 		</content>
 		<div class="row tags">
-			<g:render template="archive" model="['boardInstance':boardInstance]"/>
+			<g:render template="show" model="['boardInstance':boardInstance, 'fake': true]"/>
 		</div>
 		<content tag="footer.hook">
     		<g:render template="/color/list" model="${['colors':boardInstance.colors.sort{a,b -> a.name <=> b.name}]}"></g:render>
