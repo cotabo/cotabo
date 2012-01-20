@@ -48,7 +48,7 @@ class TaskControllerTests extends GrailsUnitTestCase {
 	}
 	
 	void testInvalidRespondeForMissingColumn() {
-				def expectedResult = '<div class="alert-message block-message error"><p>One of the following objects does not exist: column: 2, column: null, task: 2</p></div>'
+		def expectedResult = '<div class="alert-message block-message error"><p>One of the following objects does not exist: column: 2, column: null, task: 2</p></div>'
 		def controller = new TaskController()
 		controller.params.fromColumn = 2
 		controller.params.taskid = 2
