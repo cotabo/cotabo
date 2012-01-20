@@ -25,10 +25,11 @@ class RerenderService implements InitializingBean {
 	 * @param obj the object that should be rendered
 	 * @return a rendered GSP template string
 	 */
-    String render(Rerenderable obj) {
+    String render(Rerenderable obj, def rerenderAction = null) {
 		if (obj) {
 			def controllerContext = GrailsNameUtils.getShortName(obj.class).toLowerCase()
-			return g.createLink(controller: controllerContext, action:obj.rerenderAction, id:obj.id)			
+			def result = g.createLink(controller: controllerContext, action: (rerenderAction ?: obj.rerenderAction), id:obj.id)
+			return result
 		}
 		else {
 			return ''

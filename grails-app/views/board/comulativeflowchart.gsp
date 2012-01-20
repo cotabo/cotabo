@@ -3,10 +3,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="report" />                
-        <title>Cotabo - Comulative Flow Diagram for ${boardInstance?.name}</title>  
+        <title>Cotabo - Cumulative Flow Diagram for ${boardInstance?.name}</title>  
 	</head>
 	<body>
-	<h2>Comulative Flow Diagram - ${boardInstance.name}</h2>
+	<h2>Cumulative Flow Diagram - ${boardInstance.name}</h2>
 	
 	<div id="cfd_placeholder" style="width:1000px;height:400px"></div> 
 	<div id="legend" style="width:200px;"/>
@@ -15,7 +15,7 @@
 				
 		var dataArray = new Array()
 		<g:each in="${boardInstance.columns}" var="column" status="i">		
-		dataArray[${column.id}] = getCsvCDFDataForColumn(${column.id});		
+			dataArray[${column.id}] = getCsvCDFDataForColumn(${column.id});		
 		</g:each>
 		
 		$.plot($('#cfd_placeholder'), [						

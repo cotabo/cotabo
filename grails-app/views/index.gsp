@@ -46,7 +46,7 @@
                 <li>Basic chat functionality - send chat messages to everyone that looks at the boad (history won't be saved')</li>
                 <li>Auto assignment of tasks (whoever pulls a task in your process flow will be the assignee)</li>
                 <li>Upload an avatar for your user to easily see who is working on which task</li>
-                <li>Experimental: Reporting - Comulative Flow Diagram, Average Throughput Diagram (will be improved & extended)</li>                    
+                <li>Experimental: Reporting - Cumulative Flow Diagram, Average Throughput Diagram (will be improved & extended)</li>                    
             </ul>            
             <p>The project is hosted on <a href="https://github.com/cotabo/cotabo" target="_blank">GitHub</a>.<p>
             <p>Please submit any Issues & Feature requests as an <a href="https://github.com/cotabo/cotabo/issues">issue on GitHub</a></p>
