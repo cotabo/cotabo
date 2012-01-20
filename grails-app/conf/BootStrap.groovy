@@ -130,6 +130,21 @@ class BootStrap {
 					
 					eventTestTasks << task					
 				}
+				
+				eventTestTasks[0].archived = true
+				eventTestTasks[0].workflowEndDate = new Date()
+				
+				eventTestTasks[1].archived = true
+				eventTestTasks[1].workflowEndDate = new Date()-1
+				
+				eventTestTasks[2].archived = true
+				eventTestTasks[2].workflowEndDate = new Date()-6
+				
+				eventTestTasks[3].archived = true
+				eventTestTasks[3].workflowEndDate = new Date()-24
+				
+				eventTestTasks[4].archived = true
+				eventTestTasks[4].workflowEndDate = new Date()-400
 								
 				eventTestTasks.each { taskService.saveTask(it) }
 				

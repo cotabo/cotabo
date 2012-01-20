@@ -8,7 +8,7 @@ class DashboardService {
     static transactional = true
 
 	/**
-	 * Generates CSV data for a comulative flow diagram for a specific column.
+	 * Generates CSV data for a cumulative flow diagram for a specific column.
 	 * 
 	 * Will look like this:
 	 * <milliseconds-since-1970>,<numer of tasks>

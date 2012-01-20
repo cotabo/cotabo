@@ -5,7 +5,7 @@ class ColumnController {
 	def showDom = {
 		def columnInstance = Column.get(params.id)
 		if (columnInstance) {
-			render(template: 'show', model:[columnInstance:columnInstance])
+			render(template: 'show', model:[columnInstance:columnInstance, nColumns:columnInstance.board.columns.size()])
 		}
 	}
 }

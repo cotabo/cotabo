@@ -1,7 +1,7 @@
 package org.cotabo
 
-import java.util.Date;
-import java.util.List;
+import java.util.Date
+import java.util.List
 
 /**
  * Represents a Board Object consisting of Columns.
@@ -49,6 +49,34 @@ class Board implements Rerenderable {
 		else {
 			return UserBoard.findAllByBoard(this).collect { it.user } as Set
 		}
+	}
+	
+	/**
+	 * Create virtual columns containing archived tasks.
+	 * @return
+	 */
+	def getArchivedcolumns () {
+		def columns = []
+		def now = new Date()
+		def today = now - 1
+		def week = now - 7
+		def month = now - 31
+		def year = now - 365
+		def bc = Date.parse("yyyy-MM-dd", "1970-01-01")
+		
+		def times = [bc, year, month, week, today, now]
+		def names = ["1970", "Year", "Month", "Week", "Today"]
+		
+		for(i in 0..times.size-2) {
+			def name = names[i]
+			def from = times[i]
+			def to = times[i+1]
+			def tasks = Task.findAllByArchivedAndWorkflowEndDateBetween(true, from, to)
+			def column = [tasks : tasks, name:name, board : this] as Column
+			columns << column
+		}
+		
+		return columns
 	}
 	
 	@Override
