@@ -95,6 +95,156 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <name>Apply Configuration Management</name>
             <priority>Normal</priority>
           </task>
+          <task id='9'>
+            <archived>true</archived>
+            <assignee>user</assignee>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>App</name>
+              </taskColor>
+            </colors>
+            <creator>user</creator>
+            <description>Description $i</description>
+            <details />
+            <name>Task 1</name>
+            <priority>Normal</priority>
+          </task>
+          <task id='10'>
+            <archived>true</archived>
+            <assignee>user</assignee>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>App</name>
+              </taskColor>
+            </colors>
+            <creator>user</creator>
+            <description>Description $i</description>
+            <details />
+            <name>Task 2</name>
+            <priority>Normal</priority>
+          </task>
+          <task id='11'>
+            <archived>true</archived>
+            <assignee>user</assignee>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>App</name>
+              </taskColor>
+            </colors>
+            <creator>user</creator>
+            <description>Description $i</description>
+            <details />
+            <name>Task 3</name>
+            <priority>Normal</priority>
+          </task>
+          <task id='12'>
+            <archived>true</archived>
+            <assignee>user</assignee>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>App</name>
+              </taskColor>
+            </colors>
+            <creator>user</creator>
+            <description>Description $i</description>
+            <details />
+            <name>Task 4</name>
+            <priority>Normal</priority>
+          </task>
+          <task id='13'>
+            <archived>true</archived>
+            <assignee>user</assignee>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>App</name>
+              </taskColor>
+            </colors>
+            <creator>user</creator>
+            <description>Description $i</description>
+            <details />
+            <name>Task 5</name>
+            <priority>Normal</priority>
+          </task>
+          <task id='14'>
+            <archived>false</archived>
+            <assignee>user</assignee>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>App</name>
+              </taskColor>
+            </colors>
+            <creator>user</creator>
+            <description>Description $i</description>
+            <details />
+            <name>Task 6</name>
+            <priority>Normal</priority>
+          </task>
+          <task id='15'>
+            <archived>false</archived>
+            <assignee>user</assignee>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>App</name>
+              </taskColor>
+            </colors>
+            <creator>user</creator>
+            <description>Description $i</description>
+            <details />
+            <name>Task 7</name>
+            <priority>Normal</priority>
+          </task>
+          <task id='16'>
+            <archived>false</archived>
+            <assignee>user</assignee>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>App</name>
+              </taskColor>
+            </colors>
+            <creator>user</creator>
+            <description>Description $i</description>
+            <details />
+            <name>Task 8</name>
+            <priority>Normal</priority>
+          </task>
+          <task id='17'>
+            <archived>false</archived>
+            <assignee>user</assignee>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>App</name>
+              </taskColor>
+            </colors>
+            <creator>user</creator>
+            <description>Description $i</description>
+            <details />
+            <name>Task 9</name>
+            <priority>Normal</priority>
+          </task>
+          <task id='18'>
+            <archived>false</archived>
+            <assignee>user</assignee>
+            <colors>
+              <taskColor id='2'>
+                <color>#fafaa8</color>
+                <name>App</name>
+              </taskColor>
+            </colors>
+            <creator>user</creator>
+            <description>Description $i</description>
+            <details />
+            <name>Task 10</name>
+            <priority>Normal</priority>
+          </task>
         </tasks>
         <workflowEndColumn>false</workflowEndColumn>
         <workflowStartColumn>true</workflowStartColumn>
@@ -159,7 +309,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <priority>Normal</priority>
           </task>
           <task id='9'>
-            <archived>false</archived>
+            <archived>true</archived>
             <assignee>user</assignee>
             <colors>
               <taskColor id='2'>
@@ -174,7 +324,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <priority>Normal</priority>
           </task>
           <task id='10'>
-            <archived>false</archived>
+            <archived>true</archived>
             <assignee>user</assignee>
             <colors>
               <taskColor id='2'>
@@ -189,7 +339,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <priority>Normal</priority>
           </task>
           <task id='11'>
-            <archived>false</archived>
+            <archived>true</archived>
             <assignee>user</assignee>
             <colors>
               <taskColor id='2'>
@@ -204,7 +354,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <priority>Normal</priority>
           </task>
           <task id='12'>
-            <archived>false</archived>
+            <archived>true</archived>
             <assignee>user</assignee>
             <colors>
               <taskColor id='2'>
@@ -219,7 +369,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
             <priority>Normal</priority>
           </task>
           <task id='13'>
-            <archived>false</archived>
+            <archived>true</archived>
             <assignee>user</assignee>
             <colors>
               <taskColor id='2'>

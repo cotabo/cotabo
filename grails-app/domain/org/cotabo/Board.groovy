@@ -16,7 +16,7 @@ class Board implements Rerenderable {
 	
 	static exportables = ['name', 'description', 'columns']
 	
-	static transients = ["rerenderAction"]
+	static transients = ["rerenderAction", "archivedcolumns"]
 	
 	String name
 	String description
