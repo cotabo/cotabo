@@ -123,6 +123,7 @@ taskboard.default.colors = '#f9f21a'
 taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
 taskboard.default.priority = 'Normal'
 taskboard.default.autoarchive = 30 // auto-archiving from 'Done' after 30 days 
+taskboard.default.deadline = 1 // start deadline bouncing 1 day before deadline
 
 
 //JCaptcha stuff
