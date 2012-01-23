@@ -52,6 +52,17 @@
 			</div>
 		</div>
 		<div class="clearfix">
+			<label for="due">due</label>
+			<div class="input">
+				<div class="input">
+				<g:textField  name="due" maxlength="25"/>
+				<jq:jquery>
+					$('input[name="due"]').datepicker();
+				</jq:jquery>					
+			</div>						
+			</div>
+		</div>
+		<div class="clearfix">
 			<div class="input">
 				<g:actionSubmit value="Create Task" class="btn primary"/>
 			</div>

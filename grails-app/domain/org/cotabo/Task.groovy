@@ -13,7 +13,7 @@ import groovy.time.TimeCategory
 class Task implements Rerenderable {
 
 	//This is determined at runtime by the related blocks
-	static transients = ["blocked", "startDate", "rerenderAction"]
+	static transients = ["blocked", "startDate", "rerenderAction", "deadline"]
 	
 	//Relationships
 	static belongsTo = [ column : Column ]	
@@ -27,6 +27,7 @@ class Task implements Rerenderable {
 		
 	Date dateCreated
 	Date lastUpdated
+	Date due
 	
 	Date workflowStartDate
 	Date workflowEndDate
@@ -54,10 +55,11 @@ class Task implements Rerenderable {
 		workflowStartDate nullable: true
 		workflowEndDate nullable:true
 		dateCreated nullable:true
+		due nullable:true
 		
     }
 	
-	static exportables = ['name', 'description', 'details', 'priority', 'colors', 'creator', 'assignee', 'archived', 'blocks', 'workflowStartDate', 'workflowEndDate']
+	static exportables = ['name', 'description', 'details', 'priority', 'colors', 'creator', 'assignee', 'archived', 'blocks', 'workflowStartDate', 'workflowEndDate', 'due']
 	
 	@Override
 	public String toString() {
@@ -104,6 +106,15 @@ class Task implements Rerenderable {
 	   //Potentially finding the block
 	   def block = this.blocks.find{it.dateClosed == null}
 	   block ? true : false
+   }
+   
+   boolean isDeadline(){
+	   def now = new Date()
+	   if (due && !workflowEndDate) {
+		   def diff = due.minus(grailsConfig.config.taskboard.default.deadline).minus(now)
+		   return (diff <= 0) ? true : false
+	   }
+	   return  false
    }
 
    /**

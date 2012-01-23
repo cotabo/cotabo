@@ -75,7 +75,7 @@ class BootStrap {
 					def currentDate = Date.parse("dd/MM/yyyy HH:mm:ss SSS z", "02/04/2011 13:13:13 013 GMT+2:00")
 					testTasks = [
 						wip: 	[
-							[column:column2, name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, priority:'Critical', workflowStartDate: currentDate - 10.hours],
+							[column:column2, name:'Bootstrap Webserver', description:'Bootstrap machine and apply WebServer profile.',durationHours:3.5, creator:user, assignee:user, priority:'Critical', workflowStartDate: currentDate - 10.hours, due:currentDate],
 							[column:column2, name:'Bootstrap App server', description:'Bootstrap machine and apply Java Appserver profile', durationHours:4.0, creator:user, assignee:user, priority:'Normal', workflowStartDate: currentDate - 9.hours]						
 						],
 						todo: 	[
@@ -92,9 +92,13 @@ class BootStrap {
 				}				
 				testTasks.each {k, v -> v.each {
 					def task = new Task(it)
+					task.validate()
 					taskService.saveTask(task)
-					task.addToColors(color1)					
-				}}				
+					task.addToColors(color1)	
+					taskService.saveTask(task)
+				}}
+				
+				Task.findAll().each{println it}
 											
 				testTasks.wip.each {
 					def persistedTask = Task.findByName(it.name)
