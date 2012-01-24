@@ -1,7 +1,6 @@
 package org.cotabo
 
 import grails.plugins.springsecurity.Secured
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 import org.xml.sax.SAXParseException
 
 
@@ -12,6 +11,7 @@ class BoardController {
 	def boardUpdateService	
 	def exportService
 	def importService
+	def grailsApplication
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET", importBoards: ["GET", "POST"]]
 	
@@ -26,7 +26,7 @@ class BoardController {
 
 	@Secured(['ROLE_ADMIN'])
 	def export = {
-		response.contentType = grailsConfig.config.grails.mime.types['xml']
+		response.contentType = grailsApplication.config.grails.mime.types['xml']
 		response.setHeader("Content-disposition", "attachment; filename=boards.xml")
 
 		def stream = response.outputStream
@@ -74,8 +74,8 @@ class BoardController {
 		}		
         return [
 			boardInstance: boardInstance, 
-			colors:grailsConfig.config.taskboard.colors, 
-			priorities:grailsConfig.config.taskboard.priorities,
+			colors:grailsApplication.config.taskboard.colors, 
+			priorities:grailsApplication.config.taskboard.priorities,
 			allUsers:User.list() 
 		]
     }
@@ -157,7 +157,7 @@ class BoardController {
         else {
 			[
 				boardInstance: boardInstance,				
-				priorities:grailsConfig.config.taskboard.priorities
+				priorities:grailsApplication.config.taskboard.priorities
 			]			
         }
     }
@@ -234,7 +234,7 @@ class BoardController {
 		else {
 			[
 				boardInstance: boardInstance,
-				priorities:grailsConfig.config.taskboard.priorities
+				priorities:grailsApplication.config.taskboard.priorities
 			]
 		}
 	}

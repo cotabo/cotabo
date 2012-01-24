@@ -1,7 +1,8 @@
 package org.cotabo
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
+
 import grails.util.Environment
 import groovy.time.TimeCategory
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 
 /**
  * Represents a Task object on a Taskboard column.
@@ -13,8 +14,7 @@ import groovy.time.TimeCategory
 class Task implements Rerenderable {
 
 	//This is determined at runtime by the related blocks
-	static transients = ["blocked", "startDate", "rerenderAction"]
-	
+	static transients = ["blocked", "startDate", "rerenderAction", "grailsApplication"]		
 	//Relationships
 	static belongsTo = [ column : Column ]	
 	//Blocked states

@@ -1,10 +1,10 @@
 package org.cotabo
 
 import grails.test.*
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 
 class TaskIntegrationTests extends GrailsUnitTestCase {
 	def rerenderService
+	def grailsApplication
 	
     protected void setUp() {
         super.setUp()
@@ -29,7 +29,7 @@ class TaskIntegrationTests extends GrailsUnitTestCase {
 			creator: user,	
 			column: col,				
 			priority: 'Critical',
-			color: grailsConfig.config.taskboard.colors[0]
+			color: grailsApplication.config.taskboard.colors[0]
 		] as Task		
 		
 		col.addToTasks(newtask)

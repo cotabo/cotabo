@@ -6,6 +6,14 @@ import grails.test.*
 class AutoArchiveDoneJobTests extends TaskBoardUnitTest {
     protected void setUp() {
         super.setUp()
+		mockConfig '''
+		taskboard.colors = ['#fafaa8', '#faaca8', '#85fd81', '#81b6fd']
+		taskboard.default.colors = '#f9f21a'
+		taskboard.priorities = ['Critical', 'Major', 'Normal', 'Low']
+		taskboard.default.priority = 'Normal'
+		taskboard.default.autoarchive = 30 
+		'''
+		
     }
 
     protected void tearDown() {
@@ -28,6 +36,8 @@ class AutoArchiveDoneJobTests extends TaskBoardUnitTest {
 			priority: 'Critical',
 			lastUpdated: new Date().minus(31)
 		)
+		task.validate()
+		task.errors.allErrors.each {println it}
 		assertTrue task.validate()
 		assertNotNull task.save()
 		

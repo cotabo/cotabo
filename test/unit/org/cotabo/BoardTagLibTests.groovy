@@ -3,8 +3,10 @@ package org.cotabo
 
 import grails.test.*
 import org.codehaus.groovy.grails.plugins.codecs.HTMLCodec
+import grails.test.mixin.*
 
-class BoardTagLibTests extends TagLibUnitTestCase {
+@TestFor(BoardTagLib)
+class BoardTagLibTests {
 	protected void setUp() {
 		super.setUp()
 		mockTagLib(BoardTagLib)
@@ -16,13 +18,16 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 	
 	void testModal() {
 		def expected = """
+		
 		<div id="delete_dialog" class="modal hide">
 			<div class="modal-header">
 			    <a href="#" class="close">&times;</a>
 		    	<h3>Delete Board</h3>
 			</div>
 	    <div class="modal-body">
+		
 		<p>Do you really want to delete this board?</p>
+		
 		</div>
 			<div class="modal-footer">
 	    	<a href="#" class="btn primary">Delete</a>
@@ -48,17 +53,15 @@ class BoardTagLibTests extends TagLibUnitTestCase {
 			\$('#delete_dialog').modal({backdrop:true, keyboard:true, show:true});
 			\$('#delete_dialog').modal('hide');
 		});
-		</script>"""
+		</script>
+		"""
 		
-		def tb = new BoardTagLib()
-		tb.modal([
-				id: "delete_dialog",
-				header:"Delete Board",
-				primary: "Delete",
-				secondary: "Cancel"
-			], {'<p>Do you really want to delete this board?</p>'})
-		
-		assertEquals expected, tb.out.toString()
+		def tag = """
+		<tb:modal id="delete_dialog" header="Delete Board" primary="Delete" secondary="Cancel">
+		<p>Do you really want to delete this board?</p>
+		</tb:modal>
+		"""
+		assertEquals expected, applyTemplate(tag)
 	}
 
 }

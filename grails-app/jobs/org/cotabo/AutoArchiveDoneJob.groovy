@@ -9,8 +9,8 @@ class AutoArchiveDoneJob {
 	
     def execute() {
 		// archive
-        Task.getAll().each{task ->
-			if(task.column.workflowEndColumn && new Date() - task.lastUpdated > grailsConfig.taskboard.default.autoarchive){
+        Task.list().each{task ->
+			if(task.column.workflowEndColumn && new Date() - task.lastUpdated > grailsConfig.config.taskboard.default.autoarchive){
 				task.archived = true;
 				task.save(flush:true); //TODO: bulk update/flush
 			}
