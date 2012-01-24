@@ -48,10 +48,12 @@ grails.project.dependency.resolution = {
 		runtime ":quartz:0.4.2"
 		runtime ":spring-security-core:1.2.7"
 		
+		//compile
+		compile ':export:1.1.1'
 		
 		//build
 		build ":tomcat:$grailsVersion"
-		build ':export:1.1.1'
+		
 	}
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
