@@ -11,14 +11,12 @@
  * Subscribes the an atmosphere channel for the given boardId.
  * @param boardId The id of the current board context
  */
-var subscribeChannel = function(channelString, callback) {
-	//Closing all active requests if there are any
-	$.atmosphere.close(); 
+var subscribeChannel = function(channelString, callback) {	
     $.atmosphere.subscribe(channelString,
     	callback,
     	//Use WebSockets as the first choice but use streaming if
     	//either the server or the client doesn't support WebSockets.
-    	$.atmosphere.request={transport:'websocket'}
+    	$.atmosphere.request={transport:'streaming'}
 	);    
 }
 //onload

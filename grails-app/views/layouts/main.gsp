@@ -2,19 +2,17 @@
 <html>
     <head>        
         <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-        <title><g:layoutTitle default="Cotabo"/></title>              
-        <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap.min.css')}">   
-        <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />        
+        <title><g:layoutTitle default="Cotabo"/></title>                                     
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-        <g:javascript library="jquery" plugin="jquery"/>  
-         <script type="text/javascript" src="${resource(dir:'js/bootstrap-plugins', file:'bootstrap-modal.js')}"></script>                          
+        <r:require module="base"/>
+      	<r:layoutResources/>                                   
         <g:layoutHead />        
     </head>
-    <body style="padding-top: 40px;">        
+    <body style="padding-top: 40px;">         	
 	    <div class="topbar">
 	      	<div class="topbar-inner">
 	        	<div class="container">
-	          		<a href="${resource(dir:'')}"><img class="brand" src="${resource(dir:'images',file:'cotabo_head_small.png')}"></img></a>
+	          		<a href="${resource(dir:'')}" class="pull-left"><img src="${resource(dir:'images',file:'cotabo_head_small.png')}"></img></a>
 	          		<ul class="nav">	          			
 	            		<li><g:link controller="board">Boards</g:link></li>
 	            		<li><g:link controller="board" action="create">New Board</g:link></li>	            		     	
@@ -47,5 +45,6 @@
 	    		<g:pageProperty name="page.footer.hook"/>
 	    	</div>		    	
 	    </div>
+	    <r:layoutResources/>   
     </body>
 </html>

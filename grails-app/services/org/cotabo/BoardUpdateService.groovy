@@ -1,7 +1,6 @@
 package org.cotabo
 
 import java.util.concurrent.TimeUnit
-import org.atmosphere.client.JavascriptClientFilter
 import org.atmosphere.cpr.Broadcaster
 import org.atmosphere.cpr.BroadcasterFactory
 import org.atmosphere.cpr.DefaultBroadcaster

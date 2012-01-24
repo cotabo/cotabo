@@ -1,6 +1,6 @@
 <g:each in="${colors}" var="color">
 	<div class="column-tag pull-left" style="background-color:${color};">
-		<a href="${createLink(controller:'taskColor', action:'delete', id:color.id)}"><span class="ui-icon ui-icon-close tag"></span></a>
+		<a href="${createLink(controller:'taskColor', action:'delete', id:color.id)}"><span class="pull-right ui-icon ui-icon-close tag"></span></a>
 		${color.name}
 	</div>
 </g:each>

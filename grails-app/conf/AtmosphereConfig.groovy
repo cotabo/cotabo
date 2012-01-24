@@ -2,7 +2,7 @@ atmospherePlugin {
     servlet {
     	// Servlet initialization parameters
     	// Example: initParams = ['org.atmosphere.useNative': 'true', 'org.atmosphere.useStream': 'false']
-    	initParams = []
+    	initParams = ['org.atmosphere.useNative': 'true']
     	urlPattern = '/atmosphere/*'
     }
     handlers {
