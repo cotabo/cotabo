@@ -3,7 +3,7 @@ package org.cotabo
 import grails.test.*
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
-class TaskControllerTests extends GrailsUnitTestCase {
+class TaskControllerTests extends GroovyTestCase {
     protected void setUp() {
         super.setUp()				
     }
@@ -17,7 +17,7 @@ class TaskControllerTests extends GrailsUnitTestCase {
 		def controller = new TaskController()
 		def todo = Column.get(2)
 		def done = Column.get(3)
-		def moveTask = todo.tasks.first()
+		def moveTask = Task.get(3)
 		controller.params.fromColumn = todo.id
 		controller.params.toColumn = done.id
 		//The 'Setup WebLogic' task
@@ -59,5 +59,49 @@ class TaskControllerTests extends GrailsUnitTestCase {
 		assertNotNull controller.response.contentAsString
 		assertEquals expectedResult, controller.response.contentAsString
 		
+	}
+	
+	void testMoveTask(){
+		def controller = new TaskController()
+		def user = User.findByUsername('admin')
+		def todo = Column.get(1)
+		def inprogress = Column.get(2)
+		def initial = inprogress.tasks.size() as int
+		def expected = initial + 1
+		controller.params.fromColumn=todo.id
+		controller.params.toColumn=inprogress.id
+		controller.params.taskid=3
+		controller.params.toIndex=1
+		
+		def result
+		SpringSecurityUtils.doWithAuth('user') {
+			result = controller.move()
+		}
+		
+		assertEquals expected, inprogress.tasks.size()
+		
+	}
+	
+	void testSaveTask(){
+		def controller = new TaskController()
+		def user = User.findByUsername('admin')
+		def todo = Column.get(1)
+		def initial = todo.tasks.size() as int
+		def expected = initial + 1
+		controller.params.name="New Task"
+		controller.params.durationHours=1D
+		controller.params.column=todo.id
+		controller.params.creator="admin"
+		controller.params.assignee="${user.id}"
+		controller.params.priority="Normal"
+		controller.params.board=todo.board.id
+		
+		def result
+		SpringSecurityUtils.doWithAuth('user') {
+			result = controller.save()
+		}
+		
+		assertEquals expected, todo.tasks.size()
+		assertEquals 1, todo.tasks.findAll {it && it.name=="New Task"}.size()
 	}
 }

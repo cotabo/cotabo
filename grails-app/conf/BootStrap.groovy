@@ -6,6 +6,7 @@ import groovy.time.TimeCategory
 class BootStrap {
 	def springSecurityService
 	def taskService
+	def sessionFactory
 
     def init = { servletContext ->
 		def userRole = Role.findByAuthority("ROLE_USER") ?: new Role(authority: "ROLE_USER").save()
@@ -47,7 +48,7 @@ class BootStrap {
 				def admin = User.findByUsername('admin')
 				def column1 = new Column(name:'ToDo', limit:15, workflowStartColumn:true)
 				def column2 = new Column(name:'In Progress', limit:4)
-				def column3 = new Column(name:'Done!')
+				def column3 = new Column(name:'Done!', workflowEndColumn:true)
 				def board = new Board(
 					name:'My Test Board',
 					description:'This test board is to track the tasks of our Test project'
@@ -92,19 +93,15 @@ class BootStrap {
 				}				
 				testTasks.each {k, v -> v.each {
 					def task = new Task(it)
-					task.validate()
-					taskService.saveTask(task)
-					task.addToColors(color1)	
 					taskService.saveTask(task)
 				}}
 				
-				Task.findAll().each{println it}
-											
+				sessionFactory?.getCurrentSession()?.flush()
+				
 				testTasks.wip.each {
-					def persistedTask = Task.findByName(it.name)
-					taskService.moveTask persistedTask.column, Column.findByName('In Progress'), persistedTask									
+					def persistedTask = Task.findByName(it.name)								
 					persistedTask.blocked = true
-					persistedTask.save()
+					taskService.moveTask persistedTask.column, Column.findByName('In Progress'), persistedTask	
 				}
 				testTasks.done.each {
 					def persistedTask = Task.findByName(it.name)					
@@ -113,7 +110,9 @@ class BootStrap {
 				testTasks.done.each {
 					def persistedTask = Task.findByName(it.name)					
 					taskService.moveTask persistedTask.column, Column.findByName('Done!'), persistedTask
-				}								
+				}			
+				
+				sessionFactory?.getCurrentSession()?.flush()
 				
 		
 				//Now we create some tasks and move them across the board in order 
@@ -129,7 +128,6 @@ class BootStrap {
 						priority:'Normal', 
 						column: Column.findByName('ToDo')
 					)					
-					taskService.saveTask(task)					
 					task.addToColors(color2)
 					
 					eventTestTasks << task					
@@ -154,15 +152,20 @@ class BootStrap {
 				
 				def eventTasks = Task.findAllByNameLike('Task %')
 				assert eventTasks.size() == 10			
-				//First we move all out 80 tasks to the second column
+
 				for (task in eventTasks) {					
 					taskService.moveTask task.column, Column.findByName('In Progress'), task					
 				}
 				eventTasks = Task.findAllByNameLike('Task %')
-				//than all to the last column
+
 				for (task in eventTasks) {								
 					taskService.moveTask task.column, Column.findByName('Done!'), task					
-				}			
+				}
+				
+				Task.findAll().each{task -> assert task.name}
+				Column.findAll().each{column -> column.tasks.each{task -> assert task.name}}
+				
+				println Column.findAll().each{column -> println "${column.name} #tasks: ${column.tasks.size()}"}
 			}		
 		}
     }

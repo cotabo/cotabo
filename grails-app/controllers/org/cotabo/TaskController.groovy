@@ -37,7 +37,6 @@ class TaskController {
 			def notification = "${user} moved '${task.name}' (#${task.id}) to '${toColumn}'"	
 
 			boardUpdateService.broadcastRerenderingMessage(broadcaster, [fromColumn, toColumn])	
-			boardUpdateService.broadcastRerenderingMessage(broadcaster, task)
 			render ''
 		}
 		else {
@@ -80,7 +79,7 @@ class TaskController {
 		//No check on assignee as this may be null - leave this to the constraints
 		taskInstance.assignee =assignee	
 		
-		taskInstance.due = Date.parse('MM/dd/yy', params['due'])
+		taskInstance.due = Date.parse('MM/dd/yy', params['due']?:'01/01/2031')
 
 		taskInstance = taskService.saveTask(taskInstance)
 		

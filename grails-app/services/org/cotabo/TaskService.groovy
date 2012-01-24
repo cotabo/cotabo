@@ -1,6 +1,8 @@
 package org.cotabo
 
 import java.util.ArrayList;
+import grails.util.Environment
+import groovy.time.TimeCategory
 
 /**
  * Task service class offering everything necessary for tasks related activities.
@@ -43,25 +45,36 @@ class TaskService {
 	 * @param task the task that should be moved
 	 * @param position Optional - specify the 0 based index for the target column
 	 * @param dateCreated Optional - this is only for testing purposes - normally hibernate/grails will set this.
-	 * @return a message which is empty then the update was successfull.
+	 * @return a message 	which is empty then the update was successfull.
 	 */
-	void moveTask(Column fromColumn, Column toColumn, Task task, int position = -1, Date dateCreated = null) {								
-		if (fromColumn && toColumn && task) {				
+	void moveTask(Column fromColumn, Column toColumn, Task task, int position = -1, Date dateCreated = null) {
+		if (fromColumn && toColumn && task) {
 			fromColumn.removeFromTasks(task)
-			if(position > -1 && toColumn.tasks) {
-				toColumn.tasks.add(position, task)	
+			toColumn.addToTasks(task)
+			
+			// Checking for last column in workflow
+			if(toColumn.workflowEndColumn) {
+				def date
+				use(TimeCategory) {
+					//For testing we always move +4 hours later than created
+					date = Environment.current == Environment.TEST ? task.startDate + 4.hours : new Date()
+				}
+				task.workflowEndDate = date
 			}
-			else {			
-				toColumn.addToTasks(task)
-			}			
-			fromColumn.save()
-			toColumn.save()					
+			else if (toColumn.workflowStartColumn) {
+				//Set the date to out defined startDate if environment is testTaskBoardUnitTest.startDate
+				def date = Environment.current == Environment.TEST ? task.startDate : new Date()
+				task.workflowStartDate = date
+				task.workflowEndDate = null
+			}
+			else {
+				task.workflowEndDate = null
+			}
 			//Making the user who pulled the task - the assignee
 			task.assignee = User.findByUsername(springSecurityService.principal.username)
-			task.column = toColumn
-			task.save()
-			createMovementEvent(task, dateCreated)			
-		}			
+			createMovementEvent(task, dateCreated)
+			task.save()	
+		}
 	}
 	
 	/**

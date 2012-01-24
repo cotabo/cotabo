@@ -127,39 +127,17 @@ class Task implements Rerenderable {
    }
    
    /**
-    * Hibernate event trigger to check whether this update
-    * trigger the task to start or end the workflow (eg enters first column or enters last column)
-    */
-   def beforeUpdate = {	   
-	   def lastColumnOnBoard = this.column.board.columns.last()	  
-	   //If the target column is the last
-	   if(this.column.id == lastColumnOnBoard.id) {
-		   def date
-		   use(TimeCategory) {
-			   //For testing we always move +4 hours later than created
-			   date = Environment.current == Environment.TEST ? startDate + 4.hours : new Date()
-		   }		   
-		   this.workflowEndDate = date		   
-	   }
-	   //if the target column is marked as workflowStartColumn	   
-	   else if (this.column.workflowStartColumn) {
-		   //Set the date to out defined startDate if environment is testTaskBoardUnitTest.startDate
-		   def date = Environment.current == Environment.TEST ? startDate : new Date()
-		   this.workflowStartDate = date
-	   }
-   }
-   
-   /**
     * Hibernate event trigger to check whether the first column (where the task is inserted) is
     * the workflowStartColumn - if yes, set the workflowStartDate
     */
-   def beforeInsert = {
+   /*def beforeInsert = {
 	   //Set the date to out defined startDate if environment is testTaskBoardUnitTest.startDate
 	   def date = Environment.current == Environment.TEST ? startDate : new Date()
 	   if(this.column.workflowStartColumn) {		   
 		   this.workflowStartDate = date
-	   }	   
-   }
+	   }
+	   return true
+   }*/
    
    /**
     * Implementation of Rerenderable. see @link org.cotabo.Rerenderable

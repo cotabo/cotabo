@@ -54,17 +54,21 @@
 	</div>
 	<g:if test="${taskInstance.deadline }">
 		<jq:jquery>
-			localStorage.setItem(${taskInstance.id}, setInterval(function() {
+			$("#task_${taskInstance.id}")[0].style.border = '3px solid red';
+			/*localStorage.setItem(${taskInstance.id}, self.setInterval(function() {
 			  $("#task_${taskInstance.id}").effect("bounce", {times: 5}, 500);}, 
 			  2000));
-			  console.log("setItem: " + ${taskInstance.id});
+			  console.log("setItem: " + ${taskInstance.id});*/
 		</jq:jquery>
 	</g:if>
 	<g:else>
 		<jq:jquery>
-			clearInterval(localStorage.getItem(${taskInstance.id}));
-			localStorage.removeItem(${taskInstance.id})
-			console.log("removeItem: " + ${taskInstance.id});
+			$("#task_${taskInstance.id}")[0].style.border = '';
+			/*if(localStorage.getItem(${taskInstance.id})){
+				window.clearInterval(localStorage.getItem(${taskInstance.id}));
+				localStorage.removeItem(${taskInstance.id})
+				console.log("removeItem: " + ${taskInstance.id});
+			}*/
 		</jq:jquery>
 	</g:else>
 </li>	

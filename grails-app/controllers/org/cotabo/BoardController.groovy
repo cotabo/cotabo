@@ -30,7 +30,7 @@ class BoardController {
 		response.setHeader("Content-disposition", "attachment; filename=boards.xml")
 
 		def stream = response.outputStream
-		def objs = Board.list()
+		def objs = Board.findAll()
 		def parameters = ["depth" : 10]
 		
 		
