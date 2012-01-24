@@ -1,3 +1,5 @@
+import org.apache.catalina.connector.Connector
+
 /**
  * Removing trouble making slf4j jar file during build.
  * See http://jira.grails.org/browse/GRAILS-6800.
@@ -5,4 +7,18 @@
  */
 eventCreateWarStart = { warName, stagingDir ->
     //Ant.delete(file:"${stagingDir}/WEB-INF/lib/slf4j-log4j12-1.5.8.jar", verbose:true)    
+}
+
+/**
+ * Configure the embedded tomcat for use of Http11NioProtocol as
+ * Cotabo is intended to use the same in Production.
+ */
+eventConfigureTomcat = { tomcat ->
+	def connector = new Connector("org.apache.coyote.http11.Http11NioProtocol")
+	connector.port = 8080
+	connector.setProperty("protocol", "AJP/1.3")
+	connector.setProperty("enableLookups", "false")
+	tomcat.service.removeConnector(tomcat.connector)
+	tomcat.service.addConnector(connector)
+	tomcat.connector = connector	
 }
