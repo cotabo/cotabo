@@ -5,14 +5,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <title>Cotabo - ${boardInstance?.name}</title>                
-        <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />                       
-        <script type="text/javascript" src="${resource(dir:'js/jquery-ui', file:'jquery-ui-1.8.6.custom.min.js')}"></script>        
-	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.atmosphere.js')}"></script>	    
-	    <script type="text/javascript" src="${resource(dir:'js/jquery-plugins', file:'jquery.quicksearch.js')}"></script>	         	      
-	    <script type="text/javascript" src="${resource(dir:'js', file:'utils.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir:'js', file:'objectsandevents.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir:'js', file:'atmospherehandling.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir:'js/bootstrap-plugins', file:'bootstrap-twipsy.js')}"></script>	    
+        <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />
+        <atmosphere:resources/>                       
+	    <r:require module="board"/>    
 	    
         <script type="text/javascript">
             /**
@@ -29,6 +24,8 @@
         </script>
     </head>
     <body>
+    	<!-- by this making the arrow_up imaga available under sta /static url -->
+    	<r:img dir="images/icons" file="arrow_up_12x12.png" style="display:none"/>    	
     	<!-- fives us the fill page width -->
     	<content tag="container.hook">-fluid</content>
         <content tag="topbar.hook">    	

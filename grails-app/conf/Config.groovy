@@ -115,6 +115,13 @@ grails.plugins.springsecurity.authority.className = 'org.cotabo.Role'
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.Annotation
 //JQuery plugin
 grails.views.javascript.library="jquery"
+environments {
+	development {
+		//Makes the grails dbconsole work properly
+		grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*']
+	}
+}
+
 
 //Application specific configuration
 //TODO: pull this out to a separate file - {@link https://github.com/cotabo/cotabo/issues/50}
