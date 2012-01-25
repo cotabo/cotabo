@@ -39,8 +39,8 @@ modules = {
 	}
 
 	icons {
-		resource url:'images/arrow_down_12x12.png', disposition:'inline'
-		resource url:'images/arrow_up_12x12.png', disposition:'inline'
+		resource url:'images/icons/arrow_down_12x12.png', disposition:'inline'
+		resource url:'images/icons/arrow_up_12x12.png', disposition:'inline'
 	}
 	
 }
