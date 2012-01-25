@@ -12,6 +12,8 @@ eventCreateWarStart = { warName, stagingDir ->
 /**
  * Configure the embedded tomcat for use of Http11NioProtocol as
  * Cotabo is intended to use the same in Production.
+ * 
+ * See - http://jira.grails.org/browse/GRAILS-7018?page=com.xiplink.jira.git.jira-git-plugin:git-commits-tabpanel#issue-tabs
  */
 eventConfigureTomcat = { tomcat ->
 	def connector = new Connector("org.apache.coyote.http11.Http11NioProtocol")
