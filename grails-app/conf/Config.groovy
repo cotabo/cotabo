@@ -99,13 +99,14 @@ log4j = {
            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
            'org.springframework',
            'org.hibernate',
-           'net.sf.ehcache.hibernate'
+           'net.sf.ehcache.hibernate'		   
 
-    warn   'org.mortbay.log'
+    warn   'org.mortbay.log'	
 	
-	debug	'org.atmosphere.cpr',
+	debug	'org.cotabo'
+			//'org.atmosphere.cpr',
 			//'grails.app',
-			'org.cotabo'
+			
 	
 }
 
