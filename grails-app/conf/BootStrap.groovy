@@ -161,11 +161,6 @@ class BootStrap {
 				for (task in eventTasks) {								
 					taskService.moveTask task.column, Column.findByName('Done!'), task					
 				}
-				
-				Task.findAll().each{task -> assert task.name}
-				Column.findAll().each{column -> column.tasks.each{task -> assert task.name}}
-				
-				println Column.findAll().each{column -> println "${column.name} #tasks: ${column.tasks.size()}"}
 			}		
 		}
     }

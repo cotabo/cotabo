@@ -23,15 +23,20 @@ class TaskService {
 	 * @param task that passes .validate()
 	 * @return a task object. Either persistest or with errors populated (use hasErrors()).
 	 */
-	Task saveTask(Task task, Date dateCreated = null) {	
+	Task saveTask(Task task, Date dateCreated = null) {
 		if(task.validate()) {
 			//For test purposes
 			task.dateCreated = dateCreated
-			def col = Column.get(task.column.id)
-			col.addToTasks(task)
-			col.save()
+			task.column.addToTasks(task)
+			
+			def date = Environment.current == Environment.TEST ? task.startDate : new Date()
+			if(task.column.workflowStartColumn) {
+				task.workflowStartDate = date
+			}
+			
 			//Also need to save the task here.
-			task.save()
+			task.column.save(flush:true)
+			task.save(flush:true)
 			createMovementEvent(task, dateCreated)
 		}
 		return task
@@ -50,7 +55,9 @@ class TaskService {
 	void moveTask(Column fromColumn, Column toColumn, Task task, int position = -1, Date dateCreated = null) {
 		if (fromColumn && toColumn && task) {
 			fromColumn.removeFromTasks(task)
+			fromColumn.save()
 			toColumn.addToTasks(task)
+			toColumn.save(flush:true)
 			
 			// Checking for last column in workflow
 			if(toColumn.workflowEndColumn) {
@@ -72,8 +79,9 @@ class TaskService {
 			}
 			//Making the user who pulled the task - the assignee
 			task.assignee = User.findByUsername(springSecurityService.principal.username)
-			createMovementEvent(task, dateCreated)
 			task.save()	
+			sessionFactory?.getCurrentSession()?.flush()
+			createMovementEvent(task, dateCreated)
 		}
 	}
 	

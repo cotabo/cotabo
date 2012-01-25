@@ -51,18 +51,10 @@ class DashboardService {
 	 * <milliseconds-since-1970_of_done_date>,<hours>
 	 *
 	 */
-	def getLeadTimeData(Board board, Date from=null, Date too=null) {
+	def getLeadTimeData(Board board, Date from=null, Date to=null) {
 		StringBuilder sb = new StringBuilder()
 
-		def entries
-		def ordering = [sort:'workflowEndDate', order:'asc']
-		def lastColumn = board.columns.last()
-		if(!from && ! too) {
-			entries = Task.findAllByColumn(lastColumn, ordering)
-		}
-		else {
-			entries = Task.findAllByColumnAndWorkflowEndDateBetween(lastColumn, from, too, ordering)	
-		}
+		def entries = getDoneTasks(board, from, to)
 		
 		def hoursDate
 		entries.each { task ->			
@@ -86,14 +78,7 @@ class DashboardService {
 	 * @return the average thoughput time in miliseconds
 	 */
 	long getAverageCycleTime(Board board, Date from=null, Date too=null) {
-		def workflowEndColumn = board.columns.last()
-		def resultTasks 
-		if (from && too) {
-			resultTasks = Task.findAllByColumnAndWorkflowEndDateBetween(workflowEndColumn, from, too)
-		}
-		else {
-			resultTasks = Task.findAllByColumnAndWorkflowEndDateIsNotNull(workflowEndColumn)
-		}
+		def resultTasks = getDoneTasks(board, from, too)
 		//This is assuming that workflowEndSate & workflowSartDate is always filled when
 		//a task is in the last column.
 		long sumTime = resultTasks.collect{it.workflowEndDate.time - it.workflowStartDate.time}.sum()
@@ -101,6 +86,21 @@ class DashboardService {
 		//we have milliseconds in the result
 		def resultHours = result / 60 / 60 / 1000
 		return resultHours
+	}
+	
+	private def getDoneTasks(Board board, Date from=null, Date to=null){
+		def lastColumn = board.columns.last()
+		def ordering = [sort:'workflowEndDate', order:'asc']
+		def entries
+		if(!from && ! to) {
+			//entries = Task.findAllByColumn(lastColumn, ordering)
+			entries = lastColumn.tasks
+		}
+		else {
+			//entries = Task.findAllByColumnAndWorkflowEndDateBetween(lastColumn, from, too, ordering)
+			entries = lastColumn.tasks.findAll{task -> (from.before(task.workflowEndDate) && task.workflowEndDate.before(to))}
+		}
+		return entries
 	}
 	
 	/**

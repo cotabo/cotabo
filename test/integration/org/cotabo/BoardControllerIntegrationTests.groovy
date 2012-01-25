@@ -468,16 +468,9 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
   </board>
 </boards>'''
 		
-		println Column.findAll().each{column -> println "${column.name} #tasks: ${column.tasks.size()}"}
-		
 		def exportablesBackup = Task.exportables
 		//Those elements are removed because Date's suck in testing
 		Task.exportables = exportablesBackup - ['blocks', 'workflowStartDate', 'workflowEndDate', 'due']
-		
-		Column.findAll().each{column ->
-			def tasks = column.tasks.collect{it}
-			column.tasks = tasks
-		}
 		
 		def boardcontroller = new BoardController();
 		def result = boardcontroller.export();

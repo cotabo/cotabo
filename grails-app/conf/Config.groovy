@@ -103,9 +103,10 @@ log4j = {
 
     warn   'org.mortbay.log'
 	
-	debug  'grails.app',
-				'org.atmosphere.cpr',
-		   'org.cotabo'
+	debug	'grails.app',
+			'org.atmosphere.cpr',
+			'org.cotabo'
+	
 }
 
 // Added by the Spring Security Core plugin:
