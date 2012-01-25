@@ -103,8 +103,8 @@ log4j = {
 
     warn   'org.mortbay.log'
 	
-	debug	'grails.app',
-			'org.atmosphere.cpr',
+	debug	'org.atmosphere.cpr',
+			//'grails.app',
 			'org.cotabo'
 	
 }
