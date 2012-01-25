@@ -50,7 +50,7 @@ class TaskServiceTests extends GrailsUnitTestCase {
 		def board = new Board(name:"board", columns:[])
 		def column = new Column(name:"column", board:board, limit:10)
 		board.addToColumns(column)
-		def task = new Task(name:"task", durationHours:1D, column:column, creator:user, assignee:user.username, priority:'Normal')
+		def task = new Task(name:"task", durationHours:1D, column:column, creator:user, assignee:user, priority:'Normal')
 		
 		assertTrue board.validate()
 		board.save(flush:true)
@@ -67,7 +67,7 @@ class TaskServiceTests extends GrailsUnitTestCase {
 		
 		assertEquals 1, Task.findAllByColumn(column).size()
 		
-		def task2 = new Task(name:"task", durationHours:1D, column:column, creator:user, assignee:user.username, priority:'Normal')
+		def task2 = new Task(name:"task", durationHours:1D, column:column, creator:user, assignee:user, priority:'Normal')
 		
 		taskService.saveTask(task2)
 		
