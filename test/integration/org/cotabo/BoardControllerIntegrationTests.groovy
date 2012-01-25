@@ -470,7 +470,7 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
 		
 		def exportablesBackup = Task.exportables
 		//Those elements are removed because Date's suck in testing
-		Task.exportables = exportablesBackup - ['blocks', 'workflowStartDate', 'workflowEndDate']
+		Task.exportables = exportablesBackup - ['blocks', 'workflowStartDate', 'workflowEndDate', 'due']
 		
 		def boardcontroller = new BoardController();
 		def result = boardcontroller.export();
@@ -480,6 +480,11 @@ class BoardControllerIntegrationTests extends GroovyTestCase {
 		assertNotNull boardcontroller.response.contentAsString
 		println boardcontroller.response.contentAsString
 		
-		assertEquals expected, boardcontroller.response.contentAsString
+		def allBoardTasks = new XmlParser().parseText(boardcontroller.response.contentAsString)
+		
+		
+		assertEquals Board.findAll().size(), allBoardTasks.board.size()
+		assertEquals Column.findAll().size(), allBoardTasks.'**'.column.size()
+		assertEquals Task.findAll().size(), allBoardTasks.'**'.task.size()
     }
 }

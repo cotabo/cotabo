@@ -38,7 +38,6 @@ jQuery(function(){
 		equalHeight($('div.column ul'));
 	});
 	
-	
     /********************************************************
 	 * Section for the client-side search.
 	 *********************************************************/	

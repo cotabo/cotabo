@@ -1,3 +1,4 @@
+<g:if test="${taskInstance}">
 <g:set var="lastColumn" value="${taskInstance.column.board.columns.last()}"/>
 <g:if test="${!taskInstance.archived}">			
 <li id="task_${taskInstance.id}" class="task">	
@@ -36,6 +37,9 @@
 						<g:if test="${taskInstance.dateCreated}">
 						created: <prettytime:display date="${taskInstance.dateCreated}" /><br/>
 						</g:if>
+						<g:if test="${taskInstance.due}">
+						due: <prettytime:display date="${taskInstance.due}" /><br/>
+						</g:if>
 						<g:if test="${taskInstance.workflowStartDate}">
 						started: <prettytime:display date="${taskInstance.workflowStartDate}" /><br/>
 						</g:if>
@@ -48,5 +52,25 @@
 			</tbody>
 		</table>
 	</div>
+	<g:if test="${taskInstance.deadline }">
+		<jq:jquery>
+			$("#task_${taskInstance.id}")[0].style.border = '3px solid red';
+			/*localStorage.setItem(${taskInstance.id}, self.setInterval(function() {
+			  $("#task_${taskInstance.id}").effect("bounce", {times: 5}, 500);}, 
+			  2000));
+			  console.log("setItem: " + ${taskInstance.id});*/
+		</jq:jquery>
+	</g:if>
+	<g:else>
+		<jq:jquery>
+			$("#task_${taskInstance.id}")[0].style.border = '';
+			/*if(localStorage.getItem(${taskInstance.id})){
+				window.clearInterval(localStorage.getItem(${taskInstance.id}));
+				localStorage.removeItem(${taskInstance.id})
+				console.log("removeItem: " + ${taskInstance.id});
+			}*/
+		</jq:jquery>
+	</g:else>
 </li>	
-</g:if>		
+</g:if>
+</g:if>

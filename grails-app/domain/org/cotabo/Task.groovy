@@ -14,7 +14,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder as grailsConfig
 class Task implements Rerenderable {
 
 	//This is determined at runtime by the related blocks
-	static transients = ["blocked", "startDate", "rerenderAction", "grailsApplication"]		
+	static transients = ["blocked", "startDate", "rerenderAction", "deadline", "grailsApplication"]		
 	//Relationships
 	static belongsTo = [ column : Column ]	
 	//Blocked states
@@ -27,6 +27,7 @@ class Task implements Rerenderable {
 		
 	Date dateCreated
 	Date lastUpdated
+	Date due
 	
 	Date workflowStartDate
 	Date workflowEndDate
@@ -54,10 +55,11 @@ class Task implements Rerenderable {
 		workflowStartDate nullable: true
 		workflowEndDate nullable:true
 		dateCreated nullable:true
+		due nullable:true
 		
     }
 	
-	static exportables = ['name', 'description', 'details', 'priority', 'colors', 'creator', 'assignee', 'archived', 'blocks', 'workflowStartDate', 'workflowEndDate']
+	static exportables = ['name', 'description', 'details', 'priority', 'colors', 'creator', 'assignee', 'archived', 'blocks', 'workflowStartDate', 'workflowEndDate', 'due']
 	
 	@Override
 	public String toString() {
@@ -105,6 +107,15 @@ class Task implements Rerenderable {
 	   def block = this.blocks.find{it.dateClosed == null}
 	   block ? true : false
    }
+   
+   boolean isDeadline(){
+	   def now = new Date()
+	   if (due && !workflowEndDate) {
+		   def diff = due.minus(grailsConfig.config.taskboard.default.deadline).minus(now)
+		   return (diff <= 0) ? true : false
+	   }
+	   return  false
+   }
 
    /**
     * Workaround as sometimes the get... is called instead of is...
@@ -116,39 +127,17 @@ class Task implements Rerenderable {
    }
    
    /**
-    * Hibernate event trigger to check whether this update
-    * trigger the task to start or end the workflow (eg enters first column or enters last column)
-    */
-   def beforeUpdate = {	   
-	   def lastColumnOnBoard = this.column.board.columns.last()	  
-	   //If the target column is the last
-	   if(this.column.id == lastColumnOnBoard.id) {
-		   def date
-		   use(TimeCategory) {
-			   //For testing we always move +4 hours later than created
-			   date = Environment.current == Environment.TEST ? startDate + 4.hours : new Date()
-		   }		   
-		   this.workflowEndDate = date		   
-	   }
-	   //if the target column is marked as workflowStartColumn	   
-	   else if (this.column.workflowStartColumn) {
-		   //Set the date to out defined startDate if environment is testTaskBoardUnitTest.startDate
-		   def date = Environment.current == Environment.TEST ? startDate : new Date()
-		   this.workflowStartDate = date
-	   }
-   }
-   
-   /**
     * Hibernate event trigger to check whether the first column (where the task is inserted) is
     * the workflowStartColumn - if yes, set the workflowStartDate
     */
-   def beforeInsert = {
+   /*def beforeInsert = {
 	   //Set the date to out defined startDate if environment is testTaskBoardUnitTest.startDate
 	   def date = Environment.current == Environment.TEST ? startDate : new Date()
 	   if(this.column.workflowStartColumn) {		   
 		   this.workflowStartDate = date
-	   }	   
-   }
+	   }
+	   return true
+   }*/
    
    /**
     * Implementation of Rerenderable. see @link org.cotabo.Rerenderable

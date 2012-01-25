@@ -36,7 +36,7 @@ class TaskController {
 			def broadcaster = session.getAttribute("boardBroadcaster")?.broadcaster		
 			def notification = "${user} moved '${task.name}' (#${task.id}) to '${toColumn}'"	
 
-			boardUpdateService.broadcastRerenderingMessage(broadcaster, [fromColumn, toColumn])				
+			boardUpdateService.broadcastRerenderingMessage(broadcaster, [fromColumn, toColumn])	
 			render ''
 		}
 		else {
@@ -64,7 +64,7 @@ class TaskController {
 		def taskInstance = new Task()
 				
 		//Bind data but exclude column, creator
-		bindData(taskInstance, params, ['column','creator', 'assignee'])
+		bindData(taskInstance, params, ['column','creator', 'assignee', 'due'])
 		
 		//Binding for colors
 		bindColor(taskInstance, params.color)
@@ -77,7 +77,9 @@ class TaskController {
 		
 		def assignee = User.get(params.assignee.trim())
 		//No check on assignee as this may be null - leave this to the constraints
-		taskInstance.assignee =assignee				
+		taskInstance.assignee =assignee	
+		
+		taskInstance.due = Date.parse('MM/dd/yy', params['due']?:'01/01/2031')
 
 		taskInstance = taskService.saveTask(taskInstance)
 		
