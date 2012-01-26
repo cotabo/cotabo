@@ -54,7 +54,7 @@
 	</div>
 	<g:if test="${taskInstance.deadline }">
 		<jq:jquery>
-			$("#task_${taskInstance.id}")[0].style.border = '3px solid red';
+			$("#task_${taskInstance.id}")[0].style.border = '2px solid red';
 			/*localStorage.setItem(${taskInstance.id}, self.setInterval(function() {
 			  $("#task_${taskInstance.id}").effect("bounce", {times: 5}, 500);}, 
 			  2000));

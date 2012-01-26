@@ -78,14 +78,13 @@ class TaskController {
 		def assignee = User.get(params.assignee.trim())
 		//No check on assignee as this may be null - leave this to the constraints
 		taskInstance.assignee =assignee	
-		
-		taskInstance.due = Date.parse('MM/dd/yy', params['due']?:'01/01/2031')
+				
+		if(params['due']) 			
+			taskInstance.due = Date.parse('dd.MM.yy', params['due'])			
 
 		taskInstance = taskService.saveTask(taskInstance)
-		
-		def user = User.findByUsername(springSecurityService.principal.username)
-        if (!taskInstance.hasErrors()) {
-			def notification = "${user} created '${taskInstance.name}' (#${taskInstance.id})."
+						
+        if (!taskInstance.hasErrors()) {			
 			def broadcaster = session.getAttribute("boardBroadcaster")?.broadcaster
 			boardUpdateService.broadcastRerenderingMessage(broadcaster, taskInstance)
 			//Render nothing as this will be done by atmosphere
@@ -122,12 +121,15 @@ class TaskController {
 			//else it is a normal update on the task and we bind everything necessary
 			else {
 				//Bind data but exclude column, creator
-				bindData(taskInstance, params, ['column','creator', 'assignee'])
+				bindData(taskInstance, params, ['column','creator', 'assignee', 'due'])
 				//Binding for colors
 				bindColor(taskInstance, params.color)				
 				def assignee = User.get(params.assignee?.trim()?.toLong())
 				//No check on assignee as this may be null - leave this to the constraints
 				taskInstance.assignee =assignee
+				//Set the due date if its updated
+				if(params['due'])
+					taskInstance.due = Date.parse('dd.MM.yy', params['due'])
 			}
 			
             if (!taskInstance.hasErrors() && taskInstance.save(flush: true)) {

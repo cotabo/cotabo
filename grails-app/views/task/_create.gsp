@@ -53,13 +53,11 @@
 		</div>
 		<div class="clearfix">
 			<label for="due">due</label>
-			<div class="input">
-				<div class="input">
-				<g:textField  name="due" maxlength="25"/>
+			<div class="input">				
+				<g:textField  id="due_create" name="due" maxlength="25"/>
 				<jq:jquery>
-					$('input[name="due"]').datepicker();
-				</jq:jquery>					
-			</div>						
+					$('input#due_create').datepicker({dateFormat:'dd.mm.yy'});
+				</jq:jquery>											
 			</div>
 		</div>
 		<div class="clearfix">
