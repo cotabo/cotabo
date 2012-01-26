@@ -4,8 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <title>Cotabo - ${boardInstance?.name}</title>                
-        <link rel="stylesheet" href="${resource(dir:'css',file:'board.css')}" />
+        <title>Cotabo - ${boardInstance?.name}</title>                        
         <atmosphere:resources/>                       
 	    <r:require module="board"/>    
 	    

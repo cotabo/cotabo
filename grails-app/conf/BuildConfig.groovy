@@ -37,6 +37,9 @@ grails.project.dependency.resolution = {
 		//base stuff
 		runtime ":hibernate:$grailsVersion"
 		runtime ":resources:1.1.5"
+		runtime ":zipped-resources:1.0"		
+		runtime ":cached-resources:1.0"
+		runtime ":yui-minify-resources:0.1.4"		
 		runtime ":jquery:1.7.1"
 		runtime ":jquery-ui:1.8.15"		
 		runtime ":twitter-bootstrap:1.4.0.14"
@@ -50,6 +53,7 @@ grails.project.dependency.resolution = {
 		
 		//compile
 		compile ':export:1.1.1'
+		compile ":cache-headers:1.1.5"
 		
 		//build
 		build ":tomcat:$grailsVersion"
