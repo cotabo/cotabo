@@ -20,8 +20,8 @@
              var chatUrl = '${createLink(controller:"board", action:"chat")}';
              var avatarUrl = '${createLink(controller:'user', action:'avatar')}';
              var archiveUrl = '${createLink(controller:'task', action:'archive')}';
-             var expandUrl = '${resource(dir:'images/icons',file:'arrow_down_12x12.png')}'
-             var collapseUrl = '${resource(dir:'images/icons',file:'arrow_up_12x12.png')}'
+             var expandUrl = '${resource(dir:'images/icons',file:'arrow_down_12x12.png')}';
+             var collapseUrl = '${resource(dir:'images/icons',file:'arrow_up_12x12.png')}';
         </script>
     </head>
     <body>
