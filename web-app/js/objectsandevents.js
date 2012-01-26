@@ -90,7 +90,7 @@ jQuery(function(){
 	 ********************************************************/	
 
 	var fn_collapse = function() {		
-		var matched = $('#board > div.column > ul > li > div.task-header > img.expander')		 		 	
+		var matched = $('#board > div.column > ul > li > div.task-header > img.expander');	 		 	
 		for (var i=0;i< matched.size();i++)	{
 			collapse(matched[i]);
 		}
@@ -99,7 +99,7 @@ jQuery(function(){
 	$('#b_collapse').click(fn_collapse);
 
 	var fn_expand = function() {	
-		var matched = $('#board > div.column > ul > li > div.task-header > img.expander')	
+		var matched = $('#board > div.column > ul > li > div.task-header > img.expander');
 		for (var i=0;i< matched.size();i++)	{
 			expand(matched[i]);			
 		}
@@ -114,11 +114,11 @@ jQuery(function(){
 	 * refer: taglib/BoardTagLib
 	 ********************************************************/
 	var expand = function(expanderElement) {			
-		$(expanderElement).attr('src', $(expanderElement).attr('src').replace(/down/, "up"));
+		$(expanderElement).attr('src', collapseUrl);
 		$(expanderElement).parent('div').next('div').css('display', 'block');
 	}
 	var collapse = function(expanderElement) {		
-		$(expanderElement).attr('src', $(expanderElement).attr('src').replace(/up/, "down"));
+		$(expanderElement).attr('src', expandUrl);
 		$(expanderElement).parent('div').next('div').css('display', 'none');
 	}
 	
@@ -127,11 +127,11 @@ jQuery(function(){
 	 */	
 	var handleClickHeader = function(event) {	
 		var src = $(this).attr('src');
-		if(src.search(/down/) > -1) {
+		if(src == expandUrl) {
 			expand(this);
 		}
 		else {
-			collapse(this)
+			collapse(this);
 		}		
 		return false;
 	}	  
